@@ -1,0 +1,18 @@
+<view class="container">
+  <view class="login-card">
+    <text class="title">用户登录</text>
+    
+    <view class="input-group">
+      <input class="input" placeholder="请输入用户名" bindinput="onUsernameInput" />
+      <input class="input" placeholder="请输入密码" password bindinput="onPasswordInput" />
+    </view>
+    
+    <button class="button login-btn" bindtap="onLogin">登录</button>
+    
+    <view class="divider">
+      <text class="divider-text">或</text>
+    </view>
+    
+    <button class="button guest-btn" bindtap="onGuestVisit">游客访问</button>
+  </view>
+</view>

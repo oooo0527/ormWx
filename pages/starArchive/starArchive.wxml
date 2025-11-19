@@ -1,0 +1,75 @@
+<view class="container">
+  <text class="page-title">明星档案</text>
+  
+  <view class="stars-list">
+    <view class="star-item" wx:for="{{stars}}" wx:key="id" bindtap="viewStarDetail" data-index="{{index}}">
+      <image class="star-avatar" src="{{item.avatar}}"></image>
+      <view class="star-info">
+        <text class="star-name">{{item.name}}</text>
+        <text class="star-en-name">{{item.englishName}}</text>
+      </view>
+      <image class="arrow" src="/images/arrow_right.png"></image>
+    </view>
+  </view>
+  
+  <!-- 明星详情弹窗 -->
+  <view class="modal" wx:if="{{selectedStar}}">
+    <view class="modal-content">
+      <view class="modal-header">
+        <text class="modal-title">{{selectedStar.name}} 档案</text>
+        <image class="close-btn" bindtap="closeDetail" src="/images/close.png"></image>
+      </view>
+      
+      <scroll-view class="modal-body" scroll-y>
+        <image class="detail-avatar" src="{{selectedStar.avatar}}"></image>
+        
+        <view class="detail-info">
+          <view class="info-row">
+            <text class="label">姓名:</text>
+            <text class="value">{{selectedStar.name}}</text>
+          </view>
+          
+          <view class="info-row">
+            <text class="label">英文名:</text>
+            <text class="value">{{selectedStar.englishName}}</text>
+          </view>
+          
+          <view class="info-row">
+            <text class="label">生日:</text>
+            <text class="value">{{selectedStar.birthday}}</text>
+          </view>
+          
+          <view class="info-row">
+            <text class="label">身高:</text>
+            <text class="value">{{selectedStar.height}}</text>
+          </view>
+          
+          <view class="info-row">
+            <text class="label">体重:</text>
+            <text class="value">{{selectedStar.weight}}</text>
+          </view>
+          
+          <view class="info-row">
+            <text class="label">血型:</text>
+            <text class="value">{{selectedStar.bloodType}}</text>
+          </view>
+          
+          <view class="info-row">
+            <text class="label">星座:</text>
+            <text class="value">{{selectedStar.constellation}}</text>
+          </view>
+          
+          <view class="info-row">
+            <text class="label">爱好:</text>
+            <text class="value">{{selectedStar.hobby}}</text>
+          </view>
+          
+          <view class="info-row">
+            <text class="label">简介:</text>
+            <text class="value intro">{{selectedStar.introduction}}</text>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+</view>

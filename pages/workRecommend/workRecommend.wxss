@@ -1,0 +1,105 @@
+.container {
+  padding: 20rpx;
+  background: #f5f5f5;
+  min-height: 100vh;
+}
+
+.page-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 30rpx;
+  color: #333;
+}
+
+.works-list {
+  display: flex;
+  flex-direction: column;
+  gap: 30rpx;
+}
+
+.work-item {
+  background: white;
+  border-radius: 20rpx;
+  overflow: hidden;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.1);
+}
+
+.work-cover {
+  width: 100%;
+  height: 300rpx;
+  display: block;
+}
+
+.work-info {
+  padding: 30rpx;
+}
+
+.work-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15rpx;
+}
+
+.work-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.work-type {
+  font-size: 24rpx;
+  background: #FF9500;
+  color: white;
+  border-radius: 10rpx;
+  padding: 5rpx 15rpx;
+}
+
+.work-meta {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20rpx;
+}
+
+.work-year {
+  font-size: 28rpx;
+  color: #666;
+}
+
+.work-rating {
+  font-size: 28rpx;
+  color: #FF9500;
+  font-weight: bold;
+}
+
+.work-description {
+  font-size: 28rpx;
+  color: #666;
+  line-height: 1.5;
+  margin-bottom: 20rpx;
+}
+
+.work-actions {
+  display: flex;
+  justify-content: space-around;
+  border-top: 1rpx solid #eee;
+  padding-top: 20rpx;
+}
+
+.action-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.action-icon {
+  width: 40rpx;
+  height: 40rpx;
+  margin-bottom: 10rpx;
+}
+
+.action-text {
+  font-size: 24rpx;
+  color: #666;
+}

@@ -1,0 +1,50 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/login/login",
+    "pages/profile/profile",
+    "pages/starArchive/starArchive",
+    "pages/dataWorkshop/dataWorkshop",
+    "pages/workRecommend/workRecommend",
+    "pages/fanVoice/fanVoice"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "明星互动平台",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#7A7E83",
+    "selectedColor": "#3cc51f",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/starArchive/starArchive",
+        "iconPath": "images/icon_star.png",
+        "selectedIconPath": "images/icon_star_HL.png",
+        "text": "明星档案"
+      },
+      {
+        "pagePath": "pages/dataWorkshop/dataWorkshop",
+        "iconPath": "images/icon_data.png",
+        "selectedIconPath": "images/icon_data_HL.png",
+        "text": "数据工坊"
+      },
+      {
+        "pagePath": "pages/workRecommend/workRecommend",
+        "iconPath": "images/icon_work.png",
+        "selectedIconPath": "images/icon_work_HL.png",
+        "text": "作品安利"
+      },
+      {
+        "pagePath": "pages/fanVoice/fanVoice",
+        "iconPath": "images/icon_fan.png",
+        "selectedIconPath": "images/icon_fan_HL.png",
+        "text": "粉丝心声"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json"
+}

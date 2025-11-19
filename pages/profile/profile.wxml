@@ -1,0 +1,25 @@
+<view class="container">
+  <view wx:if="{{isLogin}}" class="profile-card">
+    <image class="avatar" src="{{userInfo.avatar || '/images/default_avatar.png'}}"></image>
+    <text class="nickname">{{userInfo.nickname}}</text>
+    <text class="username">@{{userInfo.username}}</text>
+    
+    <view class="profile-info">
+      <view class="info-item">
+        <text class="label">用户ID:</text>
+        <text class="value">{{userInfo.id}}</text>
+      </view>
+      <view class="info-item">
+        <text class="label">注册时间:</text>
+        <text class="value">2023-01-01</text>
+      </view>
+    </view>
+    
+    <button class="button logout-btn" bindtap="onLogout">退出登录</button>
+  </view>
+  
+  <view wx:else class="not-login">
+    <text class="hint">您尚未登录，请先登录</text>
+    <button class="button login-btn" bindtap="navigateToLogin">前往登录</button>
+  </view>
+</view>

@@ -1,0 +1,35 @@
+<view class="container">
+  <text class="page-title">作品安利</text>
+  
+  <view class="works-list">
+    <view class="work-item" wx:for="{{works}}" wx:key="id">
+      <image class="work-cover" src="{{item.cover}}"></image>
+      
+      <view class="work-info">
+        <view class="work-header">
+          <text class="work-title">{{item.title}}</text>
+          <text class="work-type">{{item.type}}</text>
+        </view>
+        
+        <view class="work-meta">
+          <text class="work-year">{{item.year}}</text>
+          <text class="work-rating">评分: {{item.rating}}</text>
+        </view>
+        
+        <text class="work-description">{{item.description}}</text>
+        
+        <view class="work-actions">
+          <view class="action-item" bindtap="likeWork" data-index="{{index}}">
+            <image class="action-icon" src="{{item.isLiked ? '/images/like_active.png' : '/images/like.png'}}"></image>
+            <text class="action-text">{{item.likes}}</text>
+          </view>
+          
+          <view class="action-item" bindtap="shareWork" data-index="{{index}}">
+            <image class="action-icon" src="/images/share.png"></image>
+            <text class="action-text">分享</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

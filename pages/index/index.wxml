@@ -1,0 +1,34 @@
+<view class="container">
+  <view class="header">
+    <image wx:if="{{userInfo}}" class="avatar" src="{{userInfo.avatar || '/images/default_avatar.png'}}"></image>
+    <image wx:else class="avatar" src="/images/default_avatar.png"></image>
+    <text class="welcome-text">{{isLogin ? '欢迎回来，' + userInfo.nickname : '欢迎来到明星互动平台'}}</text>
+  </view>
+
+  <view class="menu-grid">
+    <view class="menu-item" bindtap="goToStarArchive">
+      <image class="menu-icon" src="/images/icon_star_large.png"></image>
+      <text class="menu-text">明星档案</text>
+    </view>
+    
+    <view class="menu-item" bindtap="goToDataWorkshop">
+      <image class="menu-icon" src="/images/icon_data_large.png"></image>
+      <text class="menu-text">数据工坊</text>
+    </view>
+    
+    <view class="menu-item" bindtap="goToWorkRecommend">
+      <image class="menu-icon" src="/images/icon_work_large.png"></image>
+      <text class="menu-text">作品安利</text>
+    </view>
+    
+    <view class="menu-item" bindtap="goToFanVoice">
+      <image class="menu-icon" src="/images/icon_fan_large.png"></image>
+      <text class="menu-text">粉丝心声</text>
+    </view>
+  </view>
+
+  <view class="auth-section">
+    <button wx:if="{{!isLogin}}" class="button" bindtap="goToLogin">立即登录</button>
+    <button wx:else class="button" bindtap="goToProfile">个人中心</button>
+  </view>
+</view>

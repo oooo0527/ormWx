@@ -1,0 +1,81 @@
+.container {
+  padding: 20rpx;
+  background: linear-gradient(to bottom, #f5f5f5, #ffffff);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-card {
+  background: white;
+  border-radius: 20rpx;
+  padding: 60rpx 40rpx;
+  width: 80%;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  font-size: 36rpx;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 40rpx;
+  color: #333;
+}
+
+.input-group {
+  margin-bottom: 40rpx;
+}
+
+.input {
+  border: 1rpx solid #ddd;
+  border-radius: 10rpx;
+  padding: 20rpx;
+  margin-bottom: 20rpx;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.button {
+  width: 100%;
+  border-radius: 50rpx;
+  padding: 20rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+  margin-bottom: 20rpx;
+}
+
+.login-btn {
+  background: linear-gradient(to right, #007AFF, #0062CC);
+  color: white;
+}
+
+.guest-btn {
+  background: transparent;
+  border: 1rpx solid #007AFF;
+  color: #007AFF;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  margin: 30rpx 0;
+}
+
+.divider-text {
+  position: relative;
+  background: white;
+  padding: 0 20rpx;
+  color: #999;
+  z-index: 1;
+}
+
+.divider::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1rpx;
+  background: #ddd;
+  z-index: 0;
+}

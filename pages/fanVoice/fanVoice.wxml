@@ -1,0 +1,47 @@
+<view class="container">
+  <view class="header">
+    <text class="page-title">粉丝心声</text>
+    <button class="post-btn" bindtap="showPostForm">发布心声</button>
+  </view>
+  
+  <view class="voices-list">
+    <view class="voice-item" wx:for="{{voices}}" wx:key="id">
+      <view class="voice-header">
+        <image class="user-avatar" src="{{item.avatar}}"></image>
+        <view class="user-info">
+          <text class="username">{{item.username}}</text>
+          <text class="time">{{item.time}}</text>
+        </view>
+      </view>
+      
+      <text class="voice-content">{{item.content}}</text>
+      
+      <view class="voice-actions">
+        <view class="action-item" bindtap="likeVoice" data-index="{{index}}">
+          <image class="action-icon" src="{{item.isLiked ? '/images/like_active.png' : '/images/like.png'}}"></image>
+          <text class="action-text">{{item.likes}}</text>
+        </view>
+        
+        <view class="action-item" bindtap="commentVoice" data-index="{{index}}">
+          <image class="action-icon" src="/images/comment.png"></image>
+          <text class="action-text">{{item.comments}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 发布表单弹窗 -->
+  <view class="modal" wx:if="{{showPostForm}}">
+    <view class="modal-content">
+      <view class="modal-header">
+        <text class="modal-title">发布心声</text>
+        <image class="close-btn" bindtap="hidePostForm" src="/images/close.png"></image>
+      </view>
+      
+      <view class="modal-body">
+        <textarea class="textarea" placeholder="分享你的心声..." bindinput="onContentInput" value="{{postContent}}" />
+        <button class="button submit-btn" bindtap="postVoice">发布</button>
+      </view>
+    </view>
+  </view>
+</view>
