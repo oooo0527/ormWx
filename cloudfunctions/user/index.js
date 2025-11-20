@@ -2,7 +2,7 @@
 const cloud = require('wx-server-sdk')
 
 cloud.init({
-  env: cloud.DYNAMIC_CURRENT_ENV
+  env: 'cloud1-5gzybpqcd24b2b58' // 请务必核对ID是否正确
 })
 
 const db = cloud.database()
@@ -20,9 +20,9 @@ exports.main = async (event, context) => {
 
   switch (event.action) {
     case 'getUserInfo':
-      return await getUserInfo(wxContext.OPENID, event)
+      return await getUserInfo(cloud.DYNAMIC_CURRENT_ENV, event)
     case 'updateUserInfo':
-      return await updateUserInfo(wxContext.OPENID, event)
+      return await updateUserInfo(cloud.DYNAMIC_CURRENT_ENV.OPENID, event)
     default:
       return {
         success: false,
@@ -33,7 +33,7 @@ exports.main = async (event, context) => {
 
 // 获取用户信息
 async function getUserInfo(openid, event) {
-  console.log(openid,'openid')
+  console.log(openid,'op999999999999999enid')
   try {
     const result = await db.collection('user').where({
       openid: openid
@@ -45,8 +45,10 @@ async function getUserInfo(openid, event) {
         data: result.data[0]
       }
     } else {
-      // 如果用户不存在，创建新用户
-      return await createNewUser(openid, event)
+      return {
+        success: false,
+        message: "没有数据"
+      }
     }
   } catch (err) {
     return {

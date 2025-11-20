@@ -1,9 +1,9 @@
 {
   "pages": [
+    "pages/starArchive/starArchive",
     "pages/index/index",
     "pages/login/login",
     "pages/profile/profile",
-    "pages/starArchive/starArchive",
     "pages/dataWorkshop/dataWorkshop",
     "pages/workRecommend/workRecommend",
     "pages/fanVoice/fanVoice"
@@ -16,15 +16,16 @@
   },
   "tabBar": {
     "color": "#7A7E83",
-    "selectedColor": "#3cc51f",
+    "selectedColor": "#667eea",
     "borderStyle": "black",
     "backgroundColor": "#ffffff",
+    "position": "bottom",
     "list": [
       {
         "pagePath": "pages/starArchive/starArchive",
         "iconPath": "images/icon_star.png",
         "selectedIconPath": "images/icon_star_HL.png",
-        "text": "明星档案"
+        "text": "首页"
       },
       {
         "pagePath": "pages/dataWorkshop/dataWorkshop",

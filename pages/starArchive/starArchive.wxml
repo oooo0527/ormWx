@@ -1,15 +1,26 @@
 <view class="container">
-  <text class="page-title">明星档案</text>
+  <text class="page-title">🌟 orm</text>
+  <view>
+放一些互动片段
+  </view>
+  <view>
+  放一些作品滚动banner
+  </view>
   
-  <view class="stars-list">
+  <view class="stars-list" wx:if="{{stars.length > 0}}">
     <view class="star-item" wx:for="{{stars}}" wx:key="id" bindtap="viewStarDetail" data-index="{{index}}">
       <image class="star-avatar" src="{{item.avatar}}"></image>
       <view class="star-info">
         <text class="star-name">{{item.name}}</text>
         <text class="star-en-name">{{item.englishName}}</text>
+        <text class="star-nicknames">昵称: {{item.nicknames.join(', ')}}</text>
       </view>
       <image class="arrow" src="/images/arrow_right.png"></image>
     </view>
+  </view>
+  
+  <view class="empty-tip" wx:else>
+    暂无明星档案数据
   </view>
   
   <!-- 明星详情弹窗 -->
@@ -124,19 +135,19 @@
           
           <view class="info-section" wx:if="{{selectedStar.career}}">
             <text class="section-title">职业生涯</text>
-            <view class="info-row">
+            <view class="info-row" wx:if="{{selectedStar.career.agency}}">
               <text class="label">经纪公司:</text>
               <text class="value">{{selectedStar.career.agency}}</text>
             </view>
-            <view class="info-row">
+            <view class="info-row" wx:if="{{selectedStar.career.debutYear}}">
               <text class="label">出道年份:</text>
               <text class="value">{{selectedStar.career.debutYear}}</text>
             </view>
-            <view class="info-row">
+            <view class="info-row" wx:if="{{selectedStar.career.debutWork}}">
               <text class="label">出道作品:</text>
               <text class="value">{{selectedStar.career.debutWork}}</text>
             </view>
-            <view class="info-section">
+            <view class="info-section" wx:if="{{selectedStar.career.representativeWorks && selectedStar.career.representativeWorks.length > 0}}">
               <text class="section-title">代表作品</text>
               <view class="work-item" wx:for="{{selectedStar.career.representativeWorks}}" wx:key="index">
                 <text class="work-text">{{item.year}}年 {{item.title}} {{item.role ? '(' + item.role + ')' : ''}}</text>

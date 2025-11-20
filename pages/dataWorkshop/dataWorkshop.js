@@ -10,7 +10,7 @@ Page({
   },
 
   onLoad: function (options) {
-    this.checkLoginStatus();
+    // this.checkLoginStatus();
     // 加载数据项
     this.loadDataItems();
   },
