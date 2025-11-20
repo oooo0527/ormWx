@@ -13,10 +13,10 @@
         
         <view class="work-meta">
           <text class="work-year">{{item.year}}</text>
-          <text class="work-rating">评分: {{item.rating}}</text>
+          <text class="work-role" wx:if="{{item.role}}">角色: {{item.role}}</text>
         </view>
         
-        <text class="work-description">{{item.description}}</text>
+        <text class="work-description" wx:if="{{item.description}}">{{item.description}}</text>
         
         <view class="work-actions">
           <view class="action-item" bindtap="likeWork" data-index="{{index}}">

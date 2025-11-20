@@ -60,6 +60,7 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 20rpx;
+  flex-wrap: wrap;
 }
 
 .work-year {
@@ -67,9 +68,9 @@
   color: #666;
 }
 
-.work-rating {
+.work-role {
   font-size: 28rpx;
-  color: #FF9500;
+  color: #007AFF;
   font-weight: bold;
 }
 

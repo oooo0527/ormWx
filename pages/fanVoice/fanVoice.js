@@ -8,13 +8,13 @@ Page({
   },
 
   onLoad: function (options) {
-    this.checkLoginStatus();
+    // this.checkLoginStatus();
     // 加载心声列表
     this.loadVoices();
   },
 
   onShow: function () {
-    this.checkLoginStatus();
+    // this.checkLoginStatus();
     // 重新加载心声列表
     this.loadVoices();
   },
