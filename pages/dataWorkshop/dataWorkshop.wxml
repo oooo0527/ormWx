@@ -26,6 +26,9 @@
       <view class="modal-body">
         <input class="input" placeholder="请输入标题" bindinput="onTitleInput" value="{{uploadTitle}}" />
         <textarea class="textarea" placeholder="请输入描述" bindinput="onDescriptionInput" value="{{uploadDescription}}" />
+        <picker class="picker" mode="selector" range="{{['用户上传', '排行榜', '分析报告', '数据报告']}}" bindchange="onTypeChange">
+          <view class="picker-label">数据类型: {{uploadType}}</view>
+        </picker>
         <button class="button submit-btn" bindtap="uploadData">提交</button>
       </view>
     </view>

@@ -1,11 +1,18 @@
 Page({
   data: {
     isLogin: false,
-    userInfo: null
+    userInfo: null,
+    showEnvSelector: false,
+    envId: ''
   },
 
   onLoad: function () {
     this.checkLoginStatus();
+    // 获取当前环境ID
+    const envId = wx.getStorageSync('cloudEnvId') || 'cloud1-5gzybpqcd24b2b58';
+    this.setData({
+      envId: envId
+    });
   },
 
   onShow: function () {
@@ -63,10 +70,56 @@ Page({
     });
   },
 
-  // 跳转到粉丝心声
-  goToFanVoice: function () {
-    wx.switchTab({
-      url: '/pages/fanVoice/fanVoice'
+  // 显示环境选择器
+  showEnvSelector: function () {
+    this.setData({
+      showEnvSelector: true
     });
-  }
+  },
+
+  // 隐藏环境选择器
+  hideEnvSelector: function () {
+    this.setData({
+      showEnvSelector: false
+    });
+  },
+
+  // 输入环境ID
+  onEnvInput: function (e) {
+    this.setData({
+      envId: e.detail.value
+    });
+  },
+
+  // 保存环境ID
+  saveEnvId: function () {
+    const envId = this.data.envId;
+    if (!envId) {
+      wx.showToast({
+        title: '请输入环境ID',
+        icon: 'none'
+      });
+      return;
+    }
+
+    // 保存到本地存储
+    wx.setStorageSync('cloudEnvId', envId);
+
+    // 重新初始化云开发环境
+    if (wx.cloud) {
+      wx.cloud.init({
+        env: envId,
+        traceUser: true,
+      });
+    }
+
+    this.setData({
+      showEnvSelector: false
+    });
+
+    wx.showToast({
+      title: '环境设置成功',
+      icon: 'success'
+    });
+  },
 });

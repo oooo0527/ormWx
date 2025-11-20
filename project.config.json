@@ -23,7 +23,7 @@
     "swc": false,
     "disableSWC": true
   },
-  "compileType": "game",
+  "compileType": "miniprogram",
   "simulatorPluginLibVersion": {},
   "packOptions": {
     "ignore": [],
@@ -32,5 +32,13 @@
   "isGameTourist": false,
   "appid": "wxd977620acdb9e9d1",
   "editorSetting": {},
-  "libVersion": "3.11.2"
+  "libVersion": "3.11.2",
+  "cloudfunctionRoot": "cloudfunctions/",
+  "cloudfunctionTemplateRoot": "cloudfunctionTemplate/",
+  "condition": {
+    "miniprogram": {
+      "current": -1,
+      "list": []
+    }
+  }
 }

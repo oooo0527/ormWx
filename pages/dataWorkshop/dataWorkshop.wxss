@@ -149,3 +149,17 @@
 .submit-btn {
   width: 100%;
 }
+
+.picker {
+  border: 1rpx solid #ddd;
+  border-radius: 10rpx;
+  padding: 20rpx;
+  margin-bottom: 20rpx;
+  width: 100%;
+  box-sizing: border-box;
+  background: white;
+}
+
+.picker-label {
+  color: #333;
+}

@@ -1,3 +1,5 @@
+const db = wx.cloud.database()
+
 Page({
   data: {
     stars: [
@@ -32,6 +34,12 @@ Page({
   },
 
   onLoad: function (options) {
+    console.log('jinlaile')
+    db.collection('user').get({
+      success: function (res) {
+        console.log(res, 'oooooooooo')
+      }
+    })
 
   },
 

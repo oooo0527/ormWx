@@ -2,47 +2,50 @@ Page({
   data: {
     isLogin: false,
     userInfo: null,
-    dataItems: [
-      {
-        id: 1,
-        title: "明星热度排行榜",
-        description: "本周明星热度指数排名",
-        updateTime: "2023-06-15",
-        type: "排行榜"
-      },
-      {
-        id: 2,
-        title: "影视作品数据分析",
-        description: "近期热门影视作品收视率分析",
-        updateTime: "2023-06-10",
-        type: "分析报告"
-      },
-      {
-        id: 3,
-        title: "社交媒体影响力",
-        description: "明星在各社交平台的影响力数据",
-        updateTime: "2023-06-05",
-        type: "数据报告"
-      }
-    ],
+    dataItems: [],
     showUploadForm: false,
     uploadTitle: "",
-    uploadDescription: ""
+    uploadDescription: "",
+    uploadType: "用户上传"
   },
 
   onLoad: function (options) {
     this.checkLoginStatus();
+    // 加载数据项
+    this.loadDataItems();
   },
 
   onShow: function () {
     this.checkLoginStatus();
+    // 重新加载数据项
+    this.loadDataItems();
   },
 
-  checkLoginStatus: function () {
-    const app = getApp();
-    this.setData({
-      isLogin: app.globalData.isLogin,
-      userInfo: app.globalData.userInfo
+  // 加载数据项
+  loadDataItems: function () {
+    wx.cloud.callFunction({
+      name: 'dataWorkshop',
+      data: {
+        action: 'getDataItems',
+        limit: 20
+      }
+    }).then(res => {
+      if (res.result.success) {
+        this.setData({
+          dataItems: res.result.data
+        });
+      } else {
+        wx.showToast({
+          title: res.result.message,
+          icon: 'none'
+        });
+      }
+    }).catch(err => {
+      console.error('加载数据失败', err);
+      wx.showToast({
+        title: '加载数据失败',
+        icon: 'none'
+      });
     });
   },
 
@@ -84,9 +87,17 @@ Page({
     });
   },
 
+  // 选择类型
+  onTypeChange: function (e) {
+    const types = ['用户上传', '排行榜', '分析报告', '数据报告'];
+    this.setData({
+      uploadType: types[e.detail.value]
+    });
+  },
+
   // 上传数据
   uploadData: function () {
-    const { uploadTitle, uploadDescription } = this.data;
+    const { uploadTitle, uploadDescription, uploadType } = this.data;
 
     if (!uploadTitle) {
       wx.showToast({
@@ -104,25 +115,43 @@ Page({
       return;
     }
 
-    // 模拟上传数据
-    const newData = {
-      id: Date.now(),
-      title: uploadTitle,
-      description: uploadDescription,
-      updateTime: this.formatDate(new Date()),
-      type: "用户上传"
-    };
+    // 调用云函数上传数据
+    wx.cloud.callFunction({
+      name: 'dataWorkshop',
+      data: {
+        action: 'uploadData',
+        title: uploadTitle,
+        description: uploadDescription,
+        type: uploadType
+      }
+    }).then(res => {
+      if (res.result.success) {
+        wx.showToast({
+          title: '上传成功',
+          icon: 'success'
+        });
 
-    this.setData({
-      dataItems: [newData, ...this.data.dataItems],
-      showUploadForm: false,
-      uploadTitle: "",
-      uploadDescription: ""
-    });
+        // 重新加载数据
+        this.loadDataItems();
 
-    wx.showToast({
-      title: '上传成功',
-      icon: 'success'
+        this.setData({
+          showUploadForm: false,
+          uploadTitle: "",
+          uploadDescription: "",
+          uploadType: "用户上传"
+        });
+      } else {
+        wx.showToast({
+          title: res.result.message,
+          icon: 'none'
+        });
+      }
+    }).catch(err => {
+      console.error('上传失败', err);
+      wx.showToast({
+        title: '上传失败',
+        icon: 'none'
+      });
     });
   },
 

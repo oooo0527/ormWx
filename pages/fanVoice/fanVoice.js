@@ -2,58 +2,57 @@ Page({
   data: {
     isLogin: false,
     userInfo: null,
-    voices: [
-      {
-        id: 1,
-        userId: 101,
-        username: "粉丝小王",
-        avatar: "/images/fan1.jpg",
-        content: "张三的演技真的越来越好了，每次看他的作品都能感受到不同的魅力！",
-        time: "2023-06-15 14:30",
-        likes: 25,
-        isLiked: false,
-        comments: 3
-      },
-      {
-        id: 2,
-        userId: 102,
-        username: "追星女孩",
-        avatar: "/images/fan2.jpg",
-        content: "李四的新歌太好听了，已经单曲循环一整天了！期待她的新专辑！",
-        time: "2023-06-14 10:15",
-        likes: 42,
-        isLiked: false,
-        comments: 8
-      },
-      {
-        id: 3,
-        userId: 103,
-        username: "影视爱好者",
-        avatar: "/images/fan3.jpg",
-        content: "刚刚看完《都市爱情》，剧情紧凑，演员表现出色，强烈推荐！",
-        time: "2023-06-13 20:45",
-        likes: 18,
-        isLiked: false,
-        comments: 2
-      }
-    ],
+    voices: [],
     showPostForm: false,
     postContent: ""
   },
 
   onLoad: function (options) {
     this.checkLoginStatus();
+    // 加载心声列表
+    this.loadVoices();
   },
 
   onShow: function () {
     this.checkLoginStatus();
+    // 重新加载心声列表
+    this.loadVoices();
   },
 
-  checkLoginStatus: function () {
-    const app = getApp();
-    this.setData({
-      isLogin: app.globalData.isLogin,
-      userInfo: app.globalData.userInfo
+  // 加载心声列表
+  loadVoices: function () {
+    wx.cloud.callFunction({
+      name: 'fanVoice',
+      data: {
+        action: 'getVoices',
+        limit: 20
+      }
+    }).then(res => {
+      if (res.result.success) {
+        // 处理点赞状态
+        const voices = res.result.data.map(voice => {
+          const openid = wx.getStorageSync('openid') || '';
+          return {
+            ...voice,
+            isLiked: voice.likes && voice.likes.includes(openid)
+          };
+        });
+
+        this.setData({
+          voices: voices
+        });
+      } else {
+        wx.showToast({
+          title: res.result.message,
+          icon: 'none'
+        });
+      }
+    }).catch(err => {
+      console.error('加载心声失败', err);
+      wx.showToast({
+        title: '加载心声失败',
+        icon: 'none'
+      });
     });
   },
 
@@ -89,7 +88,7 @@ Page({
 
   // 发布心声
   postVoice: function () {
-    const { postContent, userInfo } = this.data;
+    const { postContent } = this.data;
 
     if (!postContent) {
       wx.showToast({
@@ -99,28 +98,39 @@ Page({
       return;
     }
 
-    // 模拟发布心声
-    const newVoice = {
-      id: Date.now(),
-      userId: userInfo.id,
-      username: userInfo.nickname,
-      avatar: userInfo.avatar || "/images/default_avatar.png",
-      content: postContent,
-      time: this.formatTime(new Date()),
-      likes: 0,
-      isLiked: false,
-      comments: 0
-    };
+    // 调用云函数发布心声
+    wx.cloud.callFunction({
+      name: 'fanVoice',
+      data: {
+        action: 'postVoice',
+        content: postContent
+      }
+    }).then(res => {
+      if (res.result.success) {
+        wx.showToast({
+          title: '发布成功',
+          icon: 'success'
+        });
 
-    this.setData({
-      voices: [newVoice, ...this.data.voices],
-      showPostForm: false,
-      postContent: ""
-    });
+        // 重新加载心声列表
+        this.loadVoices();
 
-    wx.showToast({
-      title: '发布成功',
-      icon: 'success'
+        this.setData({
+          showPostForm: false,
+          postContent: ""
+        });
+      } else {
+        wx.showToast({
+          title: res.result.message,
+          icon: 'none'
+        });
+      }
+    }).catch(err => {
+      console.error('发布失败', err);
+      wx.showToast({
+        title: '发布失败',
+        icon: 'none'
+      });
     });
   },
 
@@ -136,16 +146,46 @@ Page({
 
   // 点赞心声
   likeVoice: function (e) {
+    if (!this.data.isLogin) {
+      wx.showToast({
+        title: '请先登录',
+        icon: 'none'
+      });
+      return;
+    }
+
     const index = e.currentTarget.dataset.index;
-    const voices = this.data.voices;
-    const voice = voices[index];
+    const voice = this.data.voices[index];
 
-    // 切换点赞状态
-    voice.isLiked = !voice.isLiked;
-    voice.likes = voice.isLiked ? voice.likes + 1 : voice.likes - 1;
+    // 调用云函数点赞
+    wx.cloud.callFunction({
+      name: 'fanVoice',
+      data: {
+        action: 'likeVoice',
+        voiceId: voice._id
+      }
+    }).then(res => {
+      if (res.result.success) {
+        // 更新本地数据
+        const voices = this.data.voices;
+        voices[index].isLiked = !voices[index].isLiked;
+        voices[index].likes = res.result.data.likes;
 
-    this.setData({
-      voices: voices
+        this.setData({
+          voices: voices
+        });
+      } else {
+        wx.showToast({
+          title: res.result.message,
+          icon: 'none'
+        });
+      }
+    }).catch(err => {
+      console.error('点赞失败', err);
+      wx.showToast({
+        title: '点赞失败',
+        icon: 'none'
+      });
     });
   },
 

@@ -3,6 +3,12 @@
     <image wx:if="{{userInfo}}" class="avatar" src="{{userInfo.avatar || '/images/default_avatar.png'}}"></image>
     <image wx:else class="avatar" src="/images/default_avatar.png"></image>
     <text class="welcome-text">{{isLogin ? '欢迎回来，' + userInfo.nickname : '欢迎来到明星互动平台'}}</text>
+    <view class="env-selector" wx:if="{{showEnvSelector}}">
+      <input class="env-input" placeholder="请输入云环境ID" bindinput="onEnvInput" value="{{envId}}"></input>
+      <button class="env-btn" bindtap="saveEnvId">保存环境</button>
+      <button class="env-btn" bindtap="hideEnvSelector">取消</button>
+    </view>
+    <button class="env-toggle" bindtap="showEnvSelector" wx:else>选择环境</button>
   </view>
 
   <view class="menu-grid">

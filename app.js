@@ -6,6 +6,16 @@ App({
   },
 
   onLaunch: function () {
+    if (!wx.cloud) {
+      console.error('请使用 2.2.3 或以上的基础库以使用云能力');
+    } else {
+      // 初始化云开发环境，支持动态选择环境
+      const envId = wx.getStorageSync('cloudEnvId') || 'cloud1-5gzybpqcd24b2b58';
+      wx.cloud.init({
+        env: envId,
+        traceUser: true,
+      });
+    }
     // 小程序启动时检查登录状态
     this.checkLoginStatus();
   },
