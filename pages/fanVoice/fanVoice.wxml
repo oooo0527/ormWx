@@ -7,24 +7,28 @@
   <view class="voices-list">
     <view class="voice-item" wx:for="{{voices}}" wx:key="id">
       <view class="voice-header">
-        <image class="user-avatar" src="{{item.avatar}}"></image>
+        <image class="user-avatar" src="/images/default_avatar.png"></image>
         <view class="user-info">
-          <text class="username">{{item.username}}</text>
-          <text class="time">{{item.time}}</text>
+          <text class="username">{{item.type}}</text>
+          <text class="time">{{item.createTime}}</text>
         </view>
       </view>
       
       <text class="voice-content">{{item.content}}</text>
       
+      <view class="voice-context" wx:if="{{item.context}}">
+        <text class="context-text">{{item.context}}</text>
+      </view>
+      
       <view class="voice-actions">
         <view class="action-item" bindtap="likeVoice" data-index="{{index}}">
           <image class="action-icon" src="{{item.isLiked ? '/images/like_active.png' : '/images/like.png'}}"></image>
-          <text class="action-text">{{item.likes}}</text>
+          <text class="action-text">{{item.likes.length}}</text>
         </view>
         
         <view class="action-item" bindtap="commentVoice" data-index="{{index}}">
           <image class="action-icon" src="/images/comment.png"></image>
-          <text class="action-text">{{item.comments}}</text>
+          <text class="action-text">{{item.comments.length}}</text>
         </view>
       </view>
     </view>

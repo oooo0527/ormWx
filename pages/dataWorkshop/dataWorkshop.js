@@ -16,7 +16,7 @@ Page({
   },
 
   onShow: function () {
-    this.checkLoginStatus();
+    // this.checkLoginStatus();
     // 重新加载数据项
     this.loadDataItems();
   },

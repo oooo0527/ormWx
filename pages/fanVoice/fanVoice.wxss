@@ -72,7 +72,21 @@
   font-size: 28rpx;
   color: #333;
   line-height: 1.6;
+  margin-bottom: 15rpx;
+}
+
+.voice-context {
+  background: #f0f8ff;
+  border-left: 6rpx solid #007AFF;
+  padding: 15rpx 20rpx;
   margin-bottom: 20rpx;
+  border-radius: 10rpx;
+}
+
+.context-text {
+  font-size: 24rpx;
+  color: #666;
+  line-height: 1.5;
 }
 
 .voice-actions {
