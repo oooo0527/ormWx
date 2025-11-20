@@ -11,10 +11,6 @@
 - icon_work_HL.png - 作品安利高亮图标
 - icon_fan.png - 粉丝心声图标
 - icon_fan_HL.png - 粉丝心声高亮图标
-- icon_star_large.png - 明星档案大图标
-- icon_data_large.png - 数据工坊大图标
-- icon_work_large.png - 作品安利大图标
-- icon_fan_large.png - 粉丝心声大图标
 - arrow_right.png - 右箭头图标
 - close.png - 关闭图标
 - like.png - 点赞图标
@@ -32,3 +28,5 @@
 - fan1.jpg - 粉丝1头像
 - fan2.jpg - 粉丝2头像
 - fan3.jpg - 粉丝3头像
+
+注：以上文件均为占位符文件，实际使用时请替换为真实的图片资源。
