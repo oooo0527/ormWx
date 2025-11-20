@@ -42,7 +42,7 @@ Page({
       return;
     }
 
-    // 调用全局登录方法
+    // 使用本地模拟登录
     const app = getApp();
     app.login(username, password, (success) => {
       if (success) {

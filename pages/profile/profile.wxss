@@ -65,11 +65,18 @@
   padding: 20rpx;
   font-size: 32rpx;
   font-weight: bold;
+  margin-bottom: 20rpx;
 }
 
 .logout-btn {
   background: linear-gradient(to right, #FF3B30, #D42D25);
   color: white;
+}
+
+.edit-btn {
+  background: linear-gradient(to right, #007AFF, #0062CC);
+  color: white;
+  margin-bottom: 20rpx;
 }
 
 .not-login {
@@ -91,5 +98,55 @@
 
 .login-btn {
   background: linear-gradient(to right, #007AFF, #0062CC);
+  color: white;
+}
+
+/* 弹窗样式 */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 20rpx;
+  width: 90%;
+  max-height: 80%;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30rpx;
+  border-bottom: 1rpx solid #eee;
+}
+
+.modal-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.close-btn {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.modal-body {
+  padding: 30rpx;
+}
+
+.submit-btn {
+  width: 100%;
+  background: #007AFF;
   color: white;
 }

@@ -137,3 +137,36 @@
 .intro {
   line-height: 1.6;
 }
+
+.info-section {
+  margin-bottom: 30rpx;
+  padding-bottom: 20rpx;
+  border-bottom: 1rpx solid #eee;
+}
+
+.info-section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.section-title {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #007AFF;
+  margin-bottom: 15rpx;
+  display: block;
+}
+
+.work-item {
+  padding: 10rpx 0;
+  border-bottom: 1rpx dashed #eee;
+}
+
+.work-item:last-child {
+  border-bottom: none;
+}
+
+.work-text {
+  color: #666;
+  font-size: 26rpx;
+}

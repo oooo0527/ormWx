@@ -6,26 +6,6 @@ Page({
     envId: ''
   },
 
-  onLoad: function () {
-    this.checkLoginStatus();
-    // 获取当前环境ID
-    const envId = wx.getStorageSync('cloudEnvId') || 'cloud1-5gzybpqcd24b2b58';
-    this.setData({
-      envId: envId
-    });
-  },
-
-  onShow: function () {
-    this.checkLoginStatus();
-  },
-
-  checkLoginStatus: function () {
-    const app = getApp();
-    this.setData({
-      isLogin: app.globalData.isLogin,
-      userInfo: app.globalData.userInfo
-    });
-  },
 
   // 跳转到登录页
   goToLogin: function () {

@@ -11,6 +11,13 @@ const db = cloud.database()
 exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext()
 
+  // 确保数据库集合存在
+  try {
+    await db.collection('users').limit(1).get()
+  } catch (err) {
+    console.log('集合可能不存在，将在首次插入数据时自动创建')
+  }
+
   switch (event.action) {
     case 'getUserInfo':
       return await getUserInfo(wxContext.OPENID, event)
@@ -26,6 +33,7 @@ exports.main = async (event, context) => {
 
 // 获取用户信息
 async function getUserInfo(openid, event) {
+  console.log(openid,'openid')
   try {
     const result = await db.collection('user').where({
       openid: openid
@@ -59,7 +67,7 @@ async function createNewUser(openid, event) {
       updateTime: new Date()
     }
 
-    const result = await db.collection('user').add({
+    const result = await db.collection('users').add({
       data: userData
     })
 
@@ -81,7 +89,7 @@ async function createNewUser(openid, event) {
 // 更新用户信息
 async function updateUserInfo(openid, event) {
   try {
-    const result = await db.collection('user').where({
+    const result = await db.collection('users').where({
       openid: openid
     }).update({
       data: {

@@ -7,19 +7,36 @@
     <view class="profile-info">
       <view class="info-item">
         <text class="label">用户ID:</text>
-        <text class="value">{{userInfo.id}}</text>
+        <text class="value">{{userInfo._id || userInfo.id}}</text>
       </view>
       <view class="info-item">
         <text class="label">注册时间:</text>
-        <text class="value">2023-01-01</text>
+        <text class="value">{{userInfo.createTime || '2023-01-01'}}</text>
       </view>
     </view>
     
+    <button class="button edit-btn" bindtap="showEditForm">编辑资料</button>
     <button class="button logout-btn" bindtap="onLogout">退出登录</button>
   </view>
   
   <view wx:else class="not-login">
     <text class="hint">您尚未登录，请先登录</text>
-    <button class="button login-btn" bindtap="navigateToLogin">前往登录</button>
+    <button class="button login-btn" bindtap="goToLogin">前往登录</button>
+  </view>
+  
+  <!-- 编辑表单弹窗 -->
+  <view class="modal" wx:if="{{showEditForm}}">
+    <view class="modal-content">
+      <view class="modal-header">
+        <text class="modal-title">编辑资料</text>
+        <image class="close-btn" bindtap="hideEditForm" src="/images/close.png"></image>
+      </view>
+      
+      <view class="modal-body">
+        <input class="input" placeholder="请输入昵称" bindinput="onNicknameInput" value="{{editNickname}}" />
+        <input class="input" placeholder="请输入头像URL" bindinput="onAvatarInput" value="{{editAvatar}}" />
+        <button class="button submit-btn" bindtap="updateUserInfo">保存</button>
+      </view>
+    </view>
   </view>
 </view>
