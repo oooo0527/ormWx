@@ -2,6 +2,7 @@ Page({
   data: {
     stars: [
       {
+        avatar:'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/d554005a153ae86aa6b8de351230cbf6.jpg',
         id: 1,
         name: "珙恩娜帕·瑟塔拉塔那彭",
         thaiName: "นรวรรณ เศรษฐรัตนพงศ์",
@@ -39,7 +40,7 @@ Page({
             { year: 2024, title: "Potion of Love", role: "Thanya" }
           ]
         },
-        avatar: "/images/star1.jpg",
+        // avatar: "/images/star1.jpg",
         weight: "",
         bloodType: "",
         hobby: "",

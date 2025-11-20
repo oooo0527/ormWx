@@ -8,6 +8,7 @@
   </view>
   
   <view class="stars-list" wx:if="{{stars.length > 0}}">
+  
     <view class="star-item" wx:for="{{stars}}" wx:key="id" bindtap="viewStarDetail" data-index="{{index}}">
       <image class="star-avatar" src="{{item.avatar}}"></image>
       <view class="star-info">

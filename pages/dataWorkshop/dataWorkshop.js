@@ -12,13 +12,13 @@ Page({
   onLoad: function (options) {
     // this.checkLoginStatus();
     // 加载数据项
-    this.loadDataItems();
+    // this.loadDataItems();
   },
 
   onShow: function () {
     // this.checkLoginStatus();
     // 重新加载数据项
-    this.loadDataItems();
+    // this.loadDataItems();
   },
 
   // 加载数据项

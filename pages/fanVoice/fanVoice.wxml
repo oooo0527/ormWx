@@ -1,8 +1,8 @@
 <view class="container">
-  <view class="header">
+  <!-- <view class="header">
     <text class="page-title">粉丝心声</text>
     <button class="post-btn" bindtap="showPostForm">发布心声</button>
-  </view>
+  </view> -->
   
   <view class="voices-list">
     <view class="voice-item" wx:for="{{voices}}" wx:key="id">
