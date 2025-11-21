@@ -66,8 +66,4 @@ Page({
     });
   },
 
-  // 背景变化回调
-  onBackgroundChange: function (settings) {
-    // 由于使用了全局背景组件，这里不需要额外处理
-  }
 })
