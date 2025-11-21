@@ -4,9 +4,9 @@
   box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
   border-radius: 20rpx;
   margin-bottom: 30rpx;
-  width: calc(100vw - 20px);
+  width: 100%;
   overflow: hidden;
-  /* width: 100%; */
+  box-sizing: border-box;
 }
 
 .category-scroll {
@@ -15,8 +15,8 @@
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
-  /* width: 100%; */
-  /* width: calc(100% - 50rpx); */
+  width: 100%;
+  box-sizing: border-box;
   /* 隐藏滚动条 Firefox */
 }
 
@@ -28,6 +28,7 @@
 .category-list {
   display: flex;
   min-width: 100%;
+  box-sizing: border-box;
 }
 
 .category-item {
@@ -42,6 +43,7 @@
   white-space: nowrap;
   flex-shrink: 0;
   box-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
 }
 
 .category-item.active {

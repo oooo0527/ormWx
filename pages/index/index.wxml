@@ -1,7 +1,6 @@
 <global-background>
   <view class="container">
-    <view class="header">
-      <image class="logo" src="/images/icon_star_large.png"></image>
+    <view class="header"> 
       <text class="app-title">明星互动平台</text>
       <text class="app-subtitle">探索明星世界，分享你的声音</text>
     </view>

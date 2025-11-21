@@ -7,11 +7,14 @@
   justify-content: space-between;
   padding: 200rpx 0;
   box-sizing: border-box;
+  width: 100%;
 }
 
 /* 全局样式 */
 .page-container {
   padding: 20rpx;
+  box-sizing: border-box;
+  width: 100%;
 }
 
 .title {
@@ -33,6 +36,8 @@
   padding: 20rpx 40rpx;
   text-align: center;
   margin: 20rpx 0;
+  box-sizing: border-box;
+  width: 100%;
 }
 
 .button:hover {
@@ -54,4 +59,30 @@
   padding: 20rpx;
   margin-bottom: 20rpx;
   box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* 防止页面内容溢出 */
+
+
+view,
+scroll-view,
+swiper,
+button,
+input,
+textarea,
+label,
+picker,
+slider,
+switch,
+navigator {
+  box-sizing: border-box;
+}
+
+/* 滚动条样式优化 */
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
 }

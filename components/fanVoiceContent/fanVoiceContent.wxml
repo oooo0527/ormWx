@@ -1,10 +1,12 @@
-<view class="content-container">
-  <!-- 根据当前分类显示对应的内容 -->
-  <interaction-comp wx:if="{{currentCategory === 'interaction'}}"></interaction-comp>
+<global-background>
+  <view class="content-container">
+    <!-- 根据当前分类显示对应的内容 -->
+    <interaction-comp wx:if="{{currentCategory === 'interaction'}}"></interaction-comp>
 
-  <support-comp  wx:elif="{{currentCategory === 'support'}}"></support-comp>
-  <mom-comp wx:elif="{{currentCategory === 'mom'}}"></mom-comp>
-  <dream-comp wx:elif="{{currentCategory === 'dream'}}"></dream-comp>
-  <emoji-comp wx:elif="{{currentCategory === 'emoji'}}"></emoji-comp>
-  <new-comp wx:elif="{{currentCategory === 'new'}}"></new-comp>
-</view>
+    <support-comp  wx:elif="{{currentCategory === 'support'}}"></support-comp>
+    <mom-comp wx:elif="{{currentCategory === 'mom'}}"></mom-comp>
+    <dream-comp wx:elif="{{currentCategory === 'dream'}}"></dream-comp>
+    <emoji-comp wx:elif="{{currentCategory === 'emoji'}}"></emoji-comp>
+    <new-comp wx:elif="{{currentCategory === 'new'}}"></new-comp>
+  </view>
+</global-background>

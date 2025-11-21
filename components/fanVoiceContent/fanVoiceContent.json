@@ -6,6 +6,7 @@
     "mom-comp": "/components/mom/mom",
     "dream-comp": "/components/dream/dream",
     "emoji-comp": "/components/emoji/emoji",
-    "new-comp": "/components/new/new"
+    "new-comp": "/components/new/new",
+    "global-background": "/components/globalBackground/globalBackground"
   }
 }

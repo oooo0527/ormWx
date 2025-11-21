@@ -4,6 +4,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  box-sizing: border-box;
 }
 
 .profile-card {
@@ -16,6 +17,7 @@
   flex-direction: column;
   align-items: center;
   margin-bottom: 40rpx;
+  box-sizing: border-box;
 }
 
 .avatar {
@@ -41,6 +43,7 @@
 .profile-info {
   width: 100%;
   margin-bottom: 40rpx;
+  box-sizing: border-box;
 }
 
 .info-item {
@@ -48,6 +51,7 @@
   justify-content: space-between;
   padding: 20rpx 0;
   border-bottom: 1rpx solid #eee;
+  box-sizing: border-box;
 }
 
 .label {
@@ -69,6 +73,7 @@
   font-size: 32rpx;
   margin-bottom: 20rpx;
   box-shadow: 0 4rpx 10rpx rgba(102, 126, 234, 0.4);
+  box-sizing: border-box;
 }
 
 .logout-btn {
@@ -82,6 +87,7 @@
   padding: 40rpx;
   width: 80%;
   box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
 }
 
 .section-title {
@@ -94,6 +100,7 @@
 
 .option-group {
   margin-bottom: 40rpx;
+  box-sizing: border-box;
 }
 
 .option-group:last-child {
@@ -111,6 +118,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 20rpx;
+  box-sizing: border-box;
 }
 
 .color-item {
@@ -118,6 +126,7 @@
   height: 60rpx;
   border-radius: 50%;
   box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
 }
 
 .color-item:active {
@@ -128,6 +137,7 @@
   display: flex;
   flex-direction: column;
   gap: 20rpx;
+  box-sizing: border-box;
 }
 
 .gradient-btn {
@@ -137,6 +147,7 @@
   font-weight: bold;
   text-align: center;
   box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
 }
 
 .gradient-btn:active {
@@ -153,6 +164,7 @@
   padding: 25rpx;
   font-size: 28rpx;
   box-shadow: 0 4rpx 10rpx rgba(102, 126, 234, 0.4);
+  box-sizing: border-box;
 }
 
 .reset-btn {
@@ -171,6 +183,7 @@
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  box-sizing: border-box;
 }
 
 .modal-content {
@@ -179,6 +192,7 @@
   width: 80%;
   max-width: 600rpx;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 .modal-header {
@@ -187,6 +201,7 @@
   align-items: center;
   padding: 30rpx;
   border-bottom: 1rpx solid #eee;
+  box-sizing: border-box;
 }
 
 .modal-title {
@@ -202,10 +217,12 @@
 
 .modal-body {
   padding: 30rpx;
+  box-sizing: border-box;
 }
 
 .input-group {
   margin-bottom: 30rpx;
+  box-sizing: border-box;
 }
 
 .input-group:last-child {
@@ -232,6 +249,7 @@
   display: flex;
   padding: 30rpx;
   gap: 20rpx;
+  box-sizing: border-box;
 }
 
 .cancel-btn,
@@ -241,6 +259,7 @@
   border-radius: 50rpx;
   font-size: 28rpx;
   border: none;
+  box-sizing: border-box;
 }
 
 .cancel-btn {

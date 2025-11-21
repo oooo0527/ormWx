@@ -3,4 +3,6 @@
   min-height: 100vh;
   padding: 20rpx;
   box-sizing: border-box;
+  width: 100%;
+  overflow-x: hidden;
 }

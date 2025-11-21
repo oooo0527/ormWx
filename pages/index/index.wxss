@@ -7,11 +7,15 @@
   justify-content: center;
   align-items: center;
   position: relative;
+  box-sizing: border-box;
 }
 
 .header {
   text-align: center;
   margin-bottom: 100rpx;
+  width: 100%;
+  padding: 0 20rpx;
+  box-sizing: border-box;
 }
 
 .logo {
@@ -52,6 +56,7 @@
 .login-section {
   width: 80%;
   max-width: 500rpx;
+  box-sizing: border-box;
 }
 
 .login-btn {
@@ -66,6 +71,7 @@
   border: none;
   box-shadow: 0 10rpx 20rpx rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
+  box-sizing: border-box;
 }
 
 .login-btn:active {
@@ -83,6 +89,7 @@
   font-weight: bold;
   border: 2rpx solid white;
   transition: all 0.3s ease;
+  box-sizing: border-box;
 }
 
 .guest-btn:active {
@@ -95,6 +102,8 @@
   bottom: 40rpx;
   width: 100%;
   text-align: center;
+  box-sizing: border-box;
+  padding: 0 20rpx;
 }
 
 .copyright {
@@ -111,6 +120,7 @@
   padding: 15rpx 25rpx;
   backdrop-filter: blur(10rpx);
   transition: all 0.3s ease;
+  box-sizing: border-box;
 }
 
 .background-switch:active {

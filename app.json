@@ -1,8 +1,8 @@
 {
   "pages": [
+    "pages/fanVoice/fanVoice",
     "pages/profile/profile",
     "pages/index/index",
-    "pages/fanVoice/fanVoice",
     "pages/support-detail/detail",
     "pages/login/login",
     "pages/starArchive/starArchive",

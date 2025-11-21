@@ -2,6 +2,7 @@
   padding: 20rpx;
   /* background: #f5f5f5; */
   min-height: 100vh;
+  box-sizing: border-box;
 }
 
 .page-title {
@@ -16,6 +17,7 @@
   display: flex;
   flex-direction: column;
   gap: 30rpx;
+  box-sizing: border-box;
 }
 
 .work-item {
@@ -23,16 +25,19 @@
   border-radius: 20rpx;
   overflow: hidden;
   box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
 }
 
 .work-cover {
   width: 100%;
   height: 300rpx;
   display: block;
+  box-sizing: border-box;
 }
 
 .work-info {
   padding: 30rpx;
+  box-sizing: border-box;
 }
 
 .work-header {
@@ -40,6 +45,7 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 15rpx;
+  box-sizing: border-box;
 }
 
 .work-title {
@@ -54,6 +60,7 @@
   color: white;
   border-radius: 10rpx;
   padding: 5rpx 15rpx;
+  box-sizing: border-box;
 }
 
 .work-meta {
@@ -61,6 +68,7 @@
   justify-content: space-between;
   margin-bottom: 20rpx;
   flex-wrap: wrap;
+  box-sizing: border-box;
 }
 
 .work-year {
@@ -79,28 +87,44 @@
   color: #666;
   line-height: 1.5;
   margin-bottom: 20rpx;
+  box-sizing: border-box;
 }
 
-.work-actions {
+.work-stats {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  align-items: center;
   border-top: 1rpx solid #eee;
   padding-top: 20rpx;
+  box-sizing: border-box;
 }
 
-.action-item {
+.stat-item {
   display: flex;
-  flex-direction: column;
   align-items: center;
+  box-sizing: border-box;
 }
 
-.action-icon {
-  width: 40rpx;
-  height: 40rpx;
-  margin-bottom: 10rpx;
+.stat-label {
+  font-size: 28rpx;
+  margin-right: 10rpx;
 }
 
-.action-text {
-  font-size: 24rpx;
+.stat-value {
+  font-size: 28rpx;
   color: #666;
+}
+
+.like-btn {
+  background: #007AFF;
+  color: white;
+  border: none;
+  border-radius: 50rpx;
+  padding: 15rpx 30rpx;
+  font-size: 28rpx;
+  box-sizing: border-box;
+}
+
+.like-btn.liked {
+  background: #FF3B30;
 }

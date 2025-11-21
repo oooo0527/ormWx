@@ -1,7 +1,7 @@
 <global-background>
   <view class="container">
     <view class="login-card">
-      <image class="logo" src="/images/icon_star_large.png"></image>
+
       <text class="title">欢迎回来</text>
       <text class="subtitle">登录您的账户</text>
       
