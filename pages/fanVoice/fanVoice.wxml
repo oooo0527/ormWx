@@ -3,7 +3,9 @@
   <fan-voice-category current-category="{{currentCategory}}" bind:categoryChange="switchCategory"></fan-voice-category>
   
   <!-- 内容区域组件 -->
-  <fan-voice-content current-category="{{currentCategory}}" support-data="{{supportData}}"></fan-voice-content>
+  <view class="content-area">
+    <fan-voice-content current-category="{{currentCategory}}" support-data="{{supportData}}"></fan-voice-content>
+  </view>
   
   <!-- 发布表单弹窗 -->
   <view class="modal" wx:if="{{showPostForm}}">

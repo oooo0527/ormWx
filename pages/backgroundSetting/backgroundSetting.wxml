@@ -1,0 +1,56 @@
+<global-background>
+  <view class="container">
+    <view class="header">
+      <text class="page-title">背景设置</text>
+    </view>
+    
+    <view class="settings-grid">
+      <!-- 纯色背景选项 -->
+      <view class="setting-item">
+        <text class="item-label">纯色背景</text>
+        <view class="color-palette">
+          <view 
+            wx:for="{{colorOptions}}" 
+            wx:key="index"
+            class="color-item"
+            style="background-color: {{item}}"
+            data-color="{{item}}"
+            bindtap="selectBackgroundColor"
+          ></view>
+        </view>
+      </view>
+      
+      <!-- 渐变背景选项 -->
+      <view class="setting-item">
+        <text class="item-label">渐变背景</text>
+        <view class="gradient-options">
+          <view 
+            wx:for="{{gradientOptions}}" 
+            wx:key="index"
+            class="gradient-btn"
+            style="background: {{item}}"
+            data-gradient="{{item}}"
+            bindtap="selectGradientBackground"
+          >
+            渐变{{index + 1}}
+          </view>
+        </view>
+      </view>
+      
+      <!-- 自定义背景 -->
+      <view class="setting-item">
+        <text class="item-label">自定义背景</text>
+        <view class="custom-options">
+          <button class="option-btn upload-btn" bindtap="uploadCustomBackground">
+            <image class="btn-icon" src="/images/profile/upload.svg"></image>
+            <text>上传图片</text>
+          </button>
+          <button class="option-btn reset-btn" bindtap="resetBackground">
+            <image class="btn-icon" src="/images/profile/reset.svg"></image>
+            <text>重置默认</text>
+          </button>
+        </view>
+      </view>
+    </view>
+  </view>
+</global-background>

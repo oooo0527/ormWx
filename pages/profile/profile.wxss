@@ -5,18 +5,19 @@
   flex-direction: column;
   align-items: center;
   box-sizing: border-box;
+  background: #f5f5f5;
 }
 
 .profile-card {
   background: white;
   border-radius: 20rpx;
-  padding: 60rpx 40rpx;
-  width: 80%;
-  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.1);
+  padding: 50rpx 40rpx;
+  width: 100%;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 40rpx;
+  margin-bottom: 30rpx;
   box-sizing: border-box;
 }
 
@@ -25,6 +26,8 @@
   height: 120rpx;
   border-radius: 50%;
   margin-bottom: 20rpx;
+  border: 4rpx solid #fff;
+  box-shadow: 0 4rpx 10rpx rgba(0, 0, 0, 0.1);
 }
 
 .nickname {
@@ -37,138 +40,55 @@
 .username {
   font-size: 28rpx;
   color: #999;
-  margin-bottom: 40rpx;
+  margin-bottom: 30rpx;
 }
 
-.profile-info {
-  width: 100%;
-  margin-bottom: 40rpx;
-  box-sizing: border-box;
-}
-
-.info-item {
+/* 操作按钮 */
+.action-buttons {
   display: flex;
-  justify-content: space-between;
-  padding: 20rpx 0;
-  border-bottom: 1rpx solid #eee;
+  gap: 20rpx;
+  width: 100%;
   box-sizing: border-box;
 }
 
-.label {
-  color: #666;
-}
-
-.value {
+.action-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20rpx;
+  border-radius: 15rpx;
+  border: none;
+  background: #f8f9fa;
   color: #333;
-  font-weight: bold;
+  font-size: 26rpx;
+  box-sizing: border-box;
 }
 
-.button {
-  width: 100%;
+.action-btn:active {
+  transform: scale(0.98);
+}
+
+.action-icon {
+  width: 40rpx;
+  height: 40rpx;
+  margin-bottom: 10rpx;
+}
+
+.edit-btn {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
-  border: none;
-  border-radius: 50rpx;
-  padding: 30rpx;
-  font-size: 32rpx;
-  margin-bottom: 20rpx;
-  box-shadow: 0 4rpx 10rpx rgba(102, 126, 234, 0.4);
-  box-sizing: border-box;
+}
+
+.background-btn {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  color: white;
 }
 
 .logout-btn {
   background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
-}
-
-/* 背景设置区域样式 */
-.background-section {
-  background: white;
-  border-radius: 20rpx;
-  padding: 40rpx;
-  width: 80%;
-  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.1);
-  box-sizing: border-box;
-}
-
-.section-title {
-  font-size: 36rpx;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 30rpx;
-  text-align: center;
-}
-
-.option-group {
-  margin-bottom: 40rpx;
-  box-sizing: border-box;
-}
-
-.option-group:last-child {
-  margin-bottom: 0;
-}
-
-.option-label {
-  font-size: 28rpx;
-  color: #666;
-  margin-bottom: 20rpx;
-  display: block;
-}
-
-.color-palette {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20rpx;
-  box-sizing: border-box;
-}
-
-.color-item {
-  width: 60rpx;
-  height: 60rpx;
-  border-radius: 50%;
-  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
-  box-sizing: border-box;
-}
-
-.color-item:active {
-  transform: scale(0.9);
-}
-
-.gradient-options {
-  display: flex;
-  flex-direction: column;
-  gap: 20rpx;
-  box-sizing: border-box;
-}
-
-.gradient-btn {
-  padding: 20rpx;
-  border-radius: 15rpx;
   color: white;
-  font-weight: bold;
-  text-align: center;
-  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
-  box-sizing: border-box;
-}
-
-.gradient-btn:active {
-  transform: scale(0.98);
-}
-
-.upload-btn,
-.reset-btn {
-  width: 100%;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  border: none;
-  border-radius: 50rpx;
-  padding: 25rpx;
-  font-size: 28rpx;
-  box-shadow: 0 4rpx 10rpx rgba(102, 126, 234, 0.4);
-  box-sizing: border-box;
-}
-
-.reset-btn {
-  background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%);
 }
 
 /* 弹窗样式 */
@@ -270,4 +190,34 @@
 .confirm-btn {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .container {
+    padding: 15rpx;
+  }
+
+  .profile-card {
+    padding: 40rpx 30rpx;
+  }
+
+  .avatar {
+    width: 100rpx;
+    height: 100rpx;
+  }
+
+  .action-buttons {
+    gap: 15rpx;
+  }
+
+  .action-btn {
+    padding: 15rpx;
+    font-size: 24rpx;
+  }
+
+  .action-icon {
+    width: 35rpx;
+    height: 35rpx;
+  }
 }

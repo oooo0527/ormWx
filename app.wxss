@@ -5,14 +5,14 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: 200rpx 0;
+  /* padding: 200rpx 0; */
   box-sizing: border-box;
   width: 100%;
 }
 
 /* 全局样式 */
 .page-container {
-  padding: 20rpx;
+  /* padding: 20rpx; */
   box-sizing: border-box;
   width: 100%;
 }
@@ -64,7 +64,7 @@
 }
 
 /* 防止页面内容溢出 */
-
+/* 移除可能影响瀑布流布局的全局样式 */
 
 view,
 scroll-view,
@@ -85,4 +85,23 @@ navigator {
   width: 0;
   height: 0;
   display: none;
+}
+
+/* 为瀑布流布局添加特殊样式 */
+.waterfall-container {
+  display: flex !important;
+  flex-direction: row !important;
+  width: 100% !important;
+}
+
+.waterfall-column {
+  flex: 1 !important;
+  width: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+/* 确保全局样式不影响瀑布流布局 */
+.global-background {
+  display: block !important;
 }

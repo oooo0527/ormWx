@@ -1,35 +1,53 @@
-<view class="container">
-  <view class="header">
-    <text class="page-title">互动专区</text>
-  </view>
-  
-  <view class="voices-list">
-    <view class="voice-item" wx:for="{{voices}}" wx:key="id">
-      <view class="voice-header">
-        <image class="user-avatar" src="/images/default_avatar.png"></image>
-        <view class="user-info">
-          <text class="username">{{item.type}}</text>
-          <text class="time">{{item.createTime}}</text>
-        </view>
-      </view>
-      
-      <text class="voice-content">{{item.content}}</text>
-      
-      <view class="voice-context" wx:if="{{item.context}}">
-        <text class="context-text">{{item.context}}</text>
-      </view>
-      
-      <view class="voice-actions">
-        <view class="action-item" bindtap="likeVoice" data-index="{{index}}">
-          <image class="action-icon" src="{{item.isLiked ? '/images/like_active.png' : '/images/like.png'}}"></image>
-          <text class="action-text">{{item.likes.length}}</text>
-        </view>
-        
-        <view class="action-item" bindtap="commentVoice" data-index="{{index}}">
-          <image class="action-icon" src="/images/comment.png"></image>
-          <text class="action-text">{{item.comments.length}}</text>
-        </view>
+<global-background>
+  <view class="container">
+    <view class="header">
+      <text class="page-title">互动专区</text>
+    </view>
+    
+    <!-- 瀑布流布局 -->
+    <view class="waterfall-container">
+      <view class="waterfall-column" wx:for="{{columns}}" wx:key="index">
+        <block wx:for="{{item}}" wx:key="id">
+          <view class="voice-item">
+            <view class="voice-header">
+              <image class="user-avatar" src="{{item.avatar || '/images/default_avatar.png'}}"></image>
+              <view class="user-info">
+                <text class="username">{{item.type}}</text>
+                <text class="time">{{item.createTime}}</text>
+              </view>
+            </view>
+            
+            <!-- 文字内容 -->
+            <text class="voice-content" wx:if="{{!item.hasImage && !item.imageOnly}}">{{item.content}}</text>
+            
+            <!-- 图片内容 -->
+            <view class="voice-images" wx:if="{{item.hasImage && !item.imageOnly}}">
+              <image class="voice-image" wx:for="{{item.images}}" wx:key="index" src="{{item}}" mode="widthFix" bindtap="previewImage" data-images="{{item.images}}" data-current="{{item}}"></image>
+            </view>
+            
+            <!-- 纯图片内容 -->
+            <view class="image-only" wx:if="{{item.imageOnly}}">
+              <image class="main-image" src="{{item.mainImage}}" mode="aspectFill" bindtap="previewImage" data-images="{{[item.mainImage]}}" data-current="{{item.mainImage}}"></image>
+            </view>
+            
+            <view class="voice-context" wx:if="{{item.context}}">
+              <text class="context-text">{{item.context}}</text>
+            </view>
+            
+            <view class="voice-actions">
+              <view class="action-item" bindtap="likeVoice" data-id="{{item.id}}">
+                <image class="action-icon" src="{{item.isLiked ? '/images/like_active.png' : '/images/like.png'}}"></image>
+                <text class="action-text">{{item.likes.length}}</text>
+              </view>
+              
+              <view class="action-item" bindtap="commentVoice" data-id="{{item.id}}">
+                <image class="action-icon" src="/images/comment.png"></image>
+                <text class="action-text">{{item.comments.length}}</text>
+              </view>
+            </view>
+          </view>
+        </block>
       </view>
     </view>
   </view>
-</view>
+</global-background>

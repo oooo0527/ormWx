@@ -1,0 +1,174 @@
+.container {
+  padding: 20rpx;
+  min-height: 100vh;
+  box-sizing: border-box;
+  background: #f5f5f5;
+}
+
+.header {
+  background: white;
+  border-radius: 20rpx;
+  padding: 30rpx;
+  margin-bottom: 30rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.05);
+  box-sizing: border-box;
+}
+
+.page-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+}
+
+.settings-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 40rpx;
+  box-sizing: border-box;
+}
+
+.setting-item {
+  background: white;
+  border-radius: 20rpx;
+  padding: 30rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.05);
+  box-sizing: border-box;
+}
+
+.item-label {
+  font-size: 32rpx;
+  color: #333;
+  font-weight: bold;
+  margin-bottom: 30rpx;
+  display: block;
+}
+
+/* 颜色选择器 */
+.color-palette {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20rpx;
+  box-sizing: border-box;
+}
+
+.color-item {
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 50%;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+}
+
+.color-item:active {
+  transform: scale(0.9);
+}
+
+/* 渐变选项 */
+.gradient-options {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+  box-sizing: border-box;
+}
+
+.gradient-btn {
+  padding: 25rpx;
+  border-radius: 15rpx;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  font-size: 28rpx;
+}
+
+.gradient-btn:active {
+  transform: scale(0.98);
+}
+
+/* 自定义选项 */
+.custom-options {
+  display: flex;
+  gap: 20rpx;
+  box-sizing: border-box;
+}
+
+.option-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 25rpx;
+  border-radius: 15rpx;
+  border: none;
+  background: #f8f9fa;
+  color: #333;
+  font-size: 28rpx;
+  box-sizing: border-box;
+}
+
+.upload-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.reset-btn {
+  background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%);
+  color: white;
+}
+
+.option-btn:active {
+  transform: scale(0.98);
+}
+
+.btn-icon {
+  width: 45rpx;
+  height: 45rpx;
+  margin-bottom: 15rpx;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .container {
+    padding: 15rpx;
+  }
+
+  .header {
+    padding: 25rpx;
+  }
+
+  .page-title {
+    font-size: 32rpx;
+  }
+
+  .setting-item {
+    padding: 25rpx;
+  }
+
+  .item-label {
+    font-size: 28rpx;
+    margin-bottom: 25rpx;
+  }
+
+  .color-item {
+    width: 50rpx;
+    height: 50rpx;
+  }
+
+  .gradient-btn {
+    padding: 20rpx;
+    font-size: 26rpx;
+  }
+
+  .option-btn {
+    padding: 20rpx;
+    font-size: 26rpx;
+  }
+
+  .btn-icon {
+    width: 40rpx;
+    height: 40rpx;
+  }
+}

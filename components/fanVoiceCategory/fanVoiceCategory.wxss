@@ -7,6 +7,12 @@
   width: 100%;
   overflow: hidden;
   box-sizing: border-box;
+  position: sticky;
+  /* 固定在顶部 */
+  top: 0;
+  /* 距离顶部0像素 */
+  z-index: 999;
+  /* 确保在其他元素之上 */
 }
 
 .category-scroll {

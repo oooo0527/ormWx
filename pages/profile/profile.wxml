@@ -5,66 +5,19 @@
       <text class="nickname">{{userInfo.nickname}}</text>
       <text class="username">@{{userInfo.username}}</text>
       
-      <view class="profile-info">
-        <view class="info-item">
-          <text class="label">用户ID:</text>
-          <text class="value">{{userInfo._id || userInfo.id}}</text>
-        </view>
-        <view class="info-item">
-          <text class="label">注册时间:</text>
-          <text class="value">{{userInfo.createTime || '2023-01-01'}}</text>
-        </view>
-      </view>
-      
-      <button class="button" bindtap="showEditForm">编辑资料</button>
-      <button class="button logout-btn" bindtap="logout">退出登录</button>
-    </view>
-
-    <!-- 背景设置区域 -->
-    <view class="background-section">
-      <text class="section-title">背景设置</text>
-      
-      <!-- 纯色背景选项 -->
-      <view class="option-group">
-        <text class="option-label">纯色背景</text>
-        <view class="color-palette">
-          <view 
-            wx:for="{{colorOptions}}" 
-            wx:key="index"
-            class="color-item"
-            style="background-color: {{item}}"
-            data-color="{{item}}"
-            bindtap="selectBackgroundColor"
-          ></view>
-        </view>
-      </view>
-      
-      <!-- 渐变背景选项 -->
-      <view class="option-group">
-        <text class="option-label">渐变背景</text>
-        <view class="gradient-options">
-          <view 
-            wx:for="{{gradientOptions}}" 
-            wx:key="index"
-            class="gradient-btn"
-            style="background: {{item}}"
-            data-gradient="{{item}}"
-            bindtap="selectGradientBackground"
-          >
-            渐变{{index + 1}}
-          </view>
-        </view>
-      </view>
-      
-      <!-- 自定义图片背景 -->
-      <view class="option-group">
-        <text class="option-label">自定义背景</text>
-        <button class="upload-btn" bindtap="uploadCustomBackground">上传图片</button>
-      </view>
-      
-      <!-- 重置背景 -->
-      <view class="option-group">
-        <button class="reset-btn" bindtap="resetBackground">重置为默认背景</button>
+      <view class="action-buttons">
+        <button class="action-btn edit-btn" bindtap="showEditForm">
+          <image class="action-icon" src="/images/profile/edit.svg"></image>
+          <text>编辑资料</text>
+        </button>
+        <button class="action-btn background-btn" bindtap="goToBackgroundSetting">
+          <image class="action-icon" src="/images/profile/upload.svg"></image>
+          <text>背景设置</text>
+        </button>
+        <button class="action-btn logout-btn" bindtap="logout">
+          <image class="action-icon" src="/images/profile/logout.svg"></image>
+          <text>退出登录</text>
+        </button>
       </view>
     </view>
 

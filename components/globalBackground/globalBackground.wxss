@@ -1,8 +1,12 @@
 /* components/globalBackground/globalBackground.wxss */
 .global-background {
   min-height: 100vh;
-  padding: 20rpx;
+  padding: 0;
   box-sizing: border-box;
   width: 100%;
   overflow-x: hidden;
+  display: block !important;
+  /* 确保背景组件不影响布局 */
+  position: relative;
+  /* 确保子元素可以正确使用固定定位 */
 }

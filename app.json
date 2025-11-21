@@ -1,13 +1,15 @@
 {
   "pages": [
-    "pages/fanVoice/fanVoice",
     "pages/profile/profile",
+    "pages/fanVoice/fanVoice",
     "pages/index/index",
     "pages/support-detail/detail",
     "pages/login/login",
     "pages/starArchive/starArchive",
     "pages/dataWorkshop/dataWorkshop",
-    "pages/workRecommend/workRecommend"
+    "pages/workRecommend/workRecommend",
+    "pages/test/test",
+    "pages/backgroundSetting/backgroundSetting"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -46,6 +48,12 @@
         "iconPath": "images/icon_fan.png",
         "selectedIconPath": "images/icon_fan_HL.png",
         "text": "粉丝心声"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "iconPath": "images/icon_my.png",
+        "selectedIconPath": "images/icon_my_HL.png",
+        "text": "我的"
       }
     ]
   },

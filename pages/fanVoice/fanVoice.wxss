@@ -70,6 +70,12 @@
   margin-right: 0;
 }
 
+/* 内容区域样式 */
+.content-area {
+  margin-top: 20rpx;
+  /* 添加顶部边距，避免被固定菜单遮挡 */
+}
+
 .voices-list {
   display: flex;
   flex-direction: column;
