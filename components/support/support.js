@@ -57,7 +57,7 @@ Component({
       // 按年份分组
       list.forEach(item => {
         // 从tiime字段提取年份（假设格式为YYYYMM）
-        const year = item.year ? item.year : '未知';
+        const year = item.tiime ? item.tiime.substring(0, 4) : '未知';
 
         if (!groups[year]) {
           groups[year] = [];
@@ -96,9 +96,27 @@ Component({
     // 跳转到详情页
     goToDetail: function (e) {
       const id = e.currentTarget.dataset.id;
+
+      // 在当前组件的数据中查找对应的详情数据
+      let detailData = null;
+      for (let group of this.data.yearGroups) {
+        for (let item of group.list) {
+          if (item.id === id) {
+            detailData = item;
+            break;
+          }
+        }
+        if (detailData) break;
+      }
+
+      // 跳转到详情页并传递数据
       wx.navigateTo({
-        url: '/pages/fanVoice/support/detail/detail?id=' + id
+        url: '/pages/support-detail/detail?id=' + id,
+        success: function (res) {
+          // 通过事件通道传递单条数据
+          res.eventChannel.emit('acceptDataFromOpenerPage', detailData);
+        }
       });
-    }
+    },
   }
 })

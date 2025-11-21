@@ -1,7 +1,7 @@
 {
   "pages": [
     "pages/fanVoice/fanVoice",
-    "pages/fanVoice/support/detail/detail",
+    "pages/support-detail/detail",
     "pages/index/index",
     "pages/login/login",
     "pages/profile/profile",

@@ -1,6 +1,6 @@
 <view class="category-container">
   <!-- 二级菜单 -->
-  <scroll-view class="category-scroll" scroll-x="true">
+  <scroll-view class="category-scroll" scroll-x="true" show-scrollbar="false" enhanced="true">
     <view class="category-list">
       <view class="category-item {{currentCategory === 'interaction' ? 'active' : ''}}" data-category="interaction" bindtap="switchCategory">
         <text>互动专区</text>

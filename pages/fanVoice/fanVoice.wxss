@@ -2,6 +2,7 @@
   padding: 20rpx;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   min-height: 100vh;
+  box-sizing: border-box;
 }
 
 .header {
@@ -33,11 +34,9 @@
 /* 二级菜单样式 */
 .category-scroll {
   white-space: nowrap;
-  margin-bottom: 30rpx;
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 20rpx;
-  padding: 20rpx;
-  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.1);
+  padding: 0 20rpx;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .category-list {
