@@ -25,6 +25,47 @@
   font-size: 28rpx;
 }
 
+/* 二级菜单样式 */
+.category-scroll {
+  white-space: nowrap;
+  margin-bottom: 30rpx;
+  background: white;
+  border-radius: 20rpx;
+  padding: 20rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.1);
+}
+
+.category-list {
+  display: inline-block;
+}
+
+.category-item {
+  display: inline-block;
+  padding: 15rpx 25rpx;
+  margin-right: 20rpx;
+  background: #f0f0f0;
+  border-radius: 50rpx;
+  font-size: 26rpx;
+  color: #666;
+  transition: all 0.3s ease;
+  box-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.1);
+}
+
+.category-item.active {
+  background: #007AFF;
+  color: white;
+  transform: scale(1.05);
+  box-shadow: 0 4rpx 8rpx rgba(0, 122, 255, 0.3);
+}
+
+.category-item:active {
+  transform: scale(0.95);
+}
+
+.category-item:last-child {
+  margin-right: 0;
+}
+
 .voices-list {
   display: flex;
   flex-direction: column;
@@ -177,6 +218,68 @@
   text-align: center;
 }
 
-.submit-btn {
-  width: 100%;
+/* 专区类型颜色区分 */
+.voice-item.interaction {
+  border-left: 6rpx solid #FF9500;
+}
+
+.voice-item.support {
+  border-left: 6rpx solid #34C759;
+}
+
+.voice-item.mom {
+  border-left: 6rpx solid #FF3B30;
+}
+
+.voice-item.dream {
+  border-left: 6rpx solid #AF52DE;
+}
+
+.voice-item.emoji {
+  border-left: 6rpx solid #007AFF;
+}
+
+.category-item.new {
+  border-left: 6rpx solid #FF9500;
+  background: linear-gradient(135deg, #FF9500, #FF5E3A);
+  color: white;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 4rpx 8rpx rgba(255, 149, 0, 0.3);
+  }
+
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 8rpx 16rpx rgba(255, 149, 0, 0.4);
+  }
+
+  100% {
+    transform: scale(1);
+    box-shadow: 0 4rpx 8rpx rgba(255, 149, 0, 0.3);
+  }
+}
+
+/* 为不同专区类型添加背景色微调 */
+.voice-item.interaction {
+  background: linear-gradient(135deg, #fff8f0, #ffffff);
+}
+
+.voice-item.support {
+  background: linear-gradient(135deg, #f0fdf4, #ffffff);
+}
+
+.voice-item.mom {
+  background: linear-gradient(135deg, #fff0f0, #ffffff);
+}
+
+.voice-item.dream {
+  background: linear-gradient(135deg, #f5f0ff, #ffffff);
+}
+
+.voice-item.emoji {
+  background: linear-gradient(135deg, #f0f5ff, #ffffff);
 }

@@ -1,18 +1,24 @@
 <view class="container">
   <view class="login-card">
-    <text class="title">用户登录</text>
+    <image class="logo" src="/images/icon_star_large.png"></image>
+    <text class="title">欢迎回来</text>
+    <text class="subtitle">登录您的账户</text>
     
     <view class="input-group">
-      <input class="input" placeholder="请输入用户名" bindinput="onUsernameInput" />
-      <input class="input" placeholder="请输入密码" password bindinput="onPasswordInput" />
+      <view class="input-wrapper">
+        <image class="input-icon" src="/images/default_avatar.png"></image>
+        <input class="input" placeholder="请输入用户名" bindinput="onUsernameInput" />
+      </view>
+      <view class="input-wrapper">
+        <image class="input-icon" src="/images/default_avatar.png"></image>
+        <input class="input" placeholder="请输入密码" password bindinput="onPasswordInput" />
+      </view>
     </view>
     
     <button class="button login-btn" bindtap="onLogin">登录</button>
     
-    <view class="divider">
-      <text class="divider-text">或</text>
+    <view class="footer">
+      <text class="footer-text">© 2025 明星互动平台</text>
     </view>
-    
-    <button class="button guest-btn" bindtap="onGuestVisit">游客访问</button>
   </view>
 </view>

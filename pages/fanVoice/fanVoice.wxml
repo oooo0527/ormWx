@@ -1,37 +1,57 @@
+<!-- 导入模板 -->
+<import src="./interaction/interaction.wxml" />
+<import src="./support/support.wxml" />
+<import src="./mom/mom.wxml" />
+<import src="./dream/dream.wxml" />
+<import src="./emoji/emoji.wxml" />
+<import src="./new/new.wxml" />
+
 <view class="container">
-  <!-- <view class="header">
-    <text class="page-title">粉丝心声</text>
-    <button class="post-btn" bindtap="showPostForm">发布心声</button>
-  </view> -->
+
   
-  <view class="voices-list">
-    <view class="voice-item" wx:for="{{voices}}" wx:key="id">
-      <view class="voice-header">
-        <image class="user-avatar" src="/images/default_avatar.png"></image>
-        <view class="user-info">
-          <text class="username">{{item.type}}</text>
-          <text class="time">{{item.createTime}}</text>
-        </view>
+  <!-- 二级菜单 -->
+  <scroll-view class="category-scroll" scroll-x="true">
+    <view class="category-list">
+      <view class="category-item {{currentCategory === 'interaction' ? 'active' : ''}}" data-category="interaction" bindtap="switchCategory">
+        <text>互动专区</text>
       </view>
-      
-      <text class="voice-content">{{item.content}}</text>
-      
-      <view class="voice-context" wx:if="{{item.context}}">
-        <text class="context-text">{{item.context}}</text>
+      <view class="category-item {{currentCategory === 'support' ? 'active' : ''}}" data-category="support" bindtap="switchCategory">
+        <text>中国应援</text>
       </view>
-      
-      <view class="voice-actions">
-        <view class="action-item" bindtap="likeVoice" data-index="{{index}}">
-          <image class="action-icon" src="{{item.isLiked ? '/images/like_active.png' : '/images/like.png'}}"></image>
-          <text class="action-text">{{item.likes.length}}</text>
-        </view>
-        
-        <view class="action-item" bindtap="commentVoice" data-index="{{index}}">
-          <image class="action-icon" src="/images/comment.png"></image>
-          <text class="action-text">{{item.comments.length}}</text>
-        </view>
+      <view class="category-item {{currentCategory === 'mom' ? 'active' : ''}}" data-category="mom" bindtap="switchCategory">
+        <text>妈粉专区</text>
+      </view>
+      <view class="category-item {{currentCategory === 'dream' ? 'active' : ''}}" data-category="dream" bindtap="switchCategory">
+        <text>梦女专区</text>
+      </view>
+      <view class="category-item {{currentCategory === 'emoji' ? 'active' : ''}}" data-category="emoji" bindtap="switchCategory">
+        <text>表情包专区</text>
+      </view>
+      <view class="category-item {{currentCategory === 'new' ? 'active' : ''}}" data-category="new" bindtap="switchCategory">
+        <text>添加新专区</text>
       </view>
     </view>
+  </scroll-view>
+  
+  <!-- 内容区域 -->
+  <view class="content">
+    <!-- 互动专区 -->
+    <template is="interaction" wx:if="{{currentCategory === 'interaction'}}"  />
+    
+    <!-- 中国应援 -->
+    <template is="support" wx:elif="{{currentCategory === 'support'}}" />
+    
+    <!-- 妈粉专区 -->
+    <template is="mom" wx:elif="{{currentCategory === 'mom'}}" />
+    
+    <!-- 梦女专区 -->
+    <template is="dream" wx:elif="{{currentCategory === 'dream'}}"  />
+    
+    <!-- 表情包专区 -->
+    <template is="emoji" wx:elif="{{currentCategory === 'emoji'}}" />
+    
+    <!-- 新专区 -->
+   
   </view>
   
   <!-- 发布表单弹窗 -->

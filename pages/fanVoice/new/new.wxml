@@ -1,0 +1,12 @@
+<template name="new">
+  <view class="container">
+    <view class="header">
+      <text class="page-title">新专区</text>
+    </view>
+    
+    <view class="content">
+      <image class="construction-icon" src="/images/default_avatar.png"></image>
+      <text class="construction-text">新专区正在建设中，敬请期待！</text>
+    </view>
+  </view>
+</template>

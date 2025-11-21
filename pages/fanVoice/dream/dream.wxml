@@ -1,0 +1,37 @@
+<template name="dream">
+  <view class="container">
+    <view class="header">
+      <text class="page-title">梦女专区</text>
+    </view>
+    
+    <view class="voices-list">
+      <view class="voice-item" wx:for="{{voices}}" wx:key="id">
+        <view class="voice-header">
+          <image class="user-avatar" src="/images/default_avatar.png"></image>
+          <view class="user-info">
+            <text class="username">{{item.type}}</text>
+            <text class="time">{{item.createTime}}</text>
+          </view>
+        </view>
+        
+        <text class="voice-content">{{item.content}}</text>
+        
+        <view class="voice-context" wx:if="{{item.context}}">
+          <text class="context-text">{{item.context}}</text>
+        </view>
+        
+        <view class="voice-actions">
+          <view class="action-item" bindtap="likeVoice" data-index="{{index}}">
+            <image class="action-icon" src="{{item.isLiked ? '/images/like_active.png' : '/images/like.png'}}"></image>
+            <text class="action-text">{{item.likes.length}}</text>
+          </view>
+          
+          <view class="action-item" bindtap="commentVoice" data-index="{{index}}">
+            <image class="action-icon" src="/images/comment.png"></image>
+            <text class="action-text">{{item.comments.length}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</template>

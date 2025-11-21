@@ -2,88 +2,61 @@ Page({
   data: {
     isLogin: false,
     userInfo: null,
-    voices: [
-      {
-        id: 1,
-        content: "ORM：我想拥有隐形的能力，这样我就可以偷偷出去玩而不被人发现（笑）。",
-        context: "ELLE杂志采访中关于超能力的提问",
-        type: "幽默自白",
-        userId: "user1",
-        likes: [],
-        comments: [],
-        createTime: "2025-01-15 10:30",
-        updateTime: "2025-01-15 10:30"
-      },
-      {
-        id: 2,
-        content: "我是一个特别容易入睡的人...在片场，有三个发型师围着我忙...我却能在这样的环境里睡着。所以有很多'数字足迹'（笑），因为大家会偷拍我睡觉。",
-        context: "ELLE杂志采访中分享的片场趣事",
-        type: "可爱日常",
-        userId: "user2",
-        likes: [],
-        comments: [],
-        createTime: "2025-01-10 14:20",
-        updateTime: "2025-01-10 14:20"
-      },
-      {
-        id: 3,
-        content: "如果我能回去和小时候的小Norawan对话，我会告诉她'你所做的一切都是对的'...我从来不是那种固执到会造成生活中重大问题的人。爸爸妈妈教了我很多东西，让我内心变得非常充实。",
-        context: "ELLE杂志采访中回顾成长的感悟",
-        type: "积极人生观",
-        userId: "user3",
-        likes: [],
-        comments: [],
-        createTime: "2025-01-05 09:15",
-        updateTime: "2025-01-05 09:15"
-      },
-      {
-        id: 4,
-        content: "她以亮眼的表现，首次登上ELLE Thailand 2025年1月刊封面",
-        context: "时尚杂志对其专业表现力的认可",
-        type: "专业认可",
-        userId: "user4",
-        likes: [],
-        comments: [],
-        createTime: "2024-12-28 16:45",
-        updateTime: "2024-12-28 16:45"
-      },
-      {
-        id: 5,
-        content: "Orm在《猎恶游戏》中饰演被冷漠抛弃的黑手党千金'Anya'而为人熟知。",
-        context: "代表角色获得关注",
-        type: "演技肯定",
-        userId: "user5",
-        likes: [],
-        comments: [],
-        createTime: "2024-12-20 11:30",
-        updateTime: "2024-12-20 11:30"
-      },
-      {
-        id: 6,
-        content: "Orm Kornnaphat Sethratanapong，泰国新生代的女演员及模特...作为该台的签约艺人，她展现出了在表演艺术方面的天赋和热情。",
-        context: "媒体对其职业潜力的评价",
-        type: "职业潜力",
-        userId: "user6",
-        likes: [],
-        comments: [],
-        createTime: "2024-12-15 13:20",
-        updateTime: "2024-12-15 13:20"
-      }
-    ],
+    currentCategory: 'interaction',
+
+
     showPostForm: false,
     postContent: ""
   },
 
+
+
   onLoad: function (options) {
-    // this.checkLoginStatus();
-    // 加载心声列表
-    // this.loadVoices();
+    this.checkLoginStatus();
+
+
+
   },
 
   onShow: function () {
-    // this.checkLoginStatus();
-    // 重新加载心声列表
-    // this.loadVoices();
+    this.checkLoginStatus();
+
+  },
+
+  // 检查登录状态
+  checkLoginStatus: function () {
+    const userInfo = wx.getStorageSync('userInfo');
+    if (userInfo) {
+      this.setData({
+        isLogin: true,
+        userInfo: userInfo
+      });
+    } else {
+      this.setData({
+        isLogin: false,
+        userInfo: null
+      });
+    }
+  },
+
+  // 切换分类
+  switchCategory: function (e) {
+    const category = e.currentTarget.dataset.category;
+
+    // 如果点击的是"添加新专区"，显示提示
+    if (category === 'new') {
+      wx.showModal({
+        title: '提示',
+        content: '新专区功能正在开发中，敬请期待！',
+        showCancel: false,
+        confirmText: '知道了'
+      });
+      return;
+    }
+
+    this.setData({
+      currentCategory: category
+    });
   },
 
   // 加载心声列表

@@ -62,12 +62,5 @@ Page({
         });
       }
     });
-  },
-
-  // 游客访问
-  onGuestVisit: function () {
-    wx.switchTab({
-      url: '/pages/starArchive/starArchive'
-    });
   }
 });

@@ -1,6 +1,6 @@
 .container {
-  padding: 20rpx;
-  background: linear-gradient(to bottom, #f5f5f5, #ffffff);
+  padding: 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -12,70 +12,106 @@
   border-radius: 20rpx;
   padding: 60rpx 40rpx;
   width: 80%;
-  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.1);
+  max-width: 500rpx;
+  box-shadow: 0 20rpx 40rpx rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.logo {
+  width: 120rpx;
+  height: 120rpx;
+  margin: 0 auto 30rpx;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }
 
 .title {
-  font-size: 36rpx;
+  font-size: 48rpx;
   font-weight: bold;
   text-align: center;
-  margin-bottom: 40rpx;
+  margin-bottom: 10rpx;
   color: #333;
+}
+
+.subtitle {
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 40rpx;
 }
 
 .input-group {
   margin-bottom: 40rpx;
 }
 
+.input-wrapper {
+  position: relative;
+  margin-bottom: 20rpx;
+}
+
+.input-icon {
+  position: absolute;
+  left: 20rpx;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40rpx;
+  height: 40rpx;
+  opacity: 0.5;
+}
+
 .input {
   border: 1rpx solid #ddd;
-  border-radius: 10rpx;
-  padding: 20rpx;
-  margin-bottom: 20rpx;
+  border-radius: 50rpx;
+  padding: 20rpx 20rpx 20rpx 70rpx;
   width: 100%;
   box-sizing: border-box;
+  font-size: 28rpx;
+}
+
+.input:focus {
+  border-color: #667eea;
+  outline: none;
 }
 
 .button {
   width: 100%;
   border-radius: 50rpx;
-  padding: 20rpx;
+  padding: 25rpx;
   font-size: 32rpx;
   font-weight: bold;
   margin-bottom: 20rpx;
+  border: none;
+  transition: all 0.3s ease;
 }
 
 .login-btn {
-  background: linear-gradient(to right, #007AFF, #0062CC);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
+  box-shadow: 0 10rpx 20rpx rgba(102, 126, 234, 0.3);
 }
 
-.guest-btn {
-  background: transparent;
-  border: 1rpx solid #007AFF;
-  color: #007AFF;
+.login-btn:active {
+  transform: translateY(2rpx);
+  box-shadow: 0 5rpx 15rpx rgba(102, 126, 234, 0.3);
 }
 
-.divider {
-  display: flex;
-  align-items: center;
-  margin: 30rpx 0;
+.footer {
+  margin-top: 40rpx;
 }
 
-.divider-text {
-  position: relative;
-  background: white;
-  padding: 0 20rpx;
+.footer-text {
+  font-size: 24rpx;
   color: #999;
-  z-index: 1;
-}
-
-.divider::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 1rpx;
-  background: #ddd;
-  z-index: 0;
 }
