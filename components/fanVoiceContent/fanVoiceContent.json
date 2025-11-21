@@ -1,0 +1,12 @@
+{
+  "component": true,
+  "usingComponents": {
+    "interaction-comp": "/components/interaction/interaction",
+    "support-comp": "/components/support/support",
+    "support-detail": "/components/support/detail/detail",
+    "mom-comp": "/components/mom/mom",
+    "dream-comp": "/components/dream/dream",
+    "emoji-comp": "/components/emoji/emoji",
+    "new-comp": "/components/new/new"
+  }
+}

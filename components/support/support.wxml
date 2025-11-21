@@ -1,0 +1,19 @@
+<view class="container">
+  <view class="header">
+    <text class="page-title">中国应援</text>
+  </view>
+  
+  <view class="support-list">
+    <view class="support-item" wx:for="{{supportList}}" wx:key="id" bindtap="goToDetail" data-id="{{item.id}}">
+      <image class="cover-image" src="{{item.coverImage}}"></image>
+      <view class="item-content">
+        <text class="item-title">{{item.title}}</text>
+        <text class="item-desc">{{item.description}}</text>
+        <view class="item-info">
+          <text class="item-date">{{item.year}}年{{item.date}}月</text>
+          <text class="item-location">{{item.location}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

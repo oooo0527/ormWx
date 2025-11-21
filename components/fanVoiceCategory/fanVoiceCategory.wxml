@@ -1,0 +1,25 @@
+<view class="category-container">
+  <!-- 二级菜单 -->
+  <scroll-view class="category-scroll" scroll-x="true">
+    <view class="category-list">
+      <view class="category-item {{currentCategory === 'interaction' ? 'active' : ''}}" data-category="interaction" bindtap="switchCategory">
+        <text>互动专区</text>
+      </view>
+      <view class="category-item {{currentCategory === 'support' ? 'active' : ''}}" data-category="support" bindtap="switchCategory">
+        <text>中国应援</text>
+      </view>
+      <view class="category-item {{currentCategory === 'mom' ? 'active' : ''}}" data-category="mom" bindtap="switchCategory">
+        <text>妈粉专区</text>
+      </view>
+      <view class="category-item {{currentCategory === 'dream' ? 'active' : ''}}" data-category="dream" bindtap="switchCategory">
+        <text>梦女专区</text>
+      </view>
+      <view class="category-item {{currentCategory === 'emoji' ? 'active' : ''}}" data-category="emoji" bindtap="switchCategory">
+        <text>表情包专区</text>
+      </view>
+      <view class="category-item {{currentCategory === 'new' ? 'active' : ''}}" data-category="new" bindtap="switchCategory">
+        <text>添加新专区</text>
+      </view>
+    </view>
+  </scroll-view>
+</view>

@@ -1,0 +1,113 @@
+.container {
+  padding: 20rpx;
+  background: #f5f5f5;
+  min-height: 100vh;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30rpx;
+}
+
+.page-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.voices-list {
+  display: flex;
+  flex-direction: column;
+  gap: 30rpx;
+}
+
+.voice-item {
+  background: white;
+  border-radius: 20rpx;
+  padding: 20rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.1);
+}
+
+.voice-item.mom {
+  border-left: 6rpx solid #FF3B30;
+  background: linear-gradient(135deg, #fff0f0, #ffffff);
+}
+
+.voice-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.user-avatar {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  margin-right: 20rpx;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.username {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10rpx;
+}
+
+.time {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.voice-content {
+  font-size: 28rpx;
+  color: #333;
+  line-height: 1.5;
+  margin-bottom: 20rpx;
+  display: block;
+}
+
+.voice-context {
+  background: #f0f8ff;
+  border-left: 6rpx solid #007AFF;
+  padding: 15rpx 20rpx;
+  margin-bottom: 20rpx;
+  border-radius: 10rpx;
+}
+
+.context-text {
+  font-size: 26rpx;
+  color: #666;
+  line-height: 1.4;
+  display: block;
+}
+
+.voice-actions {
+  display: flex;
+  justify-content: space-around;
+  border-top: 1rpx solid #eee;
+  padding-top: 20rpx;
+}
+
+.action-item {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.action-icon {
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 10rpx;
+}
+
+.action-text {
+  font-size: 26rpx;
+  color: #666;
+}

@@ -1,8 +1,0 @@
-<view class="container">
-  <text class="title">测试页面</text>
-  <button bindtap="testInteraction">测试互动专区</button>
-  <button bindtap="testSupport">测试中国应援</button>
-  <button bindtap="testMom">测试妈粉专区</button>
-  <button bindtap="testDream">测试梦女专区</button>
-  <button bindtap="testEmoji">测试表情包专区</button>
-</view>

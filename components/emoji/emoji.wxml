@@ -1,0 +1,13 @@
+<view class="container">
+  <view class="header">
+    <text class="page-title">表情包专区</text>
+  </view>
+  
+  <view class="emoji-list">
+    <view class="emoji-item" wx:for="{{emojis}}" wx:key="id">
+      <image class="emoji-image" src="{{item.image}}" mode="aspectFit"></image>
+      <text class="emoji-name">{{item.name}}</text>
+      <text class="emoji-desc">{{item.description}}</text>
+    </view>
+  </view>
+</view>

@@ -1,4 +1,7 @@
 {
   "navigationBarTitleText": "粉丝心声",
-  "usingComponents": {}
+  "usingComponents": {
+    "fan-voice-category": "/components/fanVoiceCategory/fanVoiceCategory",
+    "fan-voice-content": "/components/fanVoiceContent/fanVoiceContent"
+  }
 }

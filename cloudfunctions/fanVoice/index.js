@@ -21,6 +21,8 @@ exports.main = async (event, context) => {
       return await likeVoice(wxContext.OPENID, event)
     case 'deleteVoice':
       return await deleteVoice(wxContext.OPENID, event)
+    case 'getSupportImages':
+      return await getSupportImages(event)
     default:
       return {
         success: false,
@@ -146,6 +148,48 @@ async function deleteVoice(openid, event) {
     return {
       success: true,
       data: result
+    }
+  } catch (err) {
+    return {
+      success: false,
+      message: err.message
+    }
+  }
+}
+
+// 获取中国应援图片数据
+async function getSupportImages(event) {
+  try {
+    // 这里应该从云开发数据库获取实际的图片数据
+    // 暂时返回模拟数据
+    const supportImages = [
+      {
+        id: '321432',
+        title: "Orm生日应援活动",
+        coverImage: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/CN/2025.5曼谷生日/IMG_1538.JPG",
+        tiime: "202505",
+        year: "2025",
+        address: "曼谷",
+        img: [
+          ".jnsxjbkh"
+        ]
+      }
+    ];
+
+    // 格式化数据以适应前端显示
+    const formattedSupportImages = supportImages.map(item => ({
+      id: item.id,
+      title: item.title,
+      coverImage: item.coverImage,
+      date: item.tiime,
+      year: item.year,
+      location: item.address,
+      images: item.img
+    }));
+
+    return {
+      success: true,
+      data: formattedSupportImages
     }
   } catch (err) {
     return {

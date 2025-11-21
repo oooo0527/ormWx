@@ -4,6 +4,8 @@ Page({
     userInfo: null,
     currentCategory: 'interaction',
 
+    // 中国应援数据
+    supportData: {},
 
     showPostForm: false,
     postContent: ""
@@ -41,7 +43,7 @@ Page({
 
   // 切换分类
   switchCategory: function (e) {
-    const category = e.currentTarget.dataset.category;
+    const category = e.detail.category;
 
     // 如果点击的是"添加新专区"，显示提示
     if (category === 'new') {
