@@ -1,15 +1,10 @@
-<!-- 导入模板 -->
-<import src="./interaction/interaction.wxml" />
-<import src="./support/support.wxml" />
-<import src="./mom/mom.wxml" />
-<import src="./dream/dream.wxml" />
-<import src="./emoji/emoji.wxml" />
-<import src="./new/new.wxml" />
+
 
 <view class="container">
 
   
   <!-- 二级菜单组件 -->
+  
   <fan-voice-category current-category="{{currentCategory}}" bind:categoryChange="switchCategory"></fan-voice-category>
   
   <!-- 内容区域组件 -->

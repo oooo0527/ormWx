@@ -5,19 +5,8 @@ Component({
   },
 
   data: {
-    supportList: [
-      {
-        id: '321432',
-        title: "Orm生日应援活动",
-        coverImage: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/CN/2025.5曼谷生日/IMG_1538.JPG",
-        tiime: "202505",
-        year: "2025",
-        address: "曼谷",
-        img: [
-          ".jnsxjbkh"
-        ]
-      }
-    ]
+    supportList: [],
+    yearGroups: [] // 按年份分组的数据
   },
 
   lifetimes: {
@@ -38,8 +27,13 @@ Component({
         }
       }).then(res => {
         if (res.result.success) {
+          const supportList = res.result.data;
+          // 按年份分组
+          const yearGroups = this.groupByYear(supportList);
+
           this.setData({
-            supportList: res.result.data
+            supportList: supportList,
+            yearGroups: yearGroups
           });
         } else {
           wx.showToast({
@@ -56,11 +50,54 @@ Component({
       });
     },
 
+    // 按年份分组
+    groupByYear: function (list) {
+      const groups = {};
+
+      // 按年份分组
+      list.forEach(item => {
+        // 从tiime字段提取年份（假设格式为YYYYMM）
+        const year = item.year ? item.year : '未知';
+
+        if (!groups[year]) {
+          groups[year] = [];
+        }
+        groups[year].push(item);
+      });
+
+      // 转换为数组格式并按年份倒序排列
+      const yearGroups = Object.keys(groups).map(year => ({
+        year: year,
+        list: groups[year],
+        expanded: true // 默认展开
+      })).sort((a, b) => b.year - a.year);
+
+      return yearGroups;
+    },
+
+    // 切换年份展开/折叠状态
+    toggleYear: function (e) {
+      const year = e.currentTarget.dataset.year;
+      const yearGroups = this.data.yearGroups.map(group => {
+        if (group.year === year) {
+          return {
+            ...group,
+            expanded: !group.expanded
+          };
+        }
+        return group;
+      });
+
+      this.setData({
+        yearGroups: yearGroups
+      });
+    },
+
     // 跳转到详情页
     goToDetail: function (e) {
       const id = e.currentTarget.dataset.id;
       wx.navigateTo({
-        url: '/pages/support-detail/detail'
+        url: '/pages/fanVoice/support/detail/detail?id=' + id
       });
     }
   }

@@ -14,14 +14,18 @@ Page({
 
 
   onLoad: function (options) {
-    this.checkLoginStatus();
+    wx.cloud.init({
+      env: "cloud1-5gzybpqcd24b2b58",
+      traceUser: true,
+    })
+    // this.checkLoginStatus();
 
 
 
   },
 
   onShow: function () {
-    this.checkLoginStatus();
+    // this.checkLoginStatus();
 
   },
 

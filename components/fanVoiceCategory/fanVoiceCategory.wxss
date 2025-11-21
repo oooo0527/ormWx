@@ -1,7 +1,9 @@
 .category-container {
-  background: white;
+  background: rgba(255, 255, 255, 0.9);
   padding: 20rpx 0;
   box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+  border-radius: 20rpx;
+  margin-bottom: 30rpx;
 }
 
 .category-scroll {
@@ -27,13 +29,14 @@
   transition: all 0.3s ease;
   white-space: nowrap;
   flex-shrink: 0;
+  box-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.1);
 }
 
 .category-item.active {
-  background: #007AFF;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   transform: scale(1.05);
-  box-shadow: 0 4rpx 15rpx rgba(0, 122, 255, 0.3);
+  box-shadow: 0 4rpx 15rpx rgba(102, 126, 234, 0.4);
 }
 
 .category-item:active {

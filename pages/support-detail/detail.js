@@ -25,7 +25,7 @@ Component({
     previewImage: function (e) {
       const url = e.currentTarget.dataset.url;
       wx.previewImage({
-        urls: this.data.supportDetail.images,
+        urls: this.data.supportDetail.img[0],
         current: url
       });
     }

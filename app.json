@@ -1,13 +1,13 @@
 {
   "pages": [
     "pages/fanVoice/fanVoice",
+    "pages/fanVoice/support/detail/detail",
     "pages/index/index",
     "pages/login/login",
     "pages/profile/profile",
     "pages/starArchive/starArchive",
     "pages/dataWorkshop/dataWorkshop",
-    "pages/workRecommend/workRecommend",
-    "pages/support-detail/detail"
+    "pages/workRecommend/workRecommend"
   ],
   "window": {
     "backgroundTextStyle": "light",

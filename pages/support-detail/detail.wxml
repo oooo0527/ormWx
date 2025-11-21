@@ -4,16 +4,16 @@
   </view>
   
   <view class="detail-content">
-    <image class="cover-image" src="{{supportDetail.coverImage}}" mode="aspectFill"></image>
+    <image class="cover-image" src="{{supportDetail.img[0]}}" mode="aspectFill"></image>
     
     <view class="info-section">
       <view class="info-item">
         <text class="info-label">时间：</text>
-        <text class="info-value">{{supportDetail.year}}年{{supportDetail.date}}月</text>
+        <text class="info-value">{{supportDetail.time}}</text>
       </view>
       <view class="info-item">
         <text class="info-label">地点：</text>
-        <text class="info-value">{{supportDetail.location}}</text>
+        <text class="info-value">{{supportDetail.address}}</text>
       </view>
     </view>
     
@@ -25,7 +25,7 @@
     <view class="images-section">
       <text class="section-title">活动图片</text>
       <view class="images-grid">
-        <view class="image-item" wx:for="{{supportDetail.images}}" wx:key="index" bindtap="previewImage" data-url="{{item}}">
+        <view class="image-item" wx:for="{{supportDetail.img}}" wx:key="index" bindtap="previewImage" data-url="{{item}}">
           <image class="image-thumb" src="{{item}}" mode="aspectFill"></image>
         </view>
       </view>

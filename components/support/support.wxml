@@ -1,19 +1,35 @@
-<view class="container">
+<view class="support-container">
   <view class="header">
     <text class="page-title">中国应援</text>
   </view>
   
-  <view class="support-list">
-    <view class="support-item" wx:for="{{supportList}}" wx:key="id" bindtap="goToDetail" data-id="{{item.id}}">
-      <image class="cover-image" src="{{item.coverImage}}"></image>
-      <view class="item-content">
-        <text class="item-title">{{item.title}}</text>
-        <text class="item-desc">{{item.description}}</text>
-        <view class="item-info">
-          <text class="item-date">{{item.year}}年{{item.date}}月</text>
-          <text class="item-location">{{item.location}}</text>
+  <view class="year-list">
+    <block wx:for="{{yearGroups}}" wx:key="year">
+      <view class="year-section">
+        <!-- 年份标题，点击可折叠/展开 -->
+        <view class="year-header" bindtap="toggleYear" data-year="{{item.year}}">
+          <text class="year-text">{{item.year}}年</text>
+          <image 
+            class="arrow-icon" 
+            src="{{item.expanded ? '/images/arrow_up.svg' : '/images/arrow_down.svg'}}">
+          </image>
+        </view>
+        
+        <!-- 该年份下的应援活动列表 -->
+        <view class="support-list" wx:if="{{item.expanded}}">
+          <view class="support-item" wx:for="{{item.list}}" wx:key="id" bindtap="goToDetail" data-id="{{item.id}}">
+            <image class="cover-image" src="{{item.img[0]}}" mode="aspectFill"></image>
+            <view class="item-content">
+              <text class="item-title">{{item.title}}</text>
+              <text class="item-desc">{{item.description}}</text>
+              <view class="item-info">
+                <text class="item-date">{{item.tiime}}</text>
+                <text class="item-location">{{item.address}}</text>
+              </view>
+            </view>
+          </view>
         </view>
       </view>
-    </view>
+    </block>
   </view>
 </view>
