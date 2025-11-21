@@ -1,3 +1,6 @@
 {
-  "navigationBarTitleText": "数据工坊"
+  "navigationBarTitleText": "数据工坊",
+  "usingComponents": {
+    "global-background": "/components/globalBackground/globalBackground"
+  }
 }

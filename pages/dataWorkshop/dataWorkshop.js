@@ -49,27 +49,44 @@ Page({
     });
   },
 
+  // 检查登录状态
+  checkLoginStatus: function () {
+    const userInfo = wx.getStorageSync('userInfo');
+    if (userInfo) {
+      this.setData({
+        isLogin: true,
+        userInfo: userInfo
+      });
+    } else {
+      this.setData({
+        isLogin: false,
+        userInfo: null
+      });
+    }
+  },
+
   // 显示上传表单
   showUploadForm: function () {
+    this.checkLoginStatus();
     if (!this.data.isLogin) {
-      wx.showToast({
-        title: '请先登录',
-        icon: 'none'
+      wx.navigateTo({
+        url: '/pages/login/login'
       });
       return;
     }
 
     this.setData({
-      showUploadForm: true
+      showUploadForm: true,
+      uploadTitle: "",
+      uploadDescription: "",
+      uploadType: "用户上传"
     });
   },
 
   // 隐藏上传表单
   hideUploadForm: function () {
     this.setData({
-      showUploadForm: false,
-      uploadTitle: "",
-      uploadDescription: ""
+      showUploadForm: false
     });
   },
 
@@ -89,7 +106,7 @@ Page({
 
   // 选择类型
   onTypeChange: function (e) {
-    const types = ['用户上传', '排行榜', '分析报告', '数据报告'];
+    const types = ['用户上传', '系统数据', '统计报表'];
     this.setData({
       uploadType: types[e.detail.value]
     });
@@ -131,15 +148,9 @@ Page({
           icon: 'success'
         });
 
+        this.hideUploadForm();
         // 重新加载数据
         this.loadDataItems();
-
-        this.setData({
-          showUploadForm: false,
-          uploadTitle: "",
-          uploadDescription: "",
-          uploadType: "用户上传"
-        });
       } else {
         wx.showToast({
           title: res.result.message,
@@ -155,24 +166,24 @@ Page({
     });
   },
 
-  // 格式化日期
-  formatDate: function (date) {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
-  },
-
   // 查看数据详情
   viewDataDetail: function (e) {
     const index = e.currentTarget.dataset.index;
     const item = this.data.dataItems[index];
-
-    wx.showModal({
-      title: item.title,
-      content: item.description,
-      showCancel: false,
-      confirmText: '知道了'
+    this.setData({
+      selectedDataItem: item
     });
+  },
+
+  // 关闭数据详情
+  closeDataDetail: function () {
+    this.setData({
+      selectedDataItem: null
+    });
+  },
+
+  // 背景变化回调
+  onBackgroundChange: function (settings) {
+    // 由于使用了全局背景组件，这里不需要额外处理
   }
-});
+})

@@ -1,3 +1,6 @@
 {
-  "navigationBarTitleText": "作品安利"
+  "navigationBarTitleText": "作品安利",
+  "usingComponents": {
+    "global-background": "/components/globalBackground/globalBackground"
+  }
 }

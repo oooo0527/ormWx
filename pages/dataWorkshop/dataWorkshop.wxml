@@ -1,36 +1,71 @@
-<view class="container">
-  <view class="header">
-    <text class="page-title">数据工坊</text>
-    <button class="upload-btn" bindtap="showUploadForm">上传数据</button>
-  </view>
-  
-  <view class="data-list">
-    <view class="data-item" wx:for="{{dataItems}}" wx:key="id" bindtap="viewDataDetail" data-index="{{index}}">
-      <view class="item-header">
-        <text class="item-title">{{item.title}}</text>
-        <text class="item-type">{{item.type}}</text>
-      </view>
-      <text class="item-description">{{item.description}}</text>
-      <text class="item-time">更新时间: {{item.updateTime}}</text>
+<global-background>
+  <view class="container">
+    <view class="header">
+      <text class="page-title">数据工坊</text>
+      <button class="upload-btn" bindtap="showUploadForm">上传数据</button>
     </view>
-  </view>
-  
-  <!-- 上传表单弹窗 -->
-  <view class="modal" wx:if="{{showUploadForm}}">
-    <view class="modal-content">
-      <view class="modal-header">
-        <text class="modal-title">上传数据</text>
-        <image class="close-btn" bindtap="hideUploadForm" src="/images/close.png"></image>
-      </view>
-      
-      <view class="modal-body">
-        <input class="input" placeholder="请输入标题" bindinput="onTitleInput" value="{{uploadTitle}}" />
-        <textarea class="textarea" placeholder="请输入描述" bindinput="onDescriptionInput" value="{{uploadDescription}}" />
-        <picker class="picker" mode="selector" range="{{['用户上传', '排行榜', '分析报告', '数据报告']}}" bindchange="onTypeChange">
-          <view class="picker-label">数据类型: {{uploadType}}</view>
-        </picker>
-        <button class="button submit-btn" bindtap="uploadData">提交</button>
+    
+    <view class="data-list">
+      <view class="data-item" wx:for="{{dataItems}}" wx:key="id" bindtap="viewDataDetail" data-index="{{index}}">
+        <view class="item-header">
+          <text class="item-title">{{item.title}}</text>
+          <text class="item-type">{{item.type}}</text>
+        </view>
+        <text class="item-description">{{item.description}}</text>
+        <text class="item-time">更新时间: {{item.updateTime}}</text>
       </view>
     </view>
+    
+    <!-- 上传表单弹窗 -->
+    <view class="modal" wx:if="{{showUploadForm}}">
+      <view class="modal-content">
+        <view class="modal-header">
+          <text class="modal-title">上传数据</text>
+          <image class="close-btn" bindtap="hideUploadForm" src="/images/close.png"></image>
+        </view>
+        
+        <view class="modal-body">
+          <input class="input" placeholder="标题" bindinput="onTitleInput" value="{{uploadTitle}}" />
+          <input class="input" placeholder="描述" bindinput="onDescriptionInput" value="{{uploadDescription}}" />
+          <picker class="picker" mode="selector" range="{{['用户上传', '系统数据', '统计报表']}}" bindchange="onTypeChange">
+            <view class="picker-display">
+              类型: {{uploadType}}
+            </view>
+          </picker>
+        </view>
+        
+        <view class="modal-footer">
+          <button class="button cancel-btn" bindtap="hideUploadForm">取消</button>
+          <button class="button confirm-btn" bindtap="uploadData">上传</button>
+        </view>
+      </view>
+    </view>
+    
+    <!-- 数据详情弹窗 -->
+    <view class="modal" wx:if="{{selectedDataItem}}">
+      <view class="modal-content">
+        <view class="modal-header">
+          <text class="modal-title">{{selectedDataItem.title}}</text>
+          <image class="close-btn" bindtap="closeDataDetail" src="/images/close.png"></image>
+        </view>
+        
+        <scroll-view class="modal-body" scroll-y>
+          <view class="detail-info">
+            <view class="info-row">
+              <text class="label">类型:</text>
+              <text class="value">{{selectedDataItem.type}}</text>
+            </view>
+            <view class="info-row">
+              <text class="label">描述:</text>
+              <text class="value">{{selectedDataItem.description}}</text>
+            </view>
+            <view class="info-row">
+              <text class="label">更新时间:</text>
+              <text class="value">{{selectedDataItem.updateTime}}</text>
+            </view>
+          </view>
+        </scroll-view>
+      </view>
+    </view>
   </view>
-</view>
+</global-background>

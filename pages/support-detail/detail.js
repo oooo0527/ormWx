@@ -1,4 +1,3 @@
-
 Page({
   data: {
     supportDetail: {
@@ -23,10 +22,19 @@ Page({
       // 如果有传递的数据，使用传递的单条数据
       console.log(data, 'supportDetail');
       if (data) {
-
+        const detail = {
+          id: data.id || id,
+          title: data.title || '暂无标题',
+          description: data.description || '暂无描述',
+          coverImage: data.img && data.img.length > 0 ? data.img[0] : '/images/default_avatar.png',
+          date: data.tiime ? data.tiime.substring(4) : '', // 月份部分
+          year: data.tiime ? data.tiime.substring(0, 4) : '', // 年份部分
+          location: data.address || '未知地点',
+          images: data.img || []
+        };
 
         this.setData({
-          supportDetail: data
+          supportDetail: detail
         });
       } else {
         // 如果没有传递数据，使用默认数据

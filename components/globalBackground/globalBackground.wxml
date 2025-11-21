@@ -1,0 +1,4 @@
+<!-- components/globalBackground/globalBackground.wxml -->
+<view class="global-background" style="{{backgroundStyle}}">
+  <slot></slot>
+</view>

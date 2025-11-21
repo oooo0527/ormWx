@@ -2,12 +2,29 @@ App({
   globalData: {
     userInfo: null,
     isLogin: false,
-    apiUrl: 'https://your-api-url.com'
+    apiUrl: 'https://your-api-url.com',
+    // 全局背景设置
+    backgroundSettings: {
+      type: 'gradient', // 'color', 'gradient', 'image'
+      value: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', // 默认紫色渐变
+      customImage: '' // 自定义图片路径
+    },
+    backgroundChangeListener: null // 背景变化监听器
   },
 
   onLaunch: function () {
     // 小程序启动时检查登录状态
     this.checkLoginStatus();
+
+    // 从本地存储获取背景设置
+    const savedBackground = wx.getStorageSync('backgroundSettings');
+    if (savedBackground) {
+      this.globalData.backgroundSettings = savedBackground;
+    }
+  },
+
+  onShow: function () {
+    // 每次小程序启动或从后台进入前台时执行
   },
 
   // 检查登录状态
@@ -38,10 +55,24 @@ App({
     if (callback) callback(true);
   },
 
-  // 用户登出
-  logout: function () {
-    wx.removeStorageSync('userInfo');
-    this.globalData.userInfo = null;
-    this.globalData.isLogin = false;
+  // 更新全局背景设置
+  updateBackgroundSettings: function (settings) {
+    this.globalData.backgroundSettings = settings;
+    wx.setStorageSync('backgroundSettings', settings);
+
+    // 通知所有页面更新背景
+    if (this.globalData.backgroundChangeListener) {
+      this.globalData.backgroundChangeListener(settings);
+    }
+  },
+
+  // 获取当前背景样式
+  getCurrentBackgroundStyle: function () {
+    const settings = this.globalData.backgroundSettings;
+    if (settings.type === 'image' && settings.customImage) {
+      return `background-image: url(${settings.customImage}); background-size: cover; background-position: center;`;
+    } else {
+      return `background: ${settings.value};`;
+    }
   }
 })

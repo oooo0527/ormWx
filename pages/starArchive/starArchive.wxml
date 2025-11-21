@@ -1,167 +1,24 @@
-<view class="container">
-  <text class="page-title">🌟 orm</text>
-  <view>
+<global-background>
+  <view class="container">
+    <text class="page-title">🌟 orm</text>
+    <view>
 放一些互动片段
-  </view>
-  <view>
-  放一些作品滚动banner
-  </view>
-  
-  <view class="stars-list" wx:if="{{stars.length > 0}}">
-  
-    <view class="star-item" wx:for="{{stars}}" wx:key="id" bindtap="viewStarDetail" data-index="{{index}}">
-      <image class="star-avatar" src="{{item.avatar}}"></image>
-      <view class="star-info">
-        <text class="star-name">{{item.name}}</text>
-        <text class="star-en-name">{{item.englishName}}</text>
-        <text class="star-nicknames">昵称: {{item.nicknames.join(', ')}}</text>
-      </view>
-      <image class="arrow" src="/images/arrow_right.png"></image>
     </view>
-  </view>
-  
-  <view class="empty-tip" wx:else>
-    暂无明星档案数据
-  </view>
-  
-  <!-- 明星详情弹窗 -->
-  <view class="modal" wx:if="{{selectedStar}}">
-    <view class="modal-content">
-      <view class="modal-header">
-        <text class="modal-title">{{selectedStar.name}} 档案</text>
-        <image class="close-btn" bindtap="closeDetail" src="/images/close.png"></image>
-      </view>
-      
-      <scroll-view class="modal-body" scroll-y>
-        <image class="detail-avatar" src="{{selectedStar.avatar}}"></image>
-        
-        <view class="detail-info">
-          <view class="info-row" wx:if="{{selectedStar.name}}">
-            <text class="label">姓名:</text>
-            <text class="value">{{selectedStar.name}}</text>
-          </view>
-          
-          <view class="info-row" wx:if="{{selectedStar.thaiName}}">
-            <text class="label">泰文名:</text>
-            <text class="value">{{selectedStar.thaiName}}</text>
-          </view>
-          
-          <view class="info-row" wx:if="{{selectedStar.englishName}}">
-            <text class="label">英文名:</text>
-            <text class="value">{{selectedStar.englishName}}</text>
-          </view>
-          
-          <view class="info-row" wx:if="{{selectedStar.nicknames}}">
-            <text class="label">昵称:</text>
-            <text class="value">{{selectedStar.nicknames.join(', ')}}</text>
-          </view>
-          
-          <view class="info-row" wx:if="{{selectedStar.gender}}">
-            <text class="label">性别:</text>
-            <text class="value">{{selectedStar.gender}}</text>
-          </view>
-          
-          <view class="info-row" wx:if="{{selectedStar.birthday}}">
-            <text class="label">生日:</text>
-            <text class="value">{{selectedStar.birthday}}</text>
-          </view>
-          
-          <view class="info-row" wx:if="{{selectedStar.zodiacSign}}">
-            <text class="label">星座:</text>
-            <text class="value">{{selectedStar.zodiacSign}}</text>
-          </view>
-          
-          <view class="info-row" wx:if="{{selectedStar.nationality}}">
-            <text class="label">国籍:</text>
-            <text class="value">{{selectedStar.nationality}}</text>
-          </view>
-          
-          <view class="info-row" wx:if="{{selectedStar.birthplace}}">
-            <text class="label">出生地:</text>
-            <text class="value">{{selectedStar.birthplace}}</text>
-          </view>
-          
-          <view class="info-row" wx:if="{{selectedStar.height}}">
-            <text class="label">身高:</text>
-            <text class="value">{{selectedStar.height}}</text>
-          </view>
-          
-          <view class="info-row" wx:if="{{selectedStar.weight}}">
-            <text class="label">体重:</text>
-            <text class="value">{{selectedStar.weight}}</text>
-          </view>
-          
-          <view class="info-row" wx:if="{{selectedStar.bloodType}}">
-            <text class="label">血型:</text>
-            <text class="value">{{selectedStar.bloodType}}</text>
-          </view>
-          
-          <view class="info-row" wx:if="{{selectedStar.occupations}}">
-            <text class="label">职业:</text>
-            <text class="value">{{selectedStar.occupations.join(', ')}}</text>
-          </view>
-          
-          <view class="info-row" wx:if="{{selectedStar.hobby}}">
-            <text class="label">爱好:</text>
-            <text class="value">{{selectedStar.hobby}}</text>
-          </view>
-          
-          <view class="info-section" wx:if="{{selectedStar.education}}">
-            <text class="section-title">教育背景</text>
-            <view class="info-row">
-              <text class="label">大学:</text>
-              <text class="value">{{selectedStar.education.university}}</text>
-            </view>
-            <view class="info-row">
-              <text class="label">学院:</text>
-              <text class="value">{{selectedStar.education.college}}</text>
-            </view>
-            <view class="info-row">
-              <text class="label">专业:</text>
-              <text class="value">{{selectedStar.education.major}}</text>
-            </view>
-          </view>
-          
-          <view class="info-section" wx:if="{{selectedStar.familyBackground}}">
-            <text class="section-title">家庭背景</text>
-            <view class="info-row">
-              <text class="label">母亲:</text>
-              <text class="value">{{selectedStar.familyBackground.mother}}</text>
-            </view>
-            <view class="info-row">
-              <text class="label">母亲职业:</text>
-              <text class="value">{{selectedStar.familyBackground.motherOccupation}}</text>
-            </view>
-          </view>
-          
-          <view class="info-section" wx:if="{{selectedStar.career}}">
-            <text class="section-title">职业生涯</text>
-            <view class="info-row" wx:if="{{selectedStar.career.agency}}">
-              <text class="label">经纪公司:</text>
-              <text class="value">{{selectedStar.career.agency}}</text>
-            </view>
-            <view class="info-row" wx:if="{{selectedStar.career.debutYear}}">
-              <text class="label">出道年份:</text>
-              <text class="value">{{selectedStar.career.debutYear}}</text>
-            </view>
-            <view class="info-row" wx:if="{{selectedStar.career.debutWork}}">
-              <text class="label">出道作品:</text>
-              <text class="value">{{selectedStar.career.debutWork}}</text>
-            </view>
-            <view class="info-section" wx:if="{{selectedStar.career.representativeWorks && selectedStar.career.representativeWorks.length > 0}}">
-              <text class="section-title">代表作品</text>
-              <view class="work-item" wx:for="{{selectedStar.career.representativeWorks}}" wx:key="index">
-                <text class="work-text">{{item.year}}年 {{item.title}} {{item.role ? '(' + item.role + ')' : ''}}</text>
-              </view>
-            </view>
-          </view>
-          
-          <view class="info-row" wx:if="{{selectedStar.introduction}}">
-            <text class="label">简介:</text>
-            <text class="value intro">{{selectedStar.introduction}}</text>
-          </view>
+    <view>
+    放一些作品滚动banner
+    </view>
+    
+    <view class="stars-list" wx:if="{{stars.length > 0}}">
+    
+      <view class="star-item" wx:for="{{stars}}" wx:key="id" bindtap="viewStarDetail" data-index="{{index}}">
+        <image class="star-avatar" src="{{item.avatar}}"></image>
+        <view class="star-info">
+          <text class="star-name">{{item.name}}</text>
+          <text class="star-en-name">{{item.englishName}}</text>
+          <text class="star-nicknames">昵称: {{item.nicknames.join(', ')}}</text>
         </view>
-      </scroll-view>
+        <image class="arrow" src="/images/arrow_right.png"></image>
+      </view>
     </view>
   </view>
-</view>
+</global-background>

@@ -52,9 +52,9 @@ Page({
         });
 
         // 返回上一页或跳转到首页
-        setTimeout(() => {
-          wx.navigateBack();
-        }, 1500);
+        wx.navigateBack({
+          delta: 1
+        });
       } else {
         wx.showToast({
           title: '登录失败',
@@ -62,5 +62,17 @@ Page({
         });
       }
     });
+  },
+
+  // 游客访问
+  onGuestLogin: function () {
+    wx.switchTab({
+      url: '/pages/starArchive/starArchive'
+    });
+  },
+
+  // 背景变化回调
+  onBackgroundChange: function (settings) {
+    // 由于使用了全局背景组件，这里不需要额外处理
   }
-});
+})

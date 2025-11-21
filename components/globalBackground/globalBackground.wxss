@@ -1,0 +1,6 @@
+/* components/globalBackground/globalBackground.wxss */
+.global-background {
+  min-height: 100vh;
+  padding: 20rpx;
+  box-sizing: border-box;
+}

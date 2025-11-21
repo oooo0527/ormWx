@@ -1,10 +1,10 @@
 {
   "pages": [
+    "pages/profile/profile",
+    "pages/index/index",
     "pages/fanVoice/fanVoice",
     "pages/support-detail/detail",
-    "pages/index/index",
     "pages/login/login",
-    "pages/profile/profile",
     "pages/starArchive/starArchive",
     "pages/dataWorkshop/dataWorkshop",
     "pages/workRecommend/workRecommend"

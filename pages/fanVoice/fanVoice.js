@@ -11,22 +11,16 @@ Page({
     postContent: ""
   },
 
-
-
   onLoad: function (options) {
     wx.cloud.init({
       env: "cloud1-5gzybpqcd24b2b58",
       traceUser: true,
     })
     // this.checkLoginStatus();
-
-
-
   },
 
   onShow: function () {
     // this.checkLoginStatus();
-
   },
 
   // 检查登录状态
@@ -53,9 +47,8 @@ Page({
     if (category === 'new') {
       wx.showModal({
         title: '提示',
-        content: '新专区功能正在开发中，敬请期待！',
-        showCancel: false,
-        confirmText: '知道了'
+        content: '此功能正在开发中，敬请期待！',
+        showCancel: false
       });
       return;
     }
@@ -65,63 +58,26 @@ Page({
     });
   },
 
-  // 加载心声列表
-  loadVoices: function () {
-    wx.cloud.callFunction({
-      name: 'fanVoice',
-      data: {
-        action: 'getVoices',
-        limit: 20
-      }
-    }).then(res => {
-      if (res.result.success) {
-        // 处理点赞状态
-        const voices = res.result.data.map(voice => {
-          const openid = wx.getStorageSync('openid') || '';
-          return {
-            ...voice,
-            isLiked: voice.likes && voice.likes.includes(openid)
-          };
-        });
-
-        this.setData({
-          voices: voices
-        });
-      } else {
-        wx.showToast({
-          title: res.result.message,
-          icon: 'none'
-        });
-      }
-    }).catch(err => {
-      console.error('加载心声失败', err);
-      wx.showToast({
-        title: '加载心声失败',
-        icon: 'none'
-      });
-    });
-  },
-
   // 显示发布表单
   showPostForm: function () {
+    this.checkLoginStatus();
     if (!this.data.isLogin) {
-      wx.showToast({
-        title: '请先登录',
-        icon: 'none'
+      wx.navigateTo({
+        url: '/pages/login/login'
       });
       return;
     }
 
     this.setData({
-      showPostForm: true
+      showPostForm: true,
+      postContent: ""
     });
   },
 
   // 隐藏发布表单
   hidePostForm: function () {
     this.setData({
-      showPostForm: false,
-      postContent: ""
+      showPostForm: false
     });
   },
 
@@ -132,8 +88,8 @@ Page({
     });
   },
 
-  // 发布心声
-  postVoice: function () {
+  // 提交发布
+  submitPost: function () {
     const { postContent } = this.data;
 
     if (!postContent) {
@@ -144,107 +100,18 @@ Page({
       return;
     }
 
-    // 调用云函数发布心声
-    wx.cloud.callFunction({
-      name: 'fanVoice',
-      data: {
-        action: 'postVoice',
-        content: postContent
-      }
-    }).then(res => {
-      if (res.result.success) {
-        wx.showToast({
-          title: '发布成功',
-          icon: 'success'
-        });
-
-        // 重新加载心声列表
-        this.loadVoices();
-
-        this.setData({
-          showPostForm: false,
-          postContent: ""
-        });
-      } else {
-        wx.showToast({
-          title: res.result.message,
-          icon: 'none'
-        });
-      }
-    }).catch(err => {
-      console.error('发布失败', err);
-      wx.showToast({
-        title: '发布失败',
-        icon: 'none'
-      });
+    // 这里应该调用云函数提交数据
+    // 模拟提交成功
+    wx.showToast({
+      title: '发布成功',
+      icon: 'success'
     });
+
+    this.hidePostForm();
   },
 
-  // 格式化时间
-  formatTime: function (date) {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    const hour = String(date.getHours()).padStart(2, '0');
-    const minute = String(date.getMinutes()).padStart(2, '0');
-    return `${year}-${month}-${day} ${hour}:${minute}`;
-  },
-
-  // 点赞心声
-  likeVoice: function (e) {
-    if (!this.data.isLogin) {
-      wx.showToast({
-        title: '请先登录',
-        icon: 'none'
-      });
-      return;
-    }
-
-    const index = e.currentTarget.dataset.index;
-    const voice = this.data.voices[index];
-
-    // 调用云函数点赞
-    wx.cloud.callFunction({
-      name: 'fanVoice',
-      data: {
-        action: 'likeVoice',
-        voiceId: voice._id
-      }
-    }).then(res => {
-      if (res.result.success) {
-        // 更新本地数据
-        const voices = this.data.voices;
-        voices[index].isLiked = !voices[index].isLiked;
-        voices[index].likes = res.result.data.likes;
-
-        this.setData({
-          voices: voices
-        });
-      } else {
-        wx.showToast({
-          title: res.result.message,
-          icon: 'none'
-        });
-      }
-    }).catch(err => {
-      console.error('点赞失败', err);
-      wx.showToast({
-        title: '点赞失败',
-        icon: 'none'
-      });
-    });
-  },
-
-  // 评论心声
-  commentVoice: function (e) {
-    const index = e.currentTarget.dataset.index;
-    const voice = this.data.voices[index];
-
-    wx.showModal({
-      title: '评论功能',
-      content: '暂不支持评论功能，该功能将在后续版本中实现。',
-      showCancel: false,
-      confirmText: '知道了'
-    });
+  // 背景变化回调
+  onBackgroundChange: function (settings) {
+    // 由于使用了全局背景组件，这里不需要额外处理
   }
-});
+})

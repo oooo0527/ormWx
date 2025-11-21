@@ -1,16 +1,18 @@
-<view class="container">
-  <view class="header">
-    <image class="logo" src="/images/icon_star_large.png"></image>
-    <text class="app-title">明星互动平台</text>
-    <text class="app-subtitle">探索明星世界，分享你的声音</text>
-  </view>
+<global-background>
+  <view class="container">
+    <view class="header">
+      <image class="logo" src="/images/icon_star_large.png"></image>
+      <text class="app-title">明星互动平台</text>
+      <text class="app-subtitle">探索明星世界，分享你的声音</text>
+    </view>
 
-  <view class="login-section">
-    <button class="login-btn" bindtap="goToLogin">立即登录</button>
-    <button class="guest-btn" bindtap="goToStarArchive">游客访问</button>
-  </view>
+    <view class="login-section">
+      <button class="login-btn" bindtap="goToLogin">立即登录</button>
+      <button class="guest-btn" bindtap="goToStarArchive">游客访问</button>
+    </view>
 
-  <view class="footer">
-    <text class="copyright">© 2025 明星互动平台</text>
+    <view class="footer">
+      <text class="copyright">© 2025 明星互动平台</text>
+    </view>
   </view>
-</view>
+</global-background>

@@ -1,10 +1,9 @@
 .container {
   padding: 20rpx;
-  background: linear-gradient(to bottom, #f5f5f5, #ffffff);
   min-height: 100vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
 }
 
 .profile-card {
@@ -16,6 +15,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 40rpx;
 }
 
 .avatar {
@@ -61,44 +61,102 @@
 
 .button {
   width: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
   border-radius: 50rpx;
-  padding: 20rpx;
+  padding: 30rpx;
   font-size: 32rpx;
-  font-weight: bold;
   margin-bottom: 20rpx;
+  box-shadow: 0 4rpx 10rpx rgba(102, 126, 234, 0.4);
 }
 
 .logout-btn {
-  background: linear-gradient(to right, #FF3B30, #D42D25);
-  color: white;
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
 }
 
-.edit-btn {
-  background: linear-gradient(to right, #007AFF, #0062CC);
-  color: white;
-  margin-bottom: 20rpx;
-}
-
-.not-login {
+/* 背景设置区域样式 */
+.background-section {
   background: white;
   border-radius: 20rpx;
-  padding: 60rpx 40rpx;
+  padding: 40rpx;
   width: 80%;
   box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.1);
+}
+
+.section-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 30rpx;
+  text-align: center;
+}
+
+.option-group {
+  margin-bottom: 40rpx;
+}
+
+.option-group:last-child {
+  margin-bottom: 0;
+}
+
+.option-label {
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 20rpx;
+  display: block;
+}
+
+.color-palette {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20rpx;
+}
+
+.color-item {
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 50%;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+.color-item:active {
+  transform: scale(0.9);
+}
+
+.gradient-options {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  gap: 20rpx;
 }
 
-.hint {
-  font-size: 32rpx;
-  margin-bottom: 40rpx;
-  color: #666;
-}
-
-.login-btn {
-  background: linear-gradient(to right, #007AFF, #0062CC);
+.gradient-btn {
+  padding: 20rpx;
+  border-radius: 15rpx;
   color: white;
+  font-weight: bold;
+  text-align: center;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+.gradient-btn:active {
+  transform: scale(0.98);
+}
+
+.upload-btn,
+.reset-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 50rpx;
+  padding: 25rpx;
+  font-size: 28rpx;
+  box-shadow: 0 4rpx 10rpx rgba(102, 126, 234, 0.4);
+}
+
+.reset-btn {
+  background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%);
 }
 
 /* 弹窗样式 */
@@ -106,20 +164,21 @@
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.6);
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
   display: flex;
-  align-items: center;
   justify-content: center;
-  z-index: 999;
+  align-items: center;
+  z-index: 1000;
 }
 
 .modal-content {
   background: white;
   border-radius: 20rpx;
-  width: 90%;
-  max-height: 80%;
+  width: 80%;
+  max-width: 600rpx;
+  overflow: hidden;
 }
 
 .modal-header {
@@ -131,7 +190,7 @@
 }
 
 .modal-title {
-  font-size: 32rpx;
+  font-size: 36rpx;
   font-weight: bold;
   color: #333;
 }
@@ -145,8 +204,51 @@
   padding: 30rpx;
 }
 
-.submit-btn {
+.input-group {
+  margin-bottom: 30rpx;
+}
+
+.input-group:last-child {
+  margin-bottom: 0;
+}
+
+.input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 15rpx;
+}
+
+.input {
   width: 100%;
-  background: #007AFF;
+  padding: 20rpx;
+  border: 1rpx solid #eee;
+  border-radius: 10rpx;
+  font-size: 28rpx;
+  box-sizing: border-box;
+}
+
+.modal-footer {
+  display: flex;
+  padding: 30rpx;
+  gap: 20rpx;
+}
+
+.cancel-btn,
+.confirm-btn {
+  flex: 1;
+  padding: 25rpx;
+  border-radius: 50rpx;
+  font-size: 28rpx;
+  border: none;
+}
+
+.cancel-btn {
+  background: #f5f5f5;
+  color: #666;
+}
+
+.confirm-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
 }

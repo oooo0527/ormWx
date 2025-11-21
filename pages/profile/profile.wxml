@@ -1,42 +1,98 @@
-<view class="container">
-  <view wx:if="{{isLogin}}" class="profile-card">
-    <image class="avatar" src="{{userInfo.avatar || '/images/default_avatar.png'}}"></image>
-    <text class="nickname">{{userInfo.nickname}}</text>
-    <text class="username">@{{userInfo.username}}</text>
-    
-    <view class="profile-info">
-      <view class="info-item">
-        <text class="label">用户ID:</text>
-        <text class="value">{{userInfo._id || userInfo.id}}</text>
-      </view>
-      <view class="info-item">
-        <text class="label">注册时间:</text>
-        <text class="value">{{userInfo.createTime || '2023-01-01'}}</text>
-      </view>
-    </view>
-    
-    <button class="button edit-btn" bindtap="showEditForm">编辑资料</button>
-    <button class="button logout-btn" bindtap="onLogout">退出登录</button>
-  </view>
-  
-  <view wx:else class="not-login">
-    <text class="hint">您尚未登录，请先登录</text>
-    <button class="button login-btn" bindtap="goToLogin">前往登录</button>
-  </view>
-  
-  <!-- 编辑表单弹窗 -->
-  <view class="modal" wx:if="{{showEditForm}}">
-    <view class="modal-content">
-      <view class="modal-header">
-        <text class="modal-title">编辑资料</text>
-        <image class="close-btn" bindtap="hideEditForm" src="/images/close.png"></image>
+<global-background>
+  <view class="container">
+    <view wx:if="{{isLogin}}" class="profile-card">
+      <image class="avatar" src="{{userInfo.avatar || '/images/default_avatar.png'}}"></image>
+      <text class="nickname">{{userInfo.nickname}}</text>
+      <text class="username">@{{userInfo.username}}</text>
+      
+      <view class="profile-info">
+        <view class="info-item">
+          <text class="label">用户ID:</text>
+          <text class="value">{{userInfo._id || userInfo.id}}</text>
+        </view>
+        <view class="info-item">
+          <text class="label">注册时间:</text>
+          <text class="value">{{userInfo.createTime || '2023-01-01'}}</text>
+        </view>
       </view>
       
-      <view class="modal-body">
-        <input class="input" placeholder="请输入昵称" bindinput="onNicknameInput" value="{{editNickname}}" />
-        <input class="input" placeholder="请输入头像URL" bindinput="onAvatarInput" value="{{editAvatar}}" />
-        <button class="button submit-btn" bindtap="updateUserInfo">保存</button>
+      <button class="button" bindtap="showEditForm">编辑资料</button>
+      <button class="button logout-btn" bindtap="logout">退出登录</button>
+    </view>
+
+    <!-- 背景设置区域 -->
+    <view class="background-section">
+      <text class="section-title">背景设置</text>
+      
+      <!-- 纯色背景选项 -->
+      <view class="option-group">
+        <text class="option-label">纯色背景</text>
+        <view class="color-palette">
+          <view 
+            wx:for="{{colorOptions}}" 
+            wx:key="index"
+            class="color-item"
+            style="background-color: {{item}}"
+            data-color="{{item}}"
+            bindtap="selectBackgroundColor"
+          ></view>
+        </view>
+      </view>
+      
+      <!-- 渐变背景选项 -->
+      <view class="option-group">
+        <text class="option-label">渐变背景</text>
+        <view class="gradient-options">
+          <view 
+            wx:for="{{gradientOptions}}" 
+            wx:key="index"
+            class="gradient-btn"
+            style="background: {{item}}"
+            data-gradient="{{item}}"
+            bindtap="selectGradientBackground"
+          >
+            渐变{{index + 1}}
+          </view>
+        </view>
+      </view>
+      
+      <!-- 自定义图片背景 -->
+      <view class="option-group">
+        <text class="option-label">自定义背景</text>
+        <button class="upload-btn" bindtap="uploadCustomBackground">上传图片</button>
+      </view>
+      
+      <!-- 重置背景 -->
+      <view class="option-group">
+        <button class="reset-btn" bindtap="resetBackground">重置为默认背景</button>
+      </view>
+    </view>
+
+    <!-- 编辑资料弹窗 -->
+    <view class="modal" wx:if="{{showEditForm}}">
+      <view class="modal-content">
+        <view class="modal-header">
+          <text class="modal-title">编辑资料</text>
+          <image class="close-btn" bindtap="hideEditForm" src="/images/close.png"></image>
+        </view>
+        
+        <view class="modal-body">
+          <view class="input-group">
+            <text class="input-label">昵称</text>
+            <input class="input" placeholder="请输入昵称" bindinput="onNicknameInput" value="{{editNickname}}" />
+          </view>
+          
+          <view class="input-group">
+            <text class="input-label">头像链接</text>
+            <input class="input" placeholder="请输入头像链接" bindinput="onAvatarInput" value="{{editAvatar}}" />
+          </view>
+        </view>
+        
+        <view class="modal-footer">
+          <button class="button cancel-btn" bindtap="hideEditForm">取消</button>
+          <button class="button confirm-btn" bindtap="saveUserInfo">保存</button>
+        </view>
       </view>
     </view>
   </view>
-</view>
+</global-background>

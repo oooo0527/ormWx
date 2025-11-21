@@ -2,7 +2,7 @@ Page({
   data: {
     stars: [
       {
-        avatar:'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/d554005a153ae86aa6b8de351230cbf6.jpg',
+        avatar: 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/d554005a153ae86aa6b8de351230cbf6.jpg',
         id: 1,
         name: "珙恩娜帕·瑟塔拉塔那彭",
         thaiName: "นรวรรณ เศรษฐรัตนพงศ์",
@@ -25,50 +25,29 @@ Page({
           motherOccupation: "演员"
         },
         career: {
-          agency: "泰国3台签约艺人",
-          debutYear: 2019,
-          debutWork: "《酒店之星》",
+          agency: "GMMTV",
+          debutYear: "2020",
+          debutWork: "《我的齿轮和你的海》",
           representativeWorks: [
-            { year: 2019, title: "酒店之星", role: "Nook" },
-            { year: 2021, title: "珠光璀璨", role: "客串" },
-            { year: 2021, title: "猎恶游戏", role: "Anya" },
-            { year: 2022, title: "嘿，我爱你", role: "" },
-            { year: 2023, title: "日影之下", role: "Vicky" },
-            { year: 2023, title: "医爱之名", role: "Riri" },
-            { year: 2023, title: "黑色贞洁", role: "" },
-            { year: 2024, title: "我们的秘密", role: "尔恩 (Earn)" },
-            { year: 2024, title: "Potion of Love", role: "Thanya" }
+            { year: "2025", title: "《我家妹妹不准嫁》", role: "小翁" },
+            { year: "2024", title: "《Only You》", role: "Ira" },
+            { year: "2024", title: "《我们的秘密》", role: "尔恩 (Earn)" },
+            { year: "2023", title: "《Potion of Love》", role: "Pun" }
           ]
         },
-        // avatar: "/images/star1.jpg",
-        weight: "",
-        bloodType: "",
-        hobby: "",
-        introduction: "泰国演员和模特，目前是泰国3台签约艺人。"
+        introduction: "珙恩娜帕·瑟塔拉塔那彭（Orm Kornnaphat），昵称Orm（小名Aom），泰国新生代女演员、模特。2020年通过参演电视剧《我的齿轮和你的海》正式出道。2024年因主演BL剧《我们的秘密》中饰演尔恩（Earn）一角而广受关注，与苏帕努·洛瀚帕尼（Nut）组成的荧幕情侣深受观众喜爱。Orm以其清新的气质和出色的演技赢得了众多粉丝的喜爱。"
       }
+      // 可以添加更多明星数据
     ],
     selectedStar: null
   },
 
   onLoad: function (options) {
-    // console.log('明星档案页面加载');
-    // wx.cloud.init({
-    //   env: "cloud1-5gzybpqcd24b2b58",
-    //   traceUser: true,
-    // })
-    // wx.cloud.callFunction({
-    //   name: 'user',
-    //   data: {
-    //     action: 'getUserInfo'
-    //   }
-    // }).then(res => {
-    //   console.log('用户信息:', res);
-    //   if (res.result.success) {
-    //     this.setData({
-    //       stars:[{...res.result.data}]
-    //     });
-    //   }
-    // });
+    // 页面加载时的逻辑
+  },
+
+  onShow: function () {
+    // 页面显示时的逻辑
   },
 
   // 查看明星详情
@@ -85,5 +64,10 @@ Page({
     this.setData({
       selectedStar: null
     });
+  },
+
+  // 背景变化回调
+  onBackgroundChange: function (settings) {
+    // 由于使用了全局背景组件，这里不需要额外处理
   }
-});
+})

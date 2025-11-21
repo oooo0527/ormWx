@@ -1,35 +1,35 @@
-<view class="container">
-  <text class="page-title">作品安利</text>
-  
-  <view class="works-list">
-    <view class="work-item" wx:for="{{works}}" wx:key="id">
-      <image class="work-cover" src="{{item.cover}}"></image>
-      
-      <view class="work-info">
-        <view class="work-header">
-          <text class="work-title">{{item.title}}</text>
-          <text class="work-type">{{item.type}}</text>
-        </view>
+<global-background>
+  <view class="container">
+    <text class="page-title">作品安利</text>
+    
+    <view class="works-list">
+      <view class="work-item" wx:for="{{works}}" wx:key="id">
+        <image class="work-cover" src="{{item.cover}}"></image>
         
-        <view class="work-meta">
-          <text class="work-year">{{item.year}}</text>
-          <text class="work-role" wx:if="{{item.role}}">角色: {{item.role}}</text>
-        </view>
-        
-        <text class="work-description" wx:if="{{item.description}}">{{item.description}}</text>
-        
-        <view class="work-actions">
-          <view class="action-item" bindtap="likeWork" data-index="{{index}}">
-            <image class="action-icon" src="{{item.isLiked ? '/images/like_active.png' : '/images/like.png'}}"></image>
-            <text class="action-text">{{item.likes}}</text>
+        <view class="work-info">
+          <view class="work-header">
+            <text class="work-title">{{item.title}}</text>
+            <text class="work-type">{{item.type}}</text>
           </view>
           
-          <view class="action-item" bindtap="shareWork" data-index="{{index}}">
-            <image class="action-icon" src="/images/share.png"></image>
-            <text class="action-text">分享</text>
+          <view class="work-meta">
+            <text class="work-year">{{item.year}}</text>
+            <text class="work-role" wx:if="{{item.role}}">角色: {{item.role}}</text>
+          </view>
+          
+          <text class="work-description" wx:if="{{item.description}}">{{item.description}}</text>
+          
+          <view class="work-stats">
+            <view class="stat-item">
+              <text class="stat-label">👍</text>
+              <text class="stat-value">{{item.likes}}</text>
+            </view>
+            <button class="like-btn {{item.isLiked ? 'liked' : ''}}" bindtap="toggleLike" data-id="{{item.id}}">
+              {{item.isLiked ? '已点赞' : '点赞'}}
+            </button>
           </view>
         </view>
       </view>
     </view>
   </view>
-</view>
+</global-background>

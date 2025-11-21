@@ -1,11 +1,12 @@
 .container {
   padding: 0;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  /* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 
 .header {
@@ -99,4 +100,25 @@
 .copyright {
   font-size: 24rpx;
   color: rgba(255, 255, 255, 0.7);
+}
+
+.background-switch {
+  position: absolute;
+  top: 40rpx;
+  right: 40rpx;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 30rpx;
+  padding: 15rpx 25rpx;
+  backdrop-filter: blur(10rpx);
+  transition: all 0.3s ease;
+}
+
+.background-switch:active {
+  transform: scale(0.95);
+}
+
+.switch-text {
+  color: white;
+  font-size: 24rpx;
+  font-weight: bold;
 }
