@@ -1,6 +1,6 @@
 .container {
   padding: 0;
-  /* background: linear-gradient(135deg, #111111 0%, #869dae 100%); */
+  /* background: linear-gradient(135deg, #0c1117 0%, #f48eb5 100%); */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -44,12 +44,12 @@
   font-weight: bold;
   color: #ffffff;
   margin-bottom: 20rpx;
-  text-shadow: 0 2rpx 4rpx rgba(17, 17, 17, 0.3);
+  text-shadow: 0 2rpx 4rpx rgba(12, 17, 23, 0.3);
 }
 
 .app-subtitle {
   font-size: 28rpx;
-  color: rgba(255, 255, 255, 0.9);
+  color: #ffffff;
   margin-bottom: 20rpx;
 }
 
@@ -61,7 +61,7 @@
 
 .login-btn {
   width: 100%;
-  background: #111111;
+  background: #0c1117;
   color: #ffffff;
   border-radius: 50rpx;
   padding: 30rpx;
@@ -69,15 +69,15 @@
   font-weight: bold;
   margin-bottom: 30rpx;
   border: 2rpx solid #ffffff;
-  box-shadow: 0 10rpx 20rpx rgba(17, 17, 17, 0.2);
+  box-shadow: 0 10rpx 20rpx rgba(12, 17, 23, 0.2);
   transition: all 0.3s ease;
   box-sizing: border-box;
 }
 
 .login-btn:active {
   transform: translateY(2rpx);
-  box-shadow: 0 5rpx 15rpx rgba(17, 17, 17, 0.2);
-  background: #869dae;
+  box-shadow: 0 5rpx 15rpx rgba(12, 17, 23, 0.2);
+  background: #f48eb5;
 }
 
 .guest-btn {
@@ -109,14 +109,14 @@
 
 .copyright {
   font-size: 24rpx;
-  color: rgba(255, 255, 255, 0.7);
+  color: #ffffff;
 }
 
 .background-switch {
   position: absolute;
   top: 40rpx;
   right: 40rpx;
-  background: rgba(17, 17, 17, 0.2);
+  background: rgba(12, 17, 23, 0.2);
   border-radius: 30rpx;
   padding: 15rpx 25rpx;
   backdrop-filter: blur(10rpx);
@@ -129,7 +129,7 @@
 }
 
 .switch-text {
-  color: white;
+  color: #ffffff;
   font-size: 24rpx;
   font-weight: bold;
 }

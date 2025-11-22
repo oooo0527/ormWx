@@ -1,6 +1,6 @@
 .container {
   padding: 20rpx;
-  /* background: linear-gradient(135deg, #000000 0%, #333333 100%); */
+  /* background: linear-gradient(135deg, #0c1117 0%, #f48eb5 100%); */
   min-height: 100vh;
   box-sizing: border-box;
 }
@@ -45,13 +45,13 @@
   margin-left: -180rpx;
   border-radius: 8rpx;
   overflow: hidden;
-  box-shadow: 0 15rpx 35rpx rgba(255, 255, 255, 0.25);
+  box-shadow: 0 15rpx 35rpx rgba(12, 17, 23, 0.25);
   transition: all 0.3s ease-in-out;
   /* 缩短动画时间并使用ease-out缓动 */
   box-sizing: border-box;
   backface-visibility: hidden;
   transform-origin: center center;
-  border: 2rpx solid #ffffff;
+  /* border: 2rpx solid #f48eb5; */
 }
 
 .card-bg {
@@ -66,7 +66,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, transparent 50%);
+  background: linear-gradient(to top, rgba(12, 17, 23, 0.7) 0%, transparent 50%);
 }
 
 .card-content {
@@ -76,7 +76,7 @@
   width: 100%;
   padding: 30rpx;
   box-sizing: border-box;
-  color: white;
+  color: #ffffff;
   z-index: 2;
 }
 
@@ -85,6 +85,7 @@
   font-weight: bold;
   display: block;
   margin-bottom: 10rpx;
+  color: #ffffff;
 }
 
 .card-role {
@@ -92,12 +93,14 @@
   display: block;
   margin-bottom: 5rpx;
   opacity: 0.9;
+  color: #ffffff;
 }
 
 .card-year {
   font-size: 22rpx;
   display: block;
   opacity: 0.8;
+  color: #ffffff;
 }
 
 /* 导航按钮 */
@@ -117,22 +120,22 @@
   width: 60rpx;
   height: 60rpx;
   border-radius: 50%;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(12, 17, 23, 0.8);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 36rpx;
   font-weight: bold;
   color: #ffffff;
-  box-shadow: 0 5rpx 15rpx rgba(255, 255, 255, 0.2);
+  box-shadow: 0 5rpx 15rpx rgba(12, 17, 23, 0.2);
   pointer-events: auto;
   transition: all 0.3s ease;
-  border: 2rpx solid #ffffff;
+  border: 2rpx solid #f48eb5;
 }
 
 .nav-btn:active {
   transform: scale(0.9);
-  background: rgba(0, 0, 0, 1);
+  background: rgba(12, 17, 23, 1);
 }
 
 .prev-btn {
@@ -157,24 +160,24 @@
   width: 12rpx;
   height: 12rpx;
   border-radius: 50%;
-  background: #ffffff;
+  background: #f48eb5;
   margin: 0 8rpx;
   transition: all 0.3s ease;
 }
 
 .indicator.active {
-  background: #cccccc;
+  background: #0c1117;
   transform: scale(1.2);
 }
 
 /* 详细信息区域 */
 .detail-section {
-  background: #000000;
+  background: #ffffff;
   border-radius: 20rpx;
   padding: 30rpx;
-  box-shadow: 0 10rpx 30rpx rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10rpx 30rpx rgba(12, 17, 23, 0.1);
   margin-top: 20rpx;
-  border: 2rpx solid #ffffff;
+  border: 2rpx solid #f48eb5;
 }
 
 .detail-header {
@@ -193,11 +196,11 @@
 .like-button {
   display: flex;
   align-items: center;
-  background: #333333;
+  background: #f48eb5;
   padding: 10rpx 20rpx;
   border-radius: 30rpx;
   transition: all 0.3s ease;
-  border: 2rpx solid #ffffff;
+  border: 2rpx solid #f48eb5;
 }
 
 .like-button:active {
@@ -217,12 +220,13 @@
 
 .detail-description {
   font-size: 26rpx;
-  color: #cccccc;
+  color: #ffffff;
   line-height: 1.6;
 }
 
 .image-Box {
   margin-top: 60rpx;
+  color: #ffffff;
 }
 
 .image-list {
@@ -238,7 +242,7 @@
   overflow: hidden;
   border-radius: 8rpx;
   margin: 0 8rpx;
-  border: 2rpx solid #ffffff;
+  border: 2rpx solid #f48eb5;
 }
 
 .image-thumb {

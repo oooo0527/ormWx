@@ -1,6 +1,5 @@
 .container {
   padding: 20rpx;
-  background: #f5f5f5;
   min-height: 100vh;
   box-sizing: border-box;
   width: 100%;
@@ -17,7 +16,7 @@
 .page-title {
   font-size: 36rpx;
   font-weight: bold;
-  color: #333;
+  color: #ffffff;
 }
 
 /* 瀑布流容器 */
@@ -41,7 +40,7 @@
 }
 
 .voice-item {
-  background: white;
+  background:#f48eb8;
   border-radius: 20rpx;
   padding: 20rpx;
   box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.1);
@@ -83,7 +82,7 @@
 .username {
   font-size: 30rpx;
   font-weight: bold;
-  color: #333;
+  color: #ffffff;
   margin-bottom: 10rpx;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -97,7 +96,7 @@
 
 .voice-content {
   font-size: 28rpx;
-  color: #333;
+  color: #ffffff;
   line-height: 1.5;
   margin-bottom: 20rpx;
   display: block;
@@ -140,8 +139,8 @@
 }
 
 .voice-context {
-  background: #f0f8ff;
-  border-left: 6rpx solid #007AFF;
+  background: #0c1117;
+  border-left: 6rpx solid #f48eb5;
   padding: 15rpx 20rpx;
   margin-bottom: 20rpx;
   border-radius: 10rpx;
@@ -150,7 +149,7 @@
 
 .context-text {
   font-size: 26rpx;
-  color: #666;
+  color: #ffffff;
   line-height: 1.4;
   display: block;
   box-sizing: border-box;
@@ -181,7 +180,7 @@
 
 .action-text {
   font-size: 26rpx;
-  color: #666;
+  color: #ffffff;
 }
 
 /* 响应式设计 */

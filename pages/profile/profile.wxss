@@ -5,7 +5,7 @@
   flex-direction: column;
   align-items: center;
   box-sizing: border-box;
-  background: #d9dde0;
+  background: #f48eb5;
 }
 
 .profile-card {
@@ -13,13 +13,13 @@
   border-radius: 20rpx;
   padding: 50rpx 40rpx;
   width: 100%;
-  box-shadow: 0 4rpx 20rpx rgba(17, 17, 17, 0.05);
+  box-shadow: 0 4rpx 20rpx rgba(12, 17, 23, 0.05);
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-bottom: 30rpx;
   box-sizing: border-box;
-  border: 2rpx solid #869dae;
+  border: 2rpx solid #f48eb5;
 }
 
 .avatar {
@@ -28,19 +28,19 @@
   border-radius: 50%;
   margin-bottom: 20rpx;
   border: 4rpx solid #fff;
-  box-shadow: 0 4rpx 10rpx rgba(17, 17, 17, 0.1);
+  box-shadow: 0 4rpx 10rpx rgba(12, 17, 23, 0.1);
 }
 
 .nickname {
   font-size: 36rpx;
   font-weight: bold;
   margin-bottom: 10rpx;
-  color: #111111;
+  color: #ffffff;
 }
 
 .username {
   font-size: 28rpx;
-  color: #869dae;
+  color: #ffffff;
   margin-bottom: 30rpx;
 }
 
@@ -60,16 +60,16 @@
   justify-content: center;
   padding: 20rpx;
   border-radius: 15rpx;
-  border: 2rpx solid #869dae;
+  border: 2rpx solid #f48eb5;
   background: #ffffff;
-  color: #111111;
+  color: #ffffff;
   font-size: 26rpx;
   box-sizing: border-box;
 }
 
 .action-btn:active {
   transform: scale(0.98);
-  background: #d9dde0;
+  background: #f48eb5;
 }
 
 .action-icon {
@@ -79,21 +79,21 @@
 }
 
 .edit-btn {
-  background: #111111;
+  background: #0c1117;
   color: #ffffff;
-  border: 2rpx solid #869dae;
+  border: 2rpx solid #f48eb5;
 }
 
 .background-btn {
-  background: #869dae;
-  color: #111111;
-  border: 2rpx solid #869dae;
+  background: #f48eb5;
+  color: #ffffff;
+  border: 2rpx solid #f48eb5;
 }
 
 .logout-btn {
-  background: #d9dde0;
-  color: #111111;
-  border: 2rpx solid #869dae;
+  background: #f48eb5;
+  color: #ffffff;
+  border: 2rpx solid #f48eb5;
 }
 
 /* 弹窗样式 */
@@ -103,7 +103,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(17, 17, 17, 0.5);
+  background: rgba(12, 17, 23, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -118,7 +118,7 @@
   max-width: 600rpx;
   overflow: hidden;
   box-sizing: border-box;
-  border: 2rpx solid #869dae;
+  border: 2rpx solid #f48eb5;
 }
 
 .modal-header {
@@ -126,14 +126,14 @@
   justify-content: space-between;
   align-items: center;
   padding: 30rpx;
-  border-bottom: 2rpx solid #869dae;
+  border-bottom: 2rpx solid #f48eb5;
   box-sizing: border-box;
 }
 
 .modal-title {
   font-size: 36rpx;
   font-weight: bold;
-  color: #111111;
+  color: #ffffff;
 }
 
 .close-btn {
@@ -158,19 +158,19 @@
 .input-label {
   display: block;
   font-size: 28rpx;
-  color: #869dae;
+  color: #ffffff;
   margin-bottom: 15rpx;
 }
 
 .input {
   width: 100%;
   padding: 20rpx;
-  border: 2rpx solid #869dae;
+  border: 2rpx solid #f48eb5;
   border-radius: 10rpx;
   font-size: 28rpx;
   box-sizing: border-box;
   background: #ffffff;
-  color: #111111;
+  color: #0c1117;
 }
 
 .modal-footer {
@@ -191,15 +191,15 @@
 }
 
 .cancel-btn {
-  background: #d9dde0;
-  color: #111111;
-  border: 2rpx solid #869dae;
+  background: #f48eb5;
+  color: #ffffff;
+  border: 2rpx solid #f48eb5;
 }
 
 .confirm-btn {
-  background: #111111;
+  background: #0c1117;
   color: #ffffff;
-  border: 2rpx solid #869dae;
+  border: 2rpx solid #f48eb5;
 }
 
 /* 响应式设计 */

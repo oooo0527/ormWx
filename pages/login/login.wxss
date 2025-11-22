@@ -1,6 +1,6 @@
 .container {
   padding: 0;
-  /* background: linear-gradient(135deg, #111111 0%, #869dae 100%); */
+  /* background: linear-gradient(135deg, #0c1117 0%, #f48eb5 100%); */
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -14,10 +14,10 @@
   padding: 60rpx 40rpx;
   width: 80%;
   max-width: 500rpx;
-  box-shadow: 0 20rpx 40rpx rgba(17, 17, 17, 0.2);
+  box-shadow: 0 20rpx 40rpx rgba(12, 17, 23, 0.2);
   text-align: center;
   box-sizing: border-box;
-  border: 2rpx solid #869dae;
+  border: 2rpx solid #f48eb5;
 }
 
 .logo {
@@ -47,12 +47,12 @@
   font-weight: bold;
   text-align: center;
   margin-bottom: 10rpx;
-  color: #111111;
+  color: #ffffff;
 }
 
 .subtitle {
   font-size: 28rpx;
-  color: #869dae;
+  color: #ffffff;
   margin-bottom: 40rpx;
 }
 
@@ -79,18 +79,18 @@
 }
 
 .input {
-  border: 2rpx solid #869dae;
+  border: 2rpx solid #f48eb5;
   border-radius: 50rpx;
   padding: 20rpx 20rpx 20rpx 70rpx;
   width: 100%;
   box-sizing: border-box;
   font-size: 28rpx;
   background: #ffffff;
-  color: #111111;
+  color: #0c1117;
 }
 
 .input:focus {
-  border-color: #111111;
+  border-color: #0c1117;
   outline: none;
 }
 
@@ -107,16 +107,16 @@
 }
 
 .login-btn {
-  background: #111111;
+  background: #0c1117;
   color: #ffffff;
-  box-shadow: 0 10rpx 20rpx rgba(17, 17, 17, 0.3);
-  border: 2rpx solid #869dae;
+  box-shadow: 0 10rpx 20rpx rgba(12, 17, 23, 0.3);
+  border: 2rpx solid #f48eb5;
 }
 
 .login-btn:active {
   transform: translateY(2rpx);
-  box-shadow: 0 5rpx 15rpx rgba(17, 17, 17, 0.3);
-  background: #869dae;
+  box-shadow: 0 5rpx 15rpx rgba(12, 17, 23, 0.3);
+  background: #f48eb5;
 }
 
 .guest-btn {
@@ -129,14 +129,14 @@
   border: none;
   transition: all 0.3s ease;
   background: transparent;
-  color: #111111;
-  border: 2rpx solid #111111;
+  color: #ffffff;
+  border: 2rpx solid #ffffff;
   box-sizing: border-box;
 }
 
 .guest-btn:active {
   transform: translateY(2rpx);
-  background: rgba(17, 17, 17, 0.1);
+  background: rgba(12, 17, 23, 0.1);
 }
 
 .footer {
@@ -146,5 +146,5 @@
 
 .footer-text {
   font-size: 24rpx;
-  color: #869dae;
+  color: #ffffff;
 }

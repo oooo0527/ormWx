@@ -1,6 +1,6 @@
 .support-container {
   padding: 20rpx;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  /* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
   min-height: 100vh;
   box-sizing: border-box;
 }
@@ -44,7 +44,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 20rpx;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  /* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
   cursor: pointer;
 }
 
@@ -138,7 +138,7 @@
 .item-location {
   font-size: 24rpx;
   color: #007AFF;
-  background: rgba(0, 122, 255, 0.1);
+  /* background: rgba(0, 122, 255, 0.1); */
   padding: 5rpx 15rpx;
   border-radius: 20rpx;
 }

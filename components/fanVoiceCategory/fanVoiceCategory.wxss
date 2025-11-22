@@ -1,5 +1,4 @@
 .category-container {
-  background: rgba(255, 255, 255, 0.9);
   padding: 20rpx 0;
   box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
   border-radius: 20rpx;
@@ -53,7 +52,7 @@
 }
 
 .category-item.active {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg,  #f48eb5 0%,#0c1117 100%);
   color: white;
   transform: scale(1.05);
   box-shadow: 0 4rpx 15rpx rgba(102, 126, 234, 0.4);

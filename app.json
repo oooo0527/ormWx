@@ -13,16 +13,16 @@
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#111111",
+    "navigationBarBackgroundColor": "#f48eb5",
     "navigationBarTitleText": "明星互动平台",
     "navigationBarTextStyle": "white"
   },
   "cloud": true,
   "tabBar": {
-    "color": "#869dae",
-    "selectedColor": "#111111",
+    "color": "#ffffff",
+    "selectedColor": "#0c1117",
     "borderStyle": "white",
-    "backgroundColor": "#ffffff",
+    "backgroundColor": "#f48eb5",
     "position": "bottom",
     "list": [
       {
