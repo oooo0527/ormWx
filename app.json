@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/workRecommend/workRecommend",
     "pages/index/index",
     "pages/profile/profile",
     "pages/fanVoice/fanVoice",
@@ -7,7 +8,6 @@
     "pages/login/login",
     "pages/starArchive/starArchive",
     "pages/dataWorkshop/dataWorkshop",
-    "pages/workRecommend/workRecommend",
     "pages/test/test",
     "pages/backgroundSetting/backgroundSetting"
   ],

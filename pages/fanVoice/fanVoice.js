@@ -81,6 +81,16 @@ Page({
     });
   },
 
+  // 处理弹窗外部点击
+  handleOverlayTap: function () {
+    this.hidePostForm();
+  },
+
+  // 阻止弹窗内容区域点击事件冒泡
+  preventOverlayTap: function (e) {
+    e.stopPropagation();
+  },
+
   // 输入内容
   onContentInput: function (e) {
     this.setData({

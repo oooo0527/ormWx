@@ -66,4 +66,13 @@ Page({
     });
   },
 
+  // 处理弹窗外部点击
+  handleOverlayTap: function () {
+    this.closeDetail();
+  },
+
+  // 阻止弹窗内容区域点击事件冒泡
+  preventOverlayTap: function (e) {
+    e.stopPropagation();
+  }
 })

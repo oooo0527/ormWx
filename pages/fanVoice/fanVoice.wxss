@@ -165,25 +165,53 @@
 }
 
 /* 弹窗样式 */
-.modal {
+.modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.7);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 999;
+  animation: fadeIn 0.3s ease;
+  box-sizing: border-box;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 .modal-content {
   background: white;
   border-radius: 20rpx;
   width: 90%;
-  max-height: 80%;
-  box-shadow: 0 10rpx 30rpx rgba(0, 0, 0, 0.2);
+  max-height: 85%;
+  display: flex;
+  flex-direction: column;
+  animation: slideUp 0.3s ease;
+  box-shadow: 0 20rpx 50rpx rgba(0, 0, 0, 0.3);
+  box-sizing: border-box;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100rpx);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 .modal-header {
@@ -192,21 +220,27 @@
   align-items: center;
   padding: 30rpx;
   border-bottom: 1rpx solid #eee;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 20rpx 20rpx 0 0;
+  box-sizing: border-box;
 }
 
 .modal-title {
-  font-size: 32rpx;
+  font-size: 36rpx;
   font-weight: bold;
-  color: #333;
+  color: white;
 }
 
 .close-btn {
-  width: 40rpx;
-  height: 40rpx;
+  width: 48rpx;
+  height: 48rpx;
 }
 
 .modal-body {
   padding: 30rpx;
+  flex: 1;
+  max-height: 60vh;
+  box-sizing: border-box;
 }
 
 .textarea {
@@ -219,15 +253,31 @@
   box-sizing: border-box;
 }
 
-.button {
+.modal-footer {
+  display: flex;
+  padding: 30rpx;
+  gap: 20rpx;
+  box-sizing: border-box;
+}
+
+.cancel-btn,
+.confirm-btn {
+  flex: 1;
+  padding: 25rpx;
+  border-radius: 50rpx;
+  font-size: 28rpx;
+  border: none;
+  box-sizing: border-box;
+}
+
+.cancel-btn {
+  background: #f5f5f5;
+  color: #666;
+}
+
+.confirm-btn {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
-  border-radius: 50rpx;
-  padding: 20rpx;
-  font-size: 32rpx;
-  font-weight: bold;
-  text-align: center;
-  box-shadow: 0 4rpx 10rpx rgba(102, 126, 234, 0.4);
 }
 
 /* 专区类型颜色区分 */

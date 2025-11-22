@@ -2,34 +2,43 @@
   <view class="container">
     <text class="page-title">作品安利</text>
     
-    <view class="works-list">
-      <view class="work-item" wx:for="{{works}}" wx:key="id">
-        <image class="work-cover" src="{{item.cover}}"></image>
-        
-        <view class="work-info">
-          <view class="work-header">
-            <text class="work-title">{{item.title}}</text>
-            <text class="work-type">{{item.type}}</text>
-          </view>
-          
-          <view class="work-meta">
-            <text class="work-year">{{item.year}}</text>
-            <text class="work-role" wx:if="{{item.role}}">角色: {{item.role}}</text>
-          </view>
-          
-          <text class="work-description" wx:if="{{item.description}}">{{item.description}}</text>
-          
-          <view class="work-stats">
-            <view class="stat-item">
-              <text class="stat-label">👍</text>
-              <text class="stat-value">{{item.likes}}</text>
+    <!-- 炫酷轮播图 -->
+    <view class="carousel-container">
+      <swiper 
+        class="work-carousel" 
+        interval="3000"
+        bindchange="onSwiperChange"  
+        layout-type="transformer" 
+        transformer-type="scaleAndFade" 
+        previous-margin="100" 
+        next-margin="100" 
+
+      >
+        <block wx:for="{{works}}" wx:key="id">
+          <swiper-item class="carousel-item">
+            <view class="carousel-content">
+              <image class="carousel-bg {{currentWorkIndex==index?'current':currentWorkIndex<index?'nextcurrtent':'precurrent'}}" mode="aspectFill"  src="{{item.cover}}"></image>
+              <!-- <view class="carousel-overlay"></view> -->
             </view>
-            <button class="like-btn {{item.isLiked ? 'liked' : ''}}" bindtap="toggleLike" data-id="{{item.id}}">
-              {{item.isLiked ? '已点赞' : '点赞'}}
-            </button>
-          </view>
-        </view>
-      </view>
+          </swiper-item>
+        </block>
+      </swiper>
     </view>
+    <view>
+      <view class="carousel-info" wx:for="{{works}}" wx:key="id">
+                <text class="work-title">{{item.title}}</text>
+                <text class="work-role" wx:if="{{item.role}}">饰演: {{item.role}}</text>
+                <text class="work-year">{{item.year}} · {{item.type}}</text>
+                <text class="work-description" wx:if="{{item.description}}">{{item.description}}</text>
+                <view class="work-stats">
+                  <view class="stat-item">
+                    <text class="stat-label">👍</text>
+                    <text class="stat-value">{{item.likes}}</text>
+                  </view>
+                  <button class="like-btn {{item.isLiked ? 'liked' : ''}}" bindtap="toggleLike" data-id="{{item.id}}">
+                    {{item.isLiked ? '已点赞' : '点赞'}}
+                  </button>
+                </view>
+              </view></view>
   </view>
 </global-background>

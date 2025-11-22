@@ -8,8 +8,8 @@
   </view>
   
   <!-- 发布表单弹窗 -->
-  <view class="modal" wx:if="{{showPostForm}}">
-    <view class="modal-content">
+  <view class="modal-overlay" wx:if="{{showPostForm}}" bindtap="handleOverlayTap">
+    <view class="modal-content" bindtap="preventOverlayTap">
       <view class="modal-header">
         <text class="modal-title">发布心声</text>
         <image class="close-btn" bindtap="hidePostForm" src="/images/close.png"></image>
