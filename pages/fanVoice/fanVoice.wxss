@@ -1,6 +1,6 @@
 .container {
   padding: 20rpx;
-  /* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
+  /* background: linear-gradient(135deg, #000000 0%, #333333 100%); */
   min-height: 100vh;
   box-sizing: border-box;
 }
@@ -11,24 +11,30 @@
   align-items: center;
   margin-bottom: 30rpx;
   padding: 20rpx;
-  background: rgba(255, 255, 255, 0.9);
+  background: #000000;
   border-radius: 20rpx;
-  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4rpx 20rpx rgba(255, 255, 255, 0.1);
+  border: 2rpx solid #ffffff;
 }
 
 .page-title {
   font-size: 36rpx;
   font-weight: bold;
-  color: #333;
+  color: #ffffff;
 }
 
 .post-btn {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: #000000;
+  color: #ffffff;
   border-radius: 50rpx;
   padding: 15rpx 30rpx;
   font-size: 28rpx;
-  box-shadow: 0 4rpx 10rpx rgba(102, 126, 234, 0.4);
+  box-shadow: 0 4rpx 10rpx rgba(255, 255, 255, 0.4);
+  border: 2rpx solid #ffffff;
+}
+
+.post-btn:active {
+  background: #333333;
 }
 
 /* 二级菜单样式 */
@@ -47,23 +53,25 @@
   display: inline-block;
   padding: 15rpx 25rpx;
   margin-right: 20rpx;
-  background: #f0f0f0;
+  background: #000000;
   border-radius: 50rpx;
   font-size: 26rpx;
-  color: #666;
+  color: #ffffff;
   transition: all 0.3s ease;
-  box-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2rpx 4rpx rgba(255, 255, 255, 0.1);
+  border: 2rpx solid #ffffff;
 }
 
 .category-item.active {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: #333333;
+  color: #ffffff;
   transform: scale(1.05);
-  box-shadow: 0 4rpx 8rpx rgba(102, 126, 234, 0.4);
+  box-shadow: 0 4rpx 8rpx rgba(255, 255, 255, 0.4);
 }
 
 .category-item:active {
   transform: scale(0.95);
+  background: #333333;
 }
 
 .category-item:last-child {
@@ -83,10 +91,11 @@
 }
 
 .voice-item {
-  background: rgba(255, 255, 255, 0.9);
+  background: #000000;
   border-radius: 20rpx;
   padding: 30rpx;
-  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4rpx 20rpx rgba(255, 255, 255, 0.1);
+  border: 2rpx solid #ffffff;
 }
 
 .voice-header {
@@ -100,6 +109,7 @@
   height: 80rpx;
   border-radius: 50%;
   margin-right: 20rpx;
+  border: 2rpx solid #ffffff;
 }
 
 .user-info {
@@ -109,26 +119,26 @@
 .username {
   font-size: 30rpx;
   font-weight: bold;
-  color: #333;
+  color: #ffffff;
   display: block;
   margin-bottom: 10rpx;
 }
 
 .time {
   font-size: 24rpx;
-  color: #999;
+  color: #cccccc;
 }
 
 .voice-content {
   font-size: 28rpx;
-  color: #333;
+  color: #ffffff;
   line-height: 1.6;
   margin-bottom: 15rpx;
 }
 
 .voice-context {
-  background: #f0f8ff;
-  border-left: 6rpx solid #007AFF;
+  background: #333333;
+  border-left: 6rpx solid #ffffff;
   padding: 15rpx 20rpx;
   margin-bottom: 20rpx;
   border-radius: 10rpx;
@@ -136,14 +146,14 @@
 
 .context-text {
   font-size: 24rpx;
-  color: #666;
+  color: #cccccc;
   line-height: 1.5;
 }
 
 .voice-actions {
   display: flex;
   justify-content: flex-start;
-  border-top: 1rpx solid #eee;
+  border-top: 2rpx solid #ffffff;
   padding-top: 20rpx;
 }
 
@@ -161,7 +171,7 @@
 
 .action-text {
   font-size: 28rpx;
-  color: #666;
+  color: #cccccc;
 }
 
 /* 弹窗样式 */
@@ -191,15 +201,16 @@
 }
 
 .modal-content {
-  background: white;
+  background: #000000;
   border-radius: 20rpx;
   width: 90%;
   max-height: 85%;
   display: flex;
   flex-direction: column;
   animation: slideUp 0.3s ease;
-  box-shadow: 0 20rpx 50rpx rgba(0, 0, 0, 0.3);
+  box-shadow: 0 20rpx 50rpx rgba(255, 255, 255, 0.3);
   box-sizing: border-box;
+  border: 2rpx solid #ffffff;
 }
 
 @keyframes slideUp {
@@ -219,8 +230,8 @@
   justify-content: space-between;
   align-items: center;
   padding: 30rpx;
-  border-bottom: 1rpx solid #eee;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-bottom: 2rpx solid #ffffff;
+  background: #000000;
   border-radius: 20rpx 20rpx 0 0;
   box-sizing: border-box;
 }
@@ -228,7 +239,7 @@
 .modal-title {
   font-size: 36rpx;
   font-weight: bold;
-  color: white;
+  color: #ffffff;
 }
 
 .close-btn {
@@ -244,13 +255,15 @@
 }
 
 .textarea {
-  border: 1rpx solid #ddd;
+  border: 2rpx solid #ffffff;
   border-radius: 10rpx;
   padding: 20rpx;
   margin-bottom: 20rpx;
   width: 100%;
   height: 200rpx;
   box-sizing: border-box;
+  background: #000000;
+  color: #ffffff;
 }
 
 .modal-footer {
@@ -271,77 +284,84 @@
 }
 
 .cancel-btn {
-  background: #f5f5f5;
-  color: #666;
+  background: #333333;
+  color: #ffffff;
+  border: 2rpx solid #ffffff;
 }
 
 .confirm-btn {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: #000000;
+  color: #ffffff;
+  border: 2rpx solid #ffffff;
+}
+
+.confirm-btn:active {
+  background: #333333;
 }
 
 /* 专区类型颜色区分 */
 .voice-item.interaction {
-  border-left: 6rpx solid #FF9500;
+  border-left: 6rpx solid #ffffff;
 }
 
 .voice-item.support {
-  border-left: 6rpx solid #34C759;
+  border-left: 6rpx solid #cccccc;
 }
 
 .voice-item.mom {
-  border-left: 6rpx solid #FF3B30;
+  border-left: 6rpx solid #999999;
 }
 
 .voice-item.dream {
-  border-left: 6rpx solid #AF52DE;
+  border-left: 6rpx solid #666666;
 }
 
 .voice-item.emoji {
-  border-left: 6rpx solid #007AFF;
+  border-left: 6rpx solid #333333;
 }
 
 .category-item.new {
-  border-left: 6rpx solid #FF9500;
-  background: linear-gradient(135deg, #FF9500, #FF5E3A);
-  color: white;
+  border-left: 6rpx solid #ffffff;
+  background: #000000;
+  color: #ffffff;
   animation: pulse 2s infinite;
+  border: 2rpx solid #ffffff;
 }
 
 @keyframes pulse {
   0% {
     transform: scale(1);
-    box-shadow: 0 4rpx 8rpx rgba(255, 149, 0, 0.3);
+    box-shadow: 0 4rpx 8rpx rgba(255, 255, 255, 0.3);
   }
 
   50% {
     transform: scale(1.05);
-    box-shadow: 0 8rpx 16rpx rgba(255, 149, 0, 0.4);
+    box-shadow: 0 8rpx 16rpx rgba(255, 255, 255, 0.4);
   }
 
   100% {
     transform: scale(1);
-    box-shadow: 0 4rpx 8rpx rgba(255, 149, 0, 0.3);
+    box-shadow: 0 4rpx 8rpx rgba(255, 255, 255, 0.3);
   }
 }
 
 /* 为不同专区类型添加背景色微调 */
 .voice-item.interaction {
-  background: linear-gradient(135deg, #fff8f0, #ffffff);
+  background: #000000;
 }
 
 .voice-item.support {
-  background: linear-gradient(135deg, #f0fdf4, #ffffff);
+  background: #000000;
 }
 
 .voice-item.mom {
-  background: linear-gradient(135deg, #fff0f0, #ffffff);
+  background: #000000;
 }
 
 .voice-item.dream {
-  background: linear-gradient(135deg, #f5f0ff, #ffffff);
+  background: #000000;
 }
 
 .voice-item.emoji {
-  background: linear-gradient(135deg, #f0f5ff, #ffffff);
+  background: #000000;
 }

@@ -4,19 +4,18 @@ Page({
     // 背景设置相关数据
     backgroundSettings: {
       type: 'gradient',
-      value: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      value: 'linear-gradient(135deg, #111111 0%, #869dae 100%)',
       customImage: ''
     },
     colorOptions: [
-      '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7',
-      '#DDA0DD', '#98D8C8', '#F7DC6F', '#BB8FCE', '#85C1E9'
+      '#ffffff', '#111111', '#869dae', '#d9dde0'
     ],
     gradientOptions: [
-      'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-      'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-      'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
-      'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
-      'linear-gradient(135deg, #fa709a 0%, #fee140 100%)'
+      'linear-gradient(135deg, #111111 0%, #869dae 100%)',
+      'linear-gradient(135deg, #869dae 0%, #ffffff 100%)',
+      'linear-gradient(135deg, #111111 0%, #ffffff 100%)',
+      'linear-gradient(135deg, #d9dde0 0%, #869dae 100%)',
+      'linear-gradient(45deg, #111111 0%, #869dae 50%, #ffffff 100%)'
     ]
   },
 
@@ -75,7 +74,7 @@ Page({
   resetBackground: function () {
     const settings = {
       type: 'gradient',
-      value: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      value: 'linear-gradient(135deg, #111111 0%, #869dae 100%)',
       customImage: ''
     };
 

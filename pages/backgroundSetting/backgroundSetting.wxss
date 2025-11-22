@@ -2,22 +2,23 @@
   padding: 20rpx;
   min-height: 100vh;
   box-sizing: border-box;
-  background: #f5f5f5;
+  background: #d9dde0;
 }
 
 .header {
-  background: white;
+  background: #ffffff;
   border-radius: 20rpx;
   padding: 30rpx;
   margin-bottom: 30rpx;
-  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4rpx 20rpx rgba(17, 17, 17, 0.1);
   box-sizing: border-box;
+  border: 2rpx solid #869dae;
 }
 
 .page-title {
   font-size: 36rpx;
   font-weight: bold;
-  color: #333;
+  color: #111111;
   text-align: center;
 }
 
@@ -29,16 +30,17 @@
 }
 
 .setting-item {
-  background: white;
+  background: #ffffff;
   border-radius: 20rpx;
   padding: 30rpx;
-  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4rpx 20rpx rgba(17, 17, 17, 0.1);
   box-sizing: border-box;
+  border: 2rpx solid #869dae;
 }
 
 .item-label {
   font-size: 32rpx;
-  color: #333;
+  color: #111111;
   font-weight: bold;
   margin-bottom: 30rpx;
   display: block;
@@ -56,8 +58,9 @@
   width: 60rpx;
   height: 60rpx;
   border-radius: 50%;
-  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2rpx 8rpx rgba(17, 17, 17, 0.1);
   box-sizing: border-box;
+  border: 2rpx solid #d9dde0;
 }
 
 .color-item:active {
@@ -75,12 +78,13 @@
 .gradient-btn {
   padding: 25rpx;
   border-radius: 15rpx;
-  color: white;
+  color: #111111;
   font-weight: bold;
   text-align: center;
-  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2rpx 8rpx rgba(17, 17, 17, 0.1);
   box-sizing: border-box;
   font-size: 28rpx;
+  border: 2rpx solid #869dae;
 }
 
 .gradient-btn:active {
@@ -104,19 +108,20 @@
   border-radius: 15rpx;
   border: none;
   background: #f8f9fa;
-  color: #333;
+  color: #111111;
   font-size: 28rpx;
   box-sizing: border-box;
+  border: 2rpx solid #869dae;
 }
 
 .upload-btn {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #111111 0%, #869dae 100%);
   color: white;
 }
 
 .reset-btn {
-  background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%);
-  color: white;
+  background: linear-gradient(135deg, #869dae 0%, #d9dde0 100%);
+  color: #111111;
 }
 
 .option-btn:active {

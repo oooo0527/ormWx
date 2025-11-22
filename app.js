@@ -6,7 +6,7 @@ App({
     // 全局背景设置
     backgroundSettings: {
       type: 'gradient', // 'color', 'gradient', 'image'
-      value: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', // 默认紫色渐变
+      value: 'linear-gradient(135deg, #111111 0%, #869dae 100%)', // 使用新配色的渐变
       customImage: '' // 自定义图片路径
     },
     backgroundChangeListener: null // 背景变化监听器

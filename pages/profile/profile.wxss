@@ -5,20 +5,21 @@
   flex-direction: column;
   align-items: center;
   box-sizing: border-box;
-  background: #f5f5f5;
+  background: #d9dde0;
 }
 
 .profile-card {
-  background: white;
+  background: #ffffff;
   border-radius: 20rpx;
   padding: 50rpx 40rpx;
   width: 100%;
-  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4rpx 20rpx rgba(17, 17, 17, 0.05);
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-bottom: 30rpx;
   box-sizing: border-box;
+  border: 2rpx solid #869dae;
 }
 
 .avatar {
@@ -27,19 +28,19 @@
   border-radius: 50%;
   margin-bottom: 20rpx;
   border: 4rpx solid #fff;
-  box-shadow: 0 4rpx 10rpx rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4rpx 10rpx rgba(17, 17, 17, 0.1);
 }
 
 .nickname {
   font-size: 36rpx;
   font-weight: bold;
   margin-bottom: 10rpx;
-  color: #333;
+  color: #111111;
 }
 
 .username {
   font-size: 28rpx;
-  color: #999;
+  color: #869dae;
   margin-bottom: 30rpx;
 }
 
@@ -59,15 +60,16 @@
   justify-content: center;
   padding: 20rpx;
   border-radius: 15rpx;
-  border: none;
-  background: #f8f9fa;
-  color: #333;
+  border: 2rpx solid #869dae;
+  background: #ffffff;
+  color: #111111;
   font-size: 26rpx;
   box-sizing: border-box;
 }
 
 .action-btn:active {
   transform: scale(0.98);
+  background: #d9dde0;
 }
 
 .action-icon {
@@ -77,18 +79,21 @@
 }
 
 .edit-btn {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: #111111;
+  color: #ffffff;
+  border: 2rpx solid #869dae;
 }
 
 .background-btn {
-  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-  color: white;
+  background: #869dae;
+  color: #111111;
+  border: 2rpx solid #869dae;
 }
 
 .logout-btn {
-  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
-  color: white;
+  background: #d9dde0;
+  color: #111111;
+  border: 2rpx solid #869dae;
 }
 
 /* 弹窗样式 */
@@ -98,7 +103,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(17, 17, 17, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -107,12 +112,13 @@
 }
 
 .modal-content {
-  background: white;
+  background: #ffffff;
   border-radius: 20rpx;
   width: 80%;
   max-width: 600rpx;
   overflow: hidden;
   box-sizing: border-box;
+  border: 2rpx solid #869dae;
 }
 
 .modal-header {
@@ -120,14 +126,14 @@
   justify-content: space-between;
   align-items: center;
   padding: 30rpx;
-  border-bottom: 1rpx solid #eee;
+  border-bottom: 2rpx solid #869dae;
   box-sizing: border-box;
 }
 
 .modal-title {
   font-size: 36rpx;
   font-weight: bold;
-  color: #333;
+  color: #111111;
 }
 
 .close-btn {
@@ -152,17 +158,19 @@
 .input-label {
   display: block;
   font-size: 28rpx;
-  color: #666;
+  color: #869dae;
   margin-bottom: 15rpx;
 }
 
 .input {
   width: 100%;
   padding: 20rpx;
-  border: 1rpx solid #eee;
+  border: 2rpx solid #869dae;
   border-radius: 10rpx;
   font-size: 28rpx;
   box-sizing: border-box;
+  background: #ffffff;
+  color: #111111;
 }
 
 .modal-footer {
@@ -183,13 +191,15 @@
 }
 
 .cancel-btn {
-  background: #f5f5f5;
-  color: #666;
+  background: #d9dde0;
+  color: #111111;
+  border: 2rpx solid #869dae;
 }
 
 .confirm-btn {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: #111111;
+  color: #ffffff;
+  border: 2rpx solid #869dae;
 }
 
 /* 响应式设计 */

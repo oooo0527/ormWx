@@ -4,11 +4,11 @@ Page({
     userInfo: null,
     currentBackground: 0, // 当前背景索引
     backgrounds: [  // 背景数组
-      'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', // 默认紫色渐变
-      'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)', // 粉色渐变
-      'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)', // 蓝色渐变
-      'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)', // 绿色渐变
-      'linear-gradient(135deg, #fa709a 0%, #fee140 100%)'  // 橙色渐变
+      'linear-gradient(135deg, #000000 0%, #333333 100%)', // 黑白渐变
+      'linear-gradient(135deg, #ffffff 0%, #cccccc 100%)', // 白灰渐变
+      'linear-gradient(135deg, #333333 0%, #000000 100%)', // 灰黑渐变
+      'linear-gradient(135deg, #ffffff 0%, #666666 100%)', // 白银渐变
+      'linear-gradient(135deg, #666666 0%, #000000 100%)'  // 银黑渐变
     ]
   },
 
