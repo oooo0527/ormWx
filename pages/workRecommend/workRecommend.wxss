@@ -5,73 +5,58 @@
   box-sizing: border-box;
 }
 
-.nextcurrtent {
-  transform: rotate(10deg) !important;
-  /* 顺时针旋转45度 */
-  z-index: 1 !important;
-  transform: scale(0.8);
+.page-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 30rpx;
+  color: #333;
 }
 
-.precurrent {
-  transform: rotate(-10deg) !important;
-  /* 顺时针旋转45度 */
-  z-index: 1 !important;
-  transform: scale(0.8);
-
-}
-
-.current {
-  transform: scale(1);
-  position: relative;
-  z-index: 99 !important ;
-}
-
-/* 多图展示轮播图 */
+/* 3D堆叠式轮播图 */
 .carousel-container {
   position: relative;
-  height: 400rpx;
+  height: 450rpx;
   margin-bottom: 30rpx;
   box-sizing: border-box;
-  overflow: hidden;
-  width: 100vw;
+  perspective: 1200rpx;
 }
 
-.multi-carousel {
+.carousel-3d {
   position: relative;
   width: 100%;
   height: 100%;
-  /* overflow: hidden; */
+  touch-action: pan-y;
 }
 
-.carousel-track {
-  display: flex;
+.cards-container {
+  position: relative;
+  width: 100%;
   height: 100%;
-  transition: transform 0.5s ease;
+  transform-style: preserve-3d;
 }
-
-
 
 .carousel-card {
-  flex: 0 0 500rpx;
-  height: 100%;
-  margin-right: 20rpx;
-  border-radius: 20rpx;
+  position: absolute;
+  top: 20rpx;
+  left: 50%;
+  width: 360rpx;
+  height: 520rpx;
+  margin-left: -180rpx;
+  border-radius: 8rpx;
   overflow: hidden;
-  position: relative;
-  box-shadow: 0 10rpx 20rpx rgba(0, 0, 0, 0.2);
-  transition: all 0.3s ease;
-}
-
-.carousel-card:last-child {
-  margin-right: 0;
+  box-shadow: 0 15rpx 35rpx rgba(0, 0, 0, 0.25);
+  transition: all 0.3s ease-in-out;
+  /* 缩短动画时间并使用ease-out缓动 */
+  box-sizing: border-box;
+  backface-visibility: hidden;
+  transform-origin: center center;
 }
 
 .card-bg {
   width: 100%;
   height: 100%;
-  position: relative;
-  z-index: 99;
-
+  object-fit: cover;
 }
 
 .card-overlay {
@@ -80,7 +65,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, transparent 50%);
 }
 
 .card-content {
@@ -88,9 +73,10 @@
   bottom: 0;
   left: 0;
   width: 100%;
-  padding: 20rpx;
+  padding: 30rpx;
   box-sizing: border-box;
   color: white;
+  z-index: 2;
 }
 
 .card-title {
@@ -101,27 +87,91 @@
 }
 
 .card-role {
-  font-size: 26rpx;
+  font-size: 24rpx;
   display: block;
   margin-bottom: 5rpx;
-  color: #FFD700;
+  opacity: 0.9;
 }
 
 .card-year {
-  font-size: 24rpx;
+  font-size: 22rpx;
   display: block;
-  color: rgba(255, 255, 255, 0.8);
+  opacity: 0.8;
 }
 
+/* 导航按钮 */
+.nav-buttons {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  transform: translateY(-50%);
+  z-index: 101;
+  display: flex;
+  justify-content: space-between;
+  pointer-events: none;
+}
 
+.nav-btn {
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+  box-shadow: 0 5rpx 15rpx rgba(0, 0, 0, 0.2);
+  pointer-events: auto;
+  transition: all 0.3s ease;
+}
 
-/* 作品详细信息 */
-.work-detail {
+.nav-btn:active {
+  transform: scale(0.9);
+  background: rgba(255, 255, 255, 1);
+}
+
+.prev-btn {
+  margin-left: 20rpx;
+}
+
+.next-btn {
+  margin-right: 20rpx;
+}
+
+/* 指示器 */
+.indicators {
+  position: absolute;
+  bottom: -40rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  z-index: 101;
+}
+
+.indicator {
+  width: 12rpx;
+  height: 12rpx;
+  border-radius: 50%;
+  background: #ccc;
+  margin: 0 8rpx;
+  transition: all 0.3s ease;
+}
+
+.indicator.active {
+  background: #ff6b6b;
+  transform: scale(1.2);
+}
+
+/* 详细信息区域 */
+.detail-section {
   background: white;
   border-radius: 20rpx;
   padding: 30rpx;
-  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.1);
-  box-sizing: border-box;
+  box-shadow: 0 10rpx 30rpx rgba(0, 0, 0, 0.1);
+  margin-top: 20rpx;
 }
 
 .detail-header {
@@ -129,166 +179,65 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20rpx;
-  box-sizing: border-box;
 }
 
 .detail-title {
-  font-size: 36rpx;
+  font-size: 32rpx;
   font-weight: bold;
   color: #333;
 }
 
-.detail-type {
-  font-size: 24rpx;
-  background: #FF9500;
-  color: white;
-  border-radius: 10rpx;
-  padding: 5rpx 15rpx;
-  box-sizing: border-box;
-}
-
-.detail-meta {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20rpx;
-  flex-wrap: wrap;
-  box-sizing: border-box;
-}
-
-.carousel-content {
-  width: 100%;
-  height: 100%;
-}
-
-.carousel-bg {
-  width: 100%;
-  height: 100%;
-  /* 可选，添加圆角 */
-  /* 确保变换的原点在中心 */
-  transform-origin: center center;
-  /* 为变换属性添加过渡动画 */
-  transition: transform 0.3s ease;
-  border: 1px solid red;
-
-}
-
-.carousel-item {
-  width: 200px;
-  overflow: inherit;
-}
-
-.detail-year {
-  font-size: 28rpx;
-  color: #666;
-}
-
-.detail-role {
-  font-size: 28rpx;
-  color: #007AFF;
-  font-weight: bold;
-}
-
-.detail-description {
-  font-size: 28rpx;
-  color: #666;
-  line-height: 1.5;
-  margin-bottom: 20rpx;
-  display: block;
-  box-sizing: border-box;
-}
-
-.detail-stats {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-top: 1rpx solid #eee;
-  padding-top: 20rpx;
-  box-sizing: border-box;
-}
-
-.stat-item {
+.like-button {
   display: flex;
   align-items: center;
-  box-sizing: border-box;
-}
-
-.stat-label {
-  font-size: 28rpx;
-  margin-right: 10rpx;
-}
-
-.stat-value {
-  font-size: 28rpx;
-  color: #666;
-}
-
-.like-btn {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  border: none;
-  border-radius: 50rpx;
-  padding: 15rpx 30rpx;
-  font-size: 28rpx;
-  box-sizing: border-box;
+  background: #fff5f5;
+  padding: 10rpx 20rpx;
+  border-radius: 30rpx;
   transition: all 0.3s ease;
 }
 
-.like-btn:active {
+.like-button:active {
   transform: scale(0.95);
 }
 
-.like-btn.liked {
-  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+.like-icon {
+  font-size: 28rpx;
+  color: #ff6b6b;
+  margin-right: 10rpx;
 }
 
-/* 响应式设计 */
-@media (max-width: 768px) {
-  .container {
-    padding: 15rpx;
-  }
+.like-count {
+  font-size: 24rpx;
+  color: #ff6b6b;
+}
 
-  .carousel-container {
-    height: 300rpx;
-    margin-bottom: 20rpx;
-  }
+.detail-description {
+  font-size: 26rpx;
+  color: #666;
+  line-height: 1.6;
+}
 
-  .carousel-card {
-    flex: 0 0 400rpx;
-    margin-right: 15rpx;
-  }
+.image-Box {
+  margin-top: 60rpx;
+}
 
-  .card-title {
-    font-size: 28rpx;
-  }
+.image-list {
+  display: flex;
+  width: 100vw;
+  height: 120px;
+  overflow: scroll-x;
+}
 
-  .card-role {
-    font-size: 24rpx;
-  }
+.image-item {
+  width: 80px;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 8rpx;
+  margin: 0 8rpx;
+}
 
-  .card-year {
-    font-size: 22rpx;
-  }
-
-  .nav-btn {
-    width: 50rpx;
-    height: 50rpx;
-    font-size: 30rpx;
-  }
-
-  .work-detail {
-    padding: 25rpx;
-  }
-
-  .detail-title {
-    font-size: 32rpx;
-  }
-
-  .detail-description {
-    font-size: 26rpx;
-  }
-
-  .like-btn {
-    padding: 12rpx 25rpx;
-    font-size: 26rpx;
-  }
+.image-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }

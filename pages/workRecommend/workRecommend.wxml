@@ -2,43 +2,57 @@
   <view class="container">
     <text class="page-title">作品安利</text>
     
-    <!-- 炫酷轮播图 -->
+    <!-- 3D堆叠式轮播图 -->
     <view class="carousel-container">
-      <swiper 
-        class="work-carousel" 
-        interval="3000"
-        bindchange="onSwiperChange"  
-        layout-type="transformer" 
-        transformer-type="scaleAndFade" 
-        previous-margin="100" 
-        next-margin="100" 
-
-      >
-        <block wx:for="{{works}}" wx:key="id">
-          <swiper-item class="carousel-item">
-            <view class="carousel-content">
-              <image class="carousel-bg {{currentWorkIndex==index?'current':currentWorkIndex<index?'nextcurrtent':'precurrent'}}" mode="aspectFill"  src="{{item.cover}}"></image>
-              <!-- <view class="carousel-overlay"></view> -->
-            </view>
-          </swiper-item>
-        </block>
-      </swiper>
+      <view class="carousel-3d" bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd">
+        <!-- 卡片容器 -->
+        <view class="cards-container">
+          <!-- 只显示前3张卡片 -->
+          <view class="carousel-card" 
+                wx:for="{{displayWorks}}" 
+                wx:key="id" 
+                style="transform: {{cardTransforms[index]}}; z-index: {{cardZIndexes[index]}}; opacity: {{cardOpacities[index]}};"
+                data-index="{{index}}"
+                bindtap="selectCard">
+            <image class="card-bg" src="{{item.cover}}" mode="aspectFill"></image>
+          </view>
+        </view>
+      </view>
+      
+      <!-- 指示器 -->
+      <!-- <view class="indicators">
+        <view class="indicator" wx:for="{{works}}" wx:key="id" data-index="{{index}}" bindtap="selectSlide" style="background-color: {{index === currentSlide ? '#ff6b6b' : '#ccc'}};"></view>
+      </view> -->
     </view>
-    <view>
-      <view class="carousel-info" wx:for="{{works}}" wx:key="id">
-                <text class="work-title">{{item.title}}</text>
-                <text class="work-role" wx:if="{{item.role}}">饰演: {{item.role}}</text>
-                <text class="work-year">{{item.year}} · {{item.type}}</text>
-                <text class="work-description" wx:if="{{item.description}}">{{item.description}}</text>
-                <view class="work-stats">
-                  <view class="stat-item">
-                    <text class="stat-label">👍</text>
-                    <text class="stat-value">{{item.likes}}</text>
-                  </view>
-                  <button class="like-btn {{item.isLiked ? 'liked' : ''}}" bindtap="toggleLike" data-id="{{item.id}}">
-                    {{item.isLiked ? '已点赞' : '点赞'}}
-                  </button>
-                </view>
-              </view></view>
+    <view class="image-Box">
+  <view>陈奥作品一览</view>
+        <scroll-view
+      type="list"
+      scroll-x
+      refresher-enabled="{{true}}"
+      refresher-two-level-enabled="{{true}}"
+      refresher-two-level-scroll-enabled="{{true}}"
+>
+    <view class="image-list">
+      <view class="image-item" wx:for="{{works}}" wx:key="id">
+        <image class="image-thumb" src="{{item.cover}}" mode="aspectFill"></image>
+      </view>
+    </view>
+</scroll-view>
+    </view>
+
+
+
+    <!-- 详细信息区域 -->
+    <view class="detail-section" wx:if="{{!selectedWork}}">
+      <view class="detail-header">
+        <text class="detail-title">{{selectedWork.title}}</text>
+        <view class="like-button" bindtap="toggleLike">
+          <text class="like-icon">{{selectedWork.isLiked ? '♥' : '♡'}}</text>
+          <text class="like-count">{{selectedWork.likes}}</text>
+        </view>
+      </view>
+      <text class="detail-description">{{selectedWork.description}}</text>
+    </view>
   </view>
 </global-background>
