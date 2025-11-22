@@ -3,33 +3,28 @@
     <text class="page-title">妈粉专区</text>
   </view>
   
-  <view class="voices-list">
-    <view class="voice-item mom" wx:for="{{voices}}" wx:key="id">
-      <view class="voice-header">
-        <image class="user-avatar" src="/images/default_avatar.png"></image>
-        <view class="user-info">
-          <text class="username">{{item.type}}</text>
-          <text class="time">{{item.createTime}}</text>
-        </view>
-      </view>
-      
-      <text class="voice-content">{{item.content}}</text>
-      
-      <view class="voice-context" wx:if="{{item.context}}">
-        <text class="context-text">{{item.context}}</text>
-      </view>
-      
-      <view class="voice-actions">
-        <view class="action-item" bindtap="likeVoice" data-index="{{index}}">
-          <image class="action-icon" src="{{item.isLiked ? '/images/like_active.png' : '/images/like.png'}}"></image>
-          <text class="action-text">{{item.likes.length}}</text>
-        </view>
-        
-        <view class="action-item" bindtap="commentVoice" data-index="{{index}}">
-          <image class="action-icon" src="/images/comment.png"></image>
-          <text class="action-text">{{item.comments.length}}</text>
-        </view>
-      </view>
+  <view class="body-map">
+    <view class="body-part head" data-part="head" bindtap="playVoice">
+      <text class="part-label">头</text>
+    </view>
+    
+    <view class="body-part neck" data-part="neck" bindtap="playVoice">
+      <text class="part-label">脖子</text>
+    </view>
+    
+    <view class="body-part body" data-part="body" bindtap="playVoice">
+      <text class="part-label">身体</text>
+    </view>
+    
+    <view class="body-part legs" data-part="legs" bindtap="playVoice">
+      <text class="part-label">腿</text>
+    </view>
+    
+    <view class="body-part feet" data-part="feet" bindtap="playVoice">
+      <text class="part-label">脚</text>
     </view>
   </view>
+  
+  <!-- 语音播放控制 -->
+  <audio id="voicePlayer" />
 </view>
