@@ -64,9 +64,7 @@
     },
     {
       "root": "packageB",
-      "pages": [
- 
-      ]
+      "pages": []
     }
   ],
   "sitemapLocation": "sitemap.json"
