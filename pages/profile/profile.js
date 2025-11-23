@@ -137,7 +137,7 @@ Page({
   // 跳转到背景设置页面
   goToBackgroundSetting: function () {
     wx.navigateTo({
-      url: '/pages/backgroundSetting/backgroundSetting'
+      url: '/packageA/backgroundSetting/backgroundSetting'
     });
   }
 })

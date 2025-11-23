@@ -1,15 +1,12 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/workRecommend/workRecommend",
-    "pages/profile/profile",
-    "pages/fanVoice/fanVoice",
-    "pages/support-detail/detail",
     "pages/login/login",
     "pages/starArchive/starArchive",
     "pages/dataWorkshop/dataWorkshop",
-    "pages/test/test",
-    "pages/backgroundSetting/backgroundSetting"
+    "pages/workRecommend/workRecommend",
+    "pages/fanVoice/fanVoice",
+    "pages/profile/profile"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -57,5 +54,20 @@
       }
     ]
   },
+  "subpackages": [
+    {
+      "root": "packageA",
+      "pages": [
+        "backgroundSetting/backgroundSetting",
+        "support-detail/detail"
+      ]
+    },
+    {
+      "root": "packageB",
+      "pages": [
+ 
+      ]
+    }
+  ],
   "sitemapLocation": "sitemap.json"
 }

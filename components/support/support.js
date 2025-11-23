@@ -111,7 +111,7 @@ Component({
 
       // 跳转到详情页并传递数据
       wx.navigateTo({
-        url: '/pages/support-detail/detail?id=' + id,
+        url: '/packageA/support-detail/detail?id=' + id,
         success: function (res) {
           // 通过事件通道传递单条数据
           res.eventChannel.emit('acceptDataFromOpenerPage', detailData);
