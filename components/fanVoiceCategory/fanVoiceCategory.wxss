@@ -2,7 +2,7 @@
   /* padding: 20rpx 0; */
   box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
   /* border-radius: 20rpx; */
-  margin-bottom: 30rpx;
+  /* margin-bottom: 30rpx; */
   width: 100%;
   overflow: hidden;
   box-sizing: border-box;

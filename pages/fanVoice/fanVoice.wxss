@@ -1,5 +1,5 @@
 .container {
-  padding: 20rpx;
+  /* padding: 20rpx; */
   /* background: linear-gradient(135deg, #0c1117 0%, #f48eb5 100%); */
   min-height: 100vh;
   box-sizing: border-box;
