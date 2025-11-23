@@ -1,17 +1,25 @@
 <global-background>
   <view class="container">
     <view class="header"> 
+      <image src="/images/login-bg-home.png" mode="aspectFill"/>
+    <view class="header-box">
+
       <view class="app-title">明星互动平台</view>
       <view class="app-subtitle">探索明星世界，分享你的声音</view>
     </view>
 
+    </view>
+
     <view class="login-section">
       <button class="login-btn" bindtap="goToLogin">立即登录</button>
-      <button class="guest-btn" bindtap="goToStarArchive">游客访问</button>
+      <view class="login-text"  bindtap="goToStarArchive">游客访问</view>
+      <!-- <button class="guest-btn" bindtap="goToStarArchive">游客访问</button> -->
     </view>
 
     <view class="footer">
       <text class="copyright">© 2025 明星互动平台</text>
     </view>
   </view>
+    <!-- 语音播放控制 -->
+  <audio id="voicePlayer" />
 </global-background>

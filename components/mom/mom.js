@@ -5,21 +5,30 @@ Component({
   },
 
   data: {
-    // 语音文件映射
-    voiceMap: {
-      head: '',
-      neck: '',
-      body: '',
-      legs: '',
-      feet: ''
-    }
+    voiceMap: [
+      '/vedio/等左左买饼干 - 你好.mp3',
+      '/vedio/等左左买饼干 - 你是我的女朋友.mp3',
+      '/vedio/等左左买饼干 - 内个菠萝.mp3',
+      '/vedio/等左左买饼干 - 再见.mp3',
+      '/vedio/等左左买饼干 - 呜呜呜.mp3',
+      '/vedio/等左左买饼干 - 对吧.mp3',
+      '/vedio/等左左买饼干 - 对对对.mp3',
+      '/vedio/等左左买饼干 - 我叫Orm.mp3',
+      '/vedio/等左左买饼干 - 我爱你，你爱我吗？.mp3',
+      '/vedio/等左左买饼干 - 我爱你.mp3',
+      '/vedio/等左左买饼干 - 我爱你哒~.mp3',
+      '/vedio/等左左买饼干 - 早安.mp3',
+      '/vedio/等左左买饼干 - 明天见！.mp3',
+      '/vedio/等左左买饼干 - 谢谢.mp3',
+
+    ]
+
   },
 
   lifetimes: {
     attached: function () {
       // 组件实例进入页面节点树时执行
       this.initVoicePlayer();
-      this.loadVoiceData();
     }
   },
 
@@ -31,81 +40,55 @@ Component({
       this.voicePlayer.obeyMuteSwitch = false; // 不遵循静音开关
     },
 
-    // 从云数据库加载语音数据
-    loadVoiceData: function () {
-      const db = wx.cloud.database();
-      const musicCollection = db.collection('miusic');
 
-      // 查询type为mom的语音数据
-      musicCollection.where({
-        type: 'mom'
-      }).get().then(res => {
-        console.log('获取到的语音数据:', res.data);
-
-        // 处理返回的数据，构建voiceMap
-        const voiceMap = {};
-        res.data.forEach(item => {
-          // 根据部位字段映射语音文件
-          if (item.tag) {
-            voiceMap[item.tag] = item.url;
-          }
-        });
-
-        // 更新数据
-        this.setData({
-          voiceMap: voiceMap
-        });
-
-        console.log('更新后的voiceMap:', this.data.voiceMap);
-      }).catch(err => {
-        console.error('获取语音数据失败:', err);
-        wx.showToast({
-          title: '数据加载失败',
-          icon: 'none'
-        });
-      });
-    },
 
     // 播放语音
-    playVoice: function (e) {
-      const part = e.currentTarget.dataset.part;
-      const voiceSrc = this.data.voiceMap[part];
+    playVoice: function () {
+      wx.getRandomValues({
+        length: 4,
+        success: res => {
+          const randomArray = new Uint32Array(res.randomValues);
+          const randomIndex = randomArray[0] % this.data.voiceMap.length;
+          const selected = this.data.voiceMap[randomIndex];
 
-      // 检查语音文件是否存在
-      if (!voiceSrc) {
-        wx.showToast({
-          title: '暂无语音',
-          icon: 'none'
-        });
-        return;
-      }
+          // 停止当前播放
+          this.voicePlayer.stop();
 
-      // 停止当前播放
-      this.voicePlayer.stop();
+          // 设置新的音频源
+          this.voicePlayer.src = selected;
 
-      // 设置新的音频源
-      this.voicePlayer.src = voiceSrc;
+          // 播放音频
+          this.voicePlayer.play();
 
-      // 播放音频
-      this.voicePlayer.play();
+        },
+        fail: err => {
+          // 备选方案
+          const randomIndex = Math.floor(Math.random() * this.data.voiceMap.length);
+          const selected = this.data.voiceMap[randomIndex];
 
-      // 监听播放事件
-      this.voicePlayer.onPlay(() => {
-        console.log(`开始播放${part}部位语音`);
-      });
+
+          // 停止当前播放
+          this.voicePlayer.stop();
+
+          // 设置新的音频源
+          this.voicePlayer.src = selected;
+
+          // 播放音频
+          this.voicePlayer.play();
+        }
+      })
+
+
+
+
 
       // 监听播放错误事件
       this.voicePlayer.onError((res) => {
-        console.error(`播放${part}部位语音失败:`, res);
+
         wx.showToast({
           title: '播放失败',
           icon: 'none'
         });
-      });
-
-      // 监听播放结束事件
-      this.voicePlayer.onEnded(() => {
-        console.log(`播放${part}部位语音结束`);
       });
     },
 

@@ -11,8 +11,19 @@ Page({
       'linear-gradient(135deg, #666666 0%, #000000 100%)'  // 银黑渐变
     ]
   },
+  // 初始化语音播放器
+  initVoicePlayer: function () {
+    // 创建内部音频上下文
+    this.voicePlayer = wx.createInnerAudioContext();
 
+    this.voicePlayer.obeyMuteSwitch = false; // 不遵循静音开关
+  },
   onLoad: function () {
+    this.initVoicePlayer()
+    // 设置新的音频源
+    this.voicePlayer.src = '/vedio/等左左买饼干 - 你好.mp3';
+    // 播放音频
+    this.voicePlayer.play();
     // 页面加载时检查登录状态
     this.checkLoginStatus();
 

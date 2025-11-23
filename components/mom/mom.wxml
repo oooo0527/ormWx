@@ -3,27 +3,8 @@
     <text class="page-title">妈粉专区</text>
   </view>
   
-  <view class="body-map">
-    <view class="body-part head" data-part="head" bindtap="playVoice">
-      <text class="part-label">头</text>
-    </view>
-    
-    <view class="body-part neck" data-part="neck" bindtap="playVoice">
-      <text class="part-label">脖子</text>
-    </view>
-    
-    <view class="body-part body" data-part="body" bindtap="playVoice">
-      <text class="part-label">身体</text>
-    </view>
-    
-    <view class="body-part legs" data-part="legs" bindtap="playVoice">
-      <text class="part-label">腿</text>
-    </view>
-    
-    <view class="body-part feet" data-part="feet" bindtap="playVoice">
-      <text class="part-label">脚</text>
-    </view>
-  </view>
+<view   bindtap="playVoice">
+快  陈奥叫妈妈 </view>
   
   <!-- 语音播放控制 -->
   <audio id="voicePlayer" />
