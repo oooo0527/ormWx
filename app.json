@@ -1,11 +1,11 @@
 {
   "pages": [
+    "pages/fanVoice/fanVoice",
     "pages/workRecommend/workRecommend",
     "pages/index/index",
     "pages/login/login",
     "pages/starArchive/starArchive",
     "pages/dataWorkshop/dataWorkshop",
-    "pages/fanVoice/fanVoice",
     "pages/profile/profile"
   ],
   "window": {

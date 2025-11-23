@@ -1,11 +1,4 @@
 <view class="container">
-  <view class="header">
-    <text class="page-title">妈粉专区</text>
-  </view>
-  
-<view   bindtap="playVoice">
-快  陈奥叫妈妈 </view>
-  
-  <!-- 语音播放控制 -->
-  <audio id="voicePlayer" />
+  <!-- 使用成长时间线组件 -->
+  <growth-timeline></growth-timeline>
 </view>
