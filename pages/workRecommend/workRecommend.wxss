@@ -1,8 +1,37 @@
 .container {
   padding: 20rpx;
   /* background: linear-gradient(135deg, #0c1117 0%, #f48eb5 100%); */
-  min-height: 100vh;
+  /* min-height: 100vh; */
   box-sizing: border-box;
+}
+
+.custom-search-bar {
+  display: flex;
+  align-items: center;
+  padding: 18rpx 30rpx;
+  background-color: rgba(207, 202, 202, 0.363);
+  border-radius: 32rpx;
+  width: 100%;
+  color: #ffffff;
+  margin: 30rpx 0;
+  /* 圆角 */
+}
+
+.search-icon {
+  width: 32rpx;
+  height: 32rpx;
+  margin-right: 16rpx;
+}
+
+.search-input {
+  flex: 1;
+  font-size: 28rpx;
+}
+
+.clear-btn {
+  width: 36rpx;
+  height: 36rpx;
+  margin-left: 16rpx;
 }
 
 .page-title {
@@ -11,15 +40,17 @@
   text-align: center;
   margin-bottom: 30rpx;
   color: #ffffff;
+  margin-top: 30rpx;
 }
 
 /* 3D堆叠式轮播图 */
 .carousel-container {
   position: relative;
   height: 450rpx;
-  margin-bottom: 30rpx;
+  margin-bottom: 100rpx;
   box-sizing: border-box;
   perspective: 1200rpx;
+  margin-top: 50rpx;
 }
 
 .carousel-3d {
@@ -225,7 +256,7 @@
 }
 
 .image-Box {
-  margin-top: 60rpx;
+  margin-top: 100rpx;
   color: #ffffff;
 }
 

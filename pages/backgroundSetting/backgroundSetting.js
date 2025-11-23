@@ -11,8 +11,8 @@ Page({
       '#0c1117', '#f48eb5', '#ffffff'
     ],
     gradientOptions: [
-      'linear-gradient(180deg, #0c1117 0%, #f48eb5 10%, #f48eb5 80%,#0c1117 100%)',
-      'linear-gradient(180deg, #f48eb5 0%, #0c1117 10%, #0c1117 80%,#f48eb5 100%)',
+      'linear-gradient(180deg, #0c1117 0%, #f48eb5 8%, #f48eb5 92%,#0c1117 100%)',
+      'linear-gradient(180deg, #f48eb5 0%, #0c1117 8%, #0c1117 92%,#f48eb5 100%)',
       'linear-gradient(135deg, #0c1117 0%, #ffffff 100%)',
       'linear-gradient(135deg, #f48eb5 0%, #ffffff 100%)',
       'linear-gradient(45deg, #0c1117 0%, #f48eb5 50%, #ffffff 100%)'

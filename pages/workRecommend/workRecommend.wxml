@@ -1,6 +1,17 @@
 <global-background>
   <view class="container">
-    <text class="page-title">作品安利</text>
+  <view class="custom-search-bar">
+    <input
+    class="search-input"
+    placeholder="请输入搜索关键词"
+    value="{{ searchValue }}"
+    bindinput="onInput"
+    bindconfirm="onConfirm"
+    confirm-type="search"
+  />
+  </view>
+
+    <view class="title">orkornnaphat</view>
     
     <!-- 3D堆叠式轮播图 -->
     <view class="carousel-container">
@@ -29,9 +40,7 @@
         <scroll-view
       type="list"
       scroll-x
-      refresher-enabled="{{true}}"
-      refresher-two-level-enabled="{{true}}"
-      refresher-two-level-scroll-enabled="{{true}}"
+ 
 >
     <view class="image-list">
       <view class="image-item" wx:for="{{works}}" wx:key="id">
