@@ -48,7 +48,7 @@
         <text class="back-text">返回</text>
       </view>
       <!-- 普通轮播图样式 -->
-      <swiper class="normal-swiper" indicator-dots="{{true}}" autoplay="{{false}}" interval="5000" duration="1000" bindchange="onSwiperChange" current="{{currentSlide}}">
+      <swiper class="normal-swiper"  autoplay="{{true}}" interval="5000" duration="1000" bindchange="onSwiperChange" current="{{currentSlide}}">
         <block wx:for="{{works}}" wx:key="id">
           <swiper-item class="swiper-item">
             <view class="swiper-content">

@@ -197,7 +197,7 @@
 /* 指示器 */
 .indicators {
   position: absolute;
-  bottom: -40rpx;
+  /* bottom: -40rpx; */
   left: 50%;
   transform: translateX(-50%);
   display: flex;
