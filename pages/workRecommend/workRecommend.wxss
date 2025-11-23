@@ -65,7 +65,7 @@
   /* margin-bottom: 100rpx; */
   box-sizing: border-box;
   perspective: 1200rpx;
-  margin-top: 50rpx;
+  /* margin-top: 50rpx; */
   width: 100%;
   overflow-y: scroll;
 }
@@ -240,6 +240,7 @@
   overflow: hidden;
   box-shadow: 0 10rpx 30rpx rgba(12, 17, 23, 0.3);
   width: 400rpx;
+  height: 620rpx;
 }
 
 .swiper-image {
