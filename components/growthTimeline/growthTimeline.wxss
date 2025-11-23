@@ -33,23 +33,50 @@
   }
 }
 
+@keyframes starTwinkle {
+  0% {
+    opacity: 0.4;
+    transform: translate(-50%, -50%) rotate(0deg) scale(1);
+    filter: drop-shadow(0 0 2rpx rgba(214, 205, 210, 0.5));
+  }
+
+  25% {
+    opacity: 0.7;
+    transform: translate(-50%, -50%) rotate(20deg) scale(1.1);
+    filter: drop-shadow(0 0 5rpx rgba(202, 190, 196, 0.7));
+  }
+
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(45deg) scale(1.2);
+    filter: drop-shadow(0 0 10rpx rgb(216, 202, 209));
+  }
+
+  75% {
+    opacity: 0.7;
+    transform: translate(-50%, -50%) rotate(70deg) scale(1.1);
+    filter: drop-shadow(0 0 5rpx rgba(180, 158, 169, 0.7));
+  }
+
+  100% {
+    opacity: 0.4;
+    transform: translate(-50%, -50%) rotate(90deg) scale(1);
+    filter: drop-shadow(0 0 2rpx rgba(212, 205, 208, 0.5));
+  }
+}
+
 .timeline-point {
   position: absolute;
   z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   width: 20rpx;
   height: 20rpx;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(5px);
-  border: 2rpx solid rgba(255, 255, 255, 0.5);
-  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  transform: translate(-50%, -50%) rotate(0deg);
   transition: all 0.3s ease;
   cursor: pointer;
-  background:  #f48eb5;
+  animation: starTwinkle 1.5s infinite alternate;
+  filter: drop-shadow(0 0 5rpx rgba(245, 243, 244, 0.8));
+  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
 }
 
 
@@ -57,14 +84,40 @@
 
 
 .timeline-point.active {
-  transform: translate(-50%, -50%) scale(1.2);
-  background: rgba(255, 255, 255, 0.4);
+  animation: starActiveTwinkle 0.5s infinite alternate;
   box-shadow: 0 0 20rpx rgba(255, 64, 129, 0.8);
 }
 
-.timeline-point.active .point-inner {
-  background: #ffffff;
-  box-shadow: 0 0 15rpx #ffffff, 0 0 30rpx #ffffff;
+@keyframes starActiveTwinkle {
+  0% {
+    opacity: 0.8;
+    transform: translate(-50%, -50%) rotate(0deg) scale(1.2);
+    filter: drop-shadow(0 0 10rpx rgba(255, 64, 129, 0.8));
+  }
+
+  25% {
+    opacity: 0.9;
+    transform: translate(-50%, -50%) rotate(90deg) scale(1.3);
+    filter: drop-shadow(0 0 15rpx rgba(255, 64, 129, 0.9));
+  }
+
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(180deg) scale(1.5);
+    filter: drop-shadow(0 0 20rpx rgba(255, 64, 129, 1));
+  }
+
+  75% {
+    opacity: 0.9;
+    transform: translate(-50%, -50%) rotate(270deg) scale(1.3);
+    filter: drop-shadow(0 0 15rpx rgba(255, 64, 129, 0.9));
+  }
+
+  100% {
+    opacity: 0.8;
+    transform: translate(-50%, -50%) rotate(360deg) scale(1.2);
+    filter: drop-shadow(0 0 10rpx rgba(255, 64, 129, 0.8));
+  }
 }
 
 .detail-modal {

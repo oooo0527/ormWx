@@ -1,4 +1,4 @@
 <view class="container">
   <!-- 使用成长时间线组件 -->
-  <growth-timeline></growth-timeline>
+  <growth-timeline bind:playvoice="playVoice"></growth-timeline>
 </view>
