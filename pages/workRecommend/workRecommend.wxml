@@ -1,6 +1,6 @@
 <global-background>
   <view class="container">
-    <view wx:if="{{!showDetail}}">
+    <view wx:if="{{!showDetail}}" class="list-container"> 
       <view class="custom-search-bar">
         <input class="search-input" placeholder="请输入搜索关键词" value="{{ searchValue }}" bindinput="onInput" bindconfirm="onConfirm" confirm-type="search" />
       </view>
@@ -8,7 +8,6 @@
 
       <!-- 轮播图区域 -->
       <view class="carousel-container">
-
 
         <!-- 3D堆叠式轮播图 -->
         <view class="carousel-3d" bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd">
@@ -47,6 +46,8 @@
       <view class="back-button" bindtap="backToList">
         <text class="back-text">返回</text>
       </view>
+      
+        <image src="{{selectedWork.cover}}" mode="aspectFill" class="selected-work-image"></image>
       <!-- 普通轮播图样式 -->
       <swiper class="normal-swiper"  autoplay="{{true}}" interval="5000" duration="1000" bindchange="onSwiperChange" current="{{currentSlide}}">
         <block wx:for="{{works}}" wx:key="id">
