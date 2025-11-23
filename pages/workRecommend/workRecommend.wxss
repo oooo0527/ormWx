@@ -5,6 +5,10 @@
   box-sizing: border-box;
 }
 
+.title {
+  text-align: center;
+}
+
 .custom-search-bar {
   display: flex;
   align-items: center;
@@ -52,6 +56,18 @@
   perspective: 1200rpx;
   margin-top: 50rpx;
   width: 100%;
+}
+
+.carousel-container1 {
+  position: relative;
+  height: 100vh;
+  min-height: 100vh;
+  /* margin-bottom: 100rpx; */
+  box-sizing: border-box;
+  perspective: 1200rpx;
+  margin-top: 50rpx;
+  width: 100%;
+  overflow-y: scroll;
 }
 
 .carousel-3d {
@@ -210,9 +226,10 @@
 
 .swiper-item {
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
   width: 400rpx;
+  flex-direction: column;
 
 }
 
@@ -325,7 +342,7 @@
 
 /* 返回按钮 */
 .back-button {
-  text-align: center;
+  /* text-align: center; */
   margin-top: 30rpx;
 }
 
@@ -333,9 +350,9 @@
   color: #ffffff;
   font-size: 28rpx;
   background: #0c1117;
-  padding: 15rpx 40rpx;
+  /* padding: 15rpx 40rpx; */
   border-radius: 50rpx;
-  border: 2rpx solid #f48eb5;
+  /* border: 2rpx solid #f48eb5; */
 }
 
 .image-Box {
