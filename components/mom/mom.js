@@ -3,7 +3,6 @@ Component({
   properties: {
 
   },
-
   data: {
     voiceMap: [
       "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/vedio/等左左买饼干 - 你好.mp3",

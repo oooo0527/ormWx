@@ -1,10 +1,10 @@
 {
   "pages": [
+    "pages/workRecommend/workRecommend",
     "pages/index/index",
     "pages/login/login",
     "pages/starArchive/starArchive",
     "pages/dataWorkshop/dataWorkshop",
-    "pages/workRecommend/workRecommend",
     "pages/fanVoice/fanVoice",
     "pages/profile/profile"
   ],
@@ -61,10 +61,6 @@
         "backgroundSetting/backgroundSetting",
         "support-detail/detail"
       ]
-    },
-    {
-      "root": "packageB",
-      "pages": []
     }
   ],
   "sitemapLocation": "sitemap.json"
