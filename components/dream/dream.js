@@ -6,7 +6,25 @@ Component({
 
   data: {
     voices: [],
-    droplets: [] // 存储水滴图片数据
+    droplets: [], // 存储水滴图片数据
+    swiperList: [
+      {
+        id: 1,
+        type: 'image',
+        url: 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/dream/4659bde233dbb23bea1fcaede40190c3.jpg'
+      },
+      {
+        id: 2,
+        type: 'image',
+        url: 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/dream/476361aea0c50a83e749dde0491984c1.jpg'
+      },
+      {
+        id: 3,
+        type: 'image',
+        url: 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/dream/7209ebae7e26aec743643d3fac3c162a.jpg'
+      }
+    ],
+    currentSwiperIndex: 0 // 当前轮播图索引
   },
 
   lifetimes: {
@@ -132,6 +150,13 @@ Component({
         content: '请先登录以使用评论功能',
         showCancel: false,
         confirmText: '知道了'
+      });
+    },
+
+    // 轮播图切换事件
+    onSwiperChange: function (e) {
+      this.setData({
+        currentSwiperIndex: e.detail.current
       });
     }
   }
