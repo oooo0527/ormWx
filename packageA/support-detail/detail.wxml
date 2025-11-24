@@ -4,7 +4,7 @@
   </view>
   
   <view class="detail-content">
-    <image class="cover-image" src="{{supportDetail.img[0]}}" mode="aspectFill"></image>
+    <image class="cover-image" src="{{supportDetail.img[0]}}" mode="aspectFill" lazy-load></image>
     
     <view class="info-section">
       <view class="info-item">
@@ -26,7 +26,7 @@
       <text class="section-title">活动图片</text>
       <view class="images-grid">
         <view class="image-item" wx:for="{{supportDetail.img}}" wx:key="index" bindtap="previewImage" data-url="{{item}}">
-          <image class="image-thumb" src="{{item}}" mode="aspectFill"></image>
+          <image class="image-thumb" src="{{item}}" mode="aspectFill" lazy-load></image>
         </view>
       </view>
     </view>

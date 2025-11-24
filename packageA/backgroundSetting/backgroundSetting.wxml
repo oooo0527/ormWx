@@ -42,11 +42,11 @@
         <text class="item-label">自定义背景</text>
         <view class="custom-options">
           <button class="option-btn upload-btn" bindtap="uploadCustomBackground">
-            <image class="btn-icon" src="/images/profile/upload.svg"></image>
+            <image class="btn-icon" src="/images/profile/upload.svg" lazy-load></image>
             <text>上传图片</text>
           </button>
           <button class="option-btn reset-btn" bindtap="resetBackground">
-            <image class="btn-icon" src="/images/profile/reset.svg"></image>
+            <image class="btn-icon" src="/images/profile/reset.svg" lazy-load></image>
             <text>重置默认</text>
           </button>
         </view>

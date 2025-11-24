@@ -21,7 +21,7 @@
       <view class="modal-content">
         <view class="modal-header">
           <text class="modal-title">上传数据</text>
-          <image class="close-btn" bindtap="hideUploadForm" src="/images/close.png"></image>
+          <image class="close-btn" bindtap="hideUploadForm" src="/images/close.png" lazy-load></image>
         </view>
         
         <view class="modal-body">
@@ -46,7 +46,7 @@
       <view class="modal-content">
         <view class="modal-header">
           <text class="modal-title">{{selectedDataItem.title}}</text>
-          <image class="close-btn" bindtap="closeDataDetail" src="/images/close.png"></image>
+          <image class="close-btn" bindtap="closeDataDetail" src="/images/close.png" lazy-load></image>
         </view>
         
         <scroll-view class="modal-body" scroll-y>

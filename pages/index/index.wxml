@@ -1,7 +1,7 @@
 <global-background>
   <view class="container">
     <view class="header"> 
-      <image src="/images/login-bg-home.png" mode="aspectFill"/>
+      <image src="/images/login-bg-home.png" mode="aspectFill" lazy-load/>
     <view class="header-box">
 
       <view class="app-title">明星互动平台</view>

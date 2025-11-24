@@ -2,7 +2,7 @@
 <view class="container">
   <!-- 星空背景 -->
   <view class="star-background">
-    <image src="cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/be1ee1849ed2342b8a7ae1f8cbfce65b.jpg" class="star-background-image"></image>
+    <image src="cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/be1ee1849ed2342b8a7ae1f8cbfce65b.jpg" class="star-background-image" lazy-load></image>
     <block wx:for="{{stars}}" wx:key="id">
       <view 
         class="star" 

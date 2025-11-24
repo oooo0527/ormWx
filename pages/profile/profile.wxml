@@ -1,21 +1,21 @@
 <global-background>
   <view class="container">
     <view wx:if="{{isLogin}}" class="profile-card">
-      <image class="avatar" src="{{userInfo.avatar || '/images/default_avatar.png'}}"></image>
+      <image class="avatar" src="{{userInfo.avatar || '/images/default_avatar.png'}}" lazy-load></image>
       <text class="nickname">{{userInfo.nickname}}</text>
       <text class="username">@{{userInfo.username}}</text>
       
       <view class="action-buttons">
         <button class="action-btn edit-btn" bindtap="showEditForm">
-          <image class="action-icon" src="/images/profile/edit.svg"></image>
+          <image class="action-icon" src="/images/profile/edit.svg" lazy-load></image>
           <text>编辑资料</text>
         </button>
         <button class="action-btn background-btn" bindtap="goToBackgroundSetting">
-          <image class="action-icon" src="/images/profile/upload.svg"></image>
+          <image class="action-icon" src="/images/profile/upload.svg" lazy-load></image>
           <text>背景设置</text>
         </button>
         <button class="action-btn logout-btn" bindtap="logout">
-          <image class="action-icon" src="/images/profile/logout.svg"></image>
+          <image class="action-icon" src="/images/profile/logout.svg" lazy-load></image>
           <text>退出登录</text>
         </button>
       </view>
@@ -26,7 +26,7 @@
       <view class="modal-content">
         <view class="modal-header">
           <text class="modal-title">编辑资料</text>
-          <image class="close-btn" bindtap="hideEditForm" src="/images/close.png"></image>
+          <image class="close-btn" bindtap="hideEditForm" src="/images/close.png" lazy-load></image>
         </view>
         
         <view class="modal-body">

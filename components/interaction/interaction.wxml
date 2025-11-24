@@ -10,7 +10,7 @@
         <block wx:for="{{item}}" wx:key="id">
           <view class="voice-item">
             <view class="voice-header">
-              <image class="user-avatar" src="{{item.avatar || '/images/default_avatar.png'}}"></image>
+              <image class="user-avatar" src="{{item.avatar || '/images/default_avatar.png'}}" lazy-load></image>
               <view class="user-info">
                 <text class="username">{{item.type}}</text>
                 <text class="time">{{item.createTime}}</text>
@@ -22,12 +22,12 @@
             
             <!-- 图片内容 -->
             <view class="voice-images" wx:if="{{item.hasImage && !item.imageOnly}}">
-              <image class="voice-image" wx:for="{{item.images}}" wx:key="index" src="{{item}}" mode="widthFix" bindtap="previewImage" data-images="{{item.images}}" data-current="{{item}}"></image>
+              <image class="voice-image" wx:for="{{item.images}}" lazy-load wx:key="index" src="{{item}}" mode="widthFix" bindtap="previewImage" data-images="{{item.images}}" data-current="{{item}}"></image>
             </view>
             
             <!-- 纯图片内容 -->
             <view class="image-only" wx:if="{{item.imageOnly}}">
-              <image class="main-image" src="{{item.mainImage}}" mode="aspectFill" bindtap="previewImage" data-images="{{[item.mainImage]}}" data-current="{{item.mainImage}}"></image>
+              <image class="main-image" src="{{item.mainImage}}" lazy-load mode="aspectFill" bindtap="previewImage" data-images="{{[item.mainImage]}}" data-current="{{item.mainImage}}"></image>
             </view>
             
             <view class="voice-context" wx:if="{{item.context}}">
@@ -36,12 +36,12 @@
             
             <view class="voice-actions">
               <view class="action-item" bindtap="likeVoice" data-id="{{item.id}}">
-                <image class="action-icon" src="{{item.isLiked ? '/images/like_active.png' : '/images/like.png'}}"></image>
+                <image class="action-icon" src="{{item.isLiked ? '/images/like_active.png' : '/images/like.png'}}" lazy-load></image>
                 <text class="action-text">{{item.likes.length}}</text>
               </view>
               
               <view class="action-item" bindtap="commentVoice" data-id="{{item.id}}">
-                <image class="action-icon" src="/images/comment.png"></image>
+                <image class="action-icon" src="/images/comment.png" lazy-load></image>
                 <text class="action-text">{{item.comments.length}}</text>
               </view>
             </view>

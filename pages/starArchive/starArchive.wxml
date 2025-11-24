@@ -11,13 +11,13 @@
     <view class="stars-list" wx:if="{{stars.length > 0}}">
     
       <view class="star-item" wx:for="{{stars}}" wx:key="id" bindtap="viewStarDetail" data-index="{{index}}">
-        <image class="star-avatar" src="{{item.avatar}}"></image>
+        <image class="star-avatar" src="{{item.avatar}}" lazy-load></image>
         <view class="star-info">
           <text class="star-name">{{item.name}}</text>
           <text class="star-en-name">{{item.englishName}}</text>
           <text class="star-nicknames">昵称: {{item.nicknames.join(', ')}}</text>
         </view>
-        <image class="arrow" src="/images/arrow_right.png"></image>
+        <image class="arrow" src="/images/arrow_right.png" lazy-load></image>
       </view>
     </view>
     
@@ -26,11 +26,11 @@
       <view class="modal-content" bindtap="preventOverlayTap">
         <view class="modal-header">
           <text class="modal-title">{{selectedStar.name}} 档案</text>
-          <image class="close-btn" bindtap="closeDetail" src="/images/close.png"></image>
+          <image class="close-btn" bindtap="closeDetail" src="/images/close.png" lazy-load></image>
         </view>
         
         <scroll-view class="modal-body" scroll-y>
-          <image class="detail-avatar" src="{{selectedStar.avatar}}"></image>
+          <image class="detail-avatar" src="{{selectedStar.avatar}}" lazy-load></image>
           
           <view class="detail-info">
             <view class="info-row" wx:if="{{selectedStar.name}}">

@@ -15,7 +15,7 @@
           <view class="cards-container">
             <!-- 只显示前3张卡片 -->
             <view class="carousel-card" wx:for="{{displayWorks}}" wx:key="id" style="transform: {{cardTransforms[index]}}; z-index: {{cardZIndexes[index]}}; opacity: {{cardOpacities[index]}};" data-index="{{index}}" bindtap="selectCard">
-              <image class="card-bg" src="{{item.cover}}" mode="aspectFill"></image>
+              <image class="card-bg" src="{{item.cover}}" mode="aspectFill" lazy-load></image>
             </view>
           </view>
         </view>
@@ -33,7 +33,7 @@
           <scroll-view type="list" scroll-x>
             <view class="image-list">
               <view class="image-item" wx:for="{{works}}" wx:key="id">
-                <image class="image-thumb" src="{{item.cover}}" mode="aspectFill"></image>
+                <image class="image-thumb" src="{{item.cover}}" mode="aspectFill" lazy-load></image>
               </view>
             </view>
           </scroll-view>
@@ -47,13 +47,13 @@
         <text class="back-text">返回</text>
       </view>
       
-        <image src="{{selectedWork.cover}}" mode="aspectFill" class="selected-work-image"></image>
+        <image src="{{selectedWork.cover}}" mode="aspectFill" class="selected-work-image" lazy-load></image>
       <!-- 普通轮播图样式 -->
       <swiper class="normal-swiper"  autoplay="{{true}}" interval="5000" duration="1000" bindchange="onSwiperChange" current="{{currentSlide}}">
         <block wx:for="{{works}}" wx:key="id">
           <swiper-item class="swiper-item">
             <view class="swiper-content">
-              <image src="{{item.cover}}" class="swiper-image" mode="aspectFill" bindtap="onSwiperImageTap"></image>
+              <image src="{{item.cover}}" class="swiper-image" mode="aspectFill" lazy-load bindtap="onSwiperImageTap"></image>
             </view>
             <view class="detail-section">
               <view class="detail-header">

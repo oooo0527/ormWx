@@ -12,7 +12,7 @@
     <view class="modal-content" bindtap="preventOverlayTap">
       <view class="modal-header">
         <text class="modal-title">发布心声</text>
-        <image class="close-btn" bindtap="hidePostForm" src="/images/close.png"></image>
+        <image class="close-btn" bindtap="hidePostForm" src="/images/close.png" lazy-load></image>
       </view>
       
       <view class="modal-body">

@@ -1,16 +1,15 @@
 <view class="container">
-  <!-- 水滴背景 -->
-  <view class="droplet-background">
-    <block wx:for="{{droplets}}" wx:key="id">
+    <!-- 时光隧道背景 -->
+  <view class="tunnel-background">
+    <block wx:for="{{tunnelImages}}" wx:key="id">
       <image 
-        class="droplet-image" 
+        class="tunnel-image" 
         src="{{item.src}}" 
-        style="left: {{item.x}}%; top: {{item.y}}%; width: {{item.size}}px; height: {{item.size}}px; transform: scale({{item.scale}}) rotate({{item.rotation}}deg);">
+        style="left: {{item.x}}%; top: {{item.y}}%; width: {{item.scale * 100}}px; height: {{item.scale * 100}}px; opacity: {{item.opacity}}; transform: translateZ({{item.z}}px);" lazy-load>
       </image>
     </block>
   </view>
-  
-  <!-- 轮播图 -->
+    <!-- 轮播图 -->
   <view class="swiper-container">
     <swiper 
       class="swiper" 
@@ -21,9 +20,10 @@
       circular="{{true}}"
       current="{{currentSwiperIndex}}"
       bindchange="onSwiperChange">
-      <block wx:for="{{swiperList}}" wx:key="id">
+      <block wx:for="{{swiperList}}" wx:key="id"> 
         <swiper-item>
           <image 
+          lazy-load
             class="swiper-image" 
             src="{{item.url}}" 
             mode="aspectFill">
@@ -33,37 +33,4 @@
     </swiper>
   </view>
   
-  <view class="header">
-    <text class="page-title">梦女专区</text>
-  </view>
-  
-  <view class="voices-list" wx:if="{{false}}">
-    <view class="voice-item dream" wx:for="{{voices}}" wx:key="id">
-      <view class="voice-header">
-        <image class="user-avatar" src="/images/default_avatar.png"></image>
-        <view class="user-info">
-          <text class="username">{{item.type}}</text>
-          <text class="time">{{item.createTime}}</text>
-        </view>
-      </view>
-      
-      <text class="voice-content">{{item.content}}</text>
-      
-      <view class="voice-context" wx:if="{{item.context}}">
-        <text class="context-text">{{item.context}}</text>
-      </view>
-      
-      <view class="voice-actions">
-        <view class="action-item" bindtap="likeVoice" data-index="{{index}}">
-          <image class="action-icon" src="{{item.isLiked ? '/images/like_active.png' : '/images/like.png'}}"></image>
-          <text class="action-text">{{item.likes.length}}</text>
-        </view>
-        
-        <view class="action-item" bindtap="commentVoice" data-index="{{index}}">
-          <image class="action-icon" src="/images/comment.png"></image>
-          <text class="action-text">{{item.comments.length}}</text>
-        </view>
-      </view>
-    </view>
-  </view>
 </view>
