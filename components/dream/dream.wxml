@@ -10,7 +10,7 @@
     </block>
   </view>
     <!-- 轮播图 -->
-  <view class="swiper-container">
+  <view class="swiper-container" wx:if="{{false}}">
     <swiper 
       class="swiper" 
       indicator-dots="{{true}}" 

@@ -162,7 +162,7 @@
   height: 100%;
   border-radius: 20rpx;
   /* 添加图片加载动画 */
-  animation: imageFadeIn 0.5s ease-out;
+  animation: imageFadeIn 0.8s ease-out;
 }
 
 @keyframes imageFadeIn {
@@ -207,7 +207,8 @@
   position: relative;
   top: 0;
   left: 0;
-  width: 100%;
+  width: 120%;
+  /* 增加宽度以容纳更多左右图片 */
   height: 500px;
   pointer-events: none;
   /* 防止隧道图片阻挡点击事件 */
@@ -215,12 +216,18 @@
   perspective: 1000px;
   /* 为3D效果添加透视 */
   overflow: hidden;
+  /* 添加渐变背景增强深度感 */
+  background: linear-gradient(to bottom, rgba(175, 82, 222, 0.1), rgba(175, 82, 222, 0.3), rgba(175, 82, 222, 0.1));
+  /* 居中显示 */
+  left: -10%;
+  /* 添加3D变换样式 */
+  transform-style: preserve-3d;
 }
 
 .tunnel-image {
   position: absolute;
   border-radius: 10rpx;
-  transition: all 0.3s linear;
+  transition: all 0.8s linear;
   /* 添加发光效果 */
   box-shadow: 0 0 20rpx rgba(175, 82, 222, 0.6);
   /* 添加模糊效果 */
@@ -229,6 +236,11 @@
   /* filter: blur(0.5px) brightness(1.2) saturate(1.3); */
   /* 添加旋转效果 */
   transform: rotate(5deg);
+  /* 添加过渡效果使缩放更平滑 */
+  transition: transform 3s ease-in-out;
+  /* 添加3D变换样式 */
+  transform-style: preserve-3d;
+  z-index: 1;
 }
 
 .tunnel-image:nth-child(2n) {
@@ -251,10 +263,10 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at center, transparent 50%, rgba(0, 0, 0, 0.8) 100%);
-  z-index: 1;
+  /* background: radial-gradient(circle at center, transparent 50%, rgba(0, 0, 0, 0.8) 100%); */
+  z-index: -1;
   pointer-events: none;
-  animation: tunnelPulse 4s infinite alternate;
+  /* animation: tunnelPulse 8s infinite alternate; */
 }
 
 .tunnel-background::after {
@@ -264,7 +276,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, transparent 30%, transparent 70%, rgba(0, 0, 0, 0.3) 100%);
+  /* background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, transparent 30%, transparent 70%, rgba(0, 0, 0, 0.3) 100%); */
   z-index: 1;
   pointer-events: none;
 }
