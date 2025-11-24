@@ -1,9 +1,20 @@
 <view class="container">
+  <!-- 水滴背景 -->
+  <view class="droplet-background">
+    <block wx:for="{{droplets}}" wx:key="id">
+      <image 
+        class="droplet-image" 
+        src="{{item.src}}" 
+        style="left: {{item.x}}%; top: {{item.y}}%; width: {{item.size}}px; height: {{item.size}}px; transform: scale({{item.scale}}) rotate({{item.rotation}}deg);">
+      </image>
+    </block>
+  </view>
+  
   <view class="header">
     <text class="page-title">梦女专区</text>
   </view>
   
-  <view class="voices-list">
+  <view class="voices-list" wx:if="{{false}}">
     <view class="voice-item dream" wx:for="{{voices}}" wx:key="id">
       <view class="voice-header">
         <image class="user-avatar" src="/images/default_avatar.png"></image>

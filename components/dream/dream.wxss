@@ -1,7 +1,10 @@
 .container {
-  padding: 20rpx;
+  /* padding: 20rpx; */
   background: #f5f5f5;
   min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  width: 100vw;
 }
 
 .header {
@@ -9,6 +12,9 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 30rpx;
+  position: relative;
+  z-index: 2;
+  /* 确保标题在水滴之上 */
 }
 
 .page-title {
@@ -21,10 +27,13 @@
   display: flex;
   flex-direction: column;
   gap: 30rpx;
+  position: relative;
+  z-index: 2;
+  /* 确保内容在水滴之上 */
 }
 
 .voice-item {
-  background: white;
+  /* background: white; */
   border-radius: 20rpx;
   padding: 20rpx;
   box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.1);
@@ -74,7 +83,7 @@
 }
 
 .voice-context {
-  background: #f0f8ff;
+  /* background: #f0f8ff; */
   border-left: 6rpx solid #007AFF;
   padding: 15rpx 20rpx;
   margin-bottom: 20rpx;
@@ -110,4 +119,53 @@
 .action-text {
   font-size: 26rpx;
   color: #666;
+}
+
+/* 水滴背景样式 */
+.droplet-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  /* 防止水滴图片阻挡点击事件 */
+  z-index: 1;
+}
+
+.droplet-image {
+  position: absolute;
+  border-radius: 50%;
+  /* opacity: 0.9; */
+  transition: transform 0.5s ease-out;
+  /* 添加水滴形状的遮罩 */
+  clip-path: circle(50% at 50% 50%);
+  /* 添加发光效果 */
+  /* box-shadow: 0 0 10rpx rgba(175, 82, 222, 0.5); */
+  /* 添加水滴动画 */
+  animation: dropletGlow 2s infinite alternate;
+  /* 添加水滴高光效果 */
+  /* background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.8), transparent 70%); */
+  /* 添加水滴边框 */
+  border: 1rpx solid rgba(255, 255, 255, 0.3);
+}
+
+@keyframes dropletGlow {
+  0% {
+    opacity: 0.3;
+    box-shadow: 0 0 5rpx rgba(175, 82, 222, 0.2);
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.7;
+    box-shadow: 0 0 15rpx rgba(175, 82, 222, 0.6);
+    transform: scale(1.1);
+  }
+
+  100% {
+    opacity: 0.9;
+    box-shadow: 0 0 25rpx rgba(175, 82, 222, 1);
+    transform: scale(1.2);
+  }
 }
