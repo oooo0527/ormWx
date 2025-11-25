@@ -138,9 +138,10 @@
   padding: 10rpx;
   background: black;
   border-radius: 16rpx;
-  margin: 30rpx auto;
+  margin: 0 auto;
   padding: 10rpx 20rpx;
   color: #ffffff;
+  margin-top: 80rpx;
   /* width: 100vw; */
 
 }
@@ -149,6 +150,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
 }
 
 .content-container {
@@ -196,5 +198,5 @@
   width: 120rpx;
   height: 120rpx;
   border-radius: 100rpx;
-  margin-top: 20rpx;
+  margin-top: -60rpx;
 }

@@ -64,7 +64,7 @@
 
     <view class="content">
       <view class="content-header">
-        <image src="./titlebg.jpg" mode="" class="content-image-title"></image>
+        <image src="./titlebg.jpg" mode="" class="content-image-title" bindtap="navigateToPage" data-url="/packHome/personal/personal"></image>
         <view class="content-header-text">欢迎来到煎蛋卷加油站</view>
       </view>
       <view class="content-container">

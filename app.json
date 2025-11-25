@@ -56,7 +56,8 @@
         "dream/dream",
         "interaction/interaction",
         "support/support",
-        "growthTimeline/growthTimeline"
+        "growthTimeline/growthTimeline",
+        "personal/personal"
       ]
     }
   ],

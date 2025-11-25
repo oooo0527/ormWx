@@ -1,0 +1,282 @@
+<global-background>
+  <view class="container">
+    <text class="page-title">🌟 Orm个人信息</text>
+    
+    <view class="info-card">
+      <view class="card-header">
+        <text class="card-title">基本信息</text>
+      </view>
+      <view class="card-content">
+        <view class="info-row">
+          <text class="label">中文名:</text>
+          <text class="value">{{ormInfo.name.chinese}}</text>
+        </view>
+        
+        <view class="info-row">
+          <text class="label">英文名:</text>
+          <text class="value">{{ormInfo.name.english}}</text>
+        </view>
+        
+        <view class="info-row">
+          <text class="label">泰文名:</text>
+          <text class="value">{{ormInfo.name.thai}}</text>
+        </view>
+        
+        <view class="info-row">
+          <text class="label">昵称:</text>
+          <text class="value">{{ormInfo.nicknames.join('、')}}</text>
+        </view>
+        
+        <view class="info-row">
+          <text class="label">国籍:</text>
+          <text class="value">{{ormInfo.basicInfo.nationality}}</text>
+        </view>
+        
+        <view class="info-row">
+          <text class="label">生日:</text>
+          <text class="value">{{ormInfo.basicInfo.birthDate}}</text>
+        </view>
+        
+        <view class="info-row">
+          <text class="label">身高:</text>
+          <text class="value">{{ormInfo.basicInfo.height}}</text>
+        </view>
+        
+        <view class="info-row">
+          <text class="label">体重:</text>
+          <text class="value">{{ormInfo.basicInfo.weight}}</text>
+        </view>
+        
+        <view class="info-row">
+          <text class="label">血型:</text>
+          <text class="value">{{ormInfo.basicInfo.bloodType}}</text>
+        </view>
+        
+        <view class="info-row">
+          <text class="label">生肖:</text>
+          <text class="value">{{ormInfo.basicInfo.zodiac}}</text>
+        </view>
+        
+        <view class="info-row">
+          <text class="label">星座:</text>
+          <text class="value">泰国({{ormInfo.basicInfo.constellations.thai}}) / 国际({{ormInfo.basicInfo.constellations.international}})</text>
+        </view>
+        
+        <view class="info-row">
+          <text class="label">MBTI:</text>
+          <text class="value">{{ormInfo.basicInfo.mbti}}</text>
+        </view>
+      </view>
+    </view>
+    
+    <view class="info-card">
+      <view class="card-header">
+        <text class="card-title">职业信息</text>
+      </view>
+      <view class="card-content">
+        <view class="info-row">
+          <text class="label">职业:</text>
+          <text class="value">{{ormInfo.career.occupations.join('、')}}</text>
+        </view>
+        
+        <view class="info-row">
+          <text class="label">经纪公司:</text>
+          <text class="value">{{ormInfo.career.agency}}</text>
+        </view>
+        
+        <view class="info-row">
+          <text class="label">出道日期:</text>
+          <text class="value">{{ormInfo.career.debutDate}}</text>
+        </view>
+      </view>
+    </view>
+    
+    <view class="info-card">
+      <view class="card-header">
+        <text class="card-title">喜好</text>
+      </view>
+      <view class="card-content">
+        <view class="info-row">
+          <text class="label">喜欢的颜色:</text>
+          <text class="value">{{ormInfo.preferences.favoriteColors.join('、')}}</text>
+        </view>
+        
+        <view class="info-row">
+          <text class="label">喜欢的食物:</text>
+          <text class="value">{{ormInfo.preferences.favoriteFoods.join('、')}}</text>
+        </view>
+        
+        <view class="info-row">
+          <text class="label">应援色:</text>
+          <text class="value">{{ormInfo.preferences.fanColor}}</text>
+        </view>
+        
+        <view class="info-row">
+          <text class="label">粉丝名:</text>
+          <text class="value">{{ormInfo.preferences.fanName}}</text>
+        </view>
+        
+        <view class="info-row">
+          <text class="label">代表Emoji:</text>
+          <text class="value">{{ormInfo.preferences.representativeEmoji}}</text>
+        </view>
+      </view>
+    </view>
+    
+    <view class="info-card">
+      <view class="card-header">
+        <text class="card-title">音乐作品</text>
+      </view>
+      <view class="card-content">
+        <view class="info-row" wx:for="{{ormInfo.songs}}" wx:key="index">
+          <text class="value">{{item}}</text>
+        </view>
+      </view>
+    </view>
+    
+    <view class="info-card">
+      <view class="card-header">
+        <text class="card-title">个人品牌</text>
+      </view>
+      <view class="card-content">
+        <view class="info-row" wx:for="{{ormInfo.brands}}" wx:key="index">
+          <text class="value">{{item.name}}（{{item.type}}.{{item.role}}）</text>
+        </view>
+      </view>
+    </view>
+    
+    <view class="info-card">
+      <view class="card-header">
+        <text class="card-title">社交媒体</text>
+      </view>
+      <view class="card-content">
+        <view class="info-row">
+          <text class="label">微博:</text>
+          <text class="value">{{ormInfo.socialMedia.weibo}}</text>
+        </view>
+        
+        <view class="info-row">
+          <text class="label">X:</text>
+          <text class="value">{{ormInfo.socialMedia.x}}</text>
+        </view>
+        
+        <view class="info-row">
+          <text class="label">Instagram:</text>
+          <text class="value">{{ormInfo.socialMedia.instagram}}</text>
+        </view>
+        
+        <view class="info-row">
+          <text class="label">TikTok:</text>
+          <text class="value">{{ormInfo.socialMedia.tiktok}}</text>
+        </view>
+      </view>
+    </view>
+    
+    <view class="info-card">
+      <view class="card-header">
+        <text class="card-title">教育经历</text>
+      </view>
+      <view class="card-content">
+        <view class="info-section">
+          <text class="section-subtitle">研究生在读</text>
+          <view class="info-row">
+            <text class="label">大学:</text>
+            <text class="value">{{ormInfo.education.graduate.university}}</text>
+          </view>
+          <view class="info-row">
+            <text class="label">学院:</text>
+            <text class="value">{{ormInfo.education.graduate.college}}</text>
+          </view>
+          <view class="info-row">
+            <text class="label">专业:</text>
+            <text class="value">{{ormInfo.education.graduate.major}}</text>
+          </view>
+        </view>
+        
+        <view class="info-section">
+          <text class="section-subtitle">本科</text>
+          <view class="info-row">
+            <text class="label">大学:</text>
+            <text class="value">{{ormInfo.education.undergraduate.university}}</text>
+          </view>
+          <view class="info-row">
+            <text class="label">学院:</text>
+            <text class="value">{{ormInfo.education.undergraduate.college}}</text>
+          </view>
+          <view class="info-row">
+            <text class="label">专业:</text>
+            <text class="value">{{ormInfo.education.undergraduate.major}}</text>
+          </view>
+        </view>
+        
+        <view class="info-row">
+          <text class="label">高中:</text>
+          <text class="value">{{ormInfo.education.highSchool}}</text>
+        </view>
+        
+        <view class="info-row">
+          <text class="label">初中:</text>
+          <text class="value">{{ormInfo.education.middleSchool}}</text>
+        </view>
+        
+        <view class="info-row">
+          <text class="label">小学:</text>
+          <text class="value">{{ormInfo.education.elementarySchool}}</text>
+        </view>
+      </view>
+    </view>
+    
+    <view class="info-card">
+      <view class="card-header">
+        <text class="card-title">家庭成员</text>
+      </view>
+      <view class="card-content">
+        <view class="info-row">
+          <text class="label">妈妈:</text>
+          <text class="value">{{ormInfo.family.mother}}</text>
+        </view>
+        
+        <view class="info-row">
+          <text class="label">爸爸:</text>
+          <text class="value">{{ormInfo.family.father}}</text>
+        </view>
+        
+        <view class="info-row">
+          <text class="label">弟弟:</text>
+          <text class="value">{{ormInfo.family.brother}}</text>
+        </view>
+      </view>
+    </view>
+    
+    <view class="info-card">
+      <view class="card-header">
+        <text class="card-title">家庭宠物</text>
+      </view>
+      <view class="card-content">
+        <view class="pet-item" wx:for="{{ormInfo.pets}}" wx:key="index">
+          <view class="info-row">
+            <text class="label">名字:</text>
+            <text class="value">{{item.name}}</text>
+          </view>
+          <view class="info-row">
+            <text class="label">类型:</text>
+            <text class="value">{{item.type}}</text>
+          </view>
+          <view class="info-row" wx:if="{{item.gender}}">
+            <text class="label">性别:</text>
+            <text class="value">{{item.gender}}</text>
+          </view>
+          <view class="info-row" wx:if="{{item.birthday}}">
+            <text class="label">生日:</text>
+            <text class="value">{{item.birthday}}</text>
+          </view>
+          <view class="info-row" wx:if="{{item.instagram}}">
+            <text class="label">Instagram:</text>
+            <text class="value">{{item.instagram}}</text>
+          </view>
+          <view class="divider"></view>
+        </view>
+      </view>
+    </view>
+  </view>
+</global-background>
