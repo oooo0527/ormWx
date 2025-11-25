@@ -23,7 +23,7 @@
     "position": "bottom",
     "list": [
       {
-        "pagePath": "pages/starArchive/starArchive",
+        "pagePath": "pages/Home/Home",
         "iconPath": "images/icon_star.png",
         "selectedIconPath": "images/icon_star_HL.png",
         "text": "首页"

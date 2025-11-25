@@ -14,6 +14,13 @@
           </view>
         </view>
       </scroll-view>
+      <view class="spacer">
+        <movable-area class="movable-area">
+          <movable-view direction="all" scale-area="true" class="movable-view" wx:for="{{nameList}}" wx:key="index" :x="{{index+20}}" y="0">
+            {{item}}
+          </movable-view>
+        </movable-area>
+      </view>
     </view>
 
     <view class="content">

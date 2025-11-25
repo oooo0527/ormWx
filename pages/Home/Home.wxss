@@ -1,8 +1,12 @@
 .banner {
   width: 100vw;
-  height: 680rpx;
+  height: 700rpx;
   display: flex;
   flex-direction: column;
+  background: #333333;
+  border-bottom-left-radius: 50rpx;
+  border-bottom-right-radius: 50rpx;
+  margin-bottom: 80rpx;
 }
 
 .banner-image {
@@ -22,7 +26,7 @@
 
 .menu-scroll-view {
   position: relative;
-  margin-top: -120rpx;
+  margin-top: -100rpx;
 
 
 }
@@ -30,7 +34,7 @@
 .menu-container {
   display: flex;
 
-  padding: 0 50rpx;
+  padding: 0 30rpx;
   position: relative;
   /* margin-top: -100rpx; */
   width: 100%;
@@ -60,12 +64,24 @@
   margin-bottom: 10rpx;
 }
 
+.spacer {
+  width: 100%;
+  height: 100rpx;
+  color: #ffffff;
+  padding: 0 30rpx;
+}
+
+.movable-area {
+  width: 100%;
+  height: 100rpx;
+}
 
 
 .menu-icon {
   border-radius: 16rpx;
   width: 100%;
   height: 250rpx;
+  border-radius: 16rpx;
 }
 
 .menu-text {
@@ -84,10 +100,10 @@
 .content {
   width: 90%;
   height: 350rpx;
-  padding: 30rpx;
+  padding: 10rpx;
   background: black;
   border-radius: 16rpx;
-  margin: 30rpx auto;
+  margin: 50rpx auto;
   padding: 10rpx 20rpx;
   color: #ffffff;
   /* width: 100vw; */
@@ -113,6 +129,7 @@
   height: 120rpx;
   border: 4rpx solid #ffffff;
   flex: 1;
+  margin: 0 10rpx;
 
 }
 
@@ -127,4 +144,6 @@
   width: 120rpx;
   height: 120rpx;
   border-radius: 100rpx;
+
+  margin-top: 20rpx;
 }

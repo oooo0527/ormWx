@@ -40,6 +40,7 @@ Page({
       // 可以添加更多明星数据
     ],
     selectedStar: null,
+    nameList: ['ORM', 'KORN', 'NAPAT'],
     // 菜单信息
     menuList: [
       {
