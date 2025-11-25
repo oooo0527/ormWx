@@ -22,16 +22,56 @@
         </movable-area>
       </view>
     </view>
+  <!-- // 音乐 煎蛋卷 好人好事 -->
+  <view  class="contentList">
+  <view class="content-box">
+  <view>陈奥专区</view>
+    <view>more</view>
+  
+  </view>
+    <scroll-view class="music-scroll-view" scroll-x="{{true}}">
+    <view class="music-container">
+      <view class="music-item">
+        <image src="./music.png" mode="" class="music-image"></image>
+        <view class="music-text">音乐</view>
+      </view>
+      <view class="music-item">
+        <image src="./eggs.png" mode="" class="music-image"></image>
+        <view class="music-text">煎蛋卷</view>
+      </view>
+      <view class="music-item">
+        <image src="./good deeds.png" mode="" class="music-image"></image>
+        <view class="music-text">好人好事</view>
+      </view>
+      <view class="music-item">
+        <image src="./good deeds.png" mode="" class="music-image"></image>
+        <view class="music-text">好人好事</view>
+      </view>
+            <view class="music-item">
+        <image src="./good deeds.png" mode="" class="music-image"></image>
+        <view class="music-text">好人好事</view>
+      </view>
+            <view class="music-item">
+        <image src="./good deeds.png" mode="" class="music-image"></image>
+        <view class="music-text">好人好事</view>
+      </view>
+    </view>
+  </scroll-view>
+
+  
+  </view>
+
 
     <view class="content">
       <view class="content-header">
         <image src="./titlebg.jpg" mode="" class="content-image-title"></image>
-        <view class="content-text">欢迎来到煎蛋卷加油站</view>
+        <view class="content-header-text">欢迎来到煎蛋卷加油站</view>
       </view>
       <view class="content-container">
 
         <view class="content-container-item" wx:for="{{contentList}}" wx:key="index">
           <image src="{{item.image}}" mode="aspectFill" class="content-image"></image>
+          <view class="content-text">{{item.name}}</view>
 
         </view>
       </view>
