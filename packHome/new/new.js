@@ -1,5 +1,5 @@
 // components/new/new.js
-Component({
+Page({
   properties: {
 
   },
@@ -8,7 +8,5 @@ Component({
 
   },
 
-  methods: {
 
-  }
 })

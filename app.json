@@ -1,6 +1,6 @@
 {
   "pages": [
-    "pages/fanVoice/fanVoice",
+    "pages/Home/Home",
     "pages/workRecommend/workRecommend",
     "pages/index/index",
     "pages/login/login",
@@ -39,18 +39,6 @@
         "iconPath": "images/icon_work.png",
         "selectedIconPath": "images/icon_work_HL.png",
         "text": "作品安利"
-      },
-      {
-        "pagePath": "pages/fanVoice/fanVoice",
-        "iconPath": "images/icon_fan.png",
-        "selectedIconPath": "images/icon_fan_HL.png",
-        "text": "粉丝心声"
-      },
-      {
-        "pagePath": "pages/profile/profile",
-        "iconPath": "images/icon_my.png",
-        "selectedIconPath": "images/icon_my_HL.png",
-        "text": "我的"
       }
     ]
   },
@@ -60,6 +48,15 @@
       "pages": [
         "backgroundSetting/backgroundSetting",
         "support-detail/detail"
+      ]
+    },
+    {
+      "root": "packHome",
+      "pages": [
+        "dream/dream",
+        "interaction/interaction",
+        "support/support",
+        "growthTimeline/growthTimeline"
       ]
     }
   ],

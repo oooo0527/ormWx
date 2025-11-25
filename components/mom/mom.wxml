@@ -1,8 +1,0 @@
-<view class="container">
-  <!-- 使用成长时间线组件 -->
-  <growth-timeline bind:playvoice="playVoice"></growth-timeline>
-  <view class="content">
-  <view>猫塑</view>
-    <view>狗塑</view>
-  </view>
-</view>

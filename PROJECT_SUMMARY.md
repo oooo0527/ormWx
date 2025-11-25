@@ -76,7 +76,6 @@
 │   ├── starArchive/    # 明星档案
 │   ├── dataWorkshop/   # 数据工坊
 │   ├── workRecommend/  # 作品安利
-│   └── fanVoice/       # 粉丝心声
 ├── images/             # 图片资源说明
 └── README.md           # 项目说明
 ```

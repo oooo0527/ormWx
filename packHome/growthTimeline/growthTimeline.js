@@ -1,5 +1,5 @@
-// components/growthTimeline/growthTimeline.js
-Component({
+
+Page({
   properties: {
 
   },
@@ -109,88 +109,85 @@ Component({
     timelinePoints: [] // 用于存储时间线点的位置
   },
 
-  lifetimes: {
-    attached: function () {
-      // 组件实例进入页面节点树时执行
-      this.initStars(); // 初始化星空背景
-      this.initTimelinePoints(); // 初始化时间线点
-    }
+  onLoad: function () {
+    this.initStars(); // 初始化星空背景
+    this.initTimelinePoints(); // 初始化时间线点
   },
 
-  methods: {
-    // 初始化星空背景
-    initStars: function () {
-      const stars = [];
-      // 创建100个随机位置的星星
-      for (let i = 0; i < 100; i++) {
-        stars.push({
-          id: i,
-          x: Math.random() * 100, // 百分比位置
-          y: Math.random() * 100,
-          size: Math.random() * 2 + 1, // 1-3px大小
-          opacity: Math.random() * 0.8 + 0.2 // 0.2-1透明度
-        });
-      }
-      this.setData({
-        stars: stars
-      });
-    },
 
-    // 初始化时间线点的随机位置
-    initTimelinePoints: function () {
-      const timelinePoints = [];
-      const timelineData = this.data.timelineData;
-
-      // 为每个时间点生成随机位置
-      for (let i = 0; i < timelineData.length; i++) {
-        timelinePoints.push({
-          ...timelineData[i],
-          x: Math.random() * 80 + 10, // 10%-90%范围内的随机x位置
-          y: Math.random() * 80 + 10, // 10%-90%范围内的随机y位置
-          z: Math.random() * 100, // z轴深度，用于层级排序
-          isActive: false // 是否被激活显示详情
-        });
-      }
-
-      // 按z轴排序，实现近大远小的效果
-      timelinePoints.sort((a, b) => b.z - a.z);
-
-      this.setData({
-        timelinePoints: timelinePoints
-      });
-    },
-
-    // 点击时间点事件
-    onTapTimelinePoint: function (e) {
-      const index = e.currentTarget.dataset.index;
-      const timelinePoints = this.data.timelinePoints;
-
-      // 重置所有点的状态
-      for (let i = 0; i < timelinePoints.length; i++) {
-        timelinePoints[i].isActive = false;
-      }
-
-      // 激活当前点击的点
-      timelinePoints[index].isActive = true;
-
-      this.setData({
-        timelinePoints: timelinePoints
-      });
-
-      // 触发播放语音事件
-      this.triggerEvent('playvoice');
-    },
-
-    // 关闭时间点详情
-    onCloseDetail: function (e) {
-      const index = e.currentTarget.dataset.index;
-      const timelinePoints = this.data.timelinePoints;
-
-      timelinePoints[index].isActive = false;
-
-      this.setData({
-        timelinePoints: timelinePoints
+  // 初始化星空背景
+  initStars: function () {
+    const stars = [];
+    // 创建100个随机位置的星星
+    for (let i = 0; i < 100; i++) {
+      stars.push({
+        id: i,
+        x: Math.random() * 100, // 百分比位置
+        y: Math.random() * 100,
+        size: Math.random() * 2 + 1, // 1-3px大小
+        opacity: Math.random() * 0.8 + 0.2 // 0.2-1透明度
       });
     }
+    this.setData({
+      stars: stars
+    });
+  },
+
+  // 初始化时间线点的随机位置
+  initTimelinePoints: function () {
+    const timelinePoints = [];
+    const timelineData = this.data.timelineData;
+
+    // 为每个时间点生成随机位置
+    for (let i = 0; i < timelineData.length; i++) {
+      timelinePoints.push({
+        ...timelineData[i],
+        x: Math.random() * 80 + 10, // 10%-90%范围内的随机x位置
+        y: Math.random() * 80 + 10, // 10%-90%范围内的随机y位置
+        z: Math.random() * 100, // z轴深度，用于层级排序
+        isActive: false // 是否被激活显示详情
+      });
+    }
+
+    // 按z轴排序，实现近大远小的效果
+    timelinePoints.sort((a, b) => b.z - a.z);
+
+    this.setData({
+      timelinePoints: timelinePoints
+    });
+  },
+
+  // 点击时间点事件
+  onTapTimelinePoint: function (e) {
+    const index = e.currentTarget.dataset.index;
+    const timelinePoints = this.data.timelinePoints;
+
+    // 重置所有点的状态
+    for (let i = 0; i < timelinePoints.length; i++) {
+      timelinePoints[i].isActive = false;
+    }
+
+    // 激活当前点击的点
+    timelinePoints[index].isActive = true;
+
+    this.setData({
+      timelinePoints: timelinePoints
+    });
+
+    // 触发播放语音事件
+    this.triggerEvent('playvoice');
+  },
+
+  // 关闭时间点详情
+  onCloseDetail: function (e) {
+    const index = e.currentTarget.dataset.index;
+    const timelinePoints = this.data.timelinePoints;
+
+    timelinePoints[index].isActive = false;
+
+    this.setData({
+      timelinePoints: timelinePoints
+    });
   }
+
 })

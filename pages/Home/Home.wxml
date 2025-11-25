@@ -1,0 +1,33 @@
+<global-background>
+  <view class="container">
+    <view class="banner">
+      <image src="./Home.jpg" mode="aspectFill" class="banner-image"></image>
+      <view class="banner-content">
+        <view>头像</view>
+        <view>煎蛋卷加油站</view>
+      </view>
+      <scroll-view class="menu-scroll-view" scroll-x="{{true}}">
+        <view class="menu-container">
+          <view class="menu-item" wx:for="{{menuList}}" wx:key="index" bindtap="navigateToPage" data-url="{{item.url}}">
+            <image src="{{item.icon}}" mode="aspectFill" class="menu-icon"></image>
+            <view class="menu-text">{{item.name}}</view>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+
+    <view class="content">
+      <view class="content-header">
+        <image src="./titlebg.jpg" mode="" class="content-image-title"></image>
+        <view class="content-text">欢迎来到煎蛋卷加油站</view>
+      </view>
+      <view class="content-container">
+
+        <view class="content-container-item" wx:for="{{contentList}}" wx:key="index">
+          <image src="{{item.image}}" mode="aspectFill" class="content-image"></image>
+
+        </view>
+      </view>
+    </view>
+  </view>
+</global-background>
