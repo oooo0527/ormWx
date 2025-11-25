@@ -32,27 +32,27 @@
     <scroll-view class="music-scroll-view" scroll-x="{{true}}">
     <view class="music-container">
       <view class="music-item">
-        <image src="./music.png" mode="" class="music-image"></image>
+        <image src='cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/d0f92161e2ed52200dfb1c600e65c239.jpg' mode="aspectFill" class="music-image" lazy-load></image>
         <view class="music-text">音乐</view>
       </view>
       <view class="music-item">
-        <image src="./eggs.png" mode="" class="music-image"></image>
+        <image src='cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/d0f92161e2ed52200dfb1c600e65c239.jpg' mode="aspectFill" class="music-image" lazy-load></image>
         <view class="music-text">煎蛋卷</view>
       </view>
       <view class="music-item">
-        <image src="./good deeds.png" mode="" class="music-image"></image>
+        <image src='cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/d0f92161e2ed52200dfb1c600e65c239.jpg' mode="aspectFill" class="music-image" lazy-load></image>
         <view class="music-text">好人好事</view>
       </view>
       <view class="music-item">
-        <image src="./good deeds.png" mode="" class="music-image"></image>
+        <image src='cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/d0f92161e2ed52200dfb1c600e65c239.jpg' mode="aspectFill" class="music-image" lazy-load></image>
         <view class="music-text">好人好事</view>
       </view>
             <view class="music-item">
-        <image src="./good deeds.png" mode="" class="music-image"></image>
+        <image src='cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/d0f92161e2ed52200dfb1c600e65c239.jpg' mode="aspectFill" class="music-image" lazy-load></image>
         <view class="music-text">好人好事</view>
       </view>
             <view class="music-item">
-        <image src="./good deeds.png" mode="" class="music-image"></image>
+        <image src='cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/d0f92161e2ed52200dfb1c600e65c239.jpg' mode="aspectFill" class="music-image" lazy-load></image>
         <view class="music-text">好人好事</view>
       </view>
     </view>
