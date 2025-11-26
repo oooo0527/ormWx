@@ -1,17 +1,58 @@
+.announcement-bar {
+  width: 100%;
+  padding: 20rpx 30rpx;
+  background-color: #ebebe7;
+  color: #333;
+  font-size: 28rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+  margin-bottom: 20rpx;
+  overflow: hidden;
+}
+
+.announcement-scroll-container {
+  flex: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+  height: 40rpx;
+}
+
+.announcement-scroll-content {
+  position: absolute;
+  white-space: nowrap;
+  display: inline-block;
+}
+
+.close-btn {
+  width: 40rpx;
+  height: 40rpx;
+  text-align: center;
+  line-height: 40rpx;
+  font-size: 36rpx;
+  font-weight: bold;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
 .banner {
   width: 100vw;
-  height: 700rpx;
+  height: 800rpx;
   display: flex;
   flex-direction: column;
-  background: #333333;
+  background: linear-gradient(180deg, #5c5d5e 75%, #575757 100%);
   border-bottom-left-radius: 50rpx;
   border-bottom-right-radius: 50rpx;
   margin-bottom: 40rpx;
+  /* opacity: 0.5; */
 }
 
 .banner-image {
   width: 100%;
-  height: 500rpx;
+  height: 600rpx;
 }
 
 .banner-content {

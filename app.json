@@ -57,7 +57,8 @@
         "interaction/interaction",
         "support/support",
         "growthTimeline/growthTimeline",
-        "personal/personal"
+        "personal/personal",
+        "musicPlayer/musicPlayer"
       ]
     }
   ],

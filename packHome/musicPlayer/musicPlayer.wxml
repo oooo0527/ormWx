@@ -1,0 +1,48 @@
+<!--packHome/musicPlayer/musicPlayer.wxml-->
+<view class="music-player-container">
+  <!-- 音乐列表轮播 -->
+  <view class="music-list-carousel">
+    <swiper 
+      class="carousel-swiper"
+      autoplay="{{false}}" 
+      interval="5000" 
+      duration="1000"
+      vertical="{{false}}"
+      layout-type="transformer"
+      transformer-type="scale"
+    >
+      <block wx:for="{{musicList}}" wx:key="id">
+        <swiper-item class="carousel-item">
+          <view class="music-info" bindtap="playMusic" data-index="{{index}}">
+            <image class="album-cover" src="/images/default_avatar.png" mode="aspectFill"></image>
+            <view class="music-text">
+              <text class="music-title">{{item.title}}</text>
+              <text class="music-singer">{{item.singer}}</text>
+            </view>
+          </view>
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+
+
+
+  <!-- 歌词显示区域 -->
+  <view class="lyric-container">
+    <block wx:if="{{lyricArray.length > 0}}">
+      <block wx:for="{{lyricArray}}" wx:key="index">
+        <view 
+          id="lyric-{{index}}" 
+          class="lyric-line {{index === currentLyricIndex ? 'active' : ''}}"
+        >
+          {{item.text}}
+        </view>
+      </block>
+    </block>
+    <block wx:else>
+      <view class="lyric-placeholder">
+        暂无歌词
+      </view>
+    </block>
+  </view>
+</view>

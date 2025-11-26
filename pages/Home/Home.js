@@ -1,44 +1,28 @@
 Page({
   data: {
-    stars: [
-      {
-        avatar: 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/d554005a153ae86aa6b8de351230cbf6.jpg',
-        id: 1,
-        name: "珙恩娜帕·瑟塔拉塔那彭",
-        thaiName: "นรวรรณ เศรษฐรัตนพงศ์",
-        englishName: "Kornnaphat Sethratanapong",
-        nicknames: ["Orm", "Aom", "ออม"],
-        gender: "女",
-        birthday: "2002-05-27",
-        zodiacSign: "双子座",
-        nationality: "泰国",
-        birthplace: "泰国",
-        height: "175cm",
-        occupations: ["演员", "模特"],
-        education: {
-          university: "诗纳卡宁威洛大学",
-          college: "国际经济学院",
-          major: "国际经济学"
-        },
-        familyBackground: {
-          mother: "娜茹梦·彭素帕 (Koi Naruemon Phongsuphap)",
-          motherOccupation: "演员"
-        },
-        career: {
-          agency: "GMMTV",
-          debutYear: "2020",
-          debutWork: "《我的齿轮和你的海》",
-          representativeWorks: [
-            { year: "2025", title: "《我家妹妹不准嫁》", role: "小翁" },
-            { year: "2024", title: "《Only You》", role: "Ira" },
-            { year: "2024", title: "《我们的秘密》", role: "尔恩 (Earn)" },
-            { year: "2023", title: "《Potion of Love》", role: "Pun" }
-          ]
-        },
-        introduction: "珙恩娜帕·瑟塔拉塔那彭（Orm Kornnaphat），昵称Orm（小名Aom），泰国新生代女演员、模特。2020年通过参演电视剧《我的齿轮和你的海》正式出道。2024年因主演BL剧《我们的秘密》中饰演尔恩（Earn）一角而广受关注，与苏帕努·洛瀚帕尼（Nut）组成的荧幕情侣深受观众喜爱。Orm以其清新的气质和出色的演技赢得了众多粉丝的喜爱。"
-      }
-      // 可以添加更多明星数据
-    ],
+    // 公告信息
+    announcement: {
+      show: true,
+      text: '欢迎来到煎蛋卷加油站！最新活动正在进行中，欢迎大家参与... ',
+      type: 'info' // info, warning, success, error
+    },
+    scrollAnimation: null,
+
+    musicList: [{
+      name: 'mami',
+      url: '/packHome/musicPlayer/musicPlayer',
+      image: 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/8a4a2aff10012ed22625321f6898bb84.jpg'
+    }, {
+      name: 'KORN',
+      url: '/packHome/dream/dream',
+      image: 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/925db0f17c54d003a63bdfb90bfdd0c1.jpg'
+    },
+    {
+      name: 'NAPAT',
+      url: '/packHome/dream/dream',
+      image: 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/9a58f9ad40d364eb6022ccd8b78cbb82.jpg'
+    }]
+    ,
     selectedStar: null,
     nameList: ['ORM', 'KORN', 'NAPAT'],
     // 菜单信息
@@ -87,10 +71,55 @@ Page({
 
   onLoad: function (options) {
     // 页面加载时的逻辑
+    this.startScrollAnimation();
+  },
+
+  // 开始滚动动画
+  startScrollAnimation: function () {
+    const text = this.data.announcement.text;
+    const query = wx.createSelectorQuery();
+    query.select('.announcement-scroll-container').boundingClientRect();
+    query.select('.announcement-scroll-content').boundingClientRect();
+
+    query.exec((res) => {
+      if (res[0] && res[1]) {
+        const containerWidth = res[0].width;
+        const contentWidth = res[1].width;
+
+        // 如果内容宽度大于容器宽度，则开始滚动
+        if (contentWidth > containerWidth) {
+          this.animateScroll(contentWidth, containerWidth);
+        }
+      }
+    });
+  },
+
+  // 执行滚动动画
+  animateScroll: function (contentWidth, containerWidth) {
+    const animation = wx.createAnimation({
+      duration: (contentWidth + containerWidth) * 20, // 根据内容长度调整速度，加快滚动
+      timingFunction: 'linear'
+    });
+
+    // 初始位置在容器右侧
+    animation.translateX(containerWidth).step({ duration: 0 });
+
+    // 滚动到左侧，使内容完全离开容器
+    animation.translateX(-contentWidth).step();
+
+    this.setData({
+      scrollAnimation: animation.export()
+    });
+
+    // 动画结束后重新开始
+    setTimeout(() => {
+      this.animateScroll(contentWidth, containerWidth);
+    }, (contentWidth + containerWidth) * 20);
   },
 
   onShow: function () {
     // 页面显示时的逻辑
+    this.startScrollAnimation();
   },
   //跳转
   navigateToPage: function (e) {
@@ -99,29 +128,14 @@ Page({
     });
   },
 
-  // 查看明星详情
-  viewStarDetail: function (e) {
-    const index = e.currentTarget.dataset.index;
-    const star = this.data.stars[index];
+
+
+
+
+  // 关闭公告
+  closeAnnouncement: function () {
     this.setData({
-      selectedStar: star
+      'announcement.show': false
     });
-  },
-
-  // 关闭详情弹窗
-  closeDetail: function () {
-    this.setData({
-      selectedStar: null
-    });
-  },
-
-  // 处理弹窗外部点击
-  handleOverlayTap: function () {
-    this.closeDetail();
-  },
-
-  // 阻止弹窗内容区域点击事件冒泡
-  preventOverlayTap: function (e) {
-    e.stopPropagation();
   }
 })

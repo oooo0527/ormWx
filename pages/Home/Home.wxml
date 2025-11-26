@@ -1,8 +1,15 @@
 <global-background>
   <view class="container">
+    <!-- 公告栏 -->
+    <view class="announcement-bar" wx:if="{{announcement.show}}">
+      <view class="announcement-scroll-container">
+        <view class="announcement-scroll-content" animation="{{scrollAnimation}}">{{announcement.text}}</view>
+      </view>
+      <view class="close-btn" bindtap="closeAnnouncement">×</view>
+    </view>
     <view class="banner">
       <image src="./Home.jpg" mode="aspectFill" class="banner-image"></image>
-      <view class="banner-content">
+      <view class="banner-content"  wx:if="{{!announcement.show}}">
         <view>头像</view>
         <view>煎蛋卷加油站</view>
       </view>
@@ -31,30 +38,11 @@
   </view>
     <scroll-view class="music-scroll-view" scroll-x="{{true}}">
     <view class="music-container">
-      <view class="music-item">
-        <image src='cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/d0f92161e2ed52200dfb1c600e65c239.jpg' mode="aspectFill" class="music-image" lazy-load></image>
+      <view class="music-item" wx:for="{{musicList}}" wx:key="index" bindtap="navigateToPage" data-url="{{item.url}}">
+        <image src="{{item.image}}" mode="aspectFill" class="music-image" lazy-load></image>
         <view class="music-text">音乐</view>
       </view>
-      <view class="music-item">
-        <image src='cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/d0f92161e2ed52200dfb1c600e65c239.jpg' mode="aspectFill" class="music-image" lazy-load></image>
-        <view class="music-text">煎蛋卷</view>
-      </view>
-      <view class="music-item">
-        <image src='cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/d0f92161e2ed52200dfb1c600e65c239.jpg' mode="aspectFill" class="music-image" lazy-load></image>
-        <view class="music-text">好人好事</view>
-      </view>
-      <view class="music-item">
-        <image src='cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/d0f92161e2ed52200dfb1c600e65c239.jpg' mode="aspectFill" class="music-image" lazy-load></image>
-        <view class="music-text">好人好事</view>
-      </view>
-            <view class="music-item">
-        <image src='cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/d0f92161e2ed52200dfb1c600e65c239.jpg' mode="aspectFill" class="music-image" lazy-load></image>
-        <view class="music-text">好人好事</view>
-      </view>
-            <view class="music-item">
-        <image src='cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/d0f92161e2ed52200dfb1c600e65c239.jpg' mode="aspectFill" class="music-image" lazy-load></image>
-        <view class="music-text">好人好事</view>
-      </view>
+
     </view>
   </scroll-view>
 
