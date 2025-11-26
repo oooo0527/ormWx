@@ -1,32 +1,5 @@
 <!--packHome/musicPlayer/musicPlayer.wxml-->
 <view class="music-player-container">
-  <!-- 音乐列表轮播 -->
-  <view class="music-list-carousel">
-    <swiper 
-      class="carousel-swiper"
-      autoplay="{{false}}" 
-      interval="5000" 
-      duration="1000"
-      vertical="{{false}}"
-      layout-type="transformer"
-      transformer-type="scale"
-    >
-      <block wx:for="{{musicList}}" wx:key="id">
-        <swiper-item class="carousel-item">
-          <view class="music-info" bindtap="playMusic" data-index="{{index}}">
-            <image class="album-cover" src="/images/default_avatar.png" mode="aspectFill"></image>
-            <view class="music-text">
-              <text class="music-title">{{item.title}}</text>
-              <text class="music-singer">{{item.singer}}</text>
-            </view>
-          </view>
-        </swiper-item>
-      </block>
-    </swiper>
-  </view>
-
-
-
   <!-- 歌词显示区域 -->
   <view class="lyric-container">
     <block wx:if="{{lyricArray.length > 0}}">
@@ -45,4 +18,32 @@
       </view>
     </block>
   </view>
+  <image class="music-player-bg" src="cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/8a4a2aff10012ed22625321f6898bb84.jpg" mode="aspectFill"></image>
+
+  <!-- 音乐列表轮播 -->
+  <view class="music-list-carousel">
+    <swiper 
+      class="carousel-swiper"
+      autoplay="{{false}}" 
+      interval="5000" 
+      duration="1000"
+      vertical="{{false}}"
+      layout-type="transformer"
+      transformer-type="scale"
+    >
+      <block wx:for="{{musicList}}" wx:key="id">
+        <swiper-item class="carousel-item">
+          <view class="music-info" bindtap="playMusic" data-index="{{index}}">
+          <view class="music-player-header"></view>
+            <image class="album-cover" src="cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/8a4a2aff10012ed22625321f6898bb84.jpg" mode="aspectFill"></image>
+
+          </view>
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+
+
+
+
 </view>
