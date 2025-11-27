@@ -75,21 +75,24 @@ Page({
         id: 1,
         title: "Orm问候语 - 你好",
         singer: "Orm",
-        src: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/vedio/等左左买饼干 - 你好.mp3",
+        url: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/vedio/等左左买饼干 - 你好.mp3",
+        src: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/ormmm/陈奥/3916c9499882d66371bc6573597693bf.jpg",
         lrc: "[00:01.00]你好\n[00:05.00]我是Orm\n[00:10.00]很高兴认识你"
       },
       {
         id: 2,
         title: "Orm问候语 - 再见",
         singer: "Orm",
-        src: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/vedio/等左左买饼干 - 再见.mp3",
+        url: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/vedio/等左左买饼干 - 再见.mp3",
+        src: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/ormmm/陈奥/2246a8c4f6c263a32bfbb898a3992cc1.jpg",
         lrc: "[00:01.00]再见\n[00:05.00]期待下次见面\n[00:10.00]祝你有美好的一天"
       },
       {
         id: 3,
         title: "Orm问候语 - 谢谢",
         singer: "Orm",
-        src: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/vedio/等左左买饼干 - 谢谢.mp3",
+        url: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/vedio/等左左买饼干 - 谢谢.mp3",
+        src: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/ormmm/陈奥/2246a8c4f6c263a32bfbb898a3992cc1.jpg",
         lrc: "[00:01.00]谢谢\n[00:05.00]感谢你的支持\n[00:10.00]我会继续努力的"
       }
     ];
@@ -102,7 +105,9 @@ Page({
     this.initAudioContext();
 
     // 初始化第一首歌的歌词
-    this.parseLyric(defaultMusicList[0].lrc);
+    if (defaultMusicList.length > 0 && defaultMusicList[0].lrc) {
+      this.parseLyric(defaultMusicList[0].lrc);
+    }
   },
 
   // 初始化音频上下文
@@ -159,16 +164,51 @@ Page({
 
     // 监听音频播放错误事件
     audioCtx.onError((res) => {
-      console.log('播放错误', res);
+      console.error('播放错误', res);
+      let errorMsg = '播放出错';
+
+      // 根据错误代码提供更具体的错误信息
+      switch (res.errCode) {
+        case 10001:
+          errorMsg = '系统错误';
+          break;
+        case 10002:
+          errorMsg = '网络错误';
+          break;
+        case 10003:
+          errorMsg = '文件错误';
+          break;
+        case 10004:
+          errorMsg = '格式错误';
+          break;
+        case -1:
+          errorMsg = '未知错误';
+          break;
+        default:
+          errorMsg = '播放出错: ' + res.errMsg;
+      }
+
       wx.showToast({
-        title: '播放出错',
+        title: errorMsg,
         icon: 'none'
       });
     });
 
+    // 监听音频可以播放事件
+    audioCtx.onCanplay(() => {
+      console.log('音频可以播放');
+    });
+
+    // 监听音频等待事件
+    audioCtx.onWaiting(() => {
+      console.log('音频等待中...');
+    });
+
     // 如果有音乐列表，设置第一首歌的音频源
     if (this.data.musicList.length > 0) {
-      audioCtx.src = this.data.musicList[this.data.currentMusicIndex].src;
+      const currentMusic = this.data.musicList[this.data.currentMusicIndex];
+      console.log('设置音频源:', currentMusic.url);
+      audioCtx.src = currentMusic.url;
     }
   },
 
@@ -268,10 +308,29 @@ Page({
     // 更新当前音乐索引
     this.setData({ currentMusicIndex: index });
 
+    // 验证音频源
+    if (!music || !music.url) {
+      wx.showToast({
+        title: '音乐资源无效',
+        icon: 'none'
+      });
+      return;
+    }
+
     // 重新设置音频源
     const audioCtx = this.data.audioCtx;
-    audioCtx.src = music.src;
-    audioCtx.play();
+    audioCtx.src = music.url;
+
+    // 添加一个小延迟确保音频源设置完成
+    setTimeout(() => {
+      audioCtx.play().catch(err => {
+        console.error('播放失败:', err);
+        wx.showToast({
+          title: '播放失败: ' + err.message,
+          icon: 'none'
+        });
+      });
+    }, 100);
 
     // 解析并显示歌词
     if (music.lrc) {
@@ -287,9 +346,29 @@ Page({
     this.setData({ currentMusicIndex: currentIndex });
 
     const music = this.data.musicList[currentIndex];
+
+    // 验证音频源
+    if (!music || !music.url) {
+      wx.showToast({
+        title: '音乐资源无效',
+        icon: 'none'
+      });
+      return;
+    }
+
     const audioCtx = this.data.audioCtx;
-    audioCtx.src = music.src;
-    audioCtx.play();
+    audioCtx.src = music.url;
+
+    // 添加一个小延迟确保音频源设置完成
+    setTimeout(() => {
+      audioCtx.play().catch(err => {
+        console.error('播放失败:', err);
+        wx.showToast({
+          title: '播放失败: ' + err.message,
+          icon: 'none'
+        });
+      });
+    }, 100);
 
     // 解析并显示歌词
     if (music.lrc) {
@@ -305,9 +384,29 @@ Page({
     this.setData({ currentMusicIndex: currentIndex });
 
     const music = this.data.musicList[currentIndex];
+
+    // 验证音频源
+    if (!music || !music.url) {
+      wx.showToast({
+        title: '音乐资源无效',
+        icon: 'none'
+      });
+      return;
+    }
+
     const audioCtx = this.data.audioCtx;
-    audioCtx.src = music.src;
-    audioCtx.play();
+    audioCtx.src = music.url;
+
+    // 添加一个小延迟确保音频源设置完成
+    setTimeout(() => {
+      audioCtx.play().catch(err => {
+        console.error('播放失败:', err);
+        wx.showToast({
+          title: '播放失败: ' + err.message,
+          icon: 'none'
+        });
+      });
+    }, 100);
 
     // 解析并显示歌词
     if (music.lrc) {
@@ -345,9 +444,29 @@ Page({
     // 如果正在播放，则切换音乐
     if (this.data.isPlaying) {
       const music = this.data.musicList[currentIndex];
+
+      // 验证音频源
+      if (!music || !music.url) {
+        wx.showToast({
+          title: '音乐资源无效',
+          icon: 'none'
+        });
+        return;
+      }
+
       const audioCtx = this.data.audioCtx;
-      audioCtx.src = music.src;
-      audioCtx.play();
+      audioCtx.src = music.url;
+
+      // 添加一个小延迟确保音频源设置完成
+      setTimeout(() => {
+        audioCtx.play().catch(err => {
+          console.error('播放失败:', err);
+          wx.showToast({
+            title: '播放失败: ' + err.message,
+            icon: 'none'
+          });
+        });
+      }, 100);
 
       // 解析并显示歌词
       if (music.lrc) {

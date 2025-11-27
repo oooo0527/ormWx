@@ -66,6 +66,19 @@
       <text class="time-text">{{formatTime(duration)}}</text>
     </view>
 
+    <!-- 控制按钮 -->
+    <view class="control-buttons">
+      <button class="control-btn" bindtap="prevMusic">
+        <text class="iconfont">&#xe601;</text>
+      </button>
+      <button class="control-btn play-btn" bindtap="togglePlay">
+        <text class="iconfont" wx:if="{{isPlaying}}">&#xe602;</text>
+        <text class="iconfont" wx:else>&#xe603;</text>
+      </button>
+      <button class="control-btn" bindtap="nextMusic">
+        <text class="iconfont">&#xe604;</text>
+      </button>
+    </view>
   </view>
 </view>
 </global-background>

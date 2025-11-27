@@ -34,6 +34,7 @@ async function initMusicCollection(event) {
         "src": "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/ormmm/陈奥/3916c9499882d66371bc6573597693bf.jpg",
         "title": "真爱…如何 - Orm Kornnaphat & Nunew",
         "singer": "Orm Kornnaphat & Nunew",
+        "lrc": "[00:00.00]歌词内容1\n[00:05.00]歌词内容2\n[00:10.00]歌词内容3",
         "createTime": new Date()
       },
       {
@@ -43,6 +44,7 @@ async function initMusicCollection(event) {
         "src": "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/ormmm/陈奥/2246a8c4f6c263a32bfbb898a3992cc1.jpg",
         "title": "Strawberry Morakot - Orm Kornnaphat",
         "singer": "Orm Kornnaphat",
+        "lrc": "[00:00.00]歌词内容1\n[00:05.00]歌词内容2\n[00:10.00]歌词内容3",
         "createTime": new Date()
       }
     ];

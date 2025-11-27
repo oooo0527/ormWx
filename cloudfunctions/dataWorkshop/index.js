@@ -64,7 +64,7 @@ async function getDataItems(event) {
 async function getMusicList(event) {
   try {
     // 查询music集合中的所有音乐数据
-    const result = await db.collection('miusic')
+    const result = await db.collection('music')
       .where({
         type: 'mis'  // 根据你提供的数据，音乐类型为'mis'
       })

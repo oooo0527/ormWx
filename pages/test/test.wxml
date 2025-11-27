@@ -1,6 +1,8 @@
 <view class="container">
   <button bindtap="testInitMusicDB">初始化音乐数据库</button>
   <button bindtap="testGetMusicList">获取音乐列表</button>
+  <button bindtap="testAudioPlayback">测试音频播放</button>
+  <button bindtap="testCloudMusicPlayback">测试云音乐播放</button>
   
   <navigator url="/packHome/musicPlayer/musicPlayer">
     <button>跳转到音乐播放器</button>
