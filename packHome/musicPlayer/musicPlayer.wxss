@@ -21,6 +21,19 @@
   opacity: 0.8;
 }
 
+.music-player-header1 {
+  height: 515rpx;
+  width: 515rpx;
+  /* background: rgba(233, 221, 221, 0.8); */
+  border: 15rpx solid rgb(168, 137, 137);
+  border-radius: 515rpx;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -167rpx);
+  opacity: 0.8;
+}
+
 .music-player-bg {
   position: absolute;
   top: 0;
@@ -32,15 +45,13 @@
 /* 音乐列表轮播样式 */
 .music-list-carousel {
   flex: 2;
-  min-height: 500rpx;
+  min-height: 600rpx;
   /* margin-top: 500rpx; */
 
 }
 
 .carousel-swiper {
-
   height: 100%;
-
 }
 
 .carousel-item {

@@ -23,6 +23,7 @@
 
   <!-- 音乐列表轮播 -->
   <view class="music-list-carousel">
+    <view class="music-player-header1"></view>
     <swiper 
       class="carousel-swiper"
       autoplay="{{false}}" 
