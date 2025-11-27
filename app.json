@@ -6,7 +6,8 @@
     "pages/login/login",
     "pages/starArchive/starArchive",
     "pages/dataWorkshop/dataWorkshop",
-    "pages/profile/profile"
+    "pages/profile/profile",
+    "pages/test/test"
   ],
   "window": {
     "backgroundTextStyle": "light",

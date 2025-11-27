@@ -1,4 +1,5 @@
 <!--packHome/musicPlayer/musicPlayer.wxml-->
+<global-background>
 <view class="music-player-container">
   <!-- 歌词显示区域 -->
   <view class="lyric-container">
@@ -18,7 +19,7 @@
       </view>
     </block>
   </view>
-  <image class="music-player-bg" src="cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/8a4a2aff10012ed22625321f6898bb84.jpg" mode="aspectFill"></image>
+  <!-- <image class="music-player-bg" src="cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/8a4a2aff10012ed22625321f6898bb84.jpg" mode="aspectFill"></image> -->
 
   <!-- 音乐列表轮播 -->
   <view class="music-list-carousel">
@@ -30,20 +31,41 @@
       vertical="{{false}}"
       layout-type="transformer"
       transformer-type="scale"
+      bindchange="onSwiperChange"
     >
       <block wx:for="{{musicList}}" wx:key="id">
         <swiper-item class="carousel-item">
           <view class="music-info" bindtap="playMusic" data-index="{{index}}">
-          <view class="music-player-header"></view>
-            <image class="album-cover" src="cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/8a4a2aff10012ed22625321f6898bb84.jpg" mode="aspectFill"></image>
-
+            <view class="music-player-header"></view>
+            <image class="album-cover" src="{{item.src}}" mode="aspectFill"></image>
           </view>
         </swiper-item>
       </block>
     </swiper>
   </view>
 
+  <!-- 音乐信息显示 -->
+  <view class="music-text" wx:if="{{musicList.length > 0}}">
+    <view class="music-title">{{musicList[currentMusicIndex].title}}</view>
+    <view class="music-singer">{{musicList[currentMusicIndex].singer}}</view>
+  </view>
 
+  <!-- 播放控制区域 -->
+  <view class="player-controls">
+    <!-- 进度条 -->
+    <view class="progress-container">
+      <text class="time-text">{{formatTime(currentTime)}}</text>
+      <slider 
+        class="progress-slider" 
+        min="0" 
+        max="{{duration}}" 
+        value="{{currentTime}}" 
+        bindchange="sliderChange"
+        activeColor="#FF6699"
+      />
+      <text class="time-text">{{formatTime(duration)}}</text>
+    </view>
 
-
+  </view>
 </view>
+</global-background>

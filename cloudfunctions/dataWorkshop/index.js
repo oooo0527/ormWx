@@ -15,6 +15,8 @@ exports.main = async (event, context) => {
   switch (event.action) {
     case 'getDataItems':
       return await getDataItems(event)
+    case 'getMusicList':
+      return await getMusicList(event)
     case 'uploadData':
       return await uploadData(wxContext.OPENID, event)
     case 'deleteData':
@@ -44,6 +46,29 @@ async function getDataItems(event) {
       .orderBy('createTime', 'desc')
       .skip(event.skip || 0)
       .limit(event.limit || 20)
+      .get()
+
+    return {
+      success: true,
+      data: result.data
+    }
+  } catch (err) {
+    return {
+      success: false,
+      message: err.message
+    }
+  }
+}
+
+// 获取音乐列表
+async function getMusicList(event) {
+  try {
+    // 查询music集合中的所有音乐数据
+    const result = await db.collection('miusic')
+      .where({
+        type: 'mis'  // 根据你提供的数据，音乐类型为'mis'
+      })
+      .orderBy('createTime', 'desc')
       .get()
 
     return {

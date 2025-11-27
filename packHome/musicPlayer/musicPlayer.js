@@ -2,7 +2,75 @@
 Page({
   data: {
     // 音乐列表数据
-    musicList: [
+    musicList: [],
+    // 当前播放音乐索引
+    currentMusicIndex: 0,
+    // 音频对象
+    audioCtx: null,
+    // 播放状态
+    isPlaying: false,
+    // 当前播放时间
+    currentTime: 0,
+    // 总时长
+    duration: 0,
+    // 歌词数组
+    lyricArray: [],
+    // 当前行歌词索引
+    currentLyricIndex: 0
+  },
+
+  onLoad: function () {
+    // 从云数据库获取音乐数据
+    this.getMusicListFromCloud();
+  },
+
+  // 从云数据库获取音乐列表
+  getMusicListFromCloud: function () {
+    wx.cloud.callFunction({
+      name: 'dataWorkshop',
+      data: {
+        action: 'getMusicList'
+      }
+    }).then(res => {
+      if (res.result.success) {
+        // 更新音乐列表数据
+        this.setData({
+          musicList: res.result.data
+        });
+        console.log('获取音乐列表结果:', res.result.data);
+
+        // 初始化音频上下文
+        this.initAudioContext();
+
+        // 初始化第一首歌的歌词（如果有的话）
+        if (this.data.musicList.length > 0 && this.data.musicList[0].lrc) {
+          this.parseLyric(this.data.musicList[0].lrc);
+        }
+      } else {
+        console.error('获取音乐列表失败:', res.result.message);
+        wx.showToast({
+          title: '获取音乐列表失败',
+          icon: 'none'
+        });
+
+        // 使用默认数据
+        this.useDefaultMusicList();
+      }
+    }).catch(err => {
+      console.error('调用云函数失败:', err);
+      wx.showToast({
+        title: '网络错误',
+        icon: 'none'
+      });
+
+      // 使用默认数据
+      this.useDefaultMusicList();
+    });
+  },
+
+  // 使用默认音乐列表
+  useDefaultMusicList: function () {
+    const defaultMusicList = [
       {
         id: 1,
         title: "Orm问候语 - 你好",
@@ -24,28 +92,17 @@ Page({
         src: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/vedio/等左左买饼干 - 谢谢.mp3",
         lrc: "[00:01.00]谢谢\n[00:05.00]感谢你的支持\n[00:10.00]我会继续努力的"
       }
-    ],
-    // 当前播放音乐索引
-    currentMusicIndex: 0,
-    // 音频对象
-    audioCtx: null,
-    // 播放状态
-    isPlaying: false,
-    // 当前播放时间
-    currentTime: 0,
-    // 总时长
-    duration: 0,
-    // 歌词数组
-    lyricArray: [],
-    // 当前行歌词索引
-    currentLyricIndex: 0
-  },
+    ];
 
-  onLoad: function () {
+    this.setData({
+      musicList: defaultMusicList
+    });
+
     // 初始化音频上下文
     this.initAudioContext();
+
     // 初始化第一首歌的歌词
-    this.parseLyric(this.data.musicList[0].lrc);
+    this.parseLyric(defaultMusicList[0].lrc);
   },
 
   // 初始化音频上下文
@@ -109,8 +166,10 @@ Page({
       });
     });
 
-    // 设置音频源
-    audioCtx.src = this.data.musicList[this.data.currentMusicIndex].src;
+    // 如果有音乐列表，设置第一首歌的音频源
+    if (this.data.musicList.length > 0) {
+      audioCtx.src = this.data.musicList[this.data.currentMusicIndex].src;
+    }
   },
 
   // 解析歌词
@@ -215,7 +274,9 @@ Page({
     audioCtx.play();
 
     // 解析并显示歌词
-    this.parseLyric(music.lrc);
+    if (music.lrc) {
+      this.parseLyric(music.lrc);
+    }
   },
 
   // 上一首
@@ -231,7 +292,9 @@ Page({
     audioCtx.play();
 
     // 解析并显示歌词
-    this.parseLyric(music.lrc);
+    if (music.lrc) {
+      this.parseLyric(music.lrc);
+    }
   },
 
   // 下一首
@@ -247,7 +310,9 @@ Page({
     audioCtx.play();
 
     // 解析并显示歌词
-    this.parseLyric(music.lrc);
+    if (music.lrc) {
+      this.parseLyric(music.lrc);
+    }
   },
 
   // 格式化时间
@@ -270,5 +335,24 @@ Page({
 
     // 更新当前时间
     this.setData({ currentTime: position });
+  },
+
+  // 轮播图切换事件
+  onSwiperChange: function (e) {
+    const currentIndex = e.detail.current;
+    this.setData({ currentMusicIndex: currentIndex });
+
+    // 如果正在播放，则切换音乐
+    if (this.data.isPlaying) {
+      const music = this.data.musicList[currentIndex];
+      const audioCtx = this.data.audioCtx;
+      audioCtx.src = music.src;
+      audioCtx.play();
+
+      // 解析并显示歌词
+      if (music.lrc) {
+        this.parseLyric(music.lrc);
+      }
+    }
   }
 })
