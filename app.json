@@ -59,7 +59,8 @@
         "support/support",
         "growthTimeline/growthTimeline",
         "personal/personal",
-        "musicPlayer/musicPlayer"
+        "musicPlayer/musicPlayer",
+        "ormHome/ormHome"
       ]
     }
   ],

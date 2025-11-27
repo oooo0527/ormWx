@@ -1,16 +1,20 @@
 <!--packHome/musicPlayer/musicPlayer.wxml-->
 <global-background>
 <view class="music-player-container">
-    <view class="music-player-header1"></view>
   <!-- 歌词显示区域 -->
   <view class="lyric-container">
+    <!-- 调试信息 -->
+    <view wx:if="{{__debug__}}" style="color: red; margin-bottom: 10px;">
+      歌词数组长度: {{lyricArray.length}}
+    </view>
+    
     <block wx:if="{{lyricArray.length > 0}}">
       <block wx:for="{{lyricArray}}" wx:key="index">
         <view 
           id="lyric-{{index}}" 
-          class="lyric-line {{index === currentLyricIndex ? 'active' : ''}}"
+          class="lyric-line"
         >
-          {{item.text}}
+          {{item}}
         </view>
       </block>
     </block>
@@ -24,7 +28,7 @@
 
   <!-- 音乐列表轮播 -->
   <view class="music-list-carousel">
-
+    <view class="music-player-header1"></view>
     <swiper 
       class="carousel-swiper"
       autoplay="{{false}}" 
@@ -34,10 +38,11 @@
       layout-type="transformer"
       transformer-type="scale"
       bindchange="onSwiperChange"
+      current="{{currentMusicIndex}}"
     >
       <block wx:for="{{musicList}}" wx:key="id">
-        <swiper-item class="carousel-item {{isRotating ? 'rotating' : ''}}">
-          <view class="music-info" bindtap="playMusic" data-index="{{index}}">
+        <swiper-item class="carousel-item">
+          <view class="music-info {{isRotating && index === currentMusicIndex ? 'rotating' : ''}}" bindtap="playMusic" data-index="{{index}}">
             <view class="music-player-header"></view>
             <image class="album-cover" src="{{item.src}}" mode="aspectFill"></image>
           </view>

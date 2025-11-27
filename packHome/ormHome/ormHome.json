@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "陈奥的人缘",
+  "usingComponents": {
+    "global-background": "/components/globalBackground/globalBackground"
+  }
+}

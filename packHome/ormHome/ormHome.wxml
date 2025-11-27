@@ -1,0 +1,14 @@
+<global-background>
+  <view class="container">
+    <view class="title">陈奥的人缘</view>
+    <view class="content">
+      <view class="story" wx:for="{{storyList}}" wx:key="index">
+      <view>    <image class="story-image" src="{{item.image}}"></image></view>
+         <view>        <view class="story-title">{{item.title}}</view>
+        <view class="story-content">{{item.content[0]}}</view></view>
+    
+
+      </view>
+    </view>
+  </view>
+</global-background>

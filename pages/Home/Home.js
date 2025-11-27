@@ -9,12 +9,12 @@ Page({
     scrollAnimation: null,
 
     musicList: [{
-      name: 'mami',
+      name: '上班必听',
       url: '/packHome/musicPlayer/musicPlayer',
       image: 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/8a4a2aff10012ed22625321f6898bb84.jpg'
     }, {
-      name: 'KORN',
-      url: '/packHome/dream/dream',
+      name: '了解陈奥',
+      url: '/packHome/ormHome/ormHome',
       image: 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/925db0f17c54d003a63bdfb90bfdd0c1.jpg'
     },
     {

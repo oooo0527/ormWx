@@ -18,7 +18,9 @@ Page({
     // 当前行歌词索引
     currentLyricIndex: 0,
     // 旋转动画状态
-    isRotating: false
+    isRotating: false,
+    // 调试模式
+    __debug__: true
   },
 
   onLoad: function () {
@@ -45,8 +47,9 @@ Page({
         this.initAudioContext();
 
         // 初始化第一首歌的歌词（如果有的话）
-        if (this.data.musicList.length > 0 && this.data.musicList[0].lrc) {
-          this.parseLyric(this.data.musicList[0].lrc);
+        // 修复：使用更新后的数据而不是旧的数据
+        if (res.result.data.length > 0 && res.result.data[0].lrc) {
+          this.parseLyric(res.result.data[0].lrc);
         }
       } else {
         console.error('获取音乐列表失败:', res.result.message);
@@ -156,8 +159,8 @@ Page({
         duration: duration
       });
 
-      // 更新歌词高亮
-      this.updateLyric(currentTime);
+      // 移除更新歌词高亮的调用，因为我们不需要高亮歌词
+      // this.updateLyric(currentTime);
     });
 
     // 监听音频播放结束事件
@@ -224,80 +227,33 @@ Page({
 
   // 解析歌词
   parseLyric: function (lrc) {
-    const lyricArray = [];
-    const lines = lrc.split('\n');
+    console.log('开始解析歌词:', lrc);
+    console.log('歌词类型:', typeof lrc);
+    console.log('歌词长度:', lrc.length);
 
-    lines.forEach(line => {
-      // 匹配时间戳 [mm:ss.xx]
-      const timeMatch = line.match(/\[(\d{2}):(\d{2})\.(\d{2})\]/);
-      if (timeMatch) {
-        const minute = parseInt(timeMatch[1]);
-        const second = parseInt(timeMatch[2]);
-        const millisecond = parseInt(timeMatch[3]);
-        const time = minute * 60 + second + millisecond / 100;
+    // 检查是否包含换行符
+    console.log('是否包含换行符:', lrc.includes('\n'));
 
-        // 提取歌词文本
-        const text = line.replace(/\[\d{2}:\d{2}\.\d{2}\]/g, '').trim();
-
-        lyricArray.push({
-          time: time,
-          text: text
-        });
-      }
-    });
-
-    this.setData({ lyricArray });
-  },
-
-  // 更新歌词高亮
-  updateLyric: function (currentTime) {
-    const lyricArray = this.data.lyricArray;
-    let currentLyricIndex = 0;
-
-    // 查找当前应该高亮的歌词行
-    for (let i = 0; i < lyricArray.length; i++) {
-      if (lyricArray[i].time <= currentTime) {
-        currentLyricIndex = i;
-      } else {
-        break;
-      }
+    // 尝试不同的分割方式
+    let lines = [];
+    if (lrc.includes('\n')) {
+      lines = lrc.split('\n');
+    } else if (lrc.includes('\\n')) {
+      // 如果包含转义的换行符
+      lines = lrc.split('\\n');
+    } else {
+      // 如果没有换行符，可能是双语歌词或其他格式
+      lines = [lrc];
     }
 
-    // 只有当歌词索引发生变化时才更新
-    if (currentLyricIndex !== this.data.currentLyricIndex) {
-      this.setData({ currentLyricIndex });
+    console.log('分割后的歌词数组:', lines);
+    console.log('歌词数组长度:', lines.length);
 
-      // 滚动到当前歌词
-      this.scrollToCurrentLyric();
-    }
-  },
+    // 过滤掉空行
+    lines = lines.filter(line => line.trim() !== '');
+    console.log('过滤空行后的歌词数组:', lines);
 
-  // 滚动到当前歌词
-  scrollToCurrentLyric: function () {
-    // 使用选择器选择当前歌词元素并滚动到可视区域
-    const query = wx.createSelectorQuery();
-    query.select('#lyric-' + this.data.currentLyricIndex).boundingClientRect();
-    query.select('.lyric-container').boundingClientRect();
-    query.select('.lyric-container').scrollOffset();
-
-    query.exec((res) => {
-      if (res[0] && res[1] && res[2]) {
-        const lyricRect = res[0];
-        const containerRect = res[1];
-        const scrollOffset = res[2].scrollTop;
-
-        // 计算需要滚动的位置，使当前歌词居中
-        const toView = lyricRect.top + scrollOffset - containerRect.height / 2;
-
-        // 滚动到指定位置
-        wx.createSelectorQuery().select('.lyric-container').node().exec((res) => {
-          if (res[0]) {
-            // 在真实设备上可以使用以下代码实现平滑滚动
-            // res[0].node.scrollTop = toView;
-          }
-        });
-      }
-    });
+    this.setData({ lyricArray: lines });
   },
 
   // 播放/暂停
@@ -313,6 +269,13 @@ Page({
   // 播放指定音乐
   playMusic: function (e) {
     const index = e.currentTarget.dataset.index;
+
+    // 如果点击的是当前正在播放的音乐，则切换播放状态
+    if (index === this.data.currentMusicIndex) {
+      this.togglePlay();
+      return;
+    }
+
     const music = this.data.musicList[index];
 
     // 更新当前音乐索引
@@ -342,9 +305,13 @@ Page({
       });
     }, 100);
 
+    console.log('当前播放的音乐:', music);
     // 解析并显示歌词
     if (music.lrc) {
+      console.log('音乐包含歌词，开始解析');
       this.parseLyric(music.lrc);
+    } else {
+      console.log('音乐不包含歌词');
     }
   },
 
@@ -353,7 +320,9 @@ Page({
     let currentIndex = this.data.currentMusicIndex;
     currentIndex = (currentIndex - 1 + this.data.musicList.length) % this.data.musicList.length;
 
-    this.setData({ currentMusicIndex: currentIndex });
+    this.setData({
+      currentMusicIndex: currentIndex
+    });
 
     const music = this.data.musicList[currentIndex];
 
@@ -391,7 +360,9 @@ Page({
     let currentIndex = this.data.currentMusicIndex;
     currentIndex = (currentIndex + 1) % this.data.musicList.length;
 
-    this.setData({ currentMusicIndex: currentIndex });
+    this.setData({
+      currentMusicIndex: currentIndex
+    });
 
     const music = this.data.musicList[currentIndex];
 

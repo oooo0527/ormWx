@@ -40,7 +40,7 @@
     <view class="music-container">
       <view class="music-item" wx:for="{{musicList}}" wx:key="index" bindtap="navigateToPage" data-url="{{item.url}}">
         <image src="{{item.image}}" mode="aspectFill" class="music-image" lazy-load></image>
-        <view class="music-text">音乐</view>
+        <view class="music-text">{{item.name}}</view>
       </view>
 
     </view>
