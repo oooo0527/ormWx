@@ -43,7 +43,7 @@
   height: 800rpx;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(180deg, #5c5d5e 75%, #575757 100%);
+  background: rgba(0, 0, 0, 0.209);
   border-bottom-left-radius: 50rpx;
   border-bottom-right-radius: 50rpx;
   margin-bottom: 40rpx;
@@ -98,11 +98,11 @@
 }
 
 .menu-item:nth-of-type(2n) {
-  margin-top: 10rpx;
+  margin-top: 18rpx;
 }
 
 .menu-item:nth-of-type(2n+1) {
-  margin-bottom: 10rpx;
+  margin-bottom: 18rpx;
 }
 
 .spacer {
