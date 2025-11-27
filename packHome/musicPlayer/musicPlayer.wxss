@@ -22,6 +22,7 @@
 }
 
 .music-player-header1 {
+  flex: 2;
   height: 515rpx;
   width: 515rpx;
   /* background: rgba(233, 221, 221, 0.8); */
@@ -32,6 +33,7 @@
   left: 50%;
   transform: translate(-50%, -167rpx);
   opacity: 0.8;
+  z-index: -1;
 }
 
 .music-player-bg {
@@ -58,6 +60,21 @@
   width: 400rpx;
   height: 400rpx;
   border-radius: 400rpx;
+}
+
+/* 旋转动画类 */
+.carousel-item.rotating {
+  animation: rotate 20s linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .music-info {

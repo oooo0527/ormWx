@@ -1,6 +1,7 @@
 <!--packHome/musicPlayer/musicPlayer.wxml-->
 <global-background>
 <view class="music-player-container">
+    <view class="music-player-header1"></view>
   <!-- 歌词显示区域 -->
   <view class="lyric-container">
     <block wx:if="{{lyricArray.length > 0}}">
@@ -23,7 +24,7 @@
 
   <!-- 音乐列表轮播 -->
   <view class="music-list-carousel">
-    <view class="music-player-header1"></view>
+
     <swiper 
       class="carousel-swiper"
       autoplay="{{false}}" 
@@ -35,7 +36,7 @@
       bindchange="onSwiperChange"
     >
       <block wx:for="{{musicList}}" wx:key="id">
-        <swiper-item class="carousel-item">
+        <swiper-item class="carousel-item {{isRotating ? 'rotating' : ''}}">
           <view class="music-info" bindtap="playMusic" data-index="{{index}}">
             <view class="music-player-header"></view>
             <image class="album-cover" src="{{item.src}}" mode="aspectFill"></image>

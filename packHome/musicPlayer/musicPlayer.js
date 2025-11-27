@@ -16,7 +16,9 @@ Page({
     // 歌词数组
     lyricArray: [],
     // 当前行歌词索引
-    currentLyricIndex: 0
+    currentLyricIndex: 0,
+    // 旋转动画状态
+    isRotating: false
   },
 
   onLoad: function () {
@@ -118,13 +120,19 @@ Page({
     // 监听音频播放事件
     audioCtx.onPlay(() => {
       console.log('开始播放');
-      this.setData({ isPlaying: true });
+      this.setData({
+        isPlaying: true,
+        isRotating: true
+      });
     });
 
     // 监听音频暂停事件
     audioCtx.onPause(() => {
       console.log('暂停播放');
-      this.setData({ isPlaying: false });
+      this.setData({
+        isPlaying: false,
+        isRotating: false
+      });
     });
 
     // 监听音频停止事件
@@ -132,7 +140,8 @@ Page({
       console.log('停止播放');
       this.setData({
         isPlaying: false,
-        currentTime: 0
+        currentTime: 0,
+        isRotating: false
       });
     });
 
@@ -156,7 +165,8 @@ Page({
       console.log('播放结束');
       this.setData({
         isPlaying: false,
-        currentTime: 0
+        currentTime: 0,
+        isRotating: false
       });
       // 自动播放下一首
       // this.nextMusic();
