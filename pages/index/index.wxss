@@ -21,6 +21,7 @@
   /* padding: 20px; */
   box-sizing: border-box;
   position: relative;
+  /* display: none; */
 }
 
 .background-image {
@@ -67,7 +68,9 @@
 }
 
 .display-image-container-text {
-  height: calc(100vh - 480rpx);
+  /* display: none; */
+  height: 100vh;
+  /* height: calc(100vh - 480rpx); */
   position: relative;
   /* position: absolute; */
   /* bottom: 0; */
@@ -154,10 +157,27 @@
   height: 100%;
   /* width: 100vw; */
   position: absolute;
-  left: 0;
+  left: 80rpx;
 
   z-index: 99;
   width: 255rpx;
+  height: 635rpx;
+  bottom: 150rpx;
+
+}
+
+.text-display {
+  width: 100vw;
+  /* height: 100rpx; */
+  /* line-height: 100rpx; */
+  text-align: center;
+  position: absolute;
+  padding: 40rpx;
+
+  font-family: cursive, 'Helvetica Neue', sans-serif;
+  color: #f48eb5;
+  top: 60rpx;
+  /* transform: translateY(50%); */
 
 }
 
@@ -166,7 +186,7 @@
   height: 310rpx;
   /* width: 100vw; */
   position: absolute;
-  bottom: 0;
+  bottom: 20rpx;
   z-index: 98;
 
 }
@@ -186,15 +206,16 @@
 .number-container {
   display: flex;
   justify-content: space-around;
-  width: 400rpx;
+  /* width: 100vw; */
+  width: 60%;
+  margin: 0 20%;
 
 
   /* margin-top: 50rpx; */
   position: absolute;
-  left: 0;
-  transform: translateX(50%);
-  bottom: 40rpx;
-  z-index: 97;
+  /* bottom: 20rpx; */
+  top: 60rpx;
+  z-index: 100;
 }
 
 .number-container1 {
@@ -213,9 +234,20 @@
   align-items: center;
   font-size: 48rpx;
   font-weight: bold;
-  color: #ed0909;
+  border: 8rpx solid #0c1117;
   /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); */
   transition: all 0.2s ease;
+  border-radius: 10rpx;
+  color: #f48eb5;
+
+}
+
+.number-box:nth-of-type(2n+1) {
+  margin-top: 10rpx;
+}
+
+.number-box:nth-of-type(2n) {
+  margin-bottom: 10rpx;
 }
 
 /* 数字框点击效果 */

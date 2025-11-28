@@ -1,5 +1,6 @@
 <view class="container">
 
+
   <view wx:if="{{showHome}}" class="home-container">
     <image src="{{displayImage1}}" class="background-image" mode="aspectFill"></image>
     <!-- 可拖动的小图标 -->
@@ -14,20 +15,26 @@
 
   <!-- 用于切换显示的图片 -->
   <view class="display-image-container" wx:else>
-    <image src="{{displayImage1}}" class="background-image1" mode="aspectFill" show-menu-by-longpress="false"></image>
+    <image src="{{displayImage1}}" class="background-image1" mode="aspectFill" show-menu-by-longpress="false" wx:if="{{false}}"></image>
     <view class="display-image-container-text">
+    <view class="text-display">
+        <view  wx:for="{{displayedText}}" wx:key="index" class="text-item">
+          {{item}}
+    </view>
+    </view>
       <image class="display-image" src="{{displayImage}}" show-menu-by-longpress="false"></image>
-      <image src="{{displayImage2}}" class="display-image1" style="z-index: {{zindex}}" show-menu-by-longpress="false" mode="aspectFill" bindtap="switchZindex"></image>
+      <image src="{{displayImage2}}" class="display-image1" show-menu-by-longpress="false" mode="aspectFill" bindtap="switchZindex"></image>
     </view>
 
     <!-- 四个数字框 -->
-    <view class="number-container">
-      <scroll-view class="number-container1" scroll-y="{{true}}" wx:for="{{list}}" wx:key="item">
-        <view class="number-box" bindtap="incrementNumber" data-index="{{index}}" wx:for="{{numberList}}" wx:key="index">
+    <view class="number-container"  wx:if="{{showNumberContainer}}">
+
+        <view class="number-box" wx:for="{{numberList}}"  data-index="{{item}}"  bindtap="incrementNumber" wx:key="index" >
           {{item}}
         </view>
-      </scroll-view>
     </view>
-
+          <!-- 语音播放控制 -->
+  <audio id="voicePlayer" />
   </view>
+
 </view>
