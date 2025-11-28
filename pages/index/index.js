@@ -9,6 +9,7 @@ Page({
       '/images/icon_fan.png',
       '/images/icon_my.png'
     ],
+    zindex: 98,
     // 当前显示的图标索引
     currentIconIndex: 0,
     // 当前显示的图标
@@ -23,11 +24,16 @@ Page({
     currentDisplayIndex: 0,
     // 当前显示的图片
     displayImage: '/pages/index/lip.png',
+    displayImage2: '/pages/index/under.png',
     // 图标位置
     iconLeft: 150,
     iconTop: '100vh',
     // 拖动相关数据
-    startPoint: null
+    startPoint: null,
+    numberList: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+    // 四个数字框的值，初始为0
+    numbers: [0, 0, 0, 0],
+    list: ['o', 'r', 'm', 's']
   },
 
   onLoad: function () {
@@ -43,6 +49,11 @@ Page({
 
   onShow: function () {
 
+  },
+  switchZindex: function () {
+    this.setData({
+      zindex: 96
+    });
   },
 
   // 触摸开始事件
@@ -97,12 +108,36 @@ Page({
       displayImage1: '/pages/index/have-to.jpg',
     });
 
-
     // // 显示提示
     // wx.showToast({
     //   title: '图片已切换',
     //   icon: 'success',
     //   duration: 1000
     // });
+  },
+
+  // 数字框点击增加事件
+  incrementNumber: function (e) {
+    console.log('Number incremented', e);
+    const index = e.currentTarget.dataset.index;
+    const numbers = this.data.numbers;
+
+    // 如果当前数字小于9，则加1；否则重置为0
+    if (numbers[index] < 9) {
+      numbers[index] = numbers[index] + 1;
+    } else {
+      numbers[index] = 0;
+    }
+
+
+    this.setData({
+      numbers: numbers
+    });
+    if (numbers[0] == 0 && numbers[1] == 5 && numbers[2] == 2 && numbers[3] == 7) {
+      wx.switchTab({
+        url: '/pages/Home/Home'
+      });
+    }
+
   }
 });

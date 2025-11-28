@@ -1,35 +1,32 @@
-
 <view class="container">
 
-<view wx:if="{{showHome}}" class="home-container">
-  <image src="{{displayImage1}}" class="background-image" mode="aspectFill"></image>
-  <!-- 可拖动的小图标 -->
-  <view 
-  wx:if="{{showHome}}"
-    class="draggable-icon-container"
-  >
-    <view 
-      class="small-icon" 
-
-      bindlongpress="switchDisplayImage"
-      show-menu-by-longpress="false"
-    >
-    <image class="icon" src="{{currentIcon}}"></image>
+  <view wx:if="{{showHome}}" class="home-container">
+    <image src="{{displayImage1}}" class="background-image" mode="aspectFill"></image>
+    <!-- 可拖动的小图标 -->
+    <view wx:if="{{showHome}}" class="draggable-icon-container">
+      <view class="small-icon" bindlongpress="switchDisplayImage" show-menu-by-longpress="false">
+        <image class="icon" src="{{currentIcon}}"></image>
+      </view>
     </view>
-  </view>
+
 
   </view>
-  
+
   <!-- 用于切换显示的图片 -->
   <view class="display-image-container" wx:else>
-    <image src="{{displayImage1}}" class="background-image1" mode="aspectFill"></image>
+    <image src="{{displayImage1}}" class="background-image1" mode="aspectFill" show-menu-by-longpress="false"></image>
     <view class="display-image-container-text">
-      <view class="display-image-container-text1">HAPPY BIRTHDAY</view>
-        <image 
-      class="display-image" 
-      src="{{displayImage}}" 
-      show-menu-by-longpress="false"
-    ></image>
+      <image class="display-image" src="{{displayImage}}" show-menu-by-longpress="false"></image>
+      <image src="{{displayImage2}}" class="display-image1" style="z-index: {{zindex}}" show-menu-by-longpress="false" mode="aspectFill" bindtap="switchZindex"></image>
+    </view>
+
+    <!-- 四个数字框 -->
+    <view class="number-container">
+      <scroll-view class="number-container1" scroll-y="{{true}}" wx:for="{{list}}" wx:key="item">
+        <view class="number-box" bindtap="incrementNumber" data-index="{{index}}" wx:for="{{numberList}}" wx:key="index">
+          {{item}}
+        </view>
+      </scroll-view>
     </view>
 
   </view>
