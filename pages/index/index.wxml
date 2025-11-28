@@ -1,25 +1,36 @@
-<global-background>
-  <view class="container">
-    <view class="header"> 
-      <image src="/images/login-bg-home.png" mode="aspectFill" lazy-load/>
-    <view class="header-box">
 
-      <view class="app-title">明星互动平台</view>
-      <view class="app-subtitle">探索明星世界，分享你的声音</view>
-    </view>
+<view class="container">
 
-    </view>
+<view wx:if="{{showHome}}" class="home-container">
+  <image src="{{displayImage1}}" class="background-image" mode="aspectFill"></image>
+  <!-- 可拖动的小图标 -->
+  <view 
+  wx:if="{{showHome}}"
+    class="draggable-icon-container"
+  >
+    <view 
+      class="small-icon" 
 
-    <view class="login-section">
-      <button class="login-btn" bindtap="goToLogin">立即登录</button>
-      <view class="login-text"  bindtap="goToStarArchive">游客访问</view>
-      <!-- <button class="guest-btn" bindtap="goToStarArchive">游客访问</button> -->
-    </view>
-
-    <view class="footer">
-      <text class="copyright">© 2025 明星互动平台</text>
+      bindlongpress="switchDisplayImage"
+      show-menu-by-longpress="false"
+    >
+    <image class="icon" src="{{currentIcon}}"></image>
     </view>
   </view>
-    <!-- 语音播放控制 -->
-  <audio id="voicePlayer" />
-</global-background>
+
+  </view>
+  
+  <!-- 用于切换显示的图片 -->
+  <view class="display-image-container" wx:else>
+    <image src="{{displayImage1}}" class="background-image1" mode="aspectFill"></image>
+    <view class="display-image-container-text">
+      <view class="display-image-container-text1">HAPPY BIRTHDAY</view>
+        <image 
+      class="display-image" 
+      src="{{displayImage}}" 
+      show-menu-by-longpress="false"
+    ></image>
+    </view>
+
+  </view>
+</view>

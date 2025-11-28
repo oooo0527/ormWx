@@ -1,78 +1,108 @@
 Page({
   data: {
-    isLogin: false,
-    userInfo: null,
-    currentBackground: 0, // 当前背景索引
-    backgrounds: [  // 背景数组
-      'linear-gradient(135deg, #000000 0%, #333333 100%)', // 黑白渐变
-      'linear-gradient(135deg, #ffffff 0%, #cccccc 100%)', // 白灰渐变
-      'linear-gradient(135deg, #333333 0%, #000000 100%)', // 灰黑渐变
-      'linear-gradient(135deg, #ffffff 0%, #666666 100%)', // 白银渐变
-      'linear-gradient(135deg, #666666 0%, #000000 100%)'  // 银黑渐变
-    ]
+    currentDate: '',
+    // 图标数组
+    icons: [
+      '/images/icon_star.png',
+      '/images/icon_data.png',
+      '/images/icon_work.png',
+      '/images/icon_fan.png',
+      '/images/icon_my.png'
+    ],
+    // 当前显示的图标索引
+    currentIconIndex: 0,
+    // 当前显示的图标
+    currentIcon: '/pages/index/lip.png',
+    // 用于显示的图片数组
+    displayImages: [
+      '/pages/index/orm.png'
+    ],
+    displayImage1: '/pages/index/login-bg.jpg',
+    showHome: true,
+    // 当前显示的图片索引
+    currentDisplayIndex: 0,
+    // 当前显示的图片
+    displayImage: '/pages/index/lip.png',
+    // 图标位置
+    iconLeft: 150,
+    iconTop: '100vh',
+    // 拖动相关数据
+    startPoint: null
   },
-  // 初始化语音播放器
-  initVoicePlayer: function () {
-    // 创建内部音频上下文
-    this.voicePlayer = wx.createInnerAudioContext();
 
-    this.voicePlayer.obeyMuteSwitch = false; // 不遵循静音开关
-  },
   onLoad: function () {
-    this.initVoicePlayer()
-    // 设置新的音频源
-    this.voicePlayer.src = "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/vedio/等左左买饼干 - 你好.mp3";
-    // 播放音频
-    this.voicePlayer.play();
-    // 页面加载时检查登录状态
-    this.checkLoginStatus();
-
-    // 从本地存储获取背景设置
-    const savedBackground = wx.getStorageSync('selectedBackground');
-    if (savedBackground !== undefined && savedBackground !== null) {
-      this.setData({
-        currentBackground: savedBackground
-      });
-    }
+    // 设置当前日期
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    this.setData({
+      currentDate: `${year}年${month}月${day}日`
+    });
   },
 
   onShow: function () {
-    // 页面显示时检查登录状态
-    this.checkLoginStatus();
+
   },
 
-  // 检查登录状态
-  checkLoginStatus: function () {
-    const userInfo = wx.getStorageSync('userInfo');
-    if (userInfo) {
-      this.setData({
-        isLogin: true,
-        userInfo: userInfo
-      });
-    } else {
-      this.setData({
-        isLogin: false,
-        userInfo: null
-      });
-    }
-  },
-
-  // 跳转到登录页面
-  goToLogin: function () {
-    wx.navigateTo({
-      url: '/pages/login/login'
+  // 触摸开始事件
+  onTouchStart: function (e) {
+    const touch = e.touches[0];
+    this.setData({
+      startPoint: {
+        x: touch.clientX,
+        y: touch.clientY,
+        left: this.data.iconLeft,
+        top: this.data.iconTop
+      }
     });
   },
 
-  // 跳转到明星档案页面
-  goToStarArchive: function () {
-    wx.switchTab({
-      url: '/pages/starArchive/starArchive'
+  // 触摸移动事件
+  onTouchMove: function (e) {
+    if (!this.data.startPoint) return;
+
+    const touch = e.touches[0];
+    const startPoint = this.data.startPoint;
+
+    // 计算移动距离
+    const deltaX = touch.clientX - startPoint.x;
+    const deltaY = touch.clientY - startPoint.y;
+
+    // 更新图标位置
+    this.setData({
+      iconLeft: startPoint.left + deltaX,
+      iconTop: startPoint.top + deltaY
     });
   },
 
-  // 背景变化回调
-  onBackgroundChange: function (settings) {
-    // 由于使用了全局背景组件，这里不需要额外处理
+  // 触摸结束事件
+  onTouchEnd: function (e) {
+    this.setData({
+      startPoint: null
+    });
+  },
+
+  // 长按切换显示图片
+  switchDisplayImage: function () {
+    // 切换显示图片
+    const nextDisplayIndex = (this.data.currentDisplayIndex + 1) % this.data.displayImages.length;
+    const nextDisplayImage = this.data.displayImages[nextDisplayIndex];
+
+    // 更新数据
+    this.setData({
+      currentDisplayIndex: nextDisplayIndex,
+      displayImage: nextDisplayImage,
+      showHome: false,
+      displayImage1: '/pages/index/have-to.jpg',
+    });
+
+
+    // // 显示提示
+    // wx.showToast({
+    //   title: '图片已切换',
+    //   icon: 'success',
+    //   duration: 1000
+    // });
   }
-})
+});
