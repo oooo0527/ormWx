@@ -1,23 +1,27 @@
 <view class="container">
-  <!-- 时间显示和编辑区域 -->
-  <view class="time-section">
-    <view class="time-display" bindtap="toggleTimePicker">
-      <text class="time-title">当前时间：</text>
-      <text class="time-text">
-        {{hours}}:{{minutes}}
-      </text>
-    </view>
-    
-    <!-- 时间选择器 -->
-    <view class="time-picker" wx:if="{{showTimePicker}}">
-      <picker-view indicator-style="height: 50rpx;" bindchange="onTimeChange" value="{{[selectedHourIndex, selectedMinuteIndex]}}" class="time-picker-view">
-        <picker-view-column>
-          <view wx:for="{{hoursArray}}" wx:key="index" class="picker-item">{{item}}时</view>
-        </picker-view-column>
-        <picker-view-column>
-          <view wx:for="{{minutesArray}}" wx:key="index" class="picker-item">{{item}}分</view>
-        </picker-view-column>
-      </picker-view>
+  <!-- 表盘区域 -->
+  <view class="clock-container">
+    <view class="clock-face" bindtouchstart="onTouchStart" bindtouchmove="onTouchMove" bindtouchend="onTouchEnd">
+      <!-- 主刻度标记 -->
+      <view class="major-mark hour-mark-12"></view>
+      <view class="major-mark hour-mark-3"></view>
+      <view class="major-mark hour-mark-6"></view>
+      <view class="major-mark hour-mark-9"></view>
+      
+      <!-- 时针 -->
+      <view class="hour-hand" style="transform: rotate({{hourDeg}}deg)"></view>
+      <!-- 分针 -->
+      <view class="minute-hand" style="transform: rotate({{minuteDeg}}deg)"></view>
+      <!-- 中心圆点 -->
+      <view class="center-dot"></view>
+      
+      <!-- 时间显示 -->
+      <view class="time-display-overlay">
+        <text class="time-text">{{hours}}:{{minutes < 10 ? '0' + minutes : minutes}}</text>
+      </view>
+      
+      <!-- 添加一个透明的触摸层覆盖整个表盘 -->
+      <view class="touch-overlay"></view>
     </view>
   </view>
 

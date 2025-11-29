@@ -1,14 +1,37 @@
 <view class="container">
-
+      <!-- 时间显示 -->
+      <view class="time-display-overlay" wx:if="{{showHome}}">
+        <text class="time-text">{{hours}}:{{minutes < 10 ? '0' + minutes : minutes}}</text>
+      </view>
 
   <view wx:if="{{showHome}}" class="home-container">
     <image src="{{displayImage1}}" class="background-image" mode="aspectFill"></image>
     <!-- 可拖动的小图标 -->
-    <view wx:if="{{showHome}}" class="draggable-icon-container">
+    <view wx:if="{{showIcon}}" class="draggable-icon-container">
       <view class="small-icon" bindlongpress="switchDisplayImage" show-menu-by-longpress="false">
         <image class="icon" src="{{currentIcon}}"></image>
       </view>
     </view>
+      <!-- 表盘区域 -->
+  <view class="clock-container" wx:else>
+    <view class="clock-face" bindtouchstart="onTouchStart" bindtouchmove="onTouchMove" bindtouchend="onTouchEnd">
+      <!-- 主刻度标记 -->
+      <view class="major-mark hour-mark-12"></view>
+      <view class="major-mark hour-mark-3"></view>
+      <view class="major-mark hour-mark-6"></view>
+      <view class="major-mark hour-mark-9"></view>
+      
+      <!-- 时针 -->
+      <view class="hour-hand" style="transform: rotate({{hourDeg}}deg)"></view>
+      <!-- 分针 -->
+      <view class="minute-hand" style="transform: rotate({{minuteDeg}}deg)"></view>
+      <!-- 中心圆点 -->
+      <view class="center-dot"></view>
+      
+
+    </view>
+  </view>
+
 
 
   </view>

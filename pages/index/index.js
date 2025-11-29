@@ -38,61 +38,153 @@ Page({
     displayedText: [],
     textIndex: 0,
     timer: null,
-    hoursArray: [], // 小时数组
-    minutesArray: [], // 分钟数组
-    selectedHourIndex: new Date().getHours(), // 选中的小时索引
-    selectedMinuteIndex: new Date().getMinutes(), // 选中的分钟索引
+    // 时间相关数据
+    currentTime: new Date(),
+    hours: 0, // 将在onLoad中初始化为当前小时
+    minutes: 0, // 将在onLoad中初始化为当前分钟
+    hourDeg: 0, // 将在onLoad中初始化
+    minuteDeg: 0, // 将在onLoad中初始化
+    clockCenter: { x: 0, y: 0 }, // 表盘中心坐标
+    isDragging: false, // 是否正在拖拽
+    showIcon: false,
+
 
   },
-  // 初始化时间数组
-  initTimeArrays: function () {
-    // 初始化小时数组(0-23)
-    let hours = [];
-    for (let i = 0; i < 24; i++) {
-      if (i < 10) {
-        i = '0' + i;
-      }
-      hours.push(i);
-    }
 
-    // 初始化分钟数组(0-59)
-    let minutes = [];
-    for (let i = 0; i < 60; i++) {
-      if (i < 10) {
-        i = '0' + i;
-      }
-      minutes.push(i);
-    }
 
-    this.setData({
-      hoursArray: hours,
-      minutesArray: minutes
-    });
-  },
 
-  // 时间选择器变化事件
-  onTimeChange: function (e) {
-    console.log(e, 'TimePicker:', e.detail.value);
-    const value = e.detail.value;
-    const selectedHour = value[0];
-    const selectedMinute = value[1];
-    console.log('Selected Time:', selectedHour, ':', selectedMinute);
-    if (selectedHour == 5 && selectedMinute == 27) {
-      wx.switchTab({
-        url: '/pages/Home/Home'
-      });
-    }
-    this.setData({
-      selectedHourIndex: selectedHour,
-      selectedMinuteIndex: selectedMinute
-    });
-  },
 
   onLoad: function () {
-    this.initTimeArrays()
+    // 页面加载时的逻辑
+    // 获取当前时间并设置小时和分钟
+    const now = new Date();
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+
+    // 更新数据
+    this.setData({
+      hours: hours,
+      minutes: minutes
+    });
+
+    // 计算指针角度
+    this.calculateHandAngles();
     this.initVoicePlayer()
     // 设置新的音频源
     this.voicePlayer.src = 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/vedio/陈奥三万天音频.mp3'
+  },
+  onReady: function () {
+    // 页面渲染完成后获取表盘中心位置
+    const that = this;
+    // 延迟一段时间确保元素已经渲染
+    setTimeout(() => {
+      wx.createSelectorQuery()
+        .select('.clock-face')
+        .boundingClientRect(function (rect) {
+          if (rect) {
+            that.setData({
+              clockCenter: {
+                x: rect.left + rect.width / 2,
+                y: rect.top + rect.height / 2
+              }
+            });
+          } else {
+            // 如果无法获取clock-face元素，尝试使用默认值
+            wx.getSystemInfo({
+              success: function (res) {
+                that.setData({
+                  clockCenter: {
+                    x: res.windowWidth / 2,
+                    y: 160 + 20 // 大概在页面顶部的位置
+                  }
+                });
+              }
+            });
+          }
+        })
+        .exec();
+    }, 500); // 延迟500ms确保渲染完成
+  },
+
+  // 计算时针和分针的角度
+  calculateHandAngles: function () {
+    // 时针角度：每小时30度 + 每分钟0.5度
+    const hourDeg = (this.data.hours % 12) * 30 + this.data.minutes * 0.5;
+    // 分针角度：每分钟6度
+    const minuteDeg = this.data.minutes * 6;
+
+    this.setData({
+      hourDeg: hourDeg + 180,
+      minuteDeg: minuteDeg + 180
+    });
+  },
+
+  // 触摸开始事件
+  onTouchStart: function (e) {
+    this.setData({
+      isDragging: true
+    });
+
+    // 确保表盘中心点已设置
+    if (this.data.clockCenter.x === 0 && this.data.clockCenter.y === 0) {
+      const that = this;
+      wx.getSystemInfo({
+        success: function (res) {
+          that.setData({
+            clockCenter: {
+              x: res.windowWidth / 2,
+              y: 180 // 大概在页面顶部的位置
+            }
+          });
+        }
+      });
+    }
+  },
+
+  // 触摸移动事件
+  onTouchMove: function (e) {
+    if (!this.data.isDragging) return;
+
+    const touch = e.touches[0];
+    const centerX = this.data.clockCenter.x;
+    const centerY = this.data.clockCenter.y;
+
+    // 计算触摸点与中心点的相对位置
+    const deltaX = touch.clientX - centerX;
+    const deltaY = touch.clientY - centerY;
+
+    // 计算角度（以12点为0度，顺时针增加）
+    let angle = Math.atan2(deltaY, deltaX) * 180 / Math.PI;
+
+    // 调整到0-360度范围，12点为0度
+    angle = (angle + 90 + 360) % 360;
+
+    // 将角度转换为时间（0-360度 对应 00:00-23:59）
+    // 360度 = 24小时 = 1440分钟
+    const totalMinutes = Math.round((angle / 360) * 1440);
+    const hours = Math.floor(totalMinutes / 60) % 24;
+    const minutes = totalMinutes % 60;
+
+    // 更新时间和指针角度
+    this.setData({
+      hours: hours,
+      minutes: minutes
+    });
+    if (hours == 5 && minutes == 27) {
+      this.setData({
+        showIcon: true
+      });
+    }
+
+    // 重新计算指针角度
+    this.calculateHandAngles();
+  },
+
+  // 触摸结束事件
+  onTouchEnd: function (e) {
+    this.setData({
+      isDragging: false
+    });
   },
   // 初始化语音播放器
   initVoicePlayer: function () {
@@ -102,18 +194,36 @@ Page({
     this.voicePlayer.obeyMuteSwitch = false; // 不遵循静音开关
   },
 
-  onShow: function () {
-
+  onReady: function () {
+    // 页面渲染完成后获取表盘中心位置
+    const that = this;
+    wx.createSelectorQuery()
+      .select('.clock-face')
+      .boundingClientRect(function (rect) {
+        if (rect) {
+          that.setData({
+            clockCenter: {
+              x: rect.left + rect.width / 2,
+              y: rect.top + rect.height / 2
+            }
+          });
+        }
+      })
+      .exec();
   },
+
   switchZindex: function () {
 
     // 监听音频结束
     this.voicePlayer.onEnded(() => {
       console.log('音频结束');
       this.voicePlayer.stop();
-      this.setData({
-        showNumberContainer: true
+      wx.switchTab({
+        url: '/pages/Home/Home'
       });
+      // this.setData({
+      //   showNumberContainer: true
+      // });
     });
 
 
@@ -166,43 +276,6 @@ Page({
     });
   },
 
-  // 触摸开始事件
-  onTouchStart: function (e) {
-    const touch = e.touches[0];
-    this.setData({
-      startPoint: {
-        x: touch.clientX,
-        y: touch.clientY,
-        left: this.data.iconLeft,
-        top: this.data.iconTop
-      }
-    });
-  },
-
-  // 触摸移动事件
-  onTouchMove: function (e) {
-    if (!this.data.startPoint) return;
-
-    const touch = e.touches[0];
-    const startPoint = this.data.startPoint;
-
-    // 计算移动距离
-    const deltaX = touch.clientX - startPoint.x;
-    const deltaY = touch.clientY - startPoint.y;
-
-    // 更新图标位置
-    this.setData({
-      iconLeft: startPoint.left + deltaX,
-      iconTop: startPoint.top + deltaY
-    });
-  },
-
-  // 触摸结束事件
-  onTouchEnd: function (e) {
-    this.setData({
-      startPoint: null
-    });
-  },
 
   // 长按切换显示图片
   switchDisplayImage: function () {
