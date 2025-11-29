@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/dataWorkshop/dataWorkshop",
     "pages/Home/Home",
+    "pages/dataWorkshop/dataWorkshop",
     "pages/index/index",
     "pages/test/test",
     "pages/workRecommend/workRecommend",

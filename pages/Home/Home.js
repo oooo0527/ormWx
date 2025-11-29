@@ -1,16 +1,20 @@
 Page({
   data: {
     musicList: [{
-      name: '上班必听',
+      title: "上班必听",
+      des: '你想象不到的音乐天才',
       url: '/packHome/musicPlayer/musicPlayer',
       image: 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/8a4a2aff10012ed22625321f6898bb84.jpg'
     }, {
       name: '了解陈奥',
+      title: "了解陈奥",
+      des: '从这里开始了解陈奥',
       url: '/packHome/ormHome/ormHome',
       image: 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/925db0f17c54d003a63bdfb90bfdd0c1.jpg'
     },
     {
-      name: 'NAPAT',
+      title: "NAPAT",
+      des: 'NAPAT',
       url: '/packHome/dream/dream',
       image: 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/9a58f9ad40d364eb6022ccd8b78cbb82.jpg'
     }]

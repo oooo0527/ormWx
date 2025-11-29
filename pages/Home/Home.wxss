@@ -1,12 +1,16 @@
+.container {
+  background: linear-gradient(180deg, #0c1117 0%, #f48eb5 100%);
+}
+
 .banner {
   width: 100vw;
   height: 1000rpx;
   display: flex;
   flex-direction: column;
-  background: rgba(0, 0, 0, 0.209);
+  /* background: rgba(0, 0, 0, 0.209);
   border-bottom-left-radius: 50rpx;
-  border-bottom-right-radius: 50rpx;
-  margin-bottom: 40rpx;
+  border-bottom-right-radius: 50rpx; */
+  /* margin-bottom: 40rpx; */
   /* opacity: 0.5; */
 }
 
@@ -18,18 +22,8 @@
 
 .banner-image {
   width: 100%;
-  height: 100%;
 }
 
-.banner-content {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  height: 100rpx;
-  position: absolute;
-  top: 0;
-  width: 100%;
-}
 
 .menu-scroll-view {
   position: relative;
@@ -61,6 +55,7 @@
   border-radius: 16rpx;
   position: relative;
   width: 180rpx;
+  overflow: hidden;
 }
 
 .menu-item:nth-of-type(2n) {
@@ -103,56 +98,96 @@
 }
 
 .contentList {
-  padding: 10rpx 30rpx;
+  /* padding: 10rpx 30rpx; */
   width: 100%;
+  padding: 40rpx;
 }
 
-.content-box {
+
+.ListBox {
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  height: 400rpx;
   justify-content: space-between;
-  height: 100rpx;
   color: #ffffff;
+  text-align: left;
+
 
 }
 
-.music-scroll-view {
-  width: 100vw;
-  height: 280rpx;
+.list-image {
+  width: 90%;
+  /* height: 100%; */
+
+  border-radius: 16rpx;
+  position: relative;
+
 }
 
-.music-container {
-  width: 100%;
+.list-image::after {
+  content: '她不完美!                            但是是我的榜样';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80rpx;
+  font-size: 24rpx;
+  background: #2a2929;
+  opacity: 0.7;
+  padding: 10rpx;
+}
+
+.list-item-text {
+  line-height: 60rpx;
+  position: absolute;
+  top: 0;
+}
+
+.list-item {
+  width: 48%;
+  /* border: 4rpx solid black; */
+  /* padding: 20rpx; */
+  /* background: black; */
+  border: 4rpx solid black;
+  border-radius: 16rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20rpx 0;
+  /* padding: 0 20rpx; */
+  /* padding-bottom: 80rpx; */
+
+}
+
+
+
+.list-item1 {
+  margin-left: 20rpx;
+  flex: 1;
   height: 100%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .music-item {
-  width: 200rpx;
-  height: 280rpx;
+  height: 30%;
   border: 4rpx solid black;
-  margin-right: 30rpx;
   border-radius: 16rpx;
-
+  text-align: left;
+  padding-left: 40rpx;
+  /* background: #f48eb5; */
 }
 
-.music-image {
-  width: 200rpx;
-  height: 200rpx;
-  border-radius: 16rpx;
+.music-title {
+  font-size: 28rpx;
+  color: #333333;
+  line-height: 50rpx;
 }
 
-.music-text {
-  text-align: center;
-
-  width: 100%;
+.music-des {
+  font-size: 24rpx;
   color: #ffffff;
-
-
-  /* border-radius: 100rpx; */
-  /* background: #ffffff; */
+  line-height: 30rpx;
 }
 
 /* //品牌 */
