@@ -1,7 +1,7 @@
 {
-  "navigationStyle": "default",
-  "navigationBarTitleText": "明星互动平台",
+  "navigationStyle": "custom",
   "usingComponents": {
-    "global-background": "/components/globalBackground/globalBackground"
+    "global-background": "/components/globalBackground/globalBackground",
+    "custom-navbar": "/components/customNavbar/customNavbar"
   }
 }
