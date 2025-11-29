@@ -17,6 +17,13 @@
   width: 100%;
 }
 
+/* 自定义导航栏样式 */
+.navbar-placeholder {
+  height: 88rpx;
+  /* 与自定义导航栏高度一致 */
+  width: 100%;
+}
+
 .title {
   font-size: 36rpx;
   font-weight: bold;

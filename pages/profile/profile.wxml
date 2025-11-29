@@ -1,5 +1,6 @@
 <global-background>
-  <view class="container">
+  <custom-navbar title="个人中心" showBack="true"></custom-navbar>
+  <view class="container" style="margin-top: 88rpx;">
     <view wx:if="{{isLogin}}" class="profile-card">
       <image class="avatar" src="{{userInfo.avatar || '/images/default_avatar.png'}}" lazy-load></image>
       <text class="nickname">{{userInfo.nickname}}</text>

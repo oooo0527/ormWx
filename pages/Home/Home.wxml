@@ -1,68 +1,54 @@
-<global-background>
-  <view class="container">
-    <!-- 公告栏 -->
-    <view class="announcement-bar" wx:if="{{announcement.show}}">
-      <view class="announcement-scroll-container">
-        <view class="announcement-scroll-content" animation="{{scrollAnimation}}">{{announcement.text}}</view>
-      </view>
-      <view class="close-btn" bindtap="closeAnnouncement">×</view>
+<view class="container" >
+  <view class="banner">
+    <image src="./Home.jpg" mode="aspectFill" class="banner-image"></image>
+    <view class="banner-content" wx:if="{{false}}">
+      <view>头像</view>
+      <view>煎蛋卷加油站</view>
     </view>
-    <view class="banner">
-      <image src="./Home.jpg" mode="aspectFill" class="banner-image"></image>
-      <view class="banner-content"  wx:if="{{!announcement.show}}">
-        <view>头像</view>
-        <view>煎蛋卷加油站</view>
-      </view>
-      <scroll-view class="menu-scroll-view" scroll-x="{{true}}">
-        <view class="menu-container">
-          <view class="menu-item" wx:for="{{menuList}}" wx:key="index" bindtap="navigateToPage" data-url="{{item.url}}">
-            <image src="{{item.icon}}" mode="aspectFill" class="menu-icon"></image>
-            <view class="menu-text">{{item.name}}</view>
-          </view>
+    <scroll-view class="menu-scroll-view" scroll-x="{{true}}">
+      <view class="menu-container">
+        <view class="menu-item" wx:for="{{menuList}}" wx:key="index" bindtap="navigateToPage" data-url="{{item.url}}">
+          <image src="{{item.icon}}" mode="aspectFill" class="menu-icon"></image>
+          <view class="menu-text">{{item.name}}</view>
         </view>
-      </scroll-view>
-      <view class="spacer">
-        <movable-area class="movable-area">
-          <movable-view direction="all" scale-area="true" class="movable-view" wx:for="{{nameList}}" wx:key="index" :x="{{index+20}}" y="0">
-            {{item}}
-          </movable-view>
-        </movable-area>
       </view>
+    </scroll-view>
+    <view class="spacer">
+      <movable-area class="movable-area">
+        <movable-view direction="all" scale-area="true" class="movable-view" wx:for="{{nameList}}" wx:key="index" :x="{{index+20}}" y="0">
+          {{item}}
+        </movable-view>
+      </movable-area>
     </view>
+  </view>
   <!-- // 音乐 煎蛋卷 好人好事 -->
-  <view  class="contentList">
-  <view class="content-box">
-  <view>陈奥专区</view>
-    <view>more</view>
-  
-  </view>
+  <view class="contentList">
+    <view class="content-box">
+      <view>陈奥专区</view>
+      <view>more</view>
+    </view>
     <scroll-view class="music-scroll-view" scroll-x="{{true}}">
-    <view class="music-container">
-      <view class="music-item" wx:for="{{musicList}}" wx:key="index" bindtap="navigateToPage" data-url="{{item.url}}">
-        <image src="{{item.image}}" mode="aspectFill" class="music-image" lazy-load></image>
-        <view class="music-text">{{item.name}}</view>
-      </view>
-
-    </view>
-  </scroll-view>
-
-  
-  </view>
-
-
-    <view class="content">
-      <view class="content-header">
-        <image src="./titlebg.jpg" mode="" class="content-image-title" bindtap="navigateToPage" data-url="/packHome/personal/personal"></image>
-        <view class="content-header-text">欢迎来到煎蛋卷加油站</view>
-      </view>
-      <view class="content-container">
-
-        <view class="content-container-item" wx:for="{{contentList}}" wx:key="index">
-          <image src="{{item.image}}" mode="aspectFill" class="content-image"></image>
-          <view class="content-text">{{item.name}}</view>
-
+      <view class="music-container">
+        <view class="music-item" wx:for="{{musicList}}" wx:key="index" bindtap="navigateToPage" data-url="{{item.url}}">
+          <image src="{{item.image}}" mode="aspectFill" class="music-image" lazy-load></image>
+          <view class="music-text">{{item.name}}</view>
         </view>
+
+      </view>
+    </scroll-view>
+  </view>
+  <view class="content">
+    <view class="content-header">
+      <image src="./titlebg.jpg" mode="" class="content-image-title" bindtap="navigateToPage" data-url="/packHome/personal/personal"></image>
+      <view class="content-header-text">欢迎来到煎蛋卷加油站</view>
+    </view>
+    <view class="content-container">
+
+      <view class="content-container-item" wx:for="{{contentList}}" wx:key="index">
+        <image src="{{item.image}}" mode="aspectFill" class="content-image"></image>
+        <view class="content-text">{{item.name}}</view>
+
       </view>
     </view>
   </view>
-</global-background>
+</view>

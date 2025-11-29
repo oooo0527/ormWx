@@ -1,0 +1,94 @@
+/* components/customNavbar/customNavbar.wxss */
+.navbar {
+  width: 100%;
+  height: 88rpx;
+  /* 导航栏高度 */
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  box-sizing: border-box;
+}
+
+.nav-image {
+  width: 100rpx;
+  height: 50rpx;
+  position: absolute;
+  left: 10rpx;
+  transition: all 3s ease;
+  cursor: pointer;
+  animation: starmove 3s infinite;
+}
+
+@keyframes starmove {
+  0% {
+    left: 60rpx;
+  }
+
+  25% {
+    left: 70rpx;
+
+  }
+
+  50% {
+    left: 80rpx;
+    opacity: 0.5;
+  }
+
+  75% {
+    left: 70rpx;
+
+  }
+
+
+  100% {
+    left: 60rpx;
+
+  }
+}
+
+.navbar-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: 88rpx;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+}
+
+.nav-btn {
+  width: 40rpx;
+  height: 40rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36rpx;
+  color: #ffffff;
+}
+
+.nav-btn-placeholder {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.nav-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  text-align: center;
+  flex: 1;
+  margin: 0 20rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.back-btn::before {
+  content: '\e600';
+  /* 返回图标 */
+}
+
+.home-btn::before {
+  content: '\e601';
+  /* 首页图标 */
+}

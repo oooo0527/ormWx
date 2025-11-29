@@ -1,0 +1,25 @@
+<!--components/customNavbar/customNavbar.wxml-->
+<view class="navbar" style=" padding-top: {{statusBarHeight}}px;">
+  <view class="navbar-content">
+    <image src="{{image}}" mode="fit" lazy-load class="nav-image"></image>
+    <!-- 返回按钮 -->
+    <view wx:if="{{showBack}}" class="nav-btn back-btn" bindtap="onBack">
+    back
+      <!-- <text class="iconfont icon-back"></text> -->
+    </view>
+    
+    <!-- 首页按钮 -->
+    <view wx:elif="{{showHome}}" class="nav-btn home-btn" bindtap="onHome">
+      <!-- <text class="iconfont icon-home"></text> -->
+    </view>
+    
+    <!-- 空白占位符 -->
+    <view wx:else class="nav-btn-placeholder"></view>
+    
+    <!-- 标题 -->
+    <view class="nav-title" style="color: {{textColor}}">{{title}}</view>
+    
+    <!-- 右侧占位符 -->
+    <view class="nav-btn-placeholder"></view>
+  </view>
+</view>

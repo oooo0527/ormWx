@@ -1,13 +1,5 @@
 Page({
   data: {
-    // 公告信息
-    announcement: {
-      show: true,
-      text: '欢迎来到煎蛋卷加油站！最新活动正在进行中，欢迎大家参与... ',
-      type: 'info' // info, warning, success, error
-    },
-    scrollAnimation: null,
-
     musicList: [{
       name: '上班必听',
       url: '/packHome/musicPlayer/musicPlayer',
@@ -70,56 +62,15 @@ Page({
 
 
   onLoad: function (options) {
-    // 页面加载时的逻辑
-    this.startScrollAnimation();
+
   },
 
-  // 开始滚动动画
-  startScrollAnimation: function () {
-    const text = this.data.announcement.text;
-    const query = wx.createSelectorQuery();
-    query.select('.announcement-scroll-container').boundingClientRect();
-    query.select('.announcement-scroll-content').boundingClientRect();
 
-    query.exec((res) => {
-      if (res[0] && res[1]) {
-        const containerWidth = res[0].width;
-        const contentWidth = res[1].width;
 
-        // 如果内容宽度大于容器宽度，则开始滚动
-        if (contentWidth > containerWidth) {
-          this.animateScroll(contentWidth, containerWidth);
-        }
-      }
-    });
-  },
 
-  // 执行滚动动画
-  animateScroll: function (contentWidth, containerWidth) {
-    const animation = wx.createAnimation({
-      duration: (contentWidth + containerWidth) * 20, // 根据内容长度调整速度，加快滚动
-      timingFunction: 'linear'
-    });
-
-    // 初始位置在容器右侧
-    animation.translateX(containerWidth).step({ duration: 0 });
-
-    // 滚动到左侧，使内容完全离开容器
-    animation.translateX(-contentWidth).step();
-
-    this.setData({
-      scrollAnimation: animation.export()
-    });
-
-    // 动画结束后重新开始
-    setTimeout(() => {
-      this.animateScroll(contentWidth, containerWidth);
-    }, (contentWidth + containerWidth) * 20);
-  },
 
   onShow: function () {
-    // 页面显示时的逻辑
-    this.startScrollAnimation();
+
   },
   //跳转
   navigateToPage: function (e) {

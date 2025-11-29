@@ -1,5 +1,6 @@
 {
-  "navigationBarTitleText": "作品安利",
+  "navigationStyle": "default",
+  "navigationBarTitleText": "明星互动平台",
   "usingComponents": {
     "global-background": "/components/globalBackground/globalBackground"
   }

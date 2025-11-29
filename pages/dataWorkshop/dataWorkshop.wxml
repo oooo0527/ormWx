@@ -1,5 +1,6 @@
 <global-background>
-  <view class="container">
+  <custom-navbar title="数据工坊" showBack="{{false}}" showHome="{{false}}"></custom-navbar>
+  <view class="container" style="margin-top: 88rpx;">
     <view class="header">
       <text class="page-title">数据工坊</text>
       <button class="upload-btn" bindtap="showUploadForm">上传数据</button>

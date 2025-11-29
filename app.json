@@ -1,16 +1,17 @@
 {
   "pages": [
+    "pages/dataWorkshop/dataWorkshop",
     "pages/Home/Home",
     "pages/index/index",
     "pages/test/test",
     "pages/workRecommend/workRecommend",
     "pages/login/login",
     "pages/starArchive/starArchive",
-    "pages/dataWorkshop/dataWorkshop",
     "pages/profile/profile"
   ],
   "window": {
     "backgroundTextStyle": "light",
+    "navigationStyle": "custom",
     "navigationBarBackgroundColor": "#f48eb5",
     "navigationBarTitleText": "明星互动平台",
     "navigationBarTextStyle": "white"
