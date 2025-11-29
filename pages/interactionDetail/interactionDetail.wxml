@@ -31,6 +31,67 @@
       </swiper>
 
     </view>
+    
+    <!-- 评论区域 -->
+    <view class="comments-section">
+      <view class="section-title">评论 ({{comments.length}})</view>
+      
+      <!-- 评论列表 -->
+      <view class="comments-list">
+        <block wx:for="{{comments}}" wx:key="id">
+          <view class="comment-item">
+            <!-- 评论者信息 -->
+            <view class="comment-header">
+              <image class="comment-avatar" src="{{item.avatar}}"></image>
+              <view class="comment-user-info">
+                <text class="comment-nickname">{{item.nickname}}</text>
+                <text class="comment-time">{{item.time}}</text>
+              </view>
+              <view class="comment-like" bindtap="toggleCommentLike" data-id="{{item.id}}">
+                <text class="like-icon">{{item.isLiked ? '♥' : '♡'}}</text>
+                <text class="like-count">{{item.likes}}</text>
+              </view>
+            </view>
+            
+            <!-- 评论内容 -->
+            <view class="comment-content">
+              <text>{{item.content}}</text>
+            </view>
+            
+            <!-- 回复按钮 -->
+            <view class="reply-button" bindtap="startReply" data-id="{{item.id}}" data-nickname="{{item.nickname}}">
+              <text>回复</text>
+            </view>
+            
+            <!-- 回复列表 -->
+            <view class="replies-list" wx:if="{{item.replies.length > 0}}">
+              <block wx:for="{{item.replies}}" wx:key="id">
+                <view class="reply-item">
+                  <text class="reply-nickname">{{item.nickname}}:</text>
+                  <text class="reply-content">{{item.content}}</text>
+                </view>
+              </block>
+            </view>
+          </view>
+        </block>
+      </view>
+      
+      <!-- 回复输入区域 -->
+      <view class="reply-input-area" wx:if="{{isReplying}}">
+        <view class="reply-to">回复 @{{replyToNickname}}:</view>
+        <textarea class="reply-textarea" placeholder="请输入回复内容..." value="{{newReply}}" bindinput="onReplyInput"></textarea>
+        <view class="reply-actions">
+          <button class="cancel-btn" bindtap="cancelReply">取消</button>
+          <button class="submit-btn" bindtap="submitReply">发送</button>
+        </view>
+      </view>
+      
+      <!-- 评论输入区域 -->
+      <view class="comment-input-area">
+        <textarea class="comment-textarea" placeholder="请输入评论内容..." value="{{newComment}}" bindinput="onCommentInput"></textarea>
+        <button class="submit-comment-btn" bindtap="submitComment">发表评论</button>
+      </view>
+    </view>
 
   </view>
 </global-background>

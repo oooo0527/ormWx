@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/interaction/interaction",
     "pages/Home/Home",
     "pages/index/index",
     "pages/test/test",
@@ -7,7 +8,7 @@
     "pages/login/login",
     "pages/starArchive/starArchive",
     "pages/profile/profile",
-    "pages/interaction/interaction",
+  
     "pages/interactionDetail/interactionDetail"
   ],
   "window": {

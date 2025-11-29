@@ -6,78 +6,78 @@ Page({
     works: [
       {
         id: 1,
-        title: "我家妹妹不准嫁",
-        role: "小翁",
-        type: "电影",
+        title: "粉丝留言",
+        role: "留言互动",
+        type: "互动",
         cover: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/ormmm/陈奥/2246a8c4f6c263a32bfbb898a3992cc1.jpg",
         year: "2025",
-        description: "首部大银幕作品，票房佳绩。在这部电影中，Orm饰演了一个性格独立、勇敢追求爱情的现代女性角色小翁。影片讲述了小翁在面对家庭压力和社会偏见时，如何坚持自己的选择并最终获得幸福的故事。这部电影不仅展现了Orm出色的演技，也让她在大银幕上留下了深刻的印象。",
+        description: "来自粉丝的暖心留言：Orm你是最棒的！你的每一部作品都让我们感动，期待你更多的精彩表现！",
         likes: 0,
         isLiked: false
       },
       {
         id: 2,
-        title: "Only You",
-        role: "Ira",
-        type: "电视剧",
+        title: "活动互动",
+        role: "线上活动",
+        type: "互动",
         cover: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/ormmm/陈奥/24c44a6355707a277309865e62c1b5cb.jpg",
         year: "2024",
-        description: "饰演人气歌手。在这部音乐题材的电视剧中，Orm扮演了才华横溢的歌手Ira，展现了角色在音乐道路上的奋斗历程和情感纠葛。该剧不仅有动人的音乐作品，还有精彩的剧情发展，Orm的表演获得了观众和评论家的一致好评。",
+        description: "Orm线上见面会精彩瞬间回顾，粉丝们热情参与互动游戏，现场气氛热烈，欢声笑语不断。",
         likes: 0,
         isLiked: false
       },
       {
         id: 3,
-        title: "我们的秘密",
-        role: "尔恩 (Earn)",
-        type: "电视剧",
+        title: "生日祝福",
+        role: "生日庆祝",
+        type: "互动",
         cover: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/ormmm/陈奥/329c3f47da4836e2c4ef41bf97540833.jpg",
         year: "2024",
-        description: "对主角情感生活产生重大影响的人物。在这部BL剧中，Orm饰演的尔恩(Earn)是一个温柔内敛的大学生，与另一位男主角之间发展出深刻的情感关系。这部剧因其细腻的情感描绘和演员们的精彩表演而广受好评，成为当年最受欢迎的BL剧之一。",
+        description: "Orm生日当天收到的来自世界各地粉丝的祝福留言，每一条都承载着满满的爱意和祝愿。",
         likes: 0,
         isLiked: false
       },
       {
         id: 4,
-        title: "Potion of Love",
-        role: "Pun",
-        type: "电视剧",
+        title: "节日问候",
+        role: "节日祝福",
+        type: "互动",
         cover: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/ormmm/陈奥/3916c9499882d66371bc6573597693bf.jpg",
         year: "2023",
-        description: "Orm首次担任第一女主角的作品。在这部奇幻爱情剧中，她饰演了聪明勇敢的女主人公Pun，为了拯救心爱的人而踏上寻找神奇药水的冒险之旅。这部剧展现了Orm在动作戏和情感戏方面的出色表现，为她的演艺生涯奠定了坚实的基础。",
+        description: "各种节日里粉丝们为Orm准备的特别祝福，新年快乐、情人节快乐、母亲节快乐等等温馨祝福。",
         likes: 0,
         isLiked: false
       },
       {
         id: 5,
-        title: "Potion of Love1",
-        role: "Pun",
-        type: "电视剧",
+        title: "感谢信件",
+        role: "书信互动",
+        type: "互动",
         cover: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/ormmm/陈奥/443aaee45d2852f42a20789b76793ea0.jpg",
         year: "2023",
-        description: "Orm首次担任第一女主角的作品续集。在这部续集中，Pun继续她的冒险旅程，面对新的挑战和敌人。剧情更加紧张刺激，角色发展也更加深入，Orm的表演也更加成熟。",
+        description: "粉丝手写的感谢信件，表达了对Orm演艺事业的支持和对她个人品格的欣赏与敬佩。",
         likes: 0,
         isLiked: false
       },
       {
         id: 6,
-        title: "Potion of Love",
-        role: "Pun",
-        type: "电视剧",
+        title: "合影分享",
+        role: "照片互动",
+        type: "互动",
         cover: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/ormmm/陈奥/46022d31c72eb3e3cc17126fdc53d9f9.jpg",
         year: "2023",
-        description: "Orm首次担任第一女主角的作品特别篇。这个特别篇回顾了Pun的冒险历程，并为未来的剧情发展埋下伏笔。特别篇中包含了许多精彩的动作场面和感人的剧情。",
+        description: "粉丝与Orm的珍贵合影分享，记录下每一次难忘的相遇和美好时光，都是珍贵的回忆。",
         likes: 0,
         isLiked: false
       },
       {
         id: 7,
-        title: "Potion of Love",
-        role: "Pun",
-        type: "电视剧",
+        title: "视频留言",
+        role: "视频互动",
+        type: "互动",
         cover: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/ormmm/陈奥/4fe790c8959fd90505b3fbadefe51ecb.jpg",
         year: "2023",
-        description: "Orm首次担任第一女主角的作品幕后花絮。这部花絮展示了拍摄过程中的精彩瞬间和演员们的幕后生活，让观众更深入了解这部作品的制作过程。",
+        description: "粉丝自制的为Orm加油打气的视频留言，创意十足，表达了对偶像最真挚的支持与喜爱。",
         likes: 0,
         isLiked: false
       }
@@ -381,9 +381,15 @@ Page({
   // 显示作品详情
   showWorkDetail: function () {
     wx.navigateTo({
-      url: '/pages/interactionDetail/interactionDetail'
+      url: '/pages/interactionDetail/interactionDetail',
+      success: (res) => {
+        // 通过事件通道向被打开页面传送数据
+        res.eventChannel.emit('acceptDataFromOpenerPage', {
+          works: this.data.works,
+          currentIndex: this.data.currentSlide
+        });
+      }
     });
-
   },
 
   // 返回作品列表
