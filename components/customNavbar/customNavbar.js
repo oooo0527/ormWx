@@ -13,6 +13,10 @@ Component({
     },
     backgroundColor: {
       type: String,
+      value: ''
+    },
+    scrolledBackgroundColor: {
+      type: String,
       value: '#f48eb5'
     },
     textColor: {
@@ -31,7 +35,8 @@ Component({
 
   data: {
     statusBarHeight: 0,
-    image: '/components/customNavbar/tabBg.png'
+    image: '/components/customNavbar/tabBg.png',
+    isScrolled: false
   },
 
   lifetimes: {
@@ -43,6 +48,39 @@ Component({
           statusBarHeight: height
         });
       });
+    }
+  },
+
+  pageLifetimes: {
+    show: function () {
+      // 监听页面滚动
+      const pages = getCurrentPages();
+      if (pages.length > 0) {
+        const currentPage = pages[pages.length - 1];
+
+        // 保存组件实例的引用
+        const component = this;
+
+        // 保存原始的onPageScroll方法
+        const originalOnPageScroll = currentPage.onPageScroll;
+
+        // 重写onPageScroll方法
+        currentPage.onPageScroll = function (e) {
+          // 调用原始方法（如果存在）
+          if (originalOnPageScroll) {
+            originalOnPageScroll.call(this, e);
+          }
+
+          // 判断滚动位置并更新导航栏样式
+          const isScrolled = e.scrollTop > 50;
+          // console.log('Scroll position:', e.scrollTop, 'isScrolled:', isScrolled);
+          if (component.data.isScrolled !== isScrolled) {
+            component.setData({
+              isScrolled: isScrolled
+            });
+          }
+        };
+      }
     }
   },
 

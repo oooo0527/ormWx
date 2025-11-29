@@ -114,6 +114,11 @@ Page({
     this.categorizeWorks();
   },
 
+  // 页面滚动事件
+  onPageScroll: function (e) {
+    // 空函数，用于被自定义导航栏组件重写
+  },
+
   // 按类型分类作品
   categorizeWorks: function () {
     const works = this.data.works;

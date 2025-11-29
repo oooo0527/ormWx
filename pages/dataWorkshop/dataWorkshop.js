@@ -185,5 +185,10 @@ Page({
   // 背景变化回调
   onBackgroundChange: function (settings) {
     // 由于使用了全局背景组件，这里不需要额外处理
+  },
+
+  // 页面滚动事件
+  onPageScroll: function (e) {
+    // 空函数，用于被自定义导航栏组件重写
   }
 })
