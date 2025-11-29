@@ -1,13 +1,14 @@
 {
   "pages": [
     "pages/Home/Home",
-    "pages/dataWorkshop/dataWorkshop",
     "pages/index/index",
     "pages/test/test",
     "pages/workRecommend/workRecommend",
     "pages/login/login",
     "pages/starArchive/starArchive",
-    "pages/profile/profile"
+    "pages/profile/profile",
+    "pages/interaction/interaction",
+    "pages/interactionDetail/interactionDetail"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -31,10 +32,10 @@
         "text": "首页"
       },
       {
-        "pagePath": "pages/dataWorkshop/dataWorkshop",
+        "pagePath": "pages/interaction/interaction",
         "iconPath": "images/icon_data.png",
         "selectedIconPath": "images/icon_data_HL.png",
-        "text": "数据工坊"
+        "text": "互动"
       },
       {
         "pagePath": "pages/workRecommend/workRecommend",
@@ -61,7 +62,8 @@
         "growthTimeline/growthTimeline",
         "personal/personal",
         "musicPlayer/musicPlayer",
-        "ormHome/ormHome"
+        "ormHome/ormHome",
+        "dataWorkshop/dataWorkshop"
       ]
     }
   ],

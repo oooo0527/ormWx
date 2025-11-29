@@ -1,4 +1,11 @@
 <view class="container">
+  <!-- 隐私水印背景 -->
+  <view class="privacy-watermark-container">
+    <view class="watermark-item" wx:for="{{watermarkArray}}" wx:key="item.id" style="top: {{item.top}}%; left: {{item.left}}%; transform: rotate({{item.rotation}}deg);">
+      <text class="watermark-text">ormkornnaphat</text>
+    </view>
+  </view>
+  
   <!-- 表盘区域 -->
   <view class="clock-container">
     <view class="clock-face" bindtouchstart="onTouchStart" bindtouchmove="onTouchMove" bindtouchend="onTouchEnd">

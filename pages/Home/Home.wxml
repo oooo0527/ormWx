@@ -1,4 +1,5 @@
 <view class="container" >
+
   <view class="banner">
     <swiper class="banner-swiper" autoplay="{{true}}" interval="5000" duration="1000">
       <swiper-item><image src="./Home.jpg" mode="widthFix" class="banner-image"></image></swiper-item>
@@ -28,7 +29,7 @@
     <!-- 左   陈奥的缘 -->
     <view class="list-item">
 
-      <view class="list-item-text">我的陈奥</view>
+      <!-- <view class="list-item-text">我的陈奥</view> -->
       <image src="./my.jpg" mode="widthFix" lazy-load class="list-image"></image>
     </view>
     <!-- 右   音乐，公益 等 -->
@@ -42,10 +43,6 @@
     </view>
   </view>
   <view class="content">
-    <view class="content-header">
-      <image src="./titlebg.jpg" mode="" class="content-image-title" bindtap="navigateToPage" data-url="/packHome/personal/personal"></image>
-      <view class="content-header-text">欢迎来到煎蛋卷加油站</view>
-    </view>
     <view class="content-container">
 
       <view class="content-container-item" wx:for="{{contentList}}" wx:key="index">

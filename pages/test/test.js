@@ -14,6 +14,13 @@ Page({
     minuteDeg: 0, // 将在onLoad中初始化
     clockCenter: { x: 0, y: 0 }, // 表盘中心坐标
     isDragging: false, // 是否正在拖拽
+    // 隐私水印数据
+    watermarkArray: Array.from({ length: 20 }, (_, i) => ({
+      id: i,
+      top: Math.random() * 90, // 0-90%之间的随机top值
+      left: Math.random() * 90, // 0-90%之间的随机left值
+      rotation: Math.random() * 60 - 30 // -30到30度之间的随机旋转角度
+    }))
   },
 
   onLoad: function (options) {
