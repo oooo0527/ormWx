@@ -1,6 +1,10 @@
 <view class="container" >
   <view class="banner">
-    <image src="./Home.jpg" mode="aspectFill" class="banner-image"></image>
+    <swiper class="banner-swiper" autoplay="{{true}}" interval="5000" duration="1000">
+      <swiper-item><image src="./Home.jpg" mode="fit" class="banner-image"></image></swiper-item>
+
+      <swiper-item><image src="./Home2.jpg" mode="fit" class="banner-image"></image></swiper-item>
+    </swiper>
     <view class="banner-content" wx:if="{{false}}">
       <view>头像</view>
       <view>煎蛋卷加油站</view>

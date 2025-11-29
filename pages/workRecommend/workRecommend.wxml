@@ -1,8 +1,7 @@
 <global-background>
-  <custom-navbar title="作品安利" showBack="{{false}}" showHome="{{false}}"></custom-navbar>
+  <custom-navbar title="ormkornnaphat" showBack="{{false}}" showHome="{{false}}"></custom-navbar>
   <view class="container" style="margin-top: 88rpx;">
     <view wx:if="{{!showDetail}}" class="list-container"> 
-      <view class="title">ormkornnaphat</view>
 
       <view>
         <!-- 按分类展示作品 -->
