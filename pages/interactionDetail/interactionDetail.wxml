@@ -1,9 +1,8 @@
 <global-background>
   <custom-navbar title="ormkornnaphat" showBack="{{true}}" showHome="{{false}}"></custom-navbar>
-  <view class="container" style="margin-top: 108rpx;">
+  <view class="container" style="margin-top: 128rpx;">
 
     <view class="carousel-container1">
-
       
         <image src="{{works.cover}}" mode="aspectFill" class="selected-work-image" wx:if="{{works.cover}}" lazy-load></image>
 
@@ -11,6 +10,14 @@
           <image src="{{works.cover}}" class="swiper-image" mode="widthFix" wx:if="{{works.cover}}" lazy-load bindtap="onSwiperImageTap"></image>
           <view class="selected-work-title">{{works.title}}</view>
           <view class="selected-work-description">{{works.description}}</view>
+          
+          <!-- 收藏按钮 -->
+          <view class="favorite-section">
+            <button class="favorite-btn" bindtap="toggleFavorite">
+              <text wx:if="{{isFavorited}}">★ 已收藏</text>
+              <text wx:else>☆ 收藏</text>
+            </button>
+          </view>
         </view>
 
     </view>
@@ -34,7 +41,7 @@
                 <text class="comment-nickname">{{item.nickname}}</text>
                 <text class="comment-time">{{item.time}}</text>
               </view>
-              <view class="comment-like" bindtap="toggleCommentLike" data-id="{{item.id}}">
+              <view class="comment-like" bindtap="toggleCommentLike" wx:if="{{false}}" data-id="{{item.id}}">
                 <text class="like-icon">{{item.isLiked ? '♥' : '♡'}}</text>
                 <text class="like-count">{{item.likes}}</text>
               </view>

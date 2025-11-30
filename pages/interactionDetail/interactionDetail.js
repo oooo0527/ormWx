@@ -13,7 +13,10 @@ Page({
     isReplying: false,
     replyToCommentId: null,
     replyToNickname: "",
-    newReply: ""
+    newReply: "",
+
+    // 收藏状态
+    isFavorited: false
   },
 
   onLoad: function (options) {
@@ -30,6 +33,8 @@ Page({
         }, () => {
           // 加载评论数据
           this.loadComments();
+          // 检查是否已收藏
+          this.checkFavoriteStatus();
         });
       });
     }
@@ -48,6 +53,85 @@ Page({
   // 页面显示时不需要重新启动轮询
   onShow: function () {
     // 不需要做任何事情
+  },
+
+  // 检查收藏状态
+  checkFavoriteStatus: function () {
+    const app = getApp();
+    const userInfo = app.globalData.userInfo;
+    if (!userInfo) return;
+
+    wx.cloud.callFunction({
+      name: 'fanVoice',
+      data: {
+        action: 'getFavoriteList',
+        skip: 0,
+        limit: 100 // 获取较多数据以确保能找到
+      },
+      success: res => {
+        if (res.result && res.result.success) {
+          const isFavorited = res.result.data.some(item =>
+            item.interactionId === (this.data.works.id || this.data.works._id)
+          );
+          this.setData({
+            isFavorited: isFavorited
+          });
+        }
+      },
+      fail: err => {
+        console.error('检查收藏状态失败：', err);
+      }
+    });
+  },
+
+  // 切换收藏状态
+  toggleFavorite: function () {
+    const app = getApp();
+    const userInfo = app.globalData.userInfo;
+    if (!userInfo) {
+      wx.showToast({
+        title: '请先登录',
+        icon: 'none'
+      });
+      return;
+    }
+
+    const interactionId = this.data.works.id || this.data.works._id;
+    if (!interactionId) return;
+
+    const action = this.data.isFavorited ? 'unfavorite' : 'favorite';
+    const successMsg = this.data.isFavorited ? '取消收藏成功' : '收藏成功';
+
+    wx.cloud.callFunction({
+      name: 'fanVoice',
+      data: {
+        action: action,
+        interactionId: interactionId
+      },
+      success: res => {
+        if (res.result && res.result.success) {
+          wx.showToast({
+            title: successMsg,
+            icon: 'success'
+          });
+          this.setData({
+            isFavorited: !this.data.isFavorited
+          });
+        } else {
+          wx.showToast({
+            title: res.result.message || '操作失败',
+            icon: 'none'
+          });
+        }
+      },
+      fail: err => {
+        console.error('收藏操作失败：', err);
+        wx.showToast({
+          title: '网络错误',
+          icon: 'none'
+        });
+      }
+    });
   },
 
   // 加载评论数据
@@ -322,7 +406,7 @@ Page({
                 this.refreshCurrentWorkComments();
               } else {
                 wx.showToast({
-                  title: '删除失败',
+                  title: res.result.message || '删除失败',
                   icon: 'none'
                 });
               }
@@ -330,7 +414,7 @@ Page({
             fail: err => {
               console.error('删除评论失败：', err);
               wx.showToast({
-                title: '删除失败',
+                title: '删除失败，请稍后再试',
                 icon: 'none'
               });
             }
@@ -338,16 +422,5 @@ Page({
         }
       }
     });
-  },
-
-  // 获取当前时间
-  getCurrentTime: function () {
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = (now.getMonth() + 1).toString().padStart(2, '0');
-    const day = now.getDate().toString().padStart(2, '0');
-    const hour = now.getHours().toString().padStart(2, '0');
-    const minute = now.getMinutes().toString().padStart(2, '0');
-    return `${year}-${month}-${day} ${hour}:${minute}`;
   }
-});
+})

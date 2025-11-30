@@ -1,0 +1,80 @@
+<!--pages/selfListDetail/selfListDetail.wxml-->
+<global-background>
+  <custom-navbar title="ormkornnaphat" showBack="{{true}}" showHome="{{false}}"></custom-navbar>
+<view class="container" style="margin-top: 128rpx;">
+  <!-- 标签页切换 -->
+  <view class="tab-bar">
+    <view class="tab {{activeTab === 'published' ? 'active' : ''}}" data-tab="published" bindtap="switchTab">
+      我发布的
+    </view>
+    <view class="tab {{activeTab === 'favorite' ? 'active' : ''}}" data-tab="favorite" bindtap="switchTab">
+      我收藏的
+    </view>
+  </view>
+
+  <!-- 发布的互动留言列表 -->
+  <view class="list-container" wx:if="{{activeTab === 'published'}}">
+    <view wx:if="{{publishedList.length > 0}}">
+      <view class="interaction-item" wx:for="{{publishedList}}" wx:key="id" bindtap="goToDetail" data-id="{{item.id}}">
+        <view class="item-header">
+          <text class="item-title">{{item.title}}</text>
+        </view>
+        <view class="item-content">
+          <text class="content-text">{{item.content}}</text>
+        </view>
+        <view class="item-footer">
+          <text class="time-text">{{item.createTime}}</text>
+          <text class="comment-count">评论({{item.commentCount}})</text>
+        </view>
+      </view>
+    </view>
+    <view wx:else>
+      <view class="empty-tip" wx:if="{{!loading}}">
+        <text>暂无发布的互动留言</text>
+      </view>
+    </view>
+    
+    <!-- 加载更多提示 -->
+    <view class="load-more" wx:if="{{loading}}">
+      <text>发那么多干嘛...</text>
+    </view>
+    <view class="load-more" wx:elif="{{!hasMorePublished && publishedList.length > 0}}">
+      <text>下次别发了</text>
+    </view>
+  </view>
+
+  <!-- 收藏的互动留言列表 -->
+  <view class="list-container" wx:if="{{activeTab === 'favorite'}}">
+    <view wx:if="{{favoriteList.length > 0}}">
+      <view class="interaction-item" wx:for="{{favoriteList}}" wx:key="id">
+        <view class="item-header">
+          <text class="item-title">{{item.title}}</text>
+        </view>
+        <view class="item-content" bindtap="goToDetail" data-id="{{item.interactionId}}">
+          <text class="content-text">{{item.content}}</text>
+        </view>
+        <view class="item-footer">
+          <text class="time-text">{{item.createTime}}</text>
+          <view class="favorite-actions">
+            <text class="comment-count">评论({{item.commentCount}})</text>
+            <text class="unfavorite-btn" bindtap="unfavorite" data-index="{{index}}">取消收藏</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view wx:else>
+      <view class="empty-tip" wx:if="{{!loading}}">
+        <text>暂无收藏的互动留言</text>
+      </view>
+    </view>
+    
+    <!-- 加载更多提示 -->
+    <view class="load-more" wx:if="{{loading}}">
+      <text>加载中...</text>
+    </view>
+    <view class="load-more" wx:elif="{{!hasMoreFavorite && favoriteList.length > 0}}">
+      <text>没有更多了</text>
+    </view>
+  </view>
+</view>
+</global-background>

@@ -37,10 +37,15 @@ Page({
     userInfo: {},
 
   },
+  navigateToProfile: function () {
+    wx.navigateTo({
+      url: '/pages/selfListDetail/selfListDetail',
+    });
+  },
 
   onLoad: function () {
     this.setData({
-      userInfo: wx.getStorageSync('userInfo')
+      userInfo: wx.getStorageSync('userInfo').userInfo
     });
     // 加载互动留言数据
     this.loadInteractions();

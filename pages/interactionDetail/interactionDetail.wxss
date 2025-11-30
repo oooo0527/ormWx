@@ -34,7 +34,6 @@
 
 
 
-
 .selected-work-title {
   margin-top: 40rpx;
   text-align: center;
@@ -45,13 +44,29 @@
 }
 
 
-
-
 .selected-work-description {
   font-size: 26rpx;
   color: #ffffff;
   line-height: 1.6;
   text-align: justify;
+}
+
+/* 收藏区域 */
+.favorite-section {
+  margin-top: 30rpx;
+}
+
+.favorite-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 2rpx solid #f48eb5;
+  color: #f48eb5;
+  border-radius: 50rpx;
+  padding: 15rpx 40rpx;
+  font-size: 28rpx;
+}
+
+.favorite-btn:active {
+  background: rgba(244, 142, 181, 0.3);
 }
 
 /* 返回按钮 */

@@ -36,6 +36,15 @@ exports.main = async (event, context) => {
       return await addComment(wxContext.OPENID, event)
     case 'deleteComment':
       return await deleteComment(wxContext.OPENID, event)
+    // 收藏相关操作
+    case 'favorite':
+      return await favoriteInteraction(wxContext.OPENID, event)
+    case 'unfavorite':
+      return await unfavoriteInteraction(wxContext.OPENID, event)
+    case 'getFavoriteList':
+      return await getFavoriteInteractionList(wxContext.OPENID, event)
+    case 'getUserInteractions':
+      return await getUserInteractions(wxContext.OPENID, event)
     default:
       return {
         success: false,
@@ -272,11 +281,6 @@ async function getInteractionList(event) {
         data: result.data
       }
     }
-
-
-
-
-
   } catch (err) {
     return {
       success: false,
@@ -348,8 +352,6 @@ async function addComment(openid, event) {
       interactionId: event.interactionId
     }
 
-
-
     // 向互动留言中添加评论
     const result = await db.collection('interactions').doc(event.interactionId).update({
       data: {
@@ -420,5 +422,165 @@ async function deleteComment(openid, event) {
       success: false,
       message: err.message
     }
+  }
+}
+
+// 收藏互动留言
+async function favoriteInteraction(openid, event) {
+  try {
+    const interactionId = event.interactionId;
+
+    // 检查互动留言是否存在
+    const interactionResult = await db.collection('interactions').doc(interactionId).get();
+    if (!interactionResult.data) {
+      return {
+        success: false,
+        message: '互动留言不存在'
+      };
+    }
+
+    // 检查是否已经收藏
+    const favoriteResult = await db.collection('favorites').where({
+      userId: openid,
+      interactionId: interactionId
+    }).get();
+
+    if (favoriteResult.data && favoriteResult.data.length > 0) {
+      return {
+        success: false,
+        message: '已经收藏过了'
+      };
+    }
+
+    // 添加收藏记录
+    const favorite = {
+      userId: openid,
+      interactionId: interactionId,
+      createTime: new Date()
+    };
+
+    const result = await db.collection('favorites').add({
+      data: favorite
+    });
+
+    return {
+      success: true,
+      data: {
+        _id: result._id,
+        ...favorite
+      }
+    };
+  } catch (err) {
+    console.error('收藏互动留言失败：', err);
+    return {
+      success: false,
+      message: err.message || '收藏失败'
+    };
+  }
+}
+
+// 取消收藏互动留言
+async function unfavoriteInteraction(openid, event) {
+  try {
+    const interactionId = event.interactionId;
+
+    // 删除收藏记录
+    const result = await db.collection('favorites').where({
+      userId: openid,
+      interactionId: interactionId
+    }).remove();
+
+    if (result.stats.removed === 0) {
+      return {
+        success: false,
+        message: '取消收藏失败，可能未收藏过该留言'
+      };
+    }
+
+    return {
+      success: true,
+      data: result
+    };
+  } catch (err) {
+    console.error('取消收藏互动留言失败：', err);
+    return {
+      success: false,
+      message: err.message || '取消收藏失败'
+    };
+  }
+}
+
+// 获取用户收藏的互动留言列表
+async function getFavoriteInteractionList(openid, event) {
+  try {
+    // 先获取用户收藏的互动留言ID列表
+    const favoriteResult = await db.collection('favorites')
+      .where({
+        userId: openid
+      })
+      .orderBy('createTime', 'desc')
+      .skip(event.skip || 0)
+      .limit(event.limit || 20)
+      .get();
+
+    if (!favoriteResult.data || favoriteResult.data.length === 0) {
+      return {
+        success: true,
+        data: []
+      };
+    }
+
+    // 获取收藏的互动留言详细信息
+    const interactionIds = favoriteResult.data.map(fav => fav.interactionId);
+    const interactionsResult = await db.collection('interactions')
+      .where({
+        _id: _.in(interactionIds)
+      })
+      .get();
+
+    // 合并数据
+    const favoritesWithDetails = favoriteResult.data.map(fav => {
+      const interaction = interactionsResult.data.find(item => item._id === fav.interactionId);
+      return {
+        ...fav,
+        interaction: interaction || null
+      };
+    });
+
+    return {
+      success: true,
+      data: favoritesWithDetails
+    };
+  } catch (err) {
+    console.error('获取收藏列表失败：', err);
+    return {
+      success: false,
+      message: err.message || '获取收藏列表失败'
+    };
+  }
+}
+
+// 获取用户自己发布的互动留言
+async function getUserInteractions(openid, event) {
+  try {
+    const result = await db.collection('interactions')
+      .where({
+        userId: openid
+      })
+      .orderBy('createTime', 'desc')
+      .skip(event.skip || 0)
+      .limit(event.limit || 20)
+      .get();
+
+    return {
+      success: true,
+      data: result.data
+    };
+  } catch (err) {
+    console.error('获取用户互动留言失败：', err);
+    return {
+      success: false,
+      message: err.message || '获取用户互动留言失败'
+    };
   }
 }

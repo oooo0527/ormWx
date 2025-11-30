@@ -216,8 +216,8 @@
 .login-button {
   top: 20px;
   background: none;
-  line-height: 88rpx;
-  height: 88rpx;
+  line-height: 128rpx;
+  height: 128rpx;
 }
 
 .login-button::after {

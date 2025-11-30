@@ -19,7 +19,7 @@
 
 /* 自定义导航栏样式 */
 .navbar-placeholder {
-  height: 88rpx;
+  height: 128rpx;
   /* 与自定义导航栏高度一致 */
   width: 100%;
 }

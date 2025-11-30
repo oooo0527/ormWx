@@ -29,7 +29,7 @@
 ### 3. 为页面内容添加顶部边距
 由于自定义导航栏是固定定位，需要为页面内容添加顶部边距：
 ```xml
-<view class="container" style="margin-top: 88rpx;">
+<view class="container" style="margin-top: 128rpx;">
   <!-- 页面内容 -->
 </view>
 ```
@@ -49,4 +49,4 @@
 1. Home页面已配置为使用默认导航栏，无需添加自定义导航栏组件
 2. 其他所有页面都需要添加自定义导航栏组件
 3. 使用自定义导航栏的页面需要在JSON配置中设置 `"navigationStyle": "custom"`
-4. 页面内容需要添加 `margin-top: 88rpx` 样式以避免被导航栏遮挡
+4. 页面内容需要添加 `margin-top: 128rpx` 样式以避免被导航栏遮挡
