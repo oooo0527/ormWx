@@ -35,35 +35,25 @@ App({
 
   onShow: function () {
     // 每次小程序启动或从后台进入前台时执行
+    this.checkLoginStatus();
   },
 
   // 检查登录状态
   checkLoginStatus: function () {
     const userInfo = wx.getStorageSync('userInfo');
+    console.log('用户信息：', userInfo);
     if (userInfo) {
       this.globalData.userInfo = userInfo;
       this.globalData.isLogin = true;
+      // 跳转到首页
+      wx.switchTab({
+        url: '/pages/Home/Home'
+      });
+
     }
   },
 
-  // 用户登录
-  login: function (username, password, callback) {
-    // 这里应该调用后端API进行登录验证
-    // 模拟登录成功
-    const userInfo = {
-      id: 1,
-      username: username,
-      nickname: '用户昵称',
-      avatar: '/images/avatar.png'
-    };
 
-    // 存储用户信息
-    wx.setStorageSync('userInfo', userInfo);
-    this.globalData.userInfo = userInfo;
-    this.globalData.isLogin = true;
-
-    if (callback) callback(true);
-  },
 
   // 更新全局背景设置
   updateBackgroundSettings: function (settings) {

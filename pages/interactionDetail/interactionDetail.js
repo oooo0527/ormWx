@@ -49,8 +49,8 @@ Page({
       const comments = selectedWork.comments.map((item, index) => {
         return {
           id: item._id || index,
-          avatar: "/images/avatar-default.png",
-          nickname: "用户" + (index + 1),
+          avatar: item.userInfo.userInfo && item.userInfo.userInfo.avatar ? item.userInfo.userInfo.avatar : "/images/avatar-default.png",
+          nickname: item.userInfo.userInfo && item.userInfo.userInfo.nickname ? item.userInfo.userInfo.nickname : "用户" + (index + 1),
           content: item.content,
           time: this.formatTime(item.createTime),
           likes: 0,
@@ -152,13 +152,17 @@ Page({
       return;
     }
 
+    // 获取用户信息
+    const userInfo = wx.getStorageSync('userInfo');
+
     // 调用云函数添加评论
     wx.cloud.callFunction({
       name: 'fanVoice',
       data: {
         action: 'addComment',
         interactionId: this.data.selectedWork.id,
-        content: this.data.newComment
+        content: this.data.newComment,
+        userInfo: userInfo || {} // 添加用户信息
       },
       success: res => {
         if (res.result && res.result.success) {
@@ -220,13 +224,18 @@ Page({
       return;
     }
 
+    // 获取用户信息
+    const app = getApp();
+    const userInfo = app.globalData.userInfo;
+
     // 调用云函数添加回复（这里简化处理，实际应该有专门的回复数据结构）
     wx.cloud.callFunction({
       name: 'fanVoice',
       data: {
         action: 'addComment',
         interactionId: this.data.selectedWork.id,
-        content: `回复 @${this.data.replyToNickname}: ${this.data.newReply}`
+        content: `回复 @${this.data.replyToNickname}: ${this.data.newReply}`,
+        userInfo: userInfo || {} // 添加用户信息
       },
       success: res => {
         if (res.result && res.result.success) {

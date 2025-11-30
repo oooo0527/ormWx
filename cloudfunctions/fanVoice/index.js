@@ -210,6 +210,7 @@ async function addInteraction(openid, event) {
       content: event.data.content,
       images: event.data.images || [],
       userId: openid,
+      userInfo: event.data.userInfo || {}, // 添加用户信息
       comments: [],
       createTime: new Date(),
       updateTime: new Date()
@@ -293,6 +294,7 @@ async function addComment(openid, event) {
     const comment = {
       content: event.content,
       userId: openid,
+      userInfo: event.userInfo || {}, // 添加用户信息
       createTime: new Date(),
       interactionId: event.interactionId
     }

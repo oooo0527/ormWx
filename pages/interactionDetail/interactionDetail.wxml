@@ -5,10 +5,10 @@
     <view class="carousel-container1">
 
       
-        <image src="{{selectedWork.cover}}" mode="aspectFill" class="selected-work-image" lazy-load></image>
+        <image src="{{selectedWork.cover}}" mode="aspectFill" class="selected-work-image" wx:if="{{selectedWork.cover}}" lazy-load></image>
 
         <view class="selected-work-detail">
-                 <image src="{{selectedWork.cover}}" class="swiper-image" mode="widthFix" lazy-load bindtap="onSwiperImageTap"></image>
+          <image src="{{selectedWork.cover}}" class="swiper-image" mode="widthFix" wx:if="{{selectedWork.cover}}" lazy-load bindtap="onSwiperImageTap"></image>
           <view class="selected-work-title">{{selectedWork.title}}</view>
           <view class="selected-work-description">{{selectedWork.description}}</view>
         </view>

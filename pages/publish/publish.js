@@ -144,6 +144,18 @@ Page({
       return;
     }
 
+    // 获取用户信息
+    const userInfo = wx.getStorageSync('userInfo');
+    console.log('用户信息：', userInfo);
+    if (!userInfo) {
+      wx.hideLoading();
+      wx.showToast({
+        title: '用户信息获取失败，请重新登录',
+        icon: 'none'
+      });
+      return;
+    }
+
     // 调用云函数保存数据
     wx.cloud.callFunction({
       name: 'fanVoice',
@@ -154,7 +166,7 @@ Page({
           content: content,
           images: imageUrls,
           createTime: new Date(),
-          userInfo: getApp().globalData.userInfo
+          userInfo: userInfo || {} // 添加用户信息
         }
       },
       success: res => {

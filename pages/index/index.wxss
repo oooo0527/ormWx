@@ -176,7 +176,7 @@
 
   font-family: cursive, 'Helvetica Neue', sans-serif;
   color: #f48eb5;
-  top: 60rpx;
+  top: 150rpx;
   /* transform: translateY(50%); */
 
 }
@@ -215,6 +215,9 @@
 
 .login-button {
   top: 20px;
+  background: none;
+  line-height: 88rpx;
+  height: 88rpx;
 }
 
 .login-button::after {

@@ -107,7 +107,7 @@ async function login(event, wxContext) {
       success: true,
       data: {
         openid: openid,
-        userInfo: userData
+        ...userData
       }
     };
   } catch (err) {

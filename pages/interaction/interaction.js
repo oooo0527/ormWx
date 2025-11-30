@@ -1,3 +1,5 @@
+
+
 Page({
   data: {
     currentSlide: 0,
@@ -65,7 +67,7 @@ Page({
               likes: 0,
               isLiked: false,
               comments: item.comments || [],
-              creator: item.creator || '',
+              creator: item.userInfo.userInfo && item.userInfo.userInfo.nickname ? item.userInfo.userInfo.nickname : (item.creator || '匿名用户'), // 使用用户信息中的昵称
             }
           });
 
@@ -106,7 +108,7 @@ Page({
               id: item._id,
               title: item.title,
               content: item.content,
-              creator: item.creator || '匿名用户',
+              creator: item.userInfo.userInfo && item.userInfo.userInfo.nickname ? item.userInfo.userInfo.nickname : (item.creator || '匿名用户'), // 使用用户信息中的昵称
               updateTime: item.updateTime || '',
               commentsCount: (item.comments || []).length
             }

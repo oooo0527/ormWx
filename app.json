@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/interaction/interaction",
     "pages/index/index",
+    "pages/interaction/interaction",
     "pages/publish/publish",
     "pages/Home/Home",
     "pages/test/test",
