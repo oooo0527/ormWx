@@ -4,7 +4,7 @@
     <image src="{{image}}" mode="fit" lazy-load class="nav-image"></image>
     <!-- 返回按钮 -->
     <view wx:if="{{showBack}}" class="nav-btn back-btn" bindtap="onBack">
-    back
+    GO
       <!-- <text class="iconfont icon-back"></text> -->
     </view>
     

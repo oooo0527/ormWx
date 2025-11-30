@@ -1,4 +1,6 @@
-<view class="container">
+<global-background>
+  <custom-navbar title="ormkornnaphat" showBack="{{true}}" showHome="{{false}}"></custom-navbar>
+<view class="container" style="margin-top: 108rpx;">
   <view class="publish-form">
     <view class="form-item">
       <input class="title-input" placeholder="请输入标题" value="{{title}}" bindinput="onTitleInput" />
@@ -41,3 +43,4 @@
     </view>
   </view>
 </view>
+</global-background>

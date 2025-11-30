@@ -84,10 +84,6 @@
   white-space: nowrap;
 }
 
-.back-btn::before {
-  content: '\e600';
-  /* 返回图标 */
-}
 
 .home-btn::before {
   content: '\e601';

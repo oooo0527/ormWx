@@ -1,34 +1,17 @@
 <global-background>
-
-  <view class="container" style="margin-top: 88rpx;">
+  <custom-navbar title="ormkornnaphat" showBack="{{true}}" showHome="{{false}}"></custom-navbar>
+  <view class="container" style="margin-top: 108rpx;">
 
     <view class="carousel-container1">
-      <!-- 返回列表按钮 -->
-      <view class="back-button" bindtap="backToList">
-        <text class="back-text">返回</text>
-      </view>
+
       
         <image src="{{selectedWork.cover}}" mode="aspectFill" class="selected-work-image" lazy-load></image>
-      <!-- 普通轮播图样式 -->
-      <swiper class="normal-swiper"  autoplay="{{false}}" interval="5000" duration="1000" bindchange="onSwiperChange" current="{{currentSlide}}">
-        <block wx:for="{{works}}" wx:key="id">
-          <swiper-item class="swiper-item">
-            <view class="swiper-content">
-              <image src="{{item.cover}}" class="swiper-image" mode="aspectFill" lazy-load bindtap="onSwiperImageTap"></image>
-            </view>
-            <view class="detail-section">
-              <view class="detail-header">
-                <text class="detail-title">{{item.title}}</text>
-                <view class="like-button" bindtap="toggleLike">
-                  <text class="like-icon">{{item.isLiked ? '♥' : '♡'}}</text>
-                  <text class="like-count">{{item.likes}}</text>
-                </view>
-              </view>
-              <text class="detail-description">{{item.description}}</text>
-            </view>
-          </swiper-item>
-        </block>
-      </swiper>
+
+        <view class="selected-work-detail">
+                 <image src="{{selectedWork.cover}}" class="swiper-image" mode="widthFix" lazy-load bindtap="onSwiperImageTap"></image>
+          <view class="selected-work-title">{{selectedWork.title}}</view>
+          <view class="selected-work-description">{{selectedWork.description}}</view>
+        </view>
 
     </view>
     
@@ -89,7 +72,7 @@
       <!-- 评论输入区域 -->
       <view class="comment-input-area">
         <textarea class="comment-textarea" placeholder="请输入评论内容..." value="{{newComment}}" bindinput="onCommentInput"></textarea>
-        <button class="submit-comment-btn" bindtap="submitComment">发表评论</button>
+        <button class="submit-comment-btn" bindtap="submitComment">奥</button>
       </view>
     </view>
 

@@ -161,7 +161,7 @@ Page({
           title: title,
           content: content,
           images: imageUrls,
-          createTime: new Date().getTime()
+          createTime: new Date()
         }
       },
       success: res => {
