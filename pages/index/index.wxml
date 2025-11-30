@@ -1,10 +1,10 @@
 <view class="container">
       <!-- 时间显示 -->
-      <view class="time-display-overlay" wx:if="{{!showHome}}">
+      <view class="time-display-overlay" wx:if="{{showHome}}">
         <text class="time-text">{{hours}}:{{minutes < 10 ? '0' + minutes : minutes}}</text>
       </view>
 
-  <view wx:if="{{!showHome}}" class="home-container">
+  <view wx:if="{{showHome}}" class="home-container">
     <image src="{{displayImage1}}" class="background-image" mode="aspectFill"></image>
     <!-- 可拖动的小图标 -->
     <view wx:if="{{showIcon}}" class="draggable-icon-container">
@@ -46,16 +46,10 @@
     </view>
     </view>
       <image class="display-image" src="{{displayImage}}" show-menu-by-longpress="false"></image>
-      <image src="{{displayImage2}}" class="display-image1" show-menu-by-longpress="false" mode="aspectFill" bindtap="switchZindex"></image>
+      <image src="{{displayImage2}}" class="display-image1" show-menu-by-longpress="false" mode="aspectFill"></image>
+      <button open-type='getUserInfo'  bindtap="getUserProfile"  class="login-button">登录</button>
     </view>
 
-    <!-- 四个数字框 -->
-    <view class="number-container"  wx:if="{{showNumberContainer}}">
-
-        <view class="number-box" wx:for="{{numberList}}"  data-index="{{item}}"  bindtap="incrementNumber" wx:key="index" >
-          {{item}}
-        </view>
-    </view>
           <!-- 语音播放控制 -->
   <audio id="voicePlayer" />
   </view>

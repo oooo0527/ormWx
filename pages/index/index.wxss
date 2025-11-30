@@ -201,61 +201,6 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-
-/* 数字框容器 */
-.number-container {
-  display: flex;
-  justify-content: space-around;
-  /* width: 100vw; */
-  width: 60%;
-  margin: 0 20%;
-
-
-  /* margin-top: 50rpx; */
-  position: absolute;
-  /* bottom: 20rpx; */
-  top: 60rpx;
-  z-index: 100;
-}
-
-.number-container1 {
-  height: 100rpx;
-  overflow: hidden;
-}
-
-/* 数字框样式 */
-.number-box {
-  width: 100rpx;
-  height: 100rpx;
-  /* background-color: rgba(7, 7, 7, 0.8); */
-  /* border-radius: 20rpx; */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 48rpx;
-  font-weight: bold;
-  border: 8rpx solid #0c1117;
-  /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); */
-  transition: all 0.2s ease;
-  border-radius: 10rpx;
-  color: #f48eb5;
-
-}
-
-.number-box:nth-of-type(2n+1) {
-  margin-top: 10rpx;
-}
-
-.number-box:nth-of-type(2n) {
-  margin-bottom: 10rpx;
-}
-
-/* 数字框点击效果 */
-.number-box:active {
-  transform: scale(0.95);
-  background-color: rgba(255, 255, 255, 1);
-}
-
 /* 表盘样式 */
 .clock-container {
   display: flex;
@@ -266,6 +211,14 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.login-button {
+  top: 20px;
+}
+
+.login-button::after {
+  display: none;
 }
 
 .clock-face {

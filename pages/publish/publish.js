@@ -8,14 +8,6 @@ Page({
   },
 
   onLoad: function () {
-    // 云环境已在app.js中初始化，这里不需要重复初始化
-    if (!wx.cloud) {
-      console.error('请使用 2.2.3 或以上的基础库以使用云能力');
-      wx.showToast({
-        title: '云环境未初始化',
-        icon: 'none'
-      });
-    }
   },
 
   // 输入标题
@@ -72,7 +64,7 @@ Page({
     const title = this.data.title;
     const content = this.data.content;
     const imageList = this.data.imageList;
-    const creator = 'testUser'; // TODO: 获取当前用户信息
+
 
     // 验证输入
     if (!title.trim()) {
@@ -161,7 +153,8 @@ Page({
           title: title,
           content: content,
           images: imageUrls,
-          createTime: new Date()
+          createTime: new Date(),
+          userInfo: getApp().globalData.userInfo
         }
       },
       success: res => {
@@ -210,43 +203,5 @@ Page({
     });
   },
 
-  // 测试云函数 - 用于调试
-  testCloudFunction: function () {
-    if (!wx.cloud) {
-      wx.showToast({
-        title: '云环境未初始化',
-        icon: 'none'
-      });
-      return;
-    }
 
-    wx.showLoading({
-      title: '测试中...'
-    });
-
-    // 调用云函数测试
-    wx.cloud.callFunction({
-      name: 'fanVoice',
-      data: {
-        action: 'getList'
-      },
-      success: res => {
-        wx.hideLoading();
-        console.log('测试云函数成功：', res);
-        wx.showToast({
-          title: '云函数正常',
-          icon: 'success'
-        });
-      },
-      fail: err => {
-        wx.hideLoading();
-        console.error('测试云函数失败：', err);
-        wx.showModal({
-          title: '测试失败',
-          content: JSON.stringify(err),
-          showCancel: false
-        });
-      }
-    });
-  }
 });

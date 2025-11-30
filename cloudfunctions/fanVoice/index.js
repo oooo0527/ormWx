@@ -75,7 +75,8 @@ async function postVoice(openid, event) {
       likes: [],
       comments: [],
       createTime: new Date(),
-      updateTime: new Date()
+      updateTime: new Date(),
+      userInfo: event.userInfo
     }
 
     const result = await db.collection('fan_voices').add({

@@ -19,10 +19,12 @@ exports.main = async (event, context) => {
   }
 
   switch (event.action) {
+    case 'login':
+      return await login(event, wxContext)
     case 'getUserInfo':
-      return await getUserInfo(cloud.DYNAMIC_CURRENT_ENV, event)
+      return await getUserInfo(wxContext.OPENID, event)
     case 'updateUserInfo':
-      return await updateUserInfo(cloud.DYNAMIC_CURRENT_ENV.OPENID, event)
+      return await updateUserInfo(wxContext.OPENID, event)
     default:
       return {
         success: false,
@@ -31,11 +33,100 @@ exports.main = async (event, context) => {
   }
 }
 
+// 用户登录
+async function login(event, wxContext) {
+  try {
+    // 获取从前端传递的用户信息
+    const userInfo = event.userInfo;
+
+    // 获取用户的openid
+    const openid = wxContext.OPENID;
+
+    console.log('用户上下文信息:', { openid });
+    console.log('前端传递的用户信息:', userInfo);
+
+    // 检查是否获取到openid
+    if (!openid) {
+      return {
+        success: false,
+        message: '无法获取用户标识'
+      };
+    }
+
+    // 查询用户是否存在
+    const userRes = await db.collection('users').where({
+      openid: openid
+    }).get();
+
+    let userData = null;
+
+    if (userRes.data.length > 0) {
+      // 用户已存在，更新用户信息和最后登录时间
+      userData = userRes.data[0];
+
+      // 准备更新数据
+      const updateData = {
+        lastLoginTime: new Date()
+      };
+
+      // 如果前端传递了用户信息，则更新
+      if (userInfo) {
+        updateData.nickname = userInfo.nickName || userData.nickname;
+        updateData.avatar = userInfo.avatarUrl || userData.avatar;
+      }
+
+      await db.collection('users').where({
+        openid: openid
+      }).update({
+        data: updateData
+      });
+
+      console.log('用户已存在，更新用户信息');
+    } else {
+      // 新用户，创建用户记录
+      const newUser = {
+        openid: openid,
+        nickname: userInfo ? (userInfo.nickName || '匿名用户') : '匿名用户',
+        avatar: userInfo ? (userInfo.avatarUrl || '') : '',
+        createTime: new Date().getTime(),
+        lastLoginTime: new Date().getTime()
+      };
+
+      const addRes = await db.collection('users').add({
+        data: newUser
+      });
+
+      userData = {
+        _id: addRes._id,
+        ...newUser
+      };
+      console.log('创建新用户');
+    }
+
+    return {
+      success: true,
+      data: {
+        openid: openid,
+        userInfo: userData
+      }
+    };
+  } catch (err) {
+    console.error('登录失败', err);
+    // 更详细的错误信息
+    return {
+      success: false,
+      message: '登录处理失败：' + err.message,
+      errCode: err.errCode,
+      errMsg: err.errMsg
+    };
+  }
+}
+
 // 获取用户信息
 async function getUserInfo(openid, event) {
-  console.log(openid,'op999999999999999enid')
+  console.log(openid, 'openid')
   try {
-    const result = await db.collection('user').where({
+    const result = await db.collection('users').where({
       openid: openid
     }).get()
 
@@ -63,7 +154,7 @@ async function createNewUser(openid, event) {
   try {
     const userData = {
       openid: openid,
-      nickname: event.nickname || '匿名用户',
+      nickname: event.nickname || '煎蛋卷',
       avatar: event.avatar || '',
       createTime: new Date(),
       updateTime: new Date()

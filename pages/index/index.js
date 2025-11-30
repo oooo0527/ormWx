@@ -1,3 +1,5 @@
+
+
 Page({
   data: {
     currentDate: '',
@@ -34,7 +36,7 @@ Page({
     // 四个数字框的值，初始为0
     numbers: [0, 0, 0, 0],
     Clickindex: 0,
-    fullText: ['萨瓦迪卡', 'สวัสดี~', '人生只有三万天', 'ชีวิตมีเพียง 30,000 วัน', '希望所有不好的事情尽快过去', 'ขอให้เรื่องร้ายๆ ผ่านไปเร็วๆ', 'orm希望你能勇敢地做自己', 'orm หวังว่าคุณจะเป็นตัวของตัวเองได้อย่างกล้าหาญ', '祝大家每天都开心，幸福，平静，舒心', 'ขอให้ทุกคนมีความสุข ความยินดี ความสงบสุข และความสบายใจในทุกๆ วัน', '我爱你们~  i love you~'],
+    fullText: ['萨瓦迪카', 'สวัสดี~', '人生只有三万天', 'ชีวิตมีเพียง 30,000 วัน', '希望所有不好的事情尽快过去', 'ขอให้เรื่องร้ายๆ ผ่านไปเร็วๆ', 'orm希望你能勇敢地做自己', 'orm หวังว่าคุณจะเป็นตัวของตัวเองได้อย่างกล้าหาญ', '祝大家每天都开心，幸福，平静，舒心', 'ขอให้ทุกคนมีความสุข ความยินดี ความสงบสุข และความสบายใจในทุกๆ วัน', '我爱你们~  i love you~'],
     displayedText: [],
     textIndex: 0,
     timer: null,
@@ -193,34 +195,90 @@ Page({
 
     this.voicePlayer.obeyMuteSwitch = false; // 不遵循静音开关
   },
+  getUserProfile: function () {
+    wx.showLoading({
+      title: '登录中...',
+    });
 
-  onReady: function () {
-    // 页面渲染完成后获取表盘中心位置
-    const that = this;
-    wx.createSelectorQuery()
-      .select('.clock-face')
-      .boundingClientRect(function (rect) {
-        if (rect) {
-          that.setData({
-            clockCenter: {
-              x: rect.left + rect.width / 2,
-              y: rect.top + rect.height / 2
+    // 调用wx.login获取临时登录凭证code
+    wx.getUserProfile({
+      desc: '用于完善会员资料',
+      success: res => {
+        console.log('wx.login成功', res);
+        if (res.userInfo) {
+          console.log('wx.login成功', res.userInfo);
+          // 调用云函数进行登录验证
+          wx.cloud.callFunction({
+            name: 'user',
+            data: {
+              action: 'login',
+              userInfo: res.userInfo
+            },
+            success: res => {
+              wx.hideLoading();
+              console.log('云函数调用成功', res);
+
+              if (res.result && res.result.success) {
+                // 登录成功，存储用户信息
+                const userInfo = res.result.data;
+                getApp().globalData.userInfo = userInfo;
+                getApp().globalData.isLogin = true;
+
+                // 存储到本地
+                wx.setStorageSync('userInfo', userInfo);
+
+                // 跳转到首页
+                wx.switchTab({
+                  url: '/pages/Home/Home'
+                });
+              } else {
+                // 登录失败
+                wx.showToast({
+                  title: res.result ? res.result.message : '登录失败',
+                  icon: 'none',
+                  duration: 3000
+                });
+              }
+            },
+            fail: err => {
+              wx.hideLoading();
+              console.error('云函数调用失败', err);
+              // 显示更详细的错误信息
+              let errMsg = '登录失败，请检查网络';
+              if (err.errMsg) {
+                errMsg = err.errMsg;
+              } else if (err.message) {
+                errMsg = err.message;
+              }
+              wx.showToast({
+                title: errMsg,
+                icon: 'none',
+                duration: 3000
+              });
             }
           });
+        } else {
+          wx.hideLoading();
+          console.log('登录失败！' + res.errMsg);
+          wx.showToast({
+            title: '登录失败，请重试',
+            icon: 'none'
+          });
         }
-      })
-      .exec();
-  },
-
-  switchZindex: function () {
-    wx.login().then(res => {
-      console.log('switchZindex function called', res);
-      if (res.code) {
-        wx.switchTab({
-          url: '/pages/Home/Home'
+      },
+      fail: err => {
+        wx.hideLoading();
+        console.error('wx.login调用失败', err);
+        wx.showToast({
+          title: '登录失败，请重试',
+          icon: 'none'
         });
       }
     });
+  },
+
+  switchZindex: function () {
+
     console.log('switchZindex function called');
     // 监听音频结束
     this.voicePlayer.onEnded(() => {
