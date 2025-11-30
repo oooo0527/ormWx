@@ -8,7 +8,7 @@
     "pages/login/login",
     "pages/starArchive/starArchive",
     "pages/profile/profile",
-  
+    "pages/publish/publish",
     "pages/interactionDetail/interactionDetail"
   ],
   "window": {

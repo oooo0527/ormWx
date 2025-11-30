@@ -4,55 +4,8 @@ Page({
     selectedWork: null,
     works: [],
 
-    // 评论数据
-    comments: [
-      {
-        id: 1,
-        avatar: "/images/avatar1.png",
-        nickname: "粉丝小王",
-        content: "Orm真的太棒了！每次看到她的作品都让我感动不已。",
-        time: "2025-11-28 15:30",
-        likes: 25,
-        isLiked: false,
-        replies: [
-          {
-            id: 1,
-            avatar: "/images/avatar2.png",
-            nickname: "Orm官方",
-            content: "谢谢支持！我们会继续努力的！",
-            time: "2025-11-28 16:45"
-          }
-        ]
-      },
-      {
-        id: 2,
-        avatar: "/images/avatar3.png",
-        nickname: "泰国粉丝",
-        content: "从泰国过来支持Orm！希望她越来越好！",
-        time: "2025-11-27 10:15",
-        likes: 18,
-        isLiked: false,
-        replies: []
-      },
-      {
-        id: 3,
-        avatar: "/images/avatar4.png",
-        nickname: "影视爱好者",
-        content: "Orm的演技真的越来越精湛了，每部作品都很精彩！",
-        time: "2025-11-26 20:20",
-        likes: 32,
-        isLiked: false,
-        replies: [
-          {
-            id: 2,
-            avatar: "/images/avatar5.png",
-            nickname: "剧评人",
-            content: "确实，Orm在《我们的秘密》中的表现特别出色！",
-            time: "2025-11-26 21:10"
-          }
-        ]
-      }
-    ],
+    // 评论数据 - 从云端获取
+    comments: [],
 
     // 新评论内容
     newComment: "",
@@ -65,6 +18,15 @@ Page({
   },
 
   onLoad: function (options) {
+    // 初始化云数据库
+    if (!wx.cloud) {
+      console.error('请使用 2.2.3 或以上的基础库以使用云能力')
+    } else {
+      wx.cloud.init({
+        traceUser: true,
+      })
+    }
+
     // 获取从上一页传递过来的数据
     const eventChannel = this.getOpenerEventChannel();
     eventChannel.on('acceptDataFromOpenerPage', (data) => {
@@ -72,8 +34,46 @@ Page({
         works: data.works,
         currentSlide: data.currentIndex,
         selectedWork: data.works[data.currentIndex]
+      }, () => {
+        // 加载评论数据
+        this.loadComments();
       });
     });
+  },
+
+  // 加载评论数据
+  loadComments: function () {
+    const selectedWork = this.data.selectedWork;
+    if (selectedWork && selectedWork.comments) {
+      // 将云端数据转换为页面所需格式
+      const comments = selectedWork.comments.map((item, index) => {
+        return {
+          id: item._id || index,
+          avatar: "/images/avatar-default.png",
+          nickname: "用户" + (index + 1),
+          content: item.content,
+          time: this.formatTime(item.createTime),
+          likes: 0,
+          isLiked: false,
+          replies: []
+        }
+      });
+
+      this.setData({
+        comments: comments
+      });
+    }
+  },
+
+  // 格式化时间
+  formatTime: function (time) {
+    const date = new Date(time);
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    const hour = date.getHours().toString().padStart(2, '0');
+    const minute = date.getMinutes().toString().padStart(2, '0');
+    return `${year}-${month}-${day} ${hour}:${minute}`;
   },
 
   // 返回作品列表
@@ -87,6 +87,9 @@ Page({
     this.setData({
       currentSlide: current,
       selectedWork: this.data.works[current]
+    }, () => {
+      // 切换作品时重新加载评论
+      this.loadComments();
     });
   },
 
@@ -149,27 +152,42 @@ Page({
       return;
     }
 
-    const newComment = {
-      id: this.data.comments.length + 1,
-      avatar: "/images/avatar-default.png",
-      nickname: "我",
-      content: this.data.newComment,
-      time: this.getCurrentTime(),
-      likes: 0,
-      isLiked: false,
-      replies: []
-    };
+    // 调用云函数添加评论
+    wx.cloud.callFunction({
+      name: 'fanVoice',
+      data: {
+        action: 'addComment',
+        interactionId: this.data.selectedWork.id,
+        content: this.data.newComment
+      },
+      success: res => {
+        if (res.result && res.result.success) {
+          wx.showToast({
+            title: '评论成功',
+            icon: 'success'
+          });
 
-    const comments = [...this.data.comments, newComment];
+          // 清空输入框
+          this.setData({
+            newComment: ""
+          });
 
-    this.setData({
-      comments: comments,
-      newComment: ""
-    });
-
-    wx.showToast({
-      title: '评论成功',
-      icon: 'success'
+          // 重新加载评论
+          this.loadComments();
+        } else {
+          wx.showToast({
+            title: '评论失败',
+            icon: 'none'
+          });
+        }
+      },
+      fail: err => {
+        console.error('评论失败：', err);
+        wx.showToast({
+          title: '评论失败',
+          icon: 'none'
+        });
+      }
     });
   },
 
@@ -202,33 +220,46 @@ Page({
       return;
     }
 
-    const comments = [...this.data.comments];
-    const commentIndex = comments.findIndex(comment => comment.id === this.data.replyToCommentId);
+    // 调用云函数添加回复（这里简化处理，实际应该有专门的回复数据结构）
+    wx.cloud.callFunction({
+      name: 'fanVoice',
+      data: {
+        action: 'addComment',
+        interactionId: this.data.selectedWork.id,
+        content: `回复 @${this.data.replyToNickname}: ${this.data.newReply}`
+      },
+      success: res => {
+        if (res.result && res.result.success) {
+          wx.showToast({
+            title: '回复成功',
+            icon: 'success'
+          });
 
-    if (commentIndex !== -1) {
-      const newReply = {
-        id: comments[commentIndex].replies.length + 1,
-        avatar: "/images/avatar-default.png",
-        nickname: "我",
-        content: this.data.newReply,
-        time: this.getCurrentTime()
-      };
+          // 重置回复状态
+          this.setData({
+            isReplying: false,
+            replyToCommentId: null,
+            replyToNickname: "",
+            newReply: ""
+          });
 
-      comments[commentIndex].replies.push(newReply);
-
-      this.setData({
-        comments: comments,
-        newReply: "",
-        isReplying: false,
-        replyToCommentId: null,
-        replyToNickname: ""
-      });
-
-      wx.showToast({
-        title: '回复成功',
-        icon: 'success'
-      });
-    }
+          // 重新加载评论
+          this.loadComments();
+        } else {
+          wx.showToast({
+            title: '回复失败',
+            icon: 'none'
+          });
+        }
+      },
+      fail: err => {
+        console.error('回复失败：', err);
+        wx.showToast({
+          title: '回复失败',
+          icon: 'none'
+        });
+      }
+    });
   },
 
   // 取消回复
@@ -241,15 +272,60 @@ Page({
     });
   },
 
+  // 删除评论
+  deleteComment: function (e) {
+    const commentId = e.currentTarget.dataset.id;
+
+    wx.showModal({
+      title: '确认删除',
+      content: '确定要删除这条评论吗？',
+      success: res => {
+        if (res.confirm) {
+          // 调用云函数删除评论
+          wx.cloud.callFunction({
+            name: 'fanVoice',
+            data: {
+              action: 'deleteComment',
+              interactionId: this.data.selectedWork.id,
+              commentId: commentId
+            },
+            success: res => {
+              if (res.result && res.result.success) {
+                wx.showToast({
+                  title: '删除成功',
+                  icon: 'success'
+                });
+
+                // 重新加载评论
+                this.loadComments();
+              } else {
+                wx.showToast({
+                  title: '删除失败',
+                  icon: 'none'
+                });
+              }
+            },
+            fail: err => {
+              console.error('删除评论失败：', err);
+              wx.showToast({
+                title: '删除失败',
+                icon: 'none'
+              });
+            }
+          });
+        }
+      }
+    });
+  },
+
   // 获取当前时间
   getCurrentTime: function () {
     const now = new Date();
     const year = now.getFullYear();
-    const month = String(now.getMonth() + 1).padStart(2, '0');
-    const day = String(now.getDate()).padStart(2, '0');
-    const hours = String(now.getHours()).padStart(2, '0');
-    const minutes = String(now.getMinutes()).padStart(2, '0');
-
-    return `${year}-${month}-${day} ${hours}:${minutes}`;
+    const month = (now.getMonth() + 1).toString().padStart(2, '0');
+    const day = now.getDate().toString().padStart(2, '0');
+    const hour = now.getHours().toString().padStart(2, '0');
+    const minute = now.getMinutes().toString().padStart(2, '0');
+    return `${year}-${month}-${day} ${hour}:${minute}`;
   }
 });

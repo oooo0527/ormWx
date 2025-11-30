@@ -23,6 +23,17 @@ exports.main = async (event, context) => {
       return await deleteVoice(wxContext.OPENID, event)
     case 'getSupportImages':
       return await getSupportImages(event)
+    // 新增互动留言相关操作
+    case 'add':
+      return await addInteraction(wxContext.OPENID, event)
+    case 'getList':
+      return await getInteractionList(event)
+    case 'delete':
+      return await deleteInteraction(wxContext.OPENID, event)
+    case 'addComment':
+      return await addComment(wxContext.OPENID, event)
+    case 'deleteComment':
+      return await deleteComment(wxContext.OPENID, event)
     default:
       return {
         success: false,
@@ -173,6 +184,188 @@ async function getSupportImages(event) {
     return {
       success: true,
       data: result.data
+    }
+  } catch (err) {
+    return {
+      success: false,
+      message: err.message
+    }
+  }
+}
+
+// 新增互动留言
+async function addInteraction(openid, event) {
+  try {
+    // 检查必要参数
+    if (!event.data || !event.data.title || !event.data.content) {
+      return {
+        success: false,
+        message: '标题和内容不能为空'
+      };
+    }
+
+    const interaction = {
+      title: event.data.title,
+      content: event.data.content,
+      images: event.data.images || [],
+      userId: openid,
+      comments: [],
+      createTime: new Date(),
+      updateTime: new Date()
+    };
+
+    const result = await db.collection('interactions').add({
+      data: interaction
+    });
+
+    return {
+      success: true,
+      data: {
+        _id: result._id,
+        ...interaction
+      }
+    };
+  } catch (err) {
+    console.error('新增互动留言失败：', err);
+    return {
+      success: false,
+      message: err.message || '新增互动留言失败'
+    };
+  }
+}
+
+// 获取互动留言列表
+async function getInteractionList(event) {
+  try {
+    let query = db.collection('interactions')
+
+    // 分页查询
+    const result = await query
+      .orderBy('createTime', 'desc')
+      .skip(event.skip || 0)
+      .limit(event.limit || 20)
+      .get()
+
+    return {
+      success: true,
+      data: result.data
+    }
+  } catch (err) {
+    return {
+      success: false,
+      message: err.message
+    }
+  }
+}
+
+// 删除互动留言
+async function deleteInteraction(openid, event) {
+  try {
+    // 只能删除自己发布的互动留言
+    const result = await db.collection('interactions').where({
+      _id: event.id,
+      userId: openid
+    }).remove()
+
+    if (result.stats.removed === 0) {
+      return {
+        success: false,
+        message: '删除失败，可能是留言不存在或不是您的留言'
+      }
+    }
+
+    return {
+      success: true,
+      data: result
+    }
+  } catch (err) {
+    return {
+      success: false,
+      message: err.message
+    }
+  }
+}
+
+// 添加评论
+async function addComment(openid, event) {
+  try {
+    const comment = {
+      content: event.content,
+      userId: openid,
+      createTime: new Date(),
+      interactionId: event.interactionId
+    }
+
+    // 先获取原始互动留言
+    const interactionResult = await db.collection('interactions').doc(event.interactionId).get()
+    if (!interactionResult.data) {
+      return {
+        success: false,
+        message: '互动留言不存在'
+      }
+    }
+
+    // 向互动留言中添加评论
+    const result = await db.collection('interactions').doc(event.interactionId).update({
+      data: {
+        comments: _.push([comment]),
+        updateTime: new Date()
+      }
+    })
+
+    return {
+      success: true,
+      data: comment
+    }
+  } catch (err) {
+    return {
+      success: false,
+      message: err.message
+    }
+  }
+}
+
+// 删除评论
+async function deleteComment(openid, event) {
+  try {
+    // 获取原始互动留言
+    const interactionResult = await db.collection('interactions').doc(event.interactionId).get()
+    if (!interactionResult.data) {
+      return {
+        success: false,
+        message: '互动留言不存在'
+      }
+    }
+
+    const interaction = interactionResult.data
+    const comments = interaction.comments || []
+
+    // 查找要删除的评论
+    const commentIndex = comments.findIndex(comment =>
+      comment._id === event.commentId && (comment.userId === openid || interaction.userId === openid)
+    )
+
+    if (commentIndex === -1) {
+      return {
+        success: false,
+        message: '评论不存在或无权限删除'
+      }
+    }
+
+    // 从数组中移除评论
+    comments.splice(commentIndex, 1)
+
+    // 更新互动留言中的评论列表
+    const result = await db.collection('interactions').doc(event.interactionId).update({
+      data: {
+        comments: comments,
+        updateTime: new Date()
+      }
+    })
+
+    return {
+      success: true,
+      data: result
     }
   } catch (err) {
     return {

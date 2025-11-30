@@ -14,6 +14,8 @@ exports.main = async (event, context) => {
   switch (event.action) {
     case 'initMusicCollection':
       return await initMusicCollection(event)
+    case 'initInteractionsCollection':
+      return await initInteractionsCollection(event)
     default:
       return {
         success: false,
@@ -39,7 +41,7 @@ async function initMusicCollection(event) {
       },
       {
         "type": "mis",
-        "url": "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/music/สตอร์เบอรี่มรกต (Strawberry Morakot) - Orm Kornnaphat 251108 曼谷万人演唱会(1).mp3",
+        "url": "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/music/สตอร์เบอร์เยอรี่มรกต (Strawberry Morakot) - Orm Kornnaphat 251108 曼谷万人演唱会(1).mp3",
         "tag": "head",
         "src": "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/ormmm/陈奥/2246a8c4f6c263a32bfbb898a3992cc1.jpg",
         "title": "Strawberry Morakot - Orm Kornnaphat",
@@ -62,6 +64,56 @@ async function initMusicCollection(event) {
       success: true,
       data: results,
       message: '音乐数据初始化成功'
+    }
+  } catch (err) {
+    return {
+      success: false,
+      message: err.message
+    }
+  }
+}
+
+// 初始化互动留言集合并添加示例数据
+async function initInteractionsCollection(event) {
+  try {
+    // 创建 interactions 集合的索引
+    // 注意：在实际环境中，这可能需要管理员权限
+
+    // 示例互动留言数据
+    const interactionData = [
+      {
+        "title": "粉丝留言",
+        "content": "Orm你是最棒的！你的每一部作品都让我们感动，期待你更多的精彩表现！",
+        "images": [],
+        "userId": "sample_user_id_1",
+        "comments": [],
+        "createTime": new Date(),
+        "updateTime": new Date()
+      },
+      {
+        "title": "活动互动",
+        "content": "Orm线上见面会精彩瞬间回顾，粉丝们热情参与互动游戏，现场气氛热烈，欢声笑语不断。",
+        "images": [],
+        "userId": "sample_user_id_2",
+        "comments": [],
+        "createTime": new Date(),
+        "updateTime": new Date()
+      }
+    ];
+
+    // 插入示例数据
+    const results = [];
+    for (const interaction of interactionData) {
+      const result = await db.collection('interactions').add({
+        data: interaction
+      });
+      results.push(result);
+    }
+
+    return {
+      success: true,
+      data: results,
+      message: '互动留言数据初始化成功'
     }
   } catch (err) {
     return {

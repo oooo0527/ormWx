@@ -3,85 +3,7 @@ Page({
     currentSlide: 0,
     selectedWork: null,
 
-    works: [
-      {
-        id: 1,
-        title: "粉丝留言",
-        role: "留言互动",
-        type: "互动",
-        cover: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/ormmm/陈奥/2246a8c4f6c263a32bfbb898a3992cc1.jpg",
-        year: "2025",
-        description: "来自粉丝的暖心留言：Orm你是最棒的！你的每一部作品都让我们感动，期待你更多的精彩表现！",
-        likes: 0,
-        isLiked: false
-      },
-      {
-        id: 2,
-        title: "活动互动",
-        role: "线上活动",
-        type: "互动",
-        cover: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/ormmm/陈奥/24c44a6355707a277309865e62c1b5cb.jpg",
-        year: "2024",
-        description: "Orm线上见面会精彩瞬间回顾，粉丝们热情参与互动游戏，现场气氛热烈，欢声笑语不断。",
-        likes: 0,
-        isLiked: false
-      },
-      {
-        id: 3,
-        title: "生日祝福",
-        role: "生日庆祝",
-        type: "互动",
-        cover: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/ormmm/陈奥/329c3f47da4836e2c4ef41bf97540833.jpg",
-        year: "2024",
-        description: "Orm生日当天收到的来自世界各地粉丝的祝福留言，每一条都承载着满满的爱意和祝愿。",
-        likes: 0,
-        isLiked: false
-      },
-      {
-        id: 4,
-        title: "节日问候",
-        role: "节日祝福",
-        type: "互动",
-        cover: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/ormmm/陈奥/3916c9499882d66371bc6573597693bf.jpg",
-        year: "2023",
-        description: "各种节日里粉丝们为Orm准备的特别祝福，新年快乐、情人节快乐、母亲节快乐等等温馨祝福。",
-        likes: 0,
-        isLiked: false
-      },
-      {
-        id: 5,
-        title: "感谢信件",
-        role: "书信互动",
-        type: "互动",
-        cover: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/ormmm/陈奥/443aaee45d2852f42a20789b76793ea0.jpg",
-        year: "2023",
-        description: "粉丝手写的感谢信件，表达了对Orm演艺事业的支持和对她个人品格的欣赏与敬佩。",
-        likes: 0,
-        isLiked: false
-      },
-      {
-        id: 6,
-        title: "合影分享",
-        role: "照片互动",
-        type: "互动",
-        cover: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/ormmm/陈奥/46022d31c72eb3e3cc17126fdc53d9f9.jpg",
-        year: "2023",
-        description: "粉丝与Orm的珍贵合影分享，记录下每一次难忘的相遇和美好时光，都是珍贵的回忆。",
-        likes: 0,
-        isLiked: false
-      },
-      {
-        id: 7,
-        title: "视频留言",
-        role: "视频互动",
-        type: "互动",
-        cover: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/ormmm/陈奥/4fe790c8959fd90505b3fbadefe51ecb.jpg",
-        year: "2023",
-        description: "粉丝自制的为Orm加油打气的视频留言，创意十足，表达了对偶像最真挚的支持与喜爱。",
-        likes: 0,
-        isLiked: false
-      }
-    ],
+    works: [], // 将原来硬编码的数据移除，改为从云端获取
 
     // 只显示前3张卡片
     displayWorks: [],
@@ -102,7 +24,64 @@ Page({
   },
 
   onLoad: function () {
-    this.init3DCarousel();
+    // 初始化云数据库
+    if (!wx.cloud) {
+      console.error('请使用 2.2.3 或以上的基础库以使用云能力')
+    } else {
+      wx.cloud.init({
+        traceUser: true,
+      })
+
+      // 加载互动留言数据
+      this.loadInteractions();
+    }
+  },
+
+  // 加载互动留言数据
+  loadInteractions: function () {
+    wx.cloud.callFunction({
+      name: 'fanVoice',
+      data: {
+        action: 'getList'
+      },
+      success: res => {
+        console.log('获取互动留言成功：', res.result.data);
+        if (res.result && res.result.success && res.result.data.length > 0) {
+          // 将云端数据转换为页面所需格式
+          const works = res.result.data.map((item, index) => {
+            return {
+              id: item._id,
+              title: item.title,
+              role: "用户互动",
+              type: "互动",
+              cover: item.images && item.images.length > 0 ? item.images[0] : "", // 使用第一张图片作为封面
+              updateTime: item.updateTime || '',
+              description: item.content,
+              likes: 0,
+              isLiked: false,
+              comments: item.comments || [],
+              creator: item.creator || '',
+            }
+          });
+
+          this.setData({
+            works: works
+          }, () => {
+            // 数据更新后重新初始化轮播图
+            this.init3DCarousel();
+          });
+        } else {
+          console.error('获取互动留言失败：', res.result.message);
+          // 如果获取失败，仍然初始化轮播图
+          this.init3DCarousel();
+        }
+      },
+      fail: err => {
+        console.error('调用云函数失败：', err);
+        // 如果调用失败，仍然初始化轮播图
+        this.init3DCarousel();
+      }
+    });
   },
 
   // 初始化3D轮播图
@@ -412,5 +391,25 @@ Page({
   onSwiperImageTap: function (e) {
     // 可以在这里添加点击图片的处理逻辑
     console.log("点击了轮播图图片");
+  },
+  onConfirm: function (e) {
+    if (this.data.searchValue == '陈奥我爱你哒') {
+      this.navigateToPublish();
+    }
+    console.log("点击了确定按钮");
+  },
+
+
+  // 导航到发布页面
+  navigateToPublish: function () {
+    wx.navigateTo({
+      url: '/pages/publish/publish'
+    });
+  },
+
+  // 下拉刷新
+  onPullDownRefresh: function () {
+    this.loadInteractions();
+    wx.stopPullDownRefresh();
   }
 });

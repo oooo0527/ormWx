@@ -115,6 +115,90 @@
   background: #ffffff;
 }
 
+.card-content1 {
+  padding: 10rpx;
+  box-sizing: border-box;
+  /* background: #0c1117; */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  height: 80%;
+}
+
+.carousel-card:nth-of-type(5n+1) {
+  background: #eb397e;
+  /* 第一个颜色 */
+}
+
+.carousel-card:nth-of-type(5n+2) {
+  background: #6ff7b7;
+  /* 第二个颜色 */
+}
+
+.carousel-card:nth-of-type(5n+3) {
+  background: #030303;
+  /* 第三个颜色 */
+}
+
+.carousel-card:nth-of-type(5n+4) {
+  background: #f10909;
+  /* 第四个颜色 */
+}
+
+.carousel-card:nth-of-type(5n) {
+  background: #5487f5;
+  /* 第五个颜色 */
+}
+
+.carousel-card {
+  padding: 10rpx;
+  box-shadow: 0 0 15rpx #ffffff;
+}
+
+.card-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #ffffff;
+  height: 100%;
+  writing-mode: vertical-rl;
+  width: 80rpx;
+}
+
+.card-more {
+  height: 20%;
+  background: #ffffff;
+
+}
+
+.card-description {
+  font-size: 24rpx;
+  color: #ffffff;
+  height: 100%;
+  writing-mode: vertical-rl;
+  flex: 1;
+
+}
+
+.card-creator {
+  font-size: 24rpx;
+  color: #010101;
+  width: 100%;
+  text-align: center;
+  height: 50%;
+
+}
+
+.card-date {
+  font-size: 24rpx;
+  color: #121111;
+  width: 100%;
+  text-align: center;
+  height: 50%;
+
+}
+
 .card-overlay {
   position: absolute;
   top: 0;
@@ -409,5 +493,31 @@
   height: 100%;
   width: 100%;
   z-index: -1;
+}
 
+/* 悬浮按钮样式 */
+.float-button {
+  position: fixed;
+  right: 50rpx;
+  bottom: 150rpx;
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  background: #f48eb5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.3);
+  z-index: 999;
+  transition: all 0.3s ease;
+}
+
+.float-button:active {
+  transform: scale(0.9);
+}
+
+.float-button-text {
+  font-size: 60rpx;
+  color: white;
+  font-weight: bold;
 }
