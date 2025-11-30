@@ -1,10 +1,10 @@
 <view class="container">
       <!-- 时间显示 -->
-      <view class="time-display-overlay" wx:if="{{showHome}}">
+      <view class="time-display-overlay" wx:if="{{!showHome}}">
         <text class="time-text">{{hours}}:{{minutes < 10 ? '0' + minutes : minutes}}</text>
       </view>
 
-  <view wx:if="{{showHome}}" class="home-container">
+  <view wx:if="{{!showHome}}" class="home-container">
     <image src="{{displayImage1}}" class="background-image" mode="aspectFill"></image>
     <!-- 可拖动的小图标 -->
     <view wx:if="{{showIcon}}" class="draggable-icon-container">

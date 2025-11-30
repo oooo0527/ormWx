@@ -1,6 +1,0 @@
-{
-  "navigationBarTitleText": "用户登录",
-  "usingComponents": {
-    "global-background": "/components/globalBackground/globalBackground"
-  }
-}

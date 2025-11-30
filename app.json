@@ -1,12 +1,11 @@
 {
   "pages": [
+    "pages/index/index",
     "pages/interaction/interaction",
     "pages/publish/publish",
     "pages/Home/Home",
-    "pages/index/index",
     "pages/test/test",
     "pages/workRecommend/workRecommend",
-    "pages/login/login",
     "pages/starArchive/starArchive",
     "pages/profile/profile",
     "pages/interactionDetail/interactionDetail"
@@ -43,6 +42,12 @@
         "iconPath": "images/icon_work.png",
         "selectedIconPath": "images/icon_work_HL.png",
         "text": "作品安利"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "iconPath": "images/icon_work.png",
+        "selectedIconPath": "images/icon_work_HL.png",
+        "text": "煎蛋卷"
       }
     ]
   },

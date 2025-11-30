@@ -213,14 +213,22 @@ Page({
   },
 
   switchZindex: function () {
-
+    wx.login().then(res => {
+      console.log('switchZindex function called', res);
+      if (res.code) {
+        wx.switchTab({
+          url: '/pages/Home/Home'
+        });
+      }
+    });
+    console.log('switchZindex function called');
     // 监听音频结束
     this.voicePlayer.onEnded(() => {
       console.log('音频结束');
       this.voicePlayer.stop();
-      wx.switchTab({
-        url: '/pages/Home/Home'
-      });
+      // wx.switchTab({
+      //   url: '/pages/Home/Home'
+      // });
       // this.setData({
       //   showNumberContainer: true
       // });
