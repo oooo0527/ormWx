@@ -20,7 +20,10 @@ Page({
     touchStartX: 0,
     touchEndX: 0,
     isSwiping: false,
-    swipeDirection: 0 // -1: 左滑, 1: 右滑
+    swipeDirection: 0, // -1: 左滑, 1: 右滑
+
+    // 热门互动留言
+    hotInteractions: []
   },
 
   onLoad: function () {
@@ -34,6 +37,8 @@ Page({
 
       // 加载互动留言数据
       this.loadInteractions();
+      // 加载热门互动留言数据
+      this.loadHotInteractions();
     }
   },
 
@@ -80,6 +85,42 @@ Page({
         console.error('调用云函数失败：', err);
         // 如果调用失败，仍然初始化轮播图
         this.init3DCarousel();
+      }
+    });
+  },
+
+  // 加载热门互动留言数据
+  loadHotInteractions: function () {
+    wx.cloud.callFunction({
+      name: 'fanVoice',
+      data: {
+        action: 'getList',
+        limit: 10 // 限制获取10条数据
+      },
+      success: res => {
+        console.log('获取热门互动留言成功：', res.result.data);
+        if (res.result && res.result.success && res.result.data.length > 0) {
+          // 处理热门互动留言数据
+          const hotInteractions = res.result.data.slice(0, 10).map(item => {
+            return {
+              id: item._id,
+              title: item.title,
+              content: item.content,
+              creator: item.creator || '匿名用户',
+              updateTime: item.updateTime || '',
+              commentsCount: (item.comments || []).length
+            }
+          });
+
+          this.setData({
+            hotInteractions: hotInteractions
+          });
+        } else {
+          console.error('获取热门互动留言失败：', res.result.message);
+        }
+      },
+      fail: err => {
+        console.error('调用获取热门互动留言云函数失败：', err);
       }
     });
   },
@@ -410,6 +451,7 @@ Page({
   // 下拉刷新
   onPullDownRefresh: function () {
     this.loadInteractions();
+    this.loadHotInteractions();
     wx.stopPullDownRefresh();
   }
 });

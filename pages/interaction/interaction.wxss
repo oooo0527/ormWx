@@ -1,5 +1,4 @@
 .container {
-
   /* background: linear-gradient(135deg, #0c1117 0%, #f48eb5 100%); */
   /* min-height: 100vh; */
   box-sizing: border-box;
@@ -127,30 +126,21 @@
   height: 80%;
 }
 
-.carousel-card:nth-of-type(5n+1) {
-  background: #eb397e;
+.carousel-card:nth-of-type(3n+1) {
+  background: #626bec;
   /* 第一个颜色 */
 }
 
-.carousel-card:nth-of-type(5n+2) {
-  background: #6ff7b7;
+.carousel-card:nth-of-type(3n+2) {
+  background: #f2a058;
   /* 第二个颜色 */
 }
 
-.carousel-card:nth-of-type(5n+3) {
+.carousel-card:nth-of-type(3n+3) {
   background: #030303;
   /* 第三个颜色 */
 }
 
-.carousel-card:nth-of-type(5n+4) {
-  background: #f10909;
-  /* 第四个颜色 */
-}
-
-.carousel-card:nth-of-type(5n) {
-  background: #5487f5;
-  /* 第五个颜色 */
-}
 
 .carousel-card {
   padding: 10rpx;
@@ -520,4 +510,47 @@
   font-size: 60rpx;
   color: white;
   font-weight: bold;
+}
+
+/* 热门互动留言样式 */
+.hot-interactions-section {
+  padding: 20rpx;
+  margin-top: 40rpx;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 20rpx;
+  text-align: center;
+}
+
+.hot-interactions-list {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 16rpx;
+  padding: 20rpx;
+}
+
+.hot-interaction-item {
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid rgba(255, 255, 255, 0.2);
+}
+
+.hot-interaction-item:last-child {
+  border-bottom: none;
+}
+
+.hot-interaction-content {
+  font-size: 28rpx;
+  color: #ffffff;
+  margin-bottom: 10rpx;
+  line-height: 1.4;
+}
+
+.hot-interaction-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.7);
 }
