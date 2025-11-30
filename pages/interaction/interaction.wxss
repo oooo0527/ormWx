@@ -168,6 +168,10 @@
   height: 100%;
   writing-mode: vertical-rl;
   flex: 1;
+  overflow-y: hidden;
+  text-overflow: ellipsis;
+  /* overflow-x: hidden; */
+  /* white-space: nowrap; */
 
 }
 
@@ -546,6 +550,13 @@
   color: #ffffff;
   margin-bottom: 10rpx;
   line-height: 1.4;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  /* 显示的行数 */
+  overflow: hidden;
+  text-overflow: ellipsis;
+
 }
 
 .hot-interaction-info {

@@ -1,16 +1,13 @@
 <global-background>
-  <custom-navbar title="个人中心" showBack="true"></custom-navbar>
-  <view class="container" style="margin-top: 88rpx;">
+  <custom-navbar title="煎蛋卷" showBack="{{false}}" showHome="{{false}}"></custom-navbar>
+  <view class="container" style="margin-top: 108rpx;">
     <view wx:if="{{isLogin}}" class="profile-card">
-      <image class="avatar" src="{{userInfo.avatar || '/images/default_avatar.png'}}" lazy-load></image>
-      <text class="nickname">{{userInfo.nickname}}</text>
-      <text class="username">@{{userInfo.username}}</text>
+      <button class="avatar-wrapper" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
+      <image class="avatar" src="{{userInfo.userInfo.avatar || '/images/default_avatar.png'}}" lazy-load></image>
+      </button> 
+      <text class="nickname">{{userInfo.userInfo.nickname}}</text>
       
       <view class="action-buttons">
-        <button class="action-btn edit-btn" bindtap="showEditForm">
-          <image class="action-icon" src="/images/profile/edit.svg" lazy-load></image>
-          <text>编辑资料</text>
-        </button>
         <button class="action-btn background-btn" bindtap="goToBackgroundSetting">
           <image class="action-icon" src="/images/profile/upload.svg" lazy-load></image>
           <text>背景设置</text>
@@ -19,33 +16,6 @@
           <image class="action-icon" src="/images/profile/logout.svg" lazy-load></image>
           <text>退出登录</text>
         </button>
-      </view>
-    </view>
-
-    <!-- 编辑资料弹窗 -->
-    <view class="modal" wx:if="{{showEditForm}}">
-      <view class="modal-content">
-        <view class="modal-header">
-          <text class="modal-title">编辑资料</text>
-          <image class="close-btn" bindtap="hideEditForm" src="/images/close.png" lazy-load></image>
-        </view>
-        
-        <view class="modal-body">
-          <view class="input-group">
-            <text class="input-label">昵称</text>
-            <input class="input" placeholder="请输入昵称" bindinput="onNicknameInput" value="{{editNickname}}" />
-          </view>
-          
-          <view class="input-group">
-            <text class="input-label">头像链接</text>
-            <input class="input" placeholder="请输入头像链接" bindinput="onAvatarInput" value="{{editAvatar}}" />
-          </view>
-        </view>
-        
-        <view class="modal-footer">
-          <button class="button cancel-btn" bindtap="hideEditForm">取消</button>
-          <button class="button confirm-btn" bindtap="saveUserInfo">保存</button>
-        </view>
       </view>
     </view>
   </view>

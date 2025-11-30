@@ -45,10 +45,10 @@ App({
     if (userInfo) {
       this.globalData.userInfo = userInfo;
       this.globalData.isLogin = true;
-      // 跳转到首页
-      wx.switchTab({
-        url: '/pages/Home/Home'
-      });
+      // // 跳转到首页
+      // wx.switchTab({
+      //   url: '/pages/Home/Home'
+      // });
 
     }
   },

@@ -1,13 +1,14 @@
 {
   "pages": [
+    "pages/profile/profile",
     "pages/index/index",
+    "pages/login/login",
     "pages/interaction/interaction",
     "pages/publish/publish",
     "pages/Home/Home",
     "pages/test/test",
     "pages/workRecommend/workRecommend",
     "pages/starArchive/starArchive",
-    "pages/profile/profile",
     "pages/interactionDetail/interactionDetail"
   ],
   "window": {

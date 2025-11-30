@@ -1,23 +1,38 @@
+
+
 Page({
   data: {
     userInfo: null,
     isLogin: true,
-    showEditForm: false,
-    editNickname: '',
-    editAvatar: ''
+
   },
 
   onLoad: function (options) {
-    // this.checkLoginStatus();
+    this.checkLoginStatus();
   },
 
   onShow: function () {
-    // this.checkLoginStatus();
+    this.checkLoginStatus();
+  },
+  onChooseAvatar(e) {
+    const { avatarUrl } = e.detail
+    this.setData({
+      userInfo: {
+        openid: this.data.userInfo.openid,
+        userInfo: {
+          ...this.data.userInfo.userInfo,
+          avatar: avatarUrl || ''
+        }
+      },
+    })
+    this.saveUserInfo()
+
   },
 
   // 检查登录状态
   checkLoginStatus: function () {
     const userInfo = wx.getStorageSync('userInfo');
+    console.log('用户信息', userInfo);
     if (userInfo) {
       this.setData({
         isLogin: true,
@@ -35,76 +50,70 @@ Page({
     }
   },
 
-  // 显示编辑表单
-  showEditForm: function () {
-    this.setData({
-      showEditForm: true,
-      editNickname: this.data.userInfo.nickname,
-      editAvatar: this.data.userInfo.avatar || ''
-    });
-  },
 
-  // 隐藏编辑表单
-  hideEditForm: function () {
-    this.setData({
-      showEditForm: false,
-      editNickname: '',
-      editAvatar: ''
-    });
-  },
-
-  // 输入昵称
-  onNicknameInput: function (e) {
-    this.setData({
-      editNickname: e.detail.value
-    });
-  },
-
-  // 输入头像
-  onAvatarInput: function (e) {
-    this.setData({
-      editAvatar: e.detail.value
-    });
-  },
-
-  // 保存用户信息
+  /**
+   * 保存用户信息
+   */
   saveUserInfo: function () {
-    const { editNickname, editAvatar } = this.data;
 
-    if (!editNickname) {
-      wx.showToast({
-        title: '请输入昵称',
-        icon: 'none'
-      });
-      return;
-    }
 
-    // 这里应该调用云函数或API更新用户信息
-    // 模拟更新成功
-    const updatedUserInfo = {
-      ...this.data.userInfo,
-      nickname: editNickname,
-      avatar: editAvatar || this.data.userInfo.avatar
-    };
-
-    // 更新本地存储
-    wx.setStorageSync('userInfo', updatedUserInfo);
-
-    // 更新全局数据
-    const app = getApp();
-    app.globalData.userInfo = updatedUserInfo;
-
-    this.setData({
-      userInfo: updatedUserInfo,
-      showEditForm: false
+    // 显示加载提示
+    wx.showLoading({
+      title: '保存中...'
     });
 
-    wx.showToast({
-      title: '保存成功',
-      icon: 'success'
+
+    // 调用云函数更新用户信息
+    wx.cloud.callFunction({
+      name: 'user',
+      data: {
+        action: 'updateUserInfo',
+        avatar: this.data.userInfo.userInfo.avatar || ''
+      },
+      success: res => {
+        wx.hideLoading();
+
+        if (res.result && res.result.success) {
+          // 更新成功，更新本地存储和全局数据
+
+          // 更新全局数据
+          const app = getApp();
+          app.globalData.userInfo = this.data.userInfo;
+          app.globalData.isLogin = true;
+
+          // 更新本地存储
+          wx.setStorageSync('userInfo', this.data.userInfo);
+
+          wx.showToast({
+            title: '保存成功',
+            icon: 'success'
+          });
+
+          // 延迟跳转到首页
+          setTimeout(() => {
+            wx.switchTab({
+              url: '/pages/Home/Home'
+            });
+          }, 1500);
+        } else {
+          wx.showToast({
+            title: res.result ? res.result.message : '保存失败',
+            icon: 'none'
+          });
+        }
+      },
+      fail: err => {
+        wx.hideLoading();
+        console.error('更新用户信息失败', err);
+        wx.showToast({
+          title: '保存失败，请重试',
+          icon: 'none'
+        });
+      }
     });
+
+
   },
-
   // 退出登录
   logout: function () {
     wx.showModal({

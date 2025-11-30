@@ -1,5 +1,4 @@
 
-
 Page({
   data: {
     currentDate: '',
@@ -223,14 +222,22 @@ Page({
                 const userInfo = res.result.data;
                 getApp().globalData.userInfo = userInfo;
                 getApp().globalData.isLogin = true;
+                console.log('用户信息', userInfo);
 
                 // 存储到本地
                 wx.setStorageSync('userInfo', userInfo);
 
-                // 跳转到首页
-                wx.switchTab({
-                  url: '/pages/Home/Home'
-                });
+                // 检查用户是否已经设置了昵称，如果没有则跳转到登录页面完善信息
+                if (!userInfo.userInfo.nickname || userInfo.userInfo.nickname.trim() === '' || userInfo.userInfo.nickname.trim() == '微信用户') {
+                  wx.navigateTo({
+                    url: '/pages/login/login'
+                  });
+                } else {
+                  // 跳转到首页
+                  wx.switchTab({
+                    url: '/pages/Home/Home'
+                  });
+                }
               } else {
                 // 登录失败
                 wx.showToast({

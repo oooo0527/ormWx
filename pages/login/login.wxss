@@ -1,0 +1,64 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-card {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.avatar-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 60rpx 0;
+  width: 160rpx;
+  height: 160rpx;
+}
+
+.avatar {
+  /* margin-top: 60rpx; */
+  width: 160rpx;
+  height: 160rpx;
+  /* border-radius: 50%; */
+  /* margin-bottom: 60rpx; */
+  border: 2rpx solid #eee;
+}
+
+.input-section {
+  height: 100rpx;
+  line-height: 100rpx;
+  width: 80%;
+
+
+  /* margin-bottom: 50rpx; */
+}
+
+input {
+  border: 2rpx solid #eee;
+  border-radius: 10rpx;
+  height: 100rpx;
+  line-height: 100rpx;
+  font-size: 28rpx;
+  background-color: #fafafa;
+  text-align: center;
+}
+
+.save-btn {
+  position: absolute;
+  bottom: 60rpx;
+  background: #36c341;
+  color: #ffffff;
+  border-radius: 24rpx
+}

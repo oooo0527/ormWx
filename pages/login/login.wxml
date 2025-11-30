@@ -1,0 +1,13 @@
+<view class="container">
+  <view class="login-card">
+    <text class="title">登录</text>
+  <button class="avatar-wrapper" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
+  <image class="avatar" src="{{avatar}}"></image>
+</button> 
+  <view class="input-section">
+    <input type="nickname" class="weui-input" placeholder="请输入昵称" maxlength="10" required oninput="onNicknameInput" />
+
+  </view>
+  <button class="save-btn" bindtap="saveUserInfo">保存并登录</button>
+  </view>
+</view>
