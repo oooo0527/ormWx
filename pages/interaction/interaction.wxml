@@ -2,7 +2,7 @@
 
   <view class="container" style="margin-top: 88rpx;">
   <view class="title-container">
-    <image src="/images/icon_data.png" mode="widthFix" class="title-image"></image>
+    <image src="{{userInfo.avatarUrl}}" mode="widthFix" class="title-image"></image>
   </view>
   
     <view class="list-container"> 

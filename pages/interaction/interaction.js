@@ -34,10 +34,14 @@ Page({
     searchList: [],
     searchValue: '',
     searchFlag: false,
+    userInfo: {},
 
   },
 
   onLoad: function () {
+    this.setData({
+      userInfo: wx.getStorageSync('userInfo')
+    });
     // 加载互动留言数据
     this.loadInteractions();
     // 加载热门互动留言数据
