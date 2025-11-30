@@ -242,18 +242,41 @@ async function addInteraction(openid, event) {
 async function getInteractionList(event) {
   try {
     let query = db.collection('interactions')
+    if (event.searchValue) {
+      // 分页查询
+      const result = await query
+        .where({
+          title: db.RegExp({
+            regexp: event.searchValue.trim(),
+            options: 'i'
+          })
+        })
+        .orderBy('createTime', 'desc')
+        .skip(event.skip || 0)
+        .limit(event.limit || 20)
+        .get()
+      return {
+        success: true,
+        data: result.data
+      }
 
-    // 分页查询
-    const result = await query
-      .orderBy('createTime', 'desc')
-      .skip(event.skip || 0)
-      .limit(event.limit || 20)
-      .get()
-
-    return {
-      success: true,
-      data: result.data
+    } else {
+      // 分页查询
+      const result = await query
+        .orderBy('createTime', 'desc')
+        .skip(event.skip || 0)
+        .limit(event.limit || 20)
+        .get()
+      return {
+        success: true,
+        data: result.data
+      }
     }
+
+
+
+
+
   } catch (err) {
     return {
       success: false,
@@ -334,6 +357,9 @@ async function addComment(openid, event) {
         updateTime: new Date()
       }
     })
+
+    // 为返回的评论对象添加一个唯一标识符
+    comment._id = `${event.interactionId}_${Date.now()}_${Math.floor(Math.random() * 1000)}`;
 
     return {
       success: true,

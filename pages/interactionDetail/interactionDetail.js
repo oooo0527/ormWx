@@ -1,6 +1,7 @@
 Page({
   data: {
     works: {},
+    showFlag: false,
 
     // 评论数据 - 从云端获取
     comments: [],
@@ -16,20 +17,22 @@ Page({
   },
 
   onLoad: function (options) {
-
-
-    // 获取从上一页传递过来的数据
-    const eventChannel = this.getOpenerEventChannel();
-    console.log('eventChannel', eventChannel)
-    eventChannel.on('acceptDataFromOpenerPage', (data) => {
-      console.log('data', data)
-      this.setData({
-        works: data.works,
-      }, () => {
-        // 加载评论数据
-        this.loadComments();
+    console.log('999999999999999999')
+    if (!this.data.showFlag) {
+      // 获取从上一页传递过来的数据
+      const eventChannel = this.getOpenerEventChannel();
+      console.log('eventChannel', eventChannel)
+      eventChannel.on('acceptDataFromOpenerPage', (data) => {
+        console.log('data', data)
+        this.setData({
+          works: data.works,
+          showFlag: true
+        }, () => {
+          // 加载评论数据
+          this.loadComments();
+        });
       });
-    });
+    }
   },
 
   // 页面卸载时不需要停止轮询
@@ -115,6 +118,7 @@ Page({
       });
       return;
     }
+    console.log(this.data.works, 'this.data.work')
 
     // 获取用户信息
     const userInfo = wx.getStorageSync('userInfo');
@@ -124,7 +128,7 @@ Page({
       name: 'fanVoice',
       data: {
         action: 'addComment',
-        interactionId: this.data.works.id,
+        interactionId: this.data.works.id || this.data.works._id,
         content: this.data.newComment,
         userInfo: userInfo || {} // 添加用户信息
       },
@@ -152,7 +156,7 @@ Page({
           this.refreshCurrentWorkComments();
         } else {
           wx.showToast({
-            title: '评论失败',
+            title: res.result.message || '评论失败',
             icon: 'none'
           });
         }
@@ -160,7 +164,7 @@ Page({
       fail: err => {
         console.error('评论失败：', err);
         wx.showToast({
-          title: '评论失败',
+          title: '评论失败，请稍后再试',
           icon: 'none'
         });
       }
@@ -262,7 +266,7 @@ Page({
           this.refreshCurrentWorkComments();
         } else {
           wx.showToast({
-            title: '回复失败',
+            title: res.result.message || '回复失败',
             icon: 'none'
           });
         }
@@ -270,7 +274,7 @@ Page({
       fail: err => {
         console.error('回复失败：', err);
         wx.showToast({
-          title: '回复失败',
+          title: '回复失败，请稍后再试',
           icon: 'none'
         });
       }

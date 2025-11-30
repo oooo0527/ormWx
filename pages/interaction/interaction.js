@@ -30,7 +30,11 @@ Page({
     loadAll: false,        // "已加载全部"状态
 
     // 热门互动留言
-    hotInteractions: []
+    hotInteractions: [],
+    searchList: [],
+    searchValue: '',
+    searchFlag: false,
+
   },
 
   onLoad: function () {
@@ -451,6 +455,7 @@ Page({
       }
     });
   },
+
   selectHotInteraction: function (e) {
     const index = e.currentTarget.dataset.index;
     wx.navigateTo({
@@ -463,14 +468,20 @@ Page({
       }
     });
   },
-
-
-  // 返回作品列表
-  backToList: function () {
-    this.setData({
-      showDetail: false
+  selectSearchResult: function (e) {
+    const index = e.currentTarget.dataset.index;
+    wx.navigateTo({
+      url: '/pages/interactionDetail/interactionDetail',
+      success: (res) => {
+        // 通过事件通道向被打开页面传送数据
+        res.eventChannel.emit('acceptDataFromOpenerPage', {
+          works: this.data.searchList[index],
+        });
+      }
     });
   },
+
+
 
   // 轮播图切换事件
   onSwiperChange: function (e) {
@@ -487,10 +498,52 @@ Page({
     console.log("点击了轮播图图片");
   },
   onConfirm: function (e) {
-    if (this.data.searchValue == '陈奥我爱你哒') {
-      this.navigateToPublish();
-    }
+    this.setData({
+      searchFlag: true
+    });
+
     console.log("点击了确定按钮");
+
+    wx.cloud.callFunction({
+      name: 'fanVoice',
+      data: {
+        action: 'getList',
+        limit: 20, // 限制获取10条数据
+        searchValue: this.data.searchValue || ""
+
+      },
+      success: res => {
+        if (res.result && res.result.success && res.result.data.length > 0) {
+          const searchList = res.result.data.slice(0, 10).map(item => {
+            return {
+              id: item._id,
+              title: item.title,
+              content: item.content,
+              creator: item.userInfo.userInfo && item.userInfo.userInfo.nickname ? item.userInfo.userInfo.nickname : (item.creator || '匿名用户'), // 使用用户信息中的昵称
+              updateTime: item.updateTime || '',
+              commentsCount: (item.comments || []).length
+            }
+          });
+
+
+          this.setData({
+            searchList: searchList
+          });
+        } else {
+          console.error('搜索互动留言失败：', res.result.message);
+        }
+      },
+      fail: err => {
+        console.error('调用搜索互动留言云函数失败：', err);
+      }
+    });
+  },
+  onInput: function (e) {
+    console.log("输入框内容:", e.detail.value);
+    this.setData({
+      searchValue: e.detail.value
+    });
+
   },
 
 

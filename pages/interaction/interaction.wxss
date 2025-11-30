@@ -8,18 +8,53 @@
   text-align: center;
 }
 
+.title-container {
+  width: 80rpx;
+  height: 80rpx;
+
+
+}
+
+.title-image {
+  width: 80rpx;
+  height: 80rpx;
+}
+
+.search-result {
+  position: absolute;
+  z-index: 99;
+  background: #ffffff;
+  width: 80%;
+  color: black;
+  left: 0;
+  transform: translateX(10%);
+  padding: 10rpx;
+  border-radius: 20rpx;
+  box-shadow: 0 0 10rpx rgba(0, 0, 0, 0.1);
+}
+
+.search-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 28rpx;
+  color: #010101;
+  line-height: 1.5;
+  height: 80rpx;
+}
+
 .load-more {
   height: 120rpx;
   line-height: 120rpx;
   text-align: center;
-  color: #ffffff;
+  color: red;
 }
 
 .load-all {
   height: 120rpx;
   line-height: 120rpx;
   text-align: center;
-  color: #ffffff;
+  color: red;
 }
 
 .custom-search-bar {
