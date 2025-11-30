@@ -28,6 +28,8 @@ exports.main = async (event, context) => {
       return await addInteraction(wxContext.OPENID, event)
     case 'getList':
       return await getInteractionList(event)
+    case 'getInteractionById':
+      return await getInteractionById(event)
     case 'delete':
       return await deleteInteraction(wxContext.OPENID, event)
     case 'addComment':
@@ -260,6 +262,30 @@ async function getInteractionList(event) {
   }
 }
 
+// 根据ID获取单个互动留言
+async function getInteractionById(event) {
+  try {
+    const result = await db.collection('interactions').doc(event.id).get()
+
+    if (result.data) {
+      return {
+        success: true,
+        data: result.data
+      }
+    } else {
+      return {
+        success: false,
+        message: '互动留言不存在'
+      }
+    }
+  } catch (err) {
+    return {
+      success: false,
+      message: err.message
+    }
+  }
+}
+
 // 删除互动留言
 async function deleteInteraction(openid, event) {
   try {
@@ -299,14 +325,7 @@ async function addComment(openid, event) {
       interactionId: event.interactionId
     }
 
-    // 先获取原始互动留言
-    const interactionResult = await db.collection('interactions').doc(event.interactionId).get()
-    if (!interactionResult.data) {
-      return {
-        success: false,
-        message: '互动留言不存在'
-      }
-    }
+
 
     // 向互动留言中添加评论
     const result = await db.collection('interactions').doc(event.interactionId).update({

@@ -23,25 +23,22 @@ Page({
     touchEndX: 0,
     isSwiping: false,
     swipeDirection: 0, // -1: 左滑, 1: 右滑
+    pageSize: 5,             // 每页数据条数
+    currentPage: 0,           // 当前页码（从0开始方便计算skip）
+    hasMore: true,            // 是否还有更多数据
+    loadMore: false,          // "正在加载"状态
+    loadAll: false,        // "已加载全部"状态
 
     // 热门互动留言
     hotInteractions: []
   },
 
   onLoad: function () {
-    // 初始化云数据库
-    if (!wx.cloud) {
-      console.error('请使用 2.2.3 或以上的基础库以使用云能力')
-    } else {
-      wx.cloud.init({
-        traceUser: true,
-      })
+    // 加载互动留言数据
+    this.loadInteractions();
+    // 加载热门互动留言数据
+    this.loadHotInteractions();
 
-      // 加载互动留言数据
-      this.loadInteractions();
-      // 加载热门互动留言数据
-      this.loadHotInteractions();
-    }
   },
 
   // 加载互动留言数据
@@ -49,7 +46,8 @@ Page({
     wx.cloud.callFunction({
       name: 'fanVoice',
       data: {
-        action: 'getList'
+        action: 'getList',
+        limit: 10 // 限制获取10条数据
       },
       success: res => {
         console.log('获取互动留言成功：', res.result.data);
@@ -93,11 +91,13 @@ Page({
 
   // 加载热门互动留言数据
   loadHotInteractions: function () {
+    const { currentPage, pageSize, hotInteractions } = this.data;
     wx.cloud.callFunction({
       name: 'fanVoice',
       data: {
         action: 'getList',
-        limit: 10 // 限制获取10条数据
+        limit: pageSize, // 限制获取10条数据
+        skip: currentPage * pageSize
       },
       success: res => {
         console.log('获取热门互动留言成功：', res.result.data);
@@ -113,9 +113,22 @@ Page({
               commentsCount: (item.comments || []).length
             }
           });
+          // 判断是否还有更多数据
+          if (res.result.data.length < this.data.pageSize) {
+            this.setData({
+              hasMore: false,
+              loadAll: true,    // 全部加载完毕
+              loadMore: false
+            });
+          } else {
+            this.setData({
+              hasMore: true,
+              loadMore: false
+            });
+          }
 
           this.setData({
-            hotInteractions: hotInteractions
+            hotInteractions: this.data.hotInteractions.concat(hotInteractions)
           });
         } else {
           console.error('获取热门互动留言失败：', res.result.message);
@@ -124,6 +137,20 @@ Page({
       fail: err => {
         console.error('调用获取热门互动留言云函数失败：', err);
       }
+    });
+  },
+  onPullDownRefresh: function () {
+    // 重置状态
+    this.setData({
+      hotInteractions: [],
+      currentPage: 0,
+      hasMore: true,
+      loadAll: false
+    });
+
+    // 重新加载数据
+    this.loadHotInteractions().then(() => {
+      wx.stopPullDownRefresh(); // 停止下拉刷新动画
     });
   },
 
@@ -319,6 +346,18 @@ Page({
     this.update3DCarousel();
   },
 
+  //fenye 
+  onReachBottom: function () {
+    // 如果还有更多数据且不在加载中，则加载下一页
+    if (this.data.hasMore && !this.data.loadMore) {
+      this.setData({
+        loadMore: true
+      });
+      this.data.currentPage++; // 页码增加[citation:5]
+      this.loadHotInteractions();
+    }
+  },
+
   // 点赞功能
   toggleLike: function (e) {
     const works = this.data.works;
@@ -407,12 +446,24 @@ Page({
       success: (res) => {
         // 通过事件通道向被打开页面传送数据
         res.eventChannel.emit('acceptDataFromOpenerPage', {
-          works: this.data.works,
-          currentIndex: this.data.currentSlide
+          works: this.data.works[this.data.currentSlide],
         });
       }
     });
   },
+  selectHotInteraction: function (e) {
+    const index = e.currentTarget.dataset.index;
+    wx.navigateTo({
+      url: '/pages/interactionDetail/interactionDetail',
+      success: (res) => {
+        // 通过事件通道向被打开页面传送数据
+        res.eventChannel.emit('acceptDataFromOpenerPage', {
+          works: this.data.hotInteractions[index],
+        });
+      }
+    });
+  },
+
 
   // 返回作品列表
   backToList: function () {

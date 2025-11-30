@@ -8,6 +8,20 @@
   text-align: center;
 }
 
+.load-more {
+  height: 120rpx;
+  line-height: 120rpx;
+  text-align: center;
+  color: #ffffff;
+}
+
+.load-all {
+  height: 120rpx;
+  line-height: 120rpx;
+  text-align: center;
+  color: #ffffff;
+}
+
 .custom-search-bar {
   display: flex;
   align-items: center;
@@ -47,7 +61,8 @@
 }
 
 .list-container {
-  padding: 20rpx;
+  /* padding: 20rpx; */
+  margin: 20rpx;
 
 }
 

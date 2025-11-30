@@ -23,8 +23,6 @@
                 <view class="card-more">
                           <view class="card-creator">{{item.creator}}</view>
                 <view class="card-date">{{item.updateTime}}</view></view>
-      
-          
    
             </view>
           </view>
@@ -35,8 +33,9 @@
     <!-- 热门互动留言区域 -->
     <view class="hot-interactions-section" wx:if="{{hotInteractions.length > 0}}">
       <view class="section-title">热门互动留言</view>
+      <scroll-view scroll-y="true" bindscrolltolower="onReachBottom">
       <view class="hot-interactions-list">
-        <view class="hot-interaction-item" wx:for="{{hotInteractions}}" wx:key="id">
+        <view class="hot-interaction-item" wx:for="{{hotInteractions}}" wx:key="id" data-index="{{index}}" bindtap="selectHotInteraction">
           <view class="hot-interaction-content">{{item.content}}</view>
           <view class="hot-interaction-info">
             <text class="creator">{{item.creator}}</text>
@@ -44,6 +43,9 @@
           </view>
         </view>
       </view>
+        <view wx:if="{{loadMore}}" class="load-more">你也太爱了...</view>
+  <view wx:if="{{loadAll}}" class="load-all">人美心善得陈奥根本不够看</view>
+      </scroll-view>
     </view>
 
     <!-- 悬浮按钮 -->

@@ -1,8 +1,6 @@
 Page({
   data: {
-    currentSlide: 0,
-    selectedWork: null,
-    works: [],
+    works: {},
 
     // 评论数据 - 从云端获取
     comments: [],
@@ -18,22 +16,15 @@ Page({
   },
 
   onLoad: function (options) {
-    // 初始化云数据库
-    if (!wx.cloud) {
-      console.error('请使用 2.2.3 或以上的基础库以使用云能力')
-    } else {
-      wx.cloud.init({
-        traceUser: true,
-      })
-    }
+
 
     // 获取从上一页传递过来的数据
     const eventChannel = this.getOpenerEventChannel();
+    console.log('eventChannel', eventChannel)
     eventChannel.on('acceptDataFromOpenerPage', (data) => {
+      console.log('data', data)
       this.setData({
         works: data.works,
-        currentSlide: data.currentIndex,
-        selectedWork: data.works[data.currentIndex]
       }, () => {
         // 加载评论数据
         this.loadComments();
@@ -41,9 +32,24 @@ Page({
     });
   },
 
+  // 页面卸载时不需要停止轮询
+  onUnload: function () {
+    // 不需要做任何事情
+  },
+
+  // 页面隐藏时不需要停止轮询
+  onHide: function () {
+    // 不需要做任何事情
+  },
+
+  // 页面显示时不需要重新启动轮询
+  onShow: function () {
+    // 不需要做任何事情
+  },
+
   // 加载评论数据
   loadComments: function () {
-    const selectedWork = this.data.selectedWork;
+    const selectedWork = this.data.works;
     if (selectedWork && selectedWork.comments) {
       // 将云端数据转换为页面所需格式
       const comments = selectedWork.comments.map((item, index) => {
@@ -76,48 +82,6 @@ Page({
     return `${year}-${month}-${day} ${hour}:${minute}`;
   },
 
-  // 返回作品列表
-  backToList: function () {
-    wx.navigateBack();
-  },
-
-  // 轮播图切换事件
-  onSwiperChange: function (e) {
-    const current = e.detail.current;
-    this.setData({
-      currentSlide: current,
-      selectedWork: this.data.works[current]
-    }, () => {
-      // 切换作品时重新加载评论
-      this.loadComments();
-    });
-  },
-
-  // 轮播图图片点击事件
-  onSwiperImageTap: function (e) {
-    // 可以在这里添加点击图片的处理逻辑
-    console.log("点击了轮播图图片");
-  },
-
-  // 点赞功能
-  toggleLike: function (e) {
-    const works = this.data.works;
-    const currentSlide = this.data.currentSlide;
-    const work = works[currentSlide];
-
-    // 更新点赞状态
-    work.isLiked = !work.isLiked;
-    work.likes += work.isLiked ? 1 : -1;
-
-    // 更新数据
-    const newWorks = [...works];
-    newWorks[currentSlide] = work;
-
-    this.setData({
-      works: newWorks,
-      selectedWork: work
-    });
-  },
 
   // 评论点赞功能
   toggleCommentLike: function (e) {
@@ -160,7 +124,7 @@ Page({
       name: 'fanVoice',
       data: {
         action: 'addComment',
-        interactionId: this.data.selectedWork.id,
+        interactionId: this.data.works.id,
         content: this.data.newComment,
         userInfo: userInfo || {} // 添加用户信息
       },
@@ -173,11 +137,19 @@ Page({
 
           // 清空输入框
           this.setData({
-            newComment: ""
+            newComment: "",
+            works: {
+              ...this.data.works,
+              comments: [...this.data.works.comments, res.result.data]
+            }
           });
+          console.log(this.data.works, 'ndsjkcnjdfnv')
 
           // 重新加载评论
           this.loadComments();
+
+          // 同时更新当前作品的评论数据
+          this.refreshCurrentWorkComments();
         } else {
           wx.showToast({
             title: '评论失败',
@@ -191,6 +163,32 @@ Page({
           title: '评论失败',
           icon: 'none'
         });
+      }
+    });
+  },
+
+  // 刷新当前作品的评论数据
+  refreshCurrentWorkComments: function () {
+    // 重新获取当前作品的最新数据
+    wx.cloud.callFunction({
+      name: 'fanVoice',
+      data: {
+        action: 'getInteractionById',
+        id: this.data.works.id
+      },
+      success: res => {
+        if (res.result && res.result.success && res.result.data) {
+          const updatedWork = res.result.data;
+
+          // 更新当前作品数据
+          this.setData({
+            works: updatedWork
+          });
+
+        }
+      },
+      fail: err => {
+        console.error('刷新作品数据失败：', err);
       }
     });
   },
@@ -233,11 +231,12 @@ Page({
       name: 'fanVoice',
       data: {
         action: 'addComment',
-        interactionId: this.data.selectedWork.id,
+        interactionId: this.data.works.id,
         content: `回复 @${this.data.replyToNickname}: ${this.data.newReply}`,
         userInfo: userInfo || {} // 添加用户信息
       },
       success: res => {
+        console.log('res', res)
         if (res.result && res.result.success) {
           wx.showToast({
             title: '回复成功',
@@ -249,11 +248,18 @@ Page({
             isReplying: false,
             replyToCommentId: null,
             replyToNickname: "",
-            newReply: ""
+            newReply: "",
+            works: {
+              ...this.data.works,
+              comments: [...this.data.works.comments, res.result.data]
+            }
           });
 
           // 重新加载评论
           this.loadComments();
+
+          // 同时更新当前作品的评论数据
+          this.refreshCurrentWorkComments();
         } else {
           wx.showToast({
             title: '回复失败',
@@ -295,7 +301,7 @@ Page({
             name: 'fanVoice',
             data: {
               action: 'deleteComment',
-              interactionId: this.data.selectedWork.id,
+              interactionId: this.data.works.id,
               commentId: commentId
             },
             success: res => {
@@ -307,6 +313,9 @@ Page({
 
                 // 重新加载评论
                 this.loadComments();
+
+                // 同时更新当前作品的评论数据
+                this.refreshCurrentWorkComments();
               } else {
                 wx.showToast({
                   title: '删除失败',

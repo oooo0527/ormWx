@@ -5,12 +5,12 @@
     <view class="carousel-container1">
 
       
-        <image src="{{selectedWork.cover}}" mode="aspectFill" class="selected-work-image" wx:if="{{selectedWork.cover}}" lazy-load></image>
+        <image src="{{works.cover}}" mode="aspectFill" class="selected-work-image" wx:if="{{works.cover}}" lazy-load></image>
 
         <view class="selected-work-detail">
-          <image src="{{selectedWork.cover}}" class="swiper-image" mode="widthFix" wx:if="{{selectedWork.cover}}" lazy-load bindtap="onSwiperImageTap"></image>
-          <view class="selected-work-title">{{selectedWork.title}}</view>
-          <view class="selected-work-description">{{selectedWork.description}}</view>
+          <image src="{{works.cover}}" class="swiper-image" mode="widthFix" wx:if="{{works.cover}}" lazy-load bindtap="onSwiperImageTap"></image>
+          <view class="selected-work-title">{{works.title}}</view>
+          <view class="selected-work-description">{{works.description}}</view>
         </view>
 
     </view>
@@ -18,7 +18,11 @@
     <!-- 评论区域 -->
     <view class="comments-section">
       <view class="section-title">评论 ({{comments.length}})</view>
-      
+            <!-- 评论输入区域 -->
+      <view class="comment-input-area">
+        <textarea class="comment-textarea" placeholder="请输入评论内容..." value="{{newComment}}" bindinput="onCommentInput"></textarea>
+        <button class="submit-comment-btn" bindtap="submitComment">奥</button>
+      </view>
       <!-- 评论列表 -->
       <view class="comments-list">
         <block wx:for="{{comments}}" wx:key="id">
@@ -42,7 +46,7 @@
             </view>
             
             <!-- 回复按钮 -->
-            <view class="reply-button" bindtap="startReply" data-id="{{item.id}}" data-nickname="{{item.nickname}}">
+            <view class="reply-button" bindtap="startReply" data-id="{{item.id}}" data-nickname="{{item.nickname}}" wx:if="{{false}}">
               <text>回复</text>
             </view>
             
@@ -69,11 +73,7 @@
         </view>
       </view>
       
-      <!-- 评论输入区域 -->
-      <view class="comment-input-area">
-        <textarea class="comment-textarea" placeholder="请输入评论内容..." value="{{newComment}}" bindinput="onCommentInput"></textarea>
-        <button class="submit-comment-btn" bindtap="submitComment">奥</button>
-      </view>
+
     </view>
 
   </view>
