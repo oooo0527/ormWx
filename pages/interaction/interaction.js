@@ -47,11 +47,14 @@ Page({
     this.setData({
       userInfo: wx.getStorageSync('userInfo').userInfo
     });
+
+
+  },
+  onShow: function () {
     // 加载互动留言数据
     this.loadInteractions();
     // 加载热门互动留言数据
     this.loadHotInteractions();
-
   },
 
   // 加载互动留言数据
