@@ -4,7 +4,7 @@
 
     <view class="carousel-container1">
       
-        <image src="{{works.cover}}" mode="aspectFill" class="selected-work-image" wx:if="{{works.cover}}" lazy-load></image>
+        <image src="{{works.cover}}" mode="aspectFill" class="selected-work-image" wx:show="{{works.cover}}" lazy-load></image>
 
         <view class="selected-work-detail">
           <image src="{{works.cover}}" class="swiper-image" mode="widthFix" wx:if="{{works.cover}}" lazy-load bindtap="onSwiperImageTap"></image>

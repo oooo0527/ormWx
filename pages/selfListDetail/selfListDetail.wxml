@@ -20,11 +20,11 @@
           <text class="item-title">{{item.title}}</text>
         </view>
         <view class="item-content">
-          <text class="content-text">{{item.content}}</text>
+          <text class="content-text">{{item.description}}</text>
         </view>
         <view class="item-footer">
           <text class="time-text">{{item.createTime}}</text>
-          <text class="comment-count">评论({{item.commentCount}})</text>
+          <text class="comment-count">评论({{item.commentsCount}})</text>
         </view>
       </view>
     </view>

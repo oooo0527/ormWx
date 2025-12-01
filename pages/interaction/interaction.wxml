@@ -46,7 +46,7 @@
       <scroll-view scroll-y="true" bindscrolltolower="onReachBottom">
       <view class="hot-interactions-list">
         <view class="hot-interaction-item" wx:for="{{hotInteractions}}" wx:key="id" data-index="{{index}}" bindtap="selectHotInteraction">
-          <view class="hot-interaction-content">{{item.content}}</view>
+          <view class="hot-interaction-content">{{item.description}}</view>
           <view class="hot-interaction-info">
             <text class="creator">{{item.creator}}</text>
             <text class="comments-count">{{item.commentsCount}} 条评论</text>

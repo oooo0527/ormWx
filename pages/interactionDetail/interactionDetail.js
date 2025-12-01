@@ -148,7 +148,8 @@ Page({
           time: this.formatTime(item.createTime),
           likes: 0,
           isLiked: false,
-          replies: []
+          replies: [],
+
         }
       });
 
@@ -237,7 +238,7 @@ Page({
           this.loadComments();
 
           // 同时更新当前作品的评论数据
-          this.refreshCurrentWorkComments();
+          // this.refreshCurrentWorkComments();
         } else {
           wx.showToast({
             title: res.result.message || '评论失败',
@@ -347,7 +348,7 @@ Page({
           this.loadComments();
 
           // 同时更新当前作品的评论数据
-          this.refreshCurrentWorkComments();
+          // this.refreshCurrentWorkComments();
         } else {
           wx.showToast({
             title: res.result.message || '回复失败',
@@ -403,7 +404,7 @@ Page({
                 this.loadComments();
 
                 // 同时更新当前作品的评论数据
-                this.refreshCurrentWorkComments();
+                // this.refreshCurrentWorkComments();
               } else {
                 wx.showToast({
                   title: res.result.message || '删除失败',

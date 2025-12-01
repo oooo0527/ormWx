@@ -136,11 +136,16 @@ Page({
             return {
               id: item._id,
               title: item.title,
-              content: item.content,
-              images: item.images,
-              createTime: item.createTime,
-              updateTime: item.updateTime,
-              commentCount: (item.comments || []).length
+              role: "用户互动",
+              type: "互动",
+              cover: item.images && item.images.length > 0 ? item.images[0] : "", // 使用第一张图片作为封面
+              updateTime: item.updateTime || '',
+              description: item.content,
+              likes: 0,
+              isLiked: false,
+              comments: item.comments || [],
+              creator: item.userInfo.userInfo && item.userInfo.userInfo.nickname ? item.userInfo.userInfo.nickname : (item.creator || '匿名用户'), // 使用用户信息中的昵称
+              commentsCount: (item.comments || []).length
             };
           });
 
