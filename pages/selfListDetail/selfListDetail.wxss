@@ -1,16 +1,18 @@
 /* pages/selfListDetail/selfListDetail.wxss */
 .container {
   padding: 0;
-  background-color: #f5f5f5;
-  min-height: 100vh;
+  /* background-color: #f5f5f5; */
+  /* min-height: 100vh; */
 }
 
 /* 标签页切换 */
 .tab-bar {
   display: flex;
   height: 44px;
-  background-color: #fff;
-  border-bottom: 1px solid #e0e0e0;
+  width: 100%;
+  justify-content: space-between;
+  /* background-color: #fff;
+  border-bottom: 1px solid #e0e0e0; */
 }
 
 .tab {
@@ -62,13 +64,23 @@
 
 .item-content {
   margin-bottom: 10px;
-  min-height: 40px;
+  max-height: 62px;
+  overflow: hidden;
+  /* overflow-y: hidden ; */
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }
 
 .content-text {
   font-size: 14px;
   color: #666;
   line-height: 1.5;
+  overflow: hidden;
+  /* overflow-y: hidden ; */
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }
 
 .item-footer {
