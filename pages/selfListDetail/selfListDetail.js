@@ -248,9 +248,28 @@ Page({
    * 跳转到互动留言详情页
    */
   goToDetail(e) {
-    const id = e.currentTarget.dataset.id;
+    const index = e.currentTarget.dataset.index;
     wx.navigateTo({
-      url: '/pages/interactionDetail/interactionDetail?id=' + id
+      url: '/pages/interactionDetail/interactionDetail',
+      success: (res) => {
+        // 通过事件通道向被打开页面传送数据
+        res.eventChannel.emit('acceptDataFromOpenerPage', {
+          works: this.data.publishedList[index],
+        });
+      }
+    });
+  },
+
+  goToDetail1(e) {
+    const index = e.currentTarget.dataset.index;
+    wx.navigateTo({
+      url: '/pages/interactionDetail/interactionDetail',
+      success: (res) => {
+        // 通过事件通道向被打开页面传送数据
+        res.eventChannel.emit('acceptDataFromOpenerPage', {
+          works: this.data.favoriteList[index],
+        });
+      }
     });
   },
 

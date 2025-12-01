@@ -15,7 +15,7 @@
   <!-- 发布的互动留言列表 -->
   <view class="list-container" wx:if="{{activeTab === 'published'}}">
     <view wx:if="{{publishedList.length > 0}}">
-      <view class="interaction-item" wx:for="{{publishedList}}" wx:key="id" bindtap="goToDetail" data-id="{{item.id}}">
+      <view class="interaction-item" wx:for="{{publishedList}}" wx:key="id" bindtap="goToDetail" data-index="{{index}}">
         <view class="item-header">
           <text class="item-title">{{item.title}}</text>
         </view>
@@ -50,7 +50,7 @@
         <view class="item-header">
           <text class="item-title">{{item.title}}</text>
         </view>
-        <view class="item-content" bindtap="goToDetail" data-id="{{item.interactionId}}">
+        <view class="item-content" bindtap="goToDetail1" data-index="{{index}}">
           <text class="content-text">{{item.content}}</text>
         </view>
         <view class="item-footer">
