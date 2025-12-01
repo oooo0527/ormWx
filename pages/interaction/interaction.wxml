@@ -9,12 +9,13 @@
       <view class="custom-search-bar">
         <input class="search-input" placeholder="请输入搜索关键词" value="{{ searchValue }}" bindinput="onInput" bindconfirm="onConfirm" confirm-type="search" />
       </view>
-      <view class="search-result" wx:if="{{searchFlag}}">
+      <view class="search-result" wx:if="{{searchFlag&&searchList.length>0}}">
         <view class="search-item" wx:for="{{searchList}}" wx:key="index" data-index="{{index}}" bindtap="selectSearchResult">
           <view class="search-item-title">{{item.title}}</view>
           <view class="search-item-content">{{item.creator}}</view>
         </view>
       </view>
+      <view class="search-result" wx:if="{{searchFlag&&searchList.length==0}}">暂无搜索结果</view>
 
       <!-- 轮播图区域 -->
       <view class="carousel-container" wx:if="{{works.length > 0}}">
