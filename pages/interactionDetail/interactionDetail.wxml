@@ -39,7 +39,7 @@
               <image class="comment-avatar" src="{{item.avatar}}"></image>
               <view class="comment-user-info">
                 <text class="comment-nickname">{{item.nickname}}</text>
-                <text class="comment-time">{{item.time}}</text>
+                <text class="comment-time">{{item.createTime}}{{item.createDate}}</text>
               </view>
               <view class="comment-like" bindtap="toggleCommentLike" wx:if="{{false}}" data-id="{{item.id}}">
                 <text class="like-icon">{{item.isLiked ? '♥' : '♡'}}</text>

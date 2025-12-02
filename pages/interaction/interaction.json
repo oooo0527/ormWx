@@ -1,8 +1,8 @@
 {
   "component": true,
   "usingComponents": {
-    "global-background": "/components/globalBackground/globalBackground"
+    "global-background": "/components/globalBackground/globalBackground",
+    "custom-navbar": "/components/customNavbar/customNavbar"
   },
-  "enablePullDownRefresh": true,
-  "backgroundTextStyle": "dark"
+  "enablePullDownRefresh": true
 }

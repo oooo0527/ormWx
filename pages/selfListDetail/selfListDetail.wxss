@@ -42,6 +42,8 @@
 /* 列表容器 */
 .list-container {
   padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* 互动留言项 */

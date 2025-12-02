@@ -7,9 +7,7 @@
     "pages/login/login",
     "pages/publish/publish",
     "pages/Home/Home",
-    "pages/test/test",
     "pages/workRecommend/workRecommend",
-    "pages/starArchive/starArchive",
     "pages/interactionDetail/interactionDetail"
   ],
   "window": {

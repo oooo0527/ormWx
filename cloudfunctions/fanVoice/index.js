@@ -85,8 +85,8 @@ async function postVoice(openid, event) {
       userId: openid,
       likes: [],
       comments: [],
-      createTime: new Date(),
-      updateTime: new Date(),
+      createTime: new Date().toISOString().slice(0, 10),
+      updateTime: new Date().toISOString().slice(0, 10),
       userInfo: event.userInfo
     }
 
@@ -223,8 +223,9 @@ async function addInteraction(openid, event) {
       userId: openid,
       userInfo: event.data.userInfo || {}, // 添加用户信息
       comments: [],
-      createTime: new Date(),
-      updateTime: new Date()
+      createDate: event.data.createDate || new Date().toISOString().slice(0, 10),
+      createTime: event.data.createTime || new Date().toISOString().slice(0, 10),
+      updateTime: event.data.updateTime || new Date().toISOString().slice(0, 10)
     };
 
     const result = await db.collection('interactions').add({
@@ -269,7 +270,26 @@ async function getInteractionList(event) {
         data: result.data
       }
 
-    } else {
+    }
+    else if (event.date) {
+      // 分页查询
+      const result = await query
+        .where({
+          createDate: db.RegExp({
+            regexp: event.date,
+            options: 'i'
+          })
+        })
+        .orderBy('createTime', 'desc')
+        .skip(event.skip || 0)
+        .limit(event.limit || 20)
+        .get()
+      return {
+        success: true,
+        data: result.data
+      }
+    }
+    else {
       // 分页查询
       const result = await query
         .orderBy('createTime', 'desc')
@@ -348,7 +368,9 @@ async function addComment(openid, event) {
       content: event.content,
       userId: openid,
       userInfo: event.userInfo || {}, // 添加用户信息
-      createTime: new Date(),
+      createTime: event.createTime || new Date().toISOString().slice(0, 10),
+      createDate: event.createDate || new Date().toISOString().slice(0, 10),
+      createDate: new Date().toISOString().slice(0, 10),
       interactionId: event.interactionId
     }
 
@@ -456,7 +478,7 @@ async function favoriteInteraction(openid, event) {
     const favorite = {
       userId: openid,
       interactionId: interactionId,
-      createTime: new Date()
+      createTime: new Date().toISOString().slice(0, 10),
     };
 
     const result = await db.collection('favorites').add({

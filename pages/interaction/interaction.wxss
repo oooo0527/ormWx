@@ -2,10 +2,55 @@
   /* background: linear-gradient(135deg, #0c1117 0%, #f48eb5 100%); */
   /* min-height: 100vh; */
   box-sizing: border-box;
+  position: relative;
+  background: #f48eb5;
+  min-height: 100vh;
 }
 
 .title {
   text-align: center;
+}
+
+.shawBg {
+  width: 100vw;
+  height: 100vh;
+
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.shawBg-image {
+  width: 500rpx;
+  height: 700rpx;
+  z-index: 5;
+  box-shadow: 0 0 40rpx #ffffff;
+}
+
+.shawBg-text {
+  margin-top: 20rpx;
+  width: 100rpx;
+  height: 100rpx;
+  background: #65646472;
+  color: #ffffff;
+  z-index: 5;
+  text-align: center;
+  line-height: 100rpx;
+  border-radius: 100rpx;
+
+}
+
+.shawBg-bg {
+  width: 100vw;
+  height: 100vh;
+
+  background: #656464;
+  opacity: 0.6;
+  position: absolute;
+  z-index: 3;
 }
 
 .title-container {
@@ -47,14 +92,14 @@
   height: 120rpx;
   line-height: 120rpx;
   text-align: center;
-  color: red;
+  color: rgb(215, 213, 213);
 }
 
 .load-all {
   height: 120rpx;
   line-height: 120rpx;
   text-align: center;
-  color: red;
+  color: rgb(198, 194, 194);
 }
 
 .custom-search-bar {
@@ -97,7 +142,8 @@
 
 .list-container {
   /* padding: 20rpx; */
-  margin: 20rpx;
+  /* margin: 20rpx; */
+  height: 620rpx;
 
 }
 
@@ -109,21 +155,12 @@
   /* margin-bottom: 100rpx; */
   box-sizing: border-box;
   perspective: 1200rpx;
-  margin-top: 50rpx;
-  width: 100%;
-}
-
-.carousel-container1 {
-  position: relative;
-  height: 100vh;
-  min-height: 100vh;
-  /* margin-bottom: 100rpx; */
-  box-sizing: border-box;
-  perspective: 1200rpx;
   /* margin-top: 50rpx; */
   width: 100%;
-  overflow-y: scroll;
+  margin-top: 20rpx;
 }
+
+
 
 .carousel-3d {
   position: relative;
@@ -203,7 +240,7 @@
   color: #ffffff;
   height: 100%;
   writing-mode: vertical-rl;
-  width: 80rpx;
+  width: 100rpx;
 }
 
 .card-more {
@@ -240,6 +277,7 @@
   width: 100%;
   text-align: center;
   height: 50%;
+
 
 }
 
@@ -568,8 +606,49 @@
 
 /* 热门互动留言样式 */
 .hot-interactions-section {
-  padding: 20rpx;
-  margin-top: 40rpx;
+  /* padding: 20rpx;
+  margin-top: 40rpx; */
+  /* height: 100vh; */
+  margin-top: 100rpx;
+  width: 100%;
+
+}
+
+.date-picker {
+  height: 120rpx;
+  line-height: 120rpx;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f48eb5;
+  padding: 0 40rpx;
+
+
+  /* background: red; */
+}
+
+.avatar {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+}
+
+.fixed {
+  position: fixed;
+  top: 128rpx;
+  /* 固定在顶部 */
+  left: 0;
+  width: 100%;
+  z-index: 3;
+  /* background: #ffffff; */
+  color: #ffffff;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+  /* 确保在最上层 */
+  /* background-color: #fff; */
+  /* 避免透明看到下方内容 */
+  /* box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1); */
+  /* 添加阴影增强效果 */
 }
 
 .section-title {

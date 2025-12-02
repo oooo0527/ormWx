@@ -165,7 +165,9 @@ Page({
           title: title,
           content: content,
           images: imageUrls,
-          createTime: new Date(),
+          createDate: new Date().toISOString().slice(0, 10), // 添加创建时间
+          createTime: new Date().toLocaleTimeString(), // 添加创建时间
+          updateTime: new Date().toISOString().slice(0, 10),
           userInfo: userInfo || {} // 添加用户信息
         }
       },

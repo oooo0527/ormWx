@@ -51,12 +51,12 @@
           <text class="item-title">{{item.title}}</text>
         </view>
         <view class="item-content" bindtap="goToDetail1" data-index="{{index}}">
-          <text class="content-text">{{item.content}}</text>
+          <text class="content-text">{{item.description}}</text>
         </view>
         <view class="item-footer">
           <text class="time-text">{{item.createTime}}</text>
           <view class="favorite-actions">
-            <text class="comment-count">评论({{item.commentCount}})</text>
+            <text class="comment-count">评论({{item.commentCounts}})</text>
             <text class="unfavorite-btn" bindtap="unfavorite" data-index="{{index}}">取消收藏</text>
           </view>
         </view>

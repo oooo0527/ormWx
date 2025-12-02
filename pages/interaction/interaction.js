@@ -35,6 +35,10 @@ Page({
     searchValue: '',
     searchFlag: false,
     userInfo: {},
+    isFixed: false,
+    date: new Date().toISOString().slice(0, 10),
+    endDate: new Date().toISOString().slice(0, 10),
+    showShawBg: true
 
   },
   navigateToProfile: function () {
@@ -50,7 +54,41 @@ Page({
 
 
   },
+  hideShawBg: function () {
+    this.setData({
+      showShawBg: false
+    });
+  },
+  onPageScroll: function (e) {
+    const scrollTop = e.scrollTop; // 获取滚动距离
+    console.log('Scroll Top:', scrollTop);
+
+    // 判断是否需要吸顶：滚动距离 > 轮播图高度
+    if (scrollTop > 390) {
+      if (!this.data.isFixed) {
+        this.setData({ isFixed: true });
+      }
+    } else {
+      this.setData({ isFixed: false });
+    }
+  },
+  bindDateChange: function (e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      date: e.detail.value
+    })
+    // 加载热门互动留言数据
+    this.loadHotInteractions();
+  },
   onShow: function () {
+    this.setData({
+      works: [],
+      displayWorks: [],
+      hotInteractions: [],
+      searchList: [],
+      searchValue: '',
+      searchFlag: false
+    });
     // 加载互动留言数据
     this.loadInteractions();
     // 加载热门互动留言数据
@@ -77,6 +115,8 @@ Page({
               type: "互动",
               cover: item.images && item.images.length > 0 ? item.images[0] : "", // 使用第一张图片作为封面
               updateTime: item.updateTime || '',
+              createDate: item.createDate || '',
+              createTime: item.createTime || '',
               description: item.content,
               likes: 0,
               isLiked: false,
@@ -113,7 +153,8 @@ Page({
       data: {
         action: 'getList',
         limit: pageSize, // 限制获取10条数据
-        skip: currentPage * pageSize
+        skip: currentPage * pageSize,
+        date: this.data.date
       },
       success: res => {
         console.log('获取热门互动留言成功：', res.result.data);
@@ -128,6 +169,8 @@ Page({
               cover: item.images && item.images.length > 0 ? item.images[0] : "", // 使用第一张图片作为封面
               updateTime: item.updateTime || '',
               description: item.content,
+              createDate: item.createDate || '',
+              createTime: item.createTime || '',
               likes: 0,
               isLiked: false,
               comments: item.comments || [],
@@ -148,6 +191,7 @@ Page({
               loadMore: false
             });
           }
+          hotInteractions.sort((a, b) => new Date(b.createDate) - new Date(a.createDate));
 
           this.setData({
             hotInteractions: this.data.hotInteractions.concat(hotInteractions)
@@ -165,15 +209,17 @@ Page({
     // 重置状态
     this.setData({
       hotInteractions: [],
+      works: [],
       currentPage: 0,
       hasMore: true,
       loadAll: false
     });
 
-    // 重新加载数据
-    this.loadHotInteractions().then(() => {
-      wx.stopPullDownRefresh(); // 停止下拉刷新动画
-    });
+    // 加载互动留言数据
+    this.loadInteractions();
+    // 加载热门互动留言数据
+    this.loadHotInteractions();
+    wx.stopPullDownRefresh();
   },
 
   // 初始化3D轮播图
@@ -539,7 +585,9 @@ Page({
               content: item.content,
               creator: item.userInfo.userInfo && item.userInfo.userInfo.nickname ? item.userInfo.userInfo.nickname : (item.creator || '匿名用户'), // 使用用户信息中的昵称
               updateTime: item.updateTime || '',
-              commentsCount: (item.comments || []).length
+              commentsCount: (item.comments || []).length,
+              createDate: item.createDate || '',
+              createTime: item.createTime || '',
             }
           });
 

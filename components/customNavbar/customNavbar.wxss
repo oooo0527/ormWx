@@ -53,7 +53,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  height: 128rpx;
+  height: 88rpx;
   padding: 0 20rpx;
   box-sizing: border-box;
 }

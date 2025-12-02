@@ -28,12 +28,21 @@ Page({
    */
   onReady() {
 
+
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow() {
+    this.setData({
+      publishedList: [],
+      favoriteList: [],
+      publishedPage: 0,
+      favoritePage: 0,
+      hasMorePublished: true,
+      hasMoreFavorite: true
+    });
     // 页面显示时加载数据
     this.loadPublishedInteractions();
     this.loadFavoriteInteractions();
@@ -140,6 +149,8 @@ Page({
               type: "互动",
               cover: item.images && item.images.length > 0 ? item.images[0] : "", // 使用第一张图片作为封面
               updateTime: item.updateTime || '',
+              createDate: item.createDate || '',
+              createTime: item.createTime || '',
               description: item.content,
               likes: 0,
               isLiked: false,
@@ -201,16 +212,25 @@ Page({
       },
       success: res => {
         if (res.result && res.result.success) {
+          console.log('获取收藏的互动留言成功：', res.result.data);
           const newList = res.result.data.map(item => {
             const interaction = item.interaction || {};
             return {
-              id: item._id,
+              id: interaction._id,
+              title: interaction.title,
+              role: "用户互动",
+              type: "互动",
+              cover: interaction.images && interaction.images.length > 0 ? interaction.images[0] : "", // 使用第一张图片作为封面
+              updateTime: interaction.updateTime || '',
+              createDate: interaction.createDate || '',
+              createTime: interaction.createTime || '',
+              description: interaction.content,
+              likes: 0,
+              isLiked: false,
+              comments: interaction.comments || [],
+              creator: interaction.userInfo.userInfo && interaction.userInfo.userInfo.nickname ? interaction.userInfo.userInfo.nickname : (interaction.creator || '匿名用户'), // 使用用户信息中的昵称
+              commentsCount: (interaction.comments || []).length,
               interactionId: item.interactionId,
-              title: interaction.title || '无标题',
-              content: interaction.content || '无内容',
-              images: interaction.images || [],
-              createTime: item.createTime,
-              commentCount: (interaction.comments || []).length
             };
           });
 

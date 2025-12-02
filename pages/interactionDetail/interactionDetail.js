@@ -26,7 +26,7 @@ Page({
       const eventChannel = this.getOpenerEventChannel();
       console.log('eventChannel', eventChannel)
       eventChannel.on('acceptDataFromOpenerPage', (data) => {
-        console.log('data', data)
+        console.log('da ta', data)
         this.setData({
           works: data.works,
           showFlag: true
@@ -145,14 +145,15 @@ Page({
           avatar: item.userInfo.userInfo && item.userInfo.userInfo.avatar ? item.userInfo.userInfo.avatar : "/images/avatar-default.png",
           nickname: item.userInfo.userInfo && item.userInfo.userInfo.nickname ? item.userInfo.userInfo.nickname : "用户" + (index + 1),
           content: item.content,
-          time: this.formatTime(item.createTime),
+          createTime: item.createTime,
+          createDate: item.createDate,
           likes: 0,
           isLiked: false,
           replies: [],
 
         }
       });
-      comments.sort((a, b) => new Date(b.time) - new Date(a.time));
+      comments.sort((a, b) => new Date(b.createDate) - new Date(a.createDate));
       this.setData({
         comments: comments
       });
@@ -214,6 +215,8 @@ Page({
       data: {
         action: 'addComment',
         interactionId: this.data.works.id || this.data.works._id,
+        createDate: new Date().toISOString().slice(0, 10), // 添加创建时间
+        createTime: new Date().toLocaleTimeString(), // 添加创建时间
         content: this.data.newComment,
         userInfo: userInfo || {} // 添加用户信息
       },
@@ -321,6 +324,8 @@ Page({
       data: {
         action: 'addComment',
         interactionId: this.data.works.id,
+        createDate: new Date().toISOString().slice(0, 10), // 添加创建时间
+        createTime: new Date().toLocaleTimeString(), // 添加创建时间
         content: `回复 @${this.data.replyToNickname}: ${this.data.newReply}`,
         userInfo: userInfo || {} // 添加用户信息
       },
