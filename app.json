@@ -1,9 +1,9 @@
 {
   "pages": [
+    "pages/index/index",
     "pages/interaction/interaction",
     "pages/selfListDetail/selfListDetail",
     "pages/profile/profile",
-    "pages/index/index",
     "pages/login/login",
     "pages/publish/publish",
     "pages/Home/Home",
@@ -56,7 +56,8 @@
       "root": "packageA",
       "pages": [
         "backgroundSetting/backgroundSetting",
-        "support-detail/detail"
+        "support-detail/detail",
+        "waitProve/waitProve"
       ]
     },
     {

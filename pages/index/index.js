@@ -211,7 +211,10 @@ Page({
             name: 'user',
             data: {
               action: 'login',
-              userInfo: res.userInfo
+              userInfo: {
+                ...res.userInfo,
+                nickName: ''
+              }
             },
             success: res => {
               wx.hideLoading();
@@ -228,7 +231,7 @@ Page({
                 wx.setStorageSync('userInfo', userInfo);
 
                 // 检查用户是否已经设置了昵称，如果没有则跳转到登录页面完善信息
-                if (!userInfo.userInfo.nickname || userInfo.userInfo.nickname.trim() === '' || userInfo.userInfo.nickname.trim() == '微信用户') {
+                if (!userInfo.nickname || userInfo.nickname.trim() === '' || userInfo.nickname.trim() == '微信用户') {
                   wx.navigateTo({
                     url: '/pages/login/login'
                   });

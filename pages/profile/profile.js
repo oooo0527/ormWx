@@ -4,11 +4,23 @@ Page({
   data: {
     userInfo: null,
     isLogin: true,
+    menueList: [
+      {
+        title: '待我审核',
+        path: '/packageA/waitProve/waitProve'
+      }
+    ]
 
   },
 
   onLoad: function (options) {
     this.checkLoginStatus();
+  },
+  navigateToPage(e) {
+    const url = e.currentTarget.dataset.path;
+    wx.navigateTo({
+      url: url
+    });
   },
 
   onShow: function () {

@@ -71,8 +71,8 @@ async function login(event, wxContext) {
 
       // 如果前端传递了用户信息，则更新
       if (userInfo) {
-        updateData.nickname = userInfo.nickName || userData.nickname;
-        updateData.avatar = userInfo.avatarUrl || userData.avatar;
+        updateData.nickname = userInfo.nickName ? userInfo.nickName : userData.nickname;
+        updateData.avatar = userInfo.avatarUrl ? userInfo.avatarUrl : userData.avatar;
       }
 
       await db.collection('users').where({
@@ -86,8 +86,8 @@ async function login(event, wxContext) {
       // 新用户，创建用户记录
       const newUser = {
         openid: openid,
-        nickname: userInfo ? (userInfo.nickName || '匿名用户') : '匿名用户',
-        avatar: userInfo ? (userInfo.avatarUrl || '') : '',
+        nickname: userInfo ? (userInfo.nickName ? userInfo.nickName : '微信用户') : '微信用户',
+        avatar: userInfo ? (userInfo.avatarUrl ? userInfo.avatarUrl : '') : '',
         createTime: new Date().getTime(),
         lastLoginTime: new Date().getTime()
       };
@@ -157,7 +157,8 @@ async function createNewUser(openid, event) {
       nickname: event.nickname || '煎蛋卷',
       avatar: event.avatar || '',
       createTime: new Date(),
-      updateTime: new Date()
+      updateTime: new Date(),
+      isManager: '0'
     }
 
     const result = await db.collection('users').add({
@@ -189,6 +190,8 @@ async function updateUserInfo(openid, event) {
         nickname: event.nickname,
         avatar: event.avatar,
         updateTime: new Date()
+
+
       }
     })
 

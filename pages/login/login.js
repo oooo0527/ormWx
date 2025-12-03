@@ -24,12 +24,13 @@ Page({
     // 获取全局用户信息
     const app = getApp();
     const userInfo = app.globalData.userInfo || wx.getStorageSync('userInfo');
+    console.log('用户6666信息', userInfo);
 
     if (userInfo) {
       this.setData({
         userInfo: userInfo,
         nickname: '',
-        avatar: userInfo.userInfo.avatar || ''
+        avatar: userInfo.avatar || ''
       });
     }
   },
@@ -124,7 +125,7 @@ Page({
             const updatedUserInfo = {
               openid: userInfo.openid,
               userInfo: {
-                ...userInfo.userInfo,
+                ...userInfo,
                 nickname: updateData.nickname,
                 avatar: updateData.avatar || userInfo.avatar || ''
               }
