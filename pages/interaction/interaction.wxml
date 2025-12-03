@@ -33,7 +33,7 @@
     </view>
 
     <!-- 热门互动留言区域 -->
-    <view class="hot-interactions-section" wx:if="{{hotInteractions.length > 0}}">
+    <view class="hot-interactions-section">
       <view class="date-picker  {{isFixed?'fixed':''}}">
         <image src="{{userInfo.avatar}}" mode="widthFix" class="avatar" bindtap="navigateToProfile"></image>
       <picker mode="date" value="{{date}}" start="2025-09-01" end="{{endDate}}" bindchange="bindDateChange">

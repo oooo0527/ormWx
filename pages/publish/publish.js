@@ -4,7 +4,8 @@ Page({
     content: '',
     imageList: [],
     maxImageCount: 1, // 限制只能上传一张图片
-    __isDebug: false // 调试模式开关，默认关闭
+    __isDebug: false, // 调试模式开关，默认关闭
+    checked: false
   },
 
   onLoad: function () {
@@ -165,6 +166,8 @@ Page({
           title: title,
           content: content,
           images: imageUrls,
+          checked: that.data.checked ? '1' : '0',
+          status: '0',
           createDate: new Date().toISOString().slice(0, 10), // 添加创建时间
           createTime: new Date().toLocaleTimeString(), // 添加创建时间
           updateTime: new Date().toISOString().slice(0, 10),
@@ -184,7 +187,8 @@ Page({
           that.setData({
             title: '',
             content: '',
-            imageList: []
+            imageList: [],
+            checked: false
           });
 
           // 返回上一页并刷新数据

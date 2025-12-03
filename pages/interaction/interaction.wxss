@@ -636,7 +636,7 @@
 
 .fixed {
   position: fixed;
-  top: 128rpx;
+  top: 130rpx;
   /* 固定在顶部 */
   left: 0;
   width: 100%;

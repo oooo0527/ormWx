@@ -56,7 +56,7 @@
         <view class="item-footer">
           <text class="time-text">{{item.createTime}}</text>
           <view class="favorite-actions">
-            <text class="comment-count">评论({{item.commentCounts}})</text>
+            <text class="comment-count">评论({{item.commentsCount}})</text>
             <text class="unfavorite-btn" bindtap="unfavorite" data-index="{{index}}">取消收藏</text>
           </view>
         </view>

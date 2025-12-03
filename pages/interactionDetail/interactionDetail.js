@@ -153,7 +153,7 @@ Page({
 
         }
       });
-      comments.sort((a, b) => new Date(b.createDate) - new Date(a.createDate));
+      comments.sort((a, b) => new Date(b.createTime) - new Date(a.createTime));
       this.setData({
         comments: comments
       });

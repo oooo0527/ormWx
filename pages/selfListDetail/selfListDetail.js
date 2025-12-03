@@ -43,9 +43,11 @@ Page({
       hasMorePublished: true,
       hasMoreFavorite: true
     });
+    this.onPullDownRefresh()
+
     // 页面显示时加载数据
-    this.loadPublishedInteractions();
-    this.loadFavoriteInteractions();
+    // this.loadPublishedInteractions();
+    // this.loadFavoriteInteractions();
   },
 
   /**
@@ -114,8 +116,10 @@ Page({
     });
 
     // 如果切换到收藏标签且收藏列表为空，则加载收藏数据
-    if (tab === 'favorite' && this.data.favoriteList.length === 0) {
+    if (tab === 'favorite') {
       this.loadFavoriteInteractions();
+    } else {
+      this.loadPublishedInteractions();
     }
   },
 

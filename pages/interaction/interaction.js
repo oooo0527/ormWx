@@ -61,10 +61,10 @@ Page({
   },
   onPageScroll: function (e) {
     const scrollTop = e.scrollTop; // 获取滚动距离
-    console.log('Scroll Top:', scrollTop);
+    // console.log('Scroll Top:', scrollTop, e);
 
     // 判断是否需要吸顶：滚动距离 > 轮播图高度
-    if (scrollTop > 390) {
+    if (scrollTop > 310) {
       if (!this.data.isFixed) {
         this.setData({ isFixed: true });
       }
@@ -75,24 +75,19 @@ Page({
   bindDateChange: function (e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
-      date: e.detail.value
+      date: e.detail.value,
+      hotInteractions: [],
+      currentPage: 0,
+      hasMore: true,
+      loadAll: false,
+      pageSize: 5,
+
     })
     // 加载热门互动留言数据
     this.loadHotInteractions();
   },
   onShow: function () {
-    this.setData({
-      works: [],
-      displayWorks: [],
-      hotInteractions: [],
-      searchList: [],
-      searchValue: '',
-      searchFlag: false
-    });
-    // 加载互动留言数据
-    this.loadInteractions();
-    // 加载热门互动留言数据
-    this.loadHotInteractions();
+    this.onPullDownRefresh();
   },
 
   // 加载互动留言数据
@@ -101,7 +96,8 @@ Page({
       name: 'fanVoice',
       data: {
         action: 'getList',
-        limit: 10 // 限制获取10条数据
+        limit: 10, // 限制获取10条数据
+        status: '1'
       },
       success: res => {
         console.log('获取互动留言成功：', res.result.data);
@@ -119,6 +115,8 @@ Page({
               createTime: item.createTime || '',
               description: item.content,
               likes: 0,
+              checked: '2',
+              status: '1',
               isLiked: false,
               comments: item.comments || [],
               creator: item.userInfo.userInfo && item.userInfo.userInfo.nickname ? item.userInfo.userInfo.nickname : (item.creator || '匿名用户'), // 使用用户信息中的昵称
@@ -153,11 +151,13 @@ Page({
       data: {
         action: 'getList',
         limit: pageSize, // 限制获取10条数据
+        status: '1',
         skip: currentPage * pageSize,
-        date: this.data.date
+
+        date: this.data.date || new Date().toISOString().slice(0, 10),
       },
       success: res => {
-        console.log('获取热门互动留言成功：', res.result.data);
+        console.log('获取热门互动留言成功：', currentPage, pageSize, res.result.data);
         if (res.result && res.result.success && res.result.data.length > 0) {
           // 处理热门互动留言数据
           const hotInteractions = res.result.data.map((item, index) => {
@@ -192,10 +192,17 @@ Page({
             });
           }
           hotInteractions.sort((a, b) => new Date(b.createDate) - new Date(a.createDate));
+          if (currentPage === 0) {
+            this.setData({
+              hotInteractions: hotInteractions
+            });
+          } else {
+            this.setData({
+              hotInteractions: this.data.hotInteractions.concat(hotInteractions)
+            });
+          }
 
-          this.setData({
-            hotInteractions: this.data.hotInteractions.concat(hotInteractions)
-          });
+          console.log('Updated hotInteractions:', this.data.hotInteractions);
         } else {
           console.error('获取热门互动留言失败：', res.result.message);
         }
@@ -212,14 +219,17 @@ Page({
       works: [],
       currentPage: 0,
       hasMore: true,
-      loadAll: false
+      loadAll: false,
+      pageSize: 5,
+      date: new Date().toISOString().slice(0, 10),
+      endDate: new Date().toISOString().slice(0, 10),
     });
 
     // 加载互动留言数据
     this.loadInteractions();
     // 加载热门互动留言数据
     this.loadHotInteractions();
-    wx.stopPullDownRefresh();
+    // wx.stopPullDownRefresh();
   },
 
   // 初始化3D轮播图
@@ -573,6 +583,7 @@ Page({
       data: {
         action: 'getList',
         limit: 20, // 限制获取10条数据
+        status: '1',
         searchValue: this.data.searchValue || ""
 
       },
@@ -622,8 +633,22 @@ Page({
 
   // 下拉刷新
   onPullDownRefresh: function () {
+    this.setData({
+      works: [],
+      displayWorks: [],
+      hotInteractions: [],
+      searchList: [],
+      searchValue: '',
+      searchFlag: false,
+      currentPage: 0,
+      hasMore: true,
+      loadAll: false,
+      pageSize: 5,
+
+
+    });
     this.loadInteractions();
     this.loadHotInteractions();
-    wx.stopPullDownRefresh();
+    // wx.stopPullDownRefresh();
   }
 });

@@ -252,31 +252,17 @@ async function addInteraction(openid, event) {
 async function getInteractionList(event) {
   try {
     let query = db.collection('interactions')
-    if (event.searchValue) {
-      // 分页查询
-      const result = await query
-        .where({
-          title: db.RegExp({
-            regexp: event.searchValue.trim(),
-            options: 'i'
-          })
-        })
-        .orderBy('createTime', 'desc')
-        .skip(event.skip || 0)
-        .limit(event.limit || 20)
-        .get()
-      return {
-        success: true,
-        data: result.data
-      }
 
-    }
-    else if (event.date) {
+    if (event.date) {
       // 分页查询
       const result = await query
         .where({
           createDate: db.RegExp({
             regexp: event.date,
+            options: 'i'
+          }),
+          stats: db.RegExp({
+            regexp: event.status,
             options: 'i'
           })
         })
@@ -292,6 +278,12 @@ async function getInteractionList(event) {
     else {
       // 分页查询
       const result = await query
+        .where({
+          checked: db.RegExp({
+            regexp: event.checked,
+            options: 'i'
+          })
+        })
         .orderBy('createTime', 'desc')
         .skip(event.skip || 0)
         .limit(event.limit || 20)
