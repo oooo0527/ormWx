@@ -6,7 +6,10 @@ Page({
    */
   data: {
     activeTab: 'published', // 默认显示发布的留言
-    publishedList: [], // 发布的互动留言列表
+    activePublishStatus: 'all', // 发布内容的状态筛选：all, success, fail, pending
+    publishedSuccessList: [], // 发布成功的互动留言列表
+    publishedFailList: [], // 发布失败的互动留言列表
+    publishedPendingList: [], // 待审核的互动留言列表
     favoriteList: [], // 收藏的互动留言列表
     loading: false, // 是否正在加载
     hasMorePublished: true, // 是否还有更多发布的留言
@@ -36,7 +39,9 @@ Page({
    */
   onShow() {
     this.setData({
-      publishedList: [],
+      publishedSuccessList: [],
+      publishedFailList: [],
+      publishedPendingList: [],
       favoriteList: [],
       publishedPage: 0,
       favoritePage: 0,
@@ -70,7 +75,9 @@ Page({
   onPullDownRefresh() {
     // 下拉刷新
     this.setData({
-      publishedList: [],
+      publishedSuccessList: [],
+      publishedFailList: [],
+      publishedPendingList: [],
       favoriteList: [],
       publishedPage: 0,
       favoritePage: 0,
@@ -116,11 +123,26 @@ Page({
     });
 
     // 如果切换到收藏标签且收藏列表为空，则加载收藏数据
-    if (tab === 'favorite') {
+    if (tab === 'favorite' && this.data.favoriteList.length === 0) {
       this.loadFavoriteInteractions();
-    } else {
-      this.loadPublishedInteractions();
+    } else if (tab === 'published') {
+      // 如果切换到发布标签且发布列表为空，则加载发布数据
+      if (this.data.publishedSuccessList.length === 0 &&
+        this.data.publishedFailList.length === 0 &&
+        this.data.publishedPendingList.length === 0) {
+        this.loadPublishedInteractions();
+      }
     }
+  },
+
+  /**
+   * 切换发布内容的状态筛选
+   */
+  switchPublishStatus(e) {
+    const status = e.currentTarget.dataset.status;
+    this.setData({
+      activePublishStatus: status
+    });
   },
 
   /**
@@ -145,8 +167,13 @@ Page({
       },
       success: res => {
         if (res.result && res.result.success) {
-          const newList = res.result.data.map(item => {
-            return {
+          // 分类处理发布的内容
+          const successList = []; // status: '1' 审核通过
+          const failList = [];    // status: '2' 审核拒绝
+          const pendingList = []; // status: '0' 待审核
+
+          res.result.data.forEach(item => {
+            const listItem = {
               id: item._id,
               title: item.title,
               role: "用户互动",
@@ -160,14 +187,31 @@ Page({
               isLiked: false,
               comments: item.comments || [],
               creator: item.userInfo.userInfo && item.userInfo.userInfo.nickname ? item.userInfo.userInfo.nickname : (item.creator || '匿名用户'), // 使用用户信息中的昵称
-              commentsCount: (item.comments || []).length
+              commentsCount: (item.comments || []).length,
+              status: item.status || '0' // 添加状态字段
             };
+
+            // 根据状态分类
+            switch (item.status) {
+              case '1': // 审核通过
+                successList.push(listItem);
+                break;
+              case '2': // 审核拒绝
+                failList.push(listItem);
+                break;
+              case '0': // 待审核
+              default:
+                pendingList.push(listItem);
+                break;
+            }
           });
 
           this.setData({
-            publishedList: this.data.publishedList.concat(newList),
+            publishedSuccessList: this.data.publishedSuccessList.concat(successList),
+            publishedFailList: this.data.publishedFailList.concat(failList),
+            publishedPendingList: this.data.publishedPendingList.concat(pendingList),
             publishedPage: page + 1,
-            hasMorePublished: newList.length === pageSize,
+            hasMorePublished: res.result.data.length === pageSize,
             loading: false
           });
         } else {
@@ -273,15 +317,42 @@ Page({
    */
   goToDetail(e) {
     const index = e.currentTarget.dataset.index;
-    wx.navigateTo({
-      url: '/pages/interactionDetail/interactionDetail',
-      success: (res) => {
-        // 通过事件通道向被打开页面传送数据
-        res.eventChannel.emit('acceptDataFromOpenerPage', {
-          works: this.data.publishedList[index],
-        });
-      }
-    });
+    const status = e.currentTarget.dataset.status || 'success'; // 默认为success
+    let works = null;
+
+    // 根据不同的状态获取对应的数据
+    switch (status) {
+      case 'success':
+        works = this.data.publishedSuccessList[index];
+        break;
+      case 'fail':
+        works = this.data.publishedFailList[index];
+        break;
+      case 'pending':
+        works = this.data.publishedPendingList[index];
+        break;
+      default:
+        // 全部状态下，需要确定是哪个列表的数据
+        const allPublished = [
+          ...this.data.publishedSuccessList,
+          ...this.data.publishedFailList,
+          ...this.data.publishedPendingList
+        ];
+        works = allPublished[index];
+        break;
+    }
+
+    if (works) {
+      wx.navigateTo({
+        url: '/pages/interactionDetail/interactionDetail',
+        success: (res) => {
+          // 通过事件通道向被打开页面传送数据
+          res.eventChannel.emit('acceptDataFromOpenerPage', {
+            works: works,
+          });
+        }
+      });
+    }
   },
 
   goToDetail1(e) {

@@ -22,7 +22,6 @@
     <!-- 留言审核列表 -->
     <view class="list" wx:if="{{activeTab === 'status'}}">
       <view class="empty" wx:if="{{pendingStatusList.length === 0}}">
-
         <text class="empty-text">暂无待审核留言</text>
       </view>
       
@@ -32,10 +31,16 @@
           <text class="item-time">{{item.createTime}}</text>
         </view>
         <view class="item-content">
-          <text>{{item.content}}</text>
+          <!-- 收起/展开内容 -->
+          <text class="{{item.isExpanded ? '' : 'collapsed'}}">{{item.content}}</text>
+          <view class="expand-collapse" wx:if="{{item.content.length > 100}}">
+            <text class="expand-btn" bindtap="toggleContent" data-id="{{item._id}}" data-type="status">
+              {{item.isExpanded ? '收起' : '展开'}}
+            </text>
+          </view>
         </view>
         <view class="item-footer">
-          <button class="btn btn-reject" data-id="{{item._id}}" data-type="status" bindtap="onReject">拒绝</button>
+          <button class="btn btn-reject" data-id="{{item._id}}" data-type="status" bindtap="showRejectReasonModal">拒绝</button>
           <button class="btn btn-approve" data-id="{{item._id}}" data-type="status" bindtap="onApprove">通过</button>
         </view>
       </view>
@@ -44,7 +49,6 @@
     <!-- 精选审核列表 -->
     <view class="list" wx:if="{{activeTab === 'checked'}}">
       <view class="empty" wx:if="{{pendingCheckedList.length === 0}}">
-
         <text class="empty-text">暂无待审核精选</text>
       </view>
       
@@ -54,13 +58,42 @@
           <text class="item-time">{{item.createTime}}</text>
         </view>
         <view class="item-content">
-          <text>{{item.content}}</text>
+          <!-- 收起/展开内容 -->
+          <text class="{{item.isExpanded ? '' : 'collapsed'}}">{{item.content}}</text>
+          <view class="expand-collapse" wx:if="{{item.content.length > 100}}">
+            <text class="expand-btn" bindtap="toggleContent" data-id="{{item._id}}" data-type="checked">
+              {{item.isExpanded ? '收起' : '展开'}}
+            </text>
+          </view>
         </view>
         <view class="item-footer">
-          <button class="btn btn-reject" data-id="{{item._id}}" data-type="checked" bindtap="onReject">拒绝</button>
+          <button class="btn btn-reject" data-id="{{item._id}}" data-type="checked" bindtap="showRejectReasonModal">拒绝</button>
           <button class="btn btn-approve" data-id="{{item._id}}" data-type="checked" bindtap="onApprove">通过</button>
         </view>
       </view>
     </view>
   </scroll-view>
+  
+  <!-- 拒绝理由选择弹窗 -->
+  <view class="modal-mask" wx:if="{{showRejectModal}}">
+    <view class="modal-container">
+      <view class="modal-header">
+        <text class="modal-title">请选择拒绝理由</text>
+        <icon type="clear" size="20" bindtap="hideRejectModal" class="close-icon"></icon>
+      </view>
+      <view class="modal-body">
+        <radio-group bindchange="onReasonChange">
+          <label class="reason-item" wx:for="{{rejectReasons}}" wx:key="index">
+            <radio value="{{item.value}}" checked="{{item.checked}}" color="#ff6b6b" />
+            <text class="reason-text">{{item.text}}</text>
+          </label>
+        </radio-group>
+        <textarea placeholder="请输入其他理由" value="{{otherReason}}" bindinput="onOtherReasonInput" class="other-reason-input" wx:if="{{selectedReason === 'other'}}"></textarea>
+      </view>
+      <view class="modal-footer">
+        <button class="btn btn-cancel" bindtap="hideRejectModal">取消</button>
+        <button class="btn btn-confirm" bindtap="confirmReject">确定</button>
+      </view>
+    </view>
+  </view>
 </view>

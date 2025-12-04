@@ -39,11 +39,53 @@
   background-color: #ff6b9c;
 }
 
+/* 发布状态筛选标签 */
+.status-tabs {
+  display: flex;
+  height: 40px;
+  width: 100%;
+  justify-content: space-between;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  margin: 10px 0;
+  padding: 0 5px;
+  box-sizing: border-box;
+}
+
+.status-tab {
+  flex: 1;
+  text-align: center;
+  line-height: 40px;
+  font-size: 14px;
+  color: #666;
+  position: relative;
+  border-radius: 6px;
+  margin: 3px 2px;
+}
+
+.status-tab.active {
+  background-color: #ff6b9c;
+  color: #fff;
+  font-weight: bold;
+}
+
 /* 列表容器 */
 .list-container {
   padding: 10px;
   width: 100%;
   box-sizing: border-box;
+}
+
+/* 分类标题 */
+.section-title {
+  font-size: 14px;
+  color: #999;
+  padding: 10px 0;
+  margin-top: 10px;
+}
+
+.section-title:first-child {
+  margin-top: 0;
 }
 
 /* 互动留言项 */
@@ -53,6 +95,16 @@
   padding: 15px;
   margin-bottom: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* 发布失败的留言项 */
+.failed-item {
+  border-left: 4px solid #ff4757;
+}
+
+/* 待审核的留言项 */
+.pending-item {
+  border-left: 4px solid #ffa502;
 }
 
 .item-header {

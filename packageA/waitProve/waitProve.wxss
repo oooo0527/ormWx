@@ -128,6 +128,25 @@
   word-wrap: break-word;
 }
 
+/* 收起状态的样式 */
+.collapsed {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+
+.expand-collapse {
+  text-align: right;
+  margin-top: 10rpx;
+}
+
+.expand-btn {
+  color: #ff6b6b;
+  font-size: 26rpx;
+  cursor: pointer;
+}
+
 .item-footer {
   display: flex;
   justify-content: flex-end;
@@ -157,4 +176,107 @@
 
 .btn-approve::after {
   border: none;
+}
+
+/* 拒绝理由弹窗样式 */
+.modal-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.modal-container {
+  background-color: #fff;
+  border-radius: 10rpx;
+  width: 80%;
+  max-width: 600rpx;
+  max-height: 80vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-header {
+  padding: 30rpx;
+  border-bottom: 1rpx solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.close-icon {
+  cursor: pointer;
+}
+
+.modal-body {
+  padding: 30rpx;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.reason-item {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #f5f5f5;
+}
+
+.reason-item:last-child {
+  border-bottom: none;
+}
+
+.reason-text {
+  margin-left: 20rpx;
+  font-size: 28rpx;
+  color: #333;
+}
+
+.other-reason-input {
+  width: 100%;
+  height: 150rpx;
+  padding: 20rpx;
+  margin-top: 20rpx;
+  border: 1rpx solid #eee;
+  border-radius: 10rpx;
+  font-size: 28rpx;
+  box-sizing: border-box;
+}
+
+.modal-footer {
+  padding: 30rpx;
+  border-top: 1rpx solid #eee;
+  display: flex;
+  justify-content: flex-end;
+  gap: 20rpx;
+}
+
+.btn-cancel {
+  background-color: #f5f5f5;
+  color: #666;
+  border: none;
+  border-radius: 50rpx;
+  padding: 15rpx 30rpx;
+  font-size: 24rpx;
+}
+
+.btn-confirm {
+  background-color: #ff6b6b;
+  color: #fff;
+  border: none;
+  border-radius: 50rpx;
+  padding: 15rpx 30rpx;
+  font-size: 24rpx;
 }

@@ -41,7 +41,8 @@ async function getPendingApprovals(event) {
     // 获取checked为'1'的留言（待审核精选）
     const pendingCheckedResult = await db.collection('interactions')
       .where({
-        checked: '1'
+        checked: '1',
+        status: '0'
       })
       .orderBy('createTime', 'desc')
       .get()
@@ -97,7 +98,7 @@ async function approveInteraction(event) {
 // 拒绝留言 (status: '0' -> '2', checked: '1' -> '0')
 async function rejectInteraction(event) {
   try {
-    const { id, type } = event
+    const { id, type, reason } = event
 
     let updateData = {}
 
@@ -107,6 +108,11 @@ async function rejectInteraction(event) {
     } else if (type === 'checked') {
       // 更新checked字段: '1' -> '0'
       updateData.checked = '0'
+    }
+
+    // 添加拒绝理由
+    if (reason) {
+      updateData.rejectReason = reason
     }
 
     const result = await db.collection('interactions')
