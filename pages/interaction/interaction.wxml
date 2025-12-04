@@ -6,7 +6,7 @@
     <view class="shawBg-text" bindtap="hideShawBg">X</view>
   </view>
   <view class="container">
-    <view class="list-container"  style="margin-top: 128rpx;"> 
+    <view class="list-container" style="margin-top: 128rpx;">
 
       <!-- 轮播图区域 -->
       <view class="carousel-container" wx:if="{{works.length > 0}}">
@@ -18,14 +18,15 @@
             <!-- 只显示前3张卡片 -->
             <view class="carousel-card" wx:for="{{displayWorks}}" wx:key="id" style="transform: {{cardTransforms[index]}}; z-index: {{cardZIndexes[index]}}; opacity: {{cardOpacities[index]}};" data-index="{{index}}" bindtap="selectCard">
               <view class="card-content1">
-             
+
                 <view class="card-description">{{item.description}}</view>
-                   <view class="card-title">{{item.title}}</view>
-                    </view>
-                <view class="card-more">
-                          <view class="card-creator">{{item.creator}}</view>
-                <view class="card-date">{{item.createDate}}</view></view>
-   
+                <view class="card-title">{{item.title}}</view>
+              </view>
+              <view class="card-more">
+                <view class="card-creator">{{item.creator}}</view>
+                <view class="card-date">{{item.createDate}}</view>
+              </view>
+
             </view>
           </view>
         </view>
@@ -35,29 +36,34 @@
     <!-- 热门互动留言区域 -->
     <view class="hot-interactions-section">
       <view class="date-picker  {{isFixed?'fixed':''}}">
-        <image src="{{userInfo.avatar}}" mode="widthFix" class="avatar" bindtap="navigateToProfile"></image>
-      <picker mode="date" value="{{date}}" start="2025-09-01" end="{{endDate}}" bindchange="bindDateChange">
-    <view class="picker">
-      当前选择: {{date}}
-    </view>
-  </picker>
-    </view>
+        <picker mode="date" value="{{date}}" start="2025-09-01" end="{{endDate}}" bindchange="bindDateChange">
+          <view class="picker">
+            当前选择: {{date}}
+          </view>
+        </picker>
+      </view>
       <view class="hot-interactions-list">
         <view class="hot-interaction-item" wx:for="{{hotInteractions}}" wx:key="id" data-index="{{index}}" bindtap="selectHotInteraction">
-          <view class="hot-interaction-content">{{item.description}}</view>
-          <view class="hot-interaction-info">
-            <text class="creator">{{item.creator}}</text>
-            <text class="comments-count">{{item.commentsCount}} 条评论</text>
+          <view class="hot-interaction-content">
+            <view class="creator">{{item.creator}}</view>
+            <view class="hot-interaction-info">
+              <view class='hott-title'>{{item.title}}</view>
+              <view class="hott-des">{{item.description}}</view>
+              <view class="hott-desCom">
+
+                {{item.commentsCount}} 条评论
+              </view>
+            </view>
           </view>
         </view>
       </view>
-        <view wx:if="{{loadMore}}" class="load-more">你也太爱了...</view>
-  <view wx:if="{{loadAll}}" class="load-all">人美心善得陈奥根本不够看</view>
-    
+      <view wx:if="{{loadMore}}" class="load-more">你也太爱了...</view>
+      <view wx:if="{{loadAll}}" class="load-all">人美心善得陈奥根本不够看</view>
+
     </view>
 
     <!-- 悬浮按钮 -->
-    <view class="float-button" bindtap="navigateToPublish"  wx:if="{{!showShawBg}}">
+    <view class="float-button" bindtap="navigateToPublish" wx:if="{{!showShawBg}}">
       <text class="float-button-text">+</text>
     </view>
 

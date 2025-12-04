@@ -130,10 +130,18 @@ Page({
       that.saveToDatabase(title, content, []);
     }
   },
+  bindchange: function (e) {
+    console.log('checkbox change', e.detail);
+    this.setData({
+      checked: e.detail.value.length > 0 ? '1' : '0'
+    });
+  },
+
 
   // 保存到数据库
   saveToDatabase: function (title, content, imageUrls) {
     const that = this;
+    console.log('保存到数据库：', that.data.checked, content, imageUrls);
 
     // 检查云环境是否已初始化
     if (!wx.cloud) {
@@ -166,11 +174,8 @@ Page({
           title: title,
           content: content,
           images: imageUrls,
-          checked: that.data.checked ? '1' : '0',
+          checked: that.data.checked,
           status: '0',
-          createDate: new Date().toISOString().slice(0, 10), // 添加创建时间
-          createTime: new Date().toLocaleTimeString(), // 添加创建时间
-          updateTime: new Date().toISOString().slice(0, 10),
           userInfo: userInfo || {} // 添加用户信息
         }
       },

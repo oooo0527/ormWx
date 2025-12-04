@@ -153,9 +153,13 @@ Page({
 
         }
       });
-      comments.sort((a, b) => new Date(b.createTime) - new Date(a.createTime));
+      const sortedComments2 = [...comments]
+        .sort((a, b) =>
+          new Date(`${b.createDate} ${b.createTime}`) -
+          new Date(`${a.createDate} ${a.createTime}`)
+        );
       this.setData({
-        comments: comments
+        comments: sortedComments2
       });
     }
   },
@@ -215,8 +219,6 @@ Page({
       data: {
         action: 'addComment',
         interactionId: this.data.works.id || this.data.works._id,
-        createDate: new Date().toISOString().slice(0, 10), // 添加创建时间
-        createTime: new Date().toLocaleTimeString(), // 添加创建时间
         content: this.data.newComment,
         userInfo: userInfo || {} // 添加用户信息
       },

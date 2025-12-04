@@ -33,7 +33,10 @@
     </view>
 
     <view  class="form-item">
-        <checkbox value="cb" checked="{{checked}}" />是否申请上热门
+      <checkbox-group bindchange="bindchange">
+        <checkbox value="checked"  />申请上热门
+        
+        </checkbox-group>
     </view>
     
     <!-- 提交按钮 -->

@@ -675,22 +675,50 @@
 }
 
 .hot-interaction-content {
-  font-size: 28rpx;
-  color: #ffffff;
-  margin-bottom: 10rpx;
-  line-height: 1.4;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-  /* 显示的行数 */
-  overflow: hidden;
-  text-overflow: ellipsis;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  /* border: 4rpx solid red; */
+  background: rgba(123, 121, 121, 0.1);
+  padding: 10rpx;
+  box-shadow: 0 2rpx 10rpx rgba(230, 227, 227, 0.1);
 
+}
+
+.creator {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
 }
 
 .hot-interaction-info {
   display: flex;
-  justify-content: space-between;
   font-size: 24rpx;
   color: rgba(255, 255, 255, 0.7);
+  flex-direction: column;
+  flex: 1;
+}
+
+.hott-title {
+  font-size: 38rpx;
+  color: #191818;
+  margin-bottom: 10rpx;
+  font-weight: bold;
+}
+
+.hott-des {
+  font-size: 24rpx;
+  color: #191818;
+  margin-bottom: 10rpx;
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.hott-desCom {
+  width: 100%;
+  text-align: right;
 }

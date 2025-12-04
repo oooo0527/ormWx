@@ -17,13 +17,14 @@
           <text>退出登录</text>
         </button>
       </view>
+      <view class="menueList-content">
+        <view wx:for="{{menueList}}" wx:key="index" bindtap="navigateToPage" data-url="{{item.path}}" class="menueList-list">
+          {{item.title}}
+
+        </view>
+      </view>
 
     </view>
   </view>
-  <view class='menueList-conten">
-    <view wx:for="{{menueList}}" wx:key="index" bindtap="navigateToPage" data-url="{{item.path}}" class="menueList-list">
-      {{item.name}}
 
-    </view>
-  </view>
 </global-background>

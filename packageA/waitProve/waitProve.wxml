@@ -1,2 +1,66 @@
 <!--packageA/waitProve/waitProve.wxml-->
-<text>packageA/waitProve/waitProve.wxml</text>
+<view class="container">
+  <!-- 标题 -->
+  <view class="header">
+    <text class="header-title">待审核内容</text>
+  </view>
+
+  <!-- 标签页 -->
+  <view class="tabs">
+    <view class="tab {{activeTab === 'status' ? 'active' : ''}}" data-tab="status" bindtap="onTabChange">
+      <text>留言审核</text>
+      <text class="badge" wx:if="{{pendingStatusList.length > 0}}">{{pendingStatusList.length}}</text>
+    </view>
+    <view class="tab {{activeTab === 'checked' ? 'active' : ''}}" data-tab="checked" bindtap="onTabChange">
+      <text>精选审核</text>
+      <text class="badge" wx:if="{{pendingCheckedList.length > 0}}">{{pendingCheckedList.length}}</text>
+    </view>
+  </view>
+
+  <!-- 内容区域 -->
+  <scroll-view class="content" scroll-y="true">
+    <!-- 留言审核列表 -->
+    <view class="list" wx:if="{{activeTab === 'status'}}">
+      <view class="empty" wx:if="{{pendingStatusList.length === 0}}">
+
+        <text class="empty-text">暂无待审核留言</text>
+      </view>
+      
+      <view class="item" wx:for="{{pendingStatusList}}" wx:key="_id">
+        <view class="item-header">
+          <text class="item-title">{{item.title}}</text>
+          <text class="item-time">{{item.createTime}}</text>
+        </view>
+        <view class="item-content">
+          <text>{{item.content}}</text>
+        </view>
+        <view class="item-footer">
+          <button class="btn btn-reject" data-id="{{item._id}}" data-type="status" bindtap="onReject">拒绝</button>
+          <button class="btn btn-approve" data-id="{{item._id}}" data-type="status" bindtap="onApprove">通过</button>
+        </view>
+      </view>
+    </view>
+
+    <!-- 精选审核列表 -->
+    <view class="list" wx:if="{{activeTab === 'checked'}}">
+      <view class="empty" wx:if="{{pendingCheckedList.length === 0}}">
+
+        <text class="empty-text">暂无待审核精选</text>
+      </view>
+      
+      <view class="item" wx:for="{{pendingCheckedList}}" wx:key="_id">
+        <view class="item-header">
+          <text class="item-title">{{item.title}}</text>
+          <text class="item-time">{{item.createTime}}</text>
+        </view>
+        <view class="item-content">
+          <text>{{item.content}}</text>
+        </view>
+        <view class="item-footer">
+          <button class="btn btn-reject" data-id="{{item._id}}" data-type="checked" bindtap="onReject">拒绝</button>
+          <button class="btn btn-approve" data-id="{{item._id}}" data-type="checked" bindtap="onApprove">通过</button>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+</view>

@@ -41,11 +41,6 @@ Page({
     showShawBg: true
 
   },
-  navigateToProfile: function () {
-    wx.navigateTo({
-      url: '/pages/selfListDetail/selfListDetail',
-    });
-  },
 
   onLoad: function () {
     this.setData({
@@ -97,7 +92,7 @@ Page({
       data: {
         action: 'getList',
         limit: 10, // 限制获取10条数据
-        status: '1'
+        checked: '2'
       },
       success: res => {
         console.log('获取互动留言成功：', res.result.data);
@@ -115,11 +110,11 @@ Page({
               createTime: item.createTime || '',
               description: item.content,
               likes: 0,
-              checked: '2',
+
               status: '1',
               isLiked: false,
               comments: item.comments || [],
-              creator: item.userInfo.userInfo && item.userInfo.userInfo.nickname ? item.userInfo.userInfo.nickname : (item.creator || '匿名用户'), // 使用用户信息中的昵称
+              creator: item.userInfo && item.userInfo.nickname ? item.userInfo.nickname : (item.creator || '匿名用户'), // 使用用户信息中的昵称
             }
           });
 
@@ -153,7 +148,6 @@ Page({
         limit: pageSize, // 限制获取10条数据
         status: '1',
         skip: currentPage * pageSize,
-
         date: this.data.date || new Date().toISOString().slice(0, 10),
       },
       success: res => {
@@ -174,7 +168,7 @@ Page({
               likes: 0,
               isLiked: false,
               comments: item.comments || [],
-              creator: item.userInfo.userInfo && item.userInfo.userInfo.nickname ? item.userInfo.userInfo.nickname : (item.creator || '匿名用户'), // 使用用户信息中的昵称
+              creator: item.userInfo && item.userInfo.nickname ? item.userInfo.nickname : (item.creator || '匿名用户'), // 使用用户信息中的昵称
               commentsCount: (item.comments || []).length
             }
           });
@@ -191,14 +185,18 @@ Page({
               loadMore: false
             });
           }
-          hotInteractions.sort((a, b) => new Date(b.createDate) - new Date(a.createDate));
+          const hotInteractions2 = [...hotInteractions]
+            .sort((a, b) =>
+              new Date(`${b.createDate} ${b.createTime}`) -
+              new Date(`${a.createDate} ${a.createTime}`)
+            );
           if (currentPage === 0) {
             this.setData({
-              hotInteractions: hotInteractions
+              hotInteractions: hotInteractions2
             });
           } else {
             this.setData({
-              hotInteractions: this.data.hotInteractions.concat(hotInteractions)
+              hotInteractions: this.data.hotInteractions.concat(hotInteractions2)
             });
           }
 
@@ -594,7 +592,7 @@ Page({
               id: item._id,
               title: item.title,
               content: item.content,
-              creator: item.userInfo.userInfo && item.userInfo.userInfo.nickname ? item.userInfo.userInfo.nickname : (item.creator || '匿名用户'), // 使用用户信息中的昵称
+              creator: item.userInfo && item.userInfo.nickname ? item.userInfo.nickname : (item.creator || '匿名用户'), // 使用用户信息中的昵称
               updateTime: item.updateTime || '',
               commentsCount: (item.comments || []).length,
               createDate: item.createDate || '',

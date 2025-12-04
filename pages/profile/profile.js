@@ -8,7 +8,12 @@ Page({
       {
         title: '待我审核',
         path: '/packageA/waitProve/waitProve'
-      }
+      },
+      {
+        title: '我得留言版',
+        path: '/pages/selfListDetail/selfListDetail'
+      },
+
     ]
 
   },
@@ -17,7 +22,8 @@ Page({
     this.checkLoginStatus();
   },
   navigateToPage(e) {
-    const url = e.currentTarget.dataset.path;
+    console.log(e);
+    const url = e.currentTarget.dataset.url;
     wx.navigateTo({
       url: url
     });

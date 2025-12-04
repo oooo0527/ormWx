@@ -224,8 +224,10 @@ async function addInteraction(openid, event) {
       userInfo: event.data.userInfo || {}, // 添加用户信息
       comments: [],
       createDate: event.data.createDate || new Date().toISOString().slice(0, 10),
-      createTime: event.data.createTime || new Date().toISOString().slice(0, 10),
-      updateTime: event.data.updateTime || new Date().toISOString().slice(0, 10)
+      createTime: new Date().toLocaleTimeString('en-GB') || new Date().toISOString().slice(0, 10),
+      updateTime: event.data.updateTime || new Date().toISOString().slice(0, 10),
+      status: event.data.status || '0',
+      checked: event.data.checked || '0',
     };
 
     const result = await db.collection('interactions').add({
@@ -261,10 +263,7 @@ async function getInteractionList(event) {
             regexp: event.date,
             options: 'i'
           }),
-          stats: db.RegExp({
-            regexp: event.status,
-            options: 'i'
-          })
+          status: event.status,
         })
         .orderBy('createTime', 'desc')
         .skip(event.skip || 0)
@@ -279,10 +278,7 @@ async function getInteractionList(event) {
       // 分页查询
       const result = await query
         .where({
-          checked: db.RegExp({
-            regexp: event.checked,
-            options: 'i'
-          })
+          checked: event.checked
         })
         .orderBy('createTime', 'desc')
         .skip(event.skip || 0)
@@ -360,8 +356,7 @@ async function addComment(openid, event) {
       content: event.content,
       userId: openid,
       userInfo: event.userInfo || {}, // 添加用户信息
-      createTime: event.createTime || new Date().toISOString().slice(0, 10),
-      createDate: event.createDate || new Date().toISOString().slice(0, 10),
+      createTime: new Date().toLocaleTimeString('en-GB') || new Date().toISOString().slice(0, 10),
       createDate: new Date().toISOString().slice(0, 10),
       interactionId: event.interactionId
     }
