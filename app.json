@@ -1,12 +1,12 @@
 {
   "pages": [
+    "pages/Home/Home",
     "pages/profile/profile",
     "pages/index/index",
     "pages/interaction/interaction",
     "pages/selfListDetail/selfListDetail",
     "pages/login/login",
     "pages/publish/publish",
-    "pages/Home/Home",
     "pages/workRecommend/workRecommend",
     "pages/interactionDetail/interactionDetail"
   ],

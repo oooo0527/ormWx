@@ -1,9 +1,4 @@
-
 Page({
-  properties: {
-
-  },
-
   data: {
     voiceMap: [
       "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/vedio/等左左买饼干 - 你好.mp3",
@@ -106,12 +101,15 @@ Page({
       }
     ],
     stars: [], // 用于存储星空背景中的星星位置
-    timelinePoints: [] // 用于存储时间线点的位置
+    showDetailModal: false, // 是否显示详情弹窗
+    currentDetailIndex: -1, // 当前显示详情的时间点索引
+    showBlessingModal: false, // 是否显示祝福输入弹窗
+    blessingText: '', // 祝福文本
+    blessingItems: [] // 祝福项
   },
 
   onLoad: function () {
     this.initStars(); // 初始化星空背景
-    this.initTimelinePoints(); // 初始化时间线点
   },
 
 
@@ -133,45 +131,13 @@ Page({
     });
   },
 
-  // 初始化时间线点的随机位置
-  initTimelinePoints: function () {
-    const timelinePoints = [];
-    const timelineData = this.data.timelineData;
-
-    // 为每个时间点生成随机位置
-    for (let i = 0; i < timelineData.length; i++) {
-      timelinePoints.push({
-        ...timelineData[i],
-        x: Math.random() * 80 + 10, // 10%-90%范围内的随机x位置
-        y: Math.random() * 80 + 10, // 10%-90%范围内的随机y位置
-        z: Math.random() * 100, // z轴深度，用于层级排序
-        isActive: false // 是否被激活显示详情
-      });
-    }
-
-    // 按z轴排序，实现近大远小的效果
-    timelinePoints.sort((a, b) => b.z - a.z);
-
-    this.setData({
-      timelinePoints: timelinePoints
-    });
-  },
-
   // 点击时间点事件
   onTapTimelinePoint: function (e) {
     const index = e.currentTarget.dataset.index;
-    const timelinePoints = this.data.timelinePoints;
-
-    // 重置所有点的状态
-    for (let i = 0; i < timelinePoints.length; i++) {
-      timelinePoints[i].isActive = false;
-    }
-
-    // 激活当前点击的点
-    timelinePoints[index].isActive = true;
 
     this.setData({
-      timelinePoints: timelinePoints
+      showDetailModal: true,
+      currentDetailIndex: index
     });
 
     // 触发播放语音事件
@@ -179,15 +145,99 @@ Page({
   },
 
   // 关闭时间点详情
-  onCloseDetail: function (e) {
-    const index = e.currentTarget.dataset.index;
-    const timelinePoints = this.data.timelinePoints;
+  onCloseDetail: function () {
+    this.setData({
+      showDetailModal: false,
+      currentDetailIndex: -1
+    });
+  },
 
-    timelinePoints[index].isActive = false;
+  // 滚动到底部事件
+  onScrollToLower: function () {
+    this.setData({
+      showBlessingModal: true
+    });
+  },
+
+  // 关闭祝福弹窗
+  onCloseBlessingModal: function () {
+    this.setData({
+      showBlessingModal: false,
+      blessingText: ''
+    });
+  },
+
+  // 祝福输入事件
+  onBlessingInput: function (e) {
+    this.setData({
+      blessingText: e.detail.value
+    });
+  },
+
+  // 提交祝福
+  onSubmitBlessing: function () {
+    if (!this.data.blessingText.trim()) {
+      wx.showToast({
+        title: '请输入祝福内容',
+        icon: 'none'
+      });
+      return;
+    }
+
+    // 生成多个祝福项
+    const blessingItems = [];
+    const colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#FFBE0B', '#FB5607', '#8338EC', '#3A86FF'];
+    const bgColors = ['rgba(106, 17, 203, 0.8)', 'rgba(37, 117, 252, 0.8)', 'rgba(255, 107, 107, 0.8)', 'rgba(255, 190, 11, 0.8)'];
+
+    const windowHeight = wx.getSystemInfoSync().windowHeight;
+    const windowWidth = wx.getSystemInfoSync().windowWidth;
+
+    // 生成20个祝福项
+    for (let i = 0; i < 50; i++) {
+      blessingItems.push({
+        id: i,
+        text: this.data.blessingText,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        bgColor: bgColors[Math.floor(Math.random() * bgColors.length)],
+        top: Math.random() * (windowHeight - 100),
+        left: Math.random() * (windowWidth - 100),
+        show: false, // 初始不显示
+        animationClass: Math.random() > 0.5 ? 'floating' : 'pulsing' // 随机添加动画类
+      });
+    }
 
     this.setData({
-      timelinePoints: timelinePoints
+      blessingItems: blessingItems,
+      showBlessingModal: false,
+      blessingText: ''
     });
-  }
 
+    // 逐个显示祝福弹窗
+    this.showBlessingItemsOneByOne(0);
+
+    wx.showToast({
+      title: '祝福已发送！',
+      icon: 'success'
+    });
+  },
+
+  // 逐个显示祝福弹窗
+  showBlessingItemsOneByOne: function (index) {
+    const that = this;
+    if (index >= this.data.blessingItems.length) {
+      return;
+    }
+
+    // 更新当前项为显示状态
+    const blessingItems = this.data.blessingItems;
+    blessingItems[index].show = true;
+    this.setData({
+      blessingItems: blessingItems
+    });
+
+    // 递归调用，延迟显示下一个
+    setTimeout(function () {
+      that.showBlessingItemsOneByOne(index + 1);
+    }, 150); // 每150毫秒显示一个
+  }
 })

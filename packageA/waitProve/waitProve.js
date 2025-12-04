@@ -105,6 +105,8 @@ Page({
     this.setData({
       activeTab: tab
     });
+    // 页面加载时获取待审核数据
+    this.getPendingApprovals();
   },
 
   /**

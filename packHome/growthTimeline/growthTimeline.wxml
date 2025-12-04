@@ -1,4 +1,4 @@
-<!-- components/growthTimeline/growthTimeline.wxml -->
+<!-- packHome/growthTimeline/growthTimeline.wxml -->
 <view class="container">
   <!-- 星空背景 -->
   <view class="star-background">
@@ -11,32 +11,76 @@
     </block>
   </view>
   
-  <!-- 时间线点 -->
-  <block wx:for="{{timelinePoints}}" wx:key="id">
-    <view 
-      class="timeline-point {{item.isActive ? 'active' : ''}}" 
-      style="left: {{item.x}}%; top: {{item.y}}%;"
-      data-index="{{index}}"
-      bindtap="onTapTimelinePoint">
+  <!-- 时间线容器 -->
+  <scroll-view class="timeline-container" scroll-y="true" bindscrolltolower="onScrollToLower">
+    <!-- 标题 -->
+    <view class="header">
+      <text class="page-title">Orm成长时间线</text>
     </view>
     
-    <!-- 时间点详情弹窗 -->
-    <view class="detail-modal {{item.isActive ? 'show' : ''}}" wx:if="{{item.isActive}}">
-      <view class="detail-content">
-        <view class="detail-header">
-          <text class="detail-title">{{item.title}}</text>
-          <view class="close-btn" data-index="{{index}}" bindtap="onCloseDetail">×</view>
+    <!-- 垂直时间线 -->
+    <view class="vertical-timeline">
+      <block wx:for="{{timelineData}}" wx:key="id">
+        <!-- 左侧时间点 -->
+        <view class="timeline-item left" wx:if="{{index % 2 === 0}}" data-index="{{index}}">
+          <view class="timeline-content"  bindtap="onTapTimelinePoint">
+            <view class="timeline-date">{{item.year}} {{item.month}}</view>
+            <view class="timeline-title">{{item.title}}</view>
+            <view class="timeline-desc">{{item.description}}</view>
+          </view>
+          <view class="timeline-marker"></view>
         </view>
-        <view class="detail-body">
-          <text class="detail-time">{{item.year}} {{item.month}}</text>
-          <text class="detail-description">{{item.description}}</text>
+        
+        <!-- 右侧时间点 -->
+        <view class="timeline-item right" wx:else data-index="{{index}}" >
+          <view class="timeline-marker"></view>
+          <view class="timeline-content"  bindtap="onTapTimelinePoint">
+            <view class="timeline-date">{{item.year}} {{item.month}}</view>
+            <view class="timeline-title">{{item.title}}</view>
+            <view class="timeline-desc">{{item.description}}</view>
+          </view>
         </view>
+        
+        <!-- 时间点详情弹窗 -->
+        <view class="detail-modal {{showDetailModal && currentDetailIndex === index ? 'show' : ''}}">
+          <view class="detail-content">
+            <view class="detail-header">
+              <text class="detail-title">{{item.title}}</text>
+              <view class="close-btn" bindtap="onCloseDetail">×</view>
+            </view>
+            <view class="detail-body">
+              <text class="detail-time">{{item.year}} {{item.month}}</text>
+              <text class="detail-description">{{item.description}}</text>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+    
+    <!-- 底部提示 -->
+    <view class="footer-tip">滚动到底部，给Orm送上你的祝福</view>
+  </scroll-view>
+  
+  <!-- 祝福输入弹窗 -->
+  <view class="blessing-modal {{showBlessingModal ? 'show' : ''}}">
+    <view class="blessing-content">
+      <view class="blessing-header">
+        <text class="blessing-title">给Orm的祝福</text>
+        <view class="close-btn" bindtap="onCloseBlessingModal">×</view>
+      </view>
+      <view class="blessing-body">
+        <textarea class="blessing-input" placeholder="请输入你想对Orm说的话..." maxlength="200" value="{{blessingText}}" bindinput="onBlessingInput"></textarea>
+        <button class="submit-btn" bindtap="onSubmitBlessing">发送祝福</button>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 祝福展示弹窗（每个祝福一个弹窗） -->
+  <block wx:for="{{blessingItems}}" wx:key="id">
+    <view class="single-blessing-modal {{item.show ? 'show' : ''}}" style="z-index: {{200 + item.id}};">
+      <view class="single-blessing-content {{item.animationClass}} {{item.show ? 'animate' : ''}}" style="background: {{item.bgColor}}; top: {{item.top}}px; left: {{item.left}}px;">
+        <text class="blessing-text" style="color: {{item.color}};">{{item.text}}</text>
       </view>
     </view>
   </block>
-  
-  <!-- 标题 -->
-  <view class="header">
-    <text class="page-title">Orm成长时间线</text>
-  </view>
 </view>

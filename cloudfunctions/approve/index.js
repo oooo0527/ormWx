@@ -75,6 +75,7 @@ async function approveInteraction(event) {
     } else if (type === 'checked') {
       // 更新checked字段: '1' -> '2'
       updateData.checked = '2'
+      updateData.status = '1'
     }
 
     const result = await db.collection('interactions')
