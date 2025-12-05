@@ -5,7 +5,8 @@ Page({
     imageList: [],
     maxImageCount: 1, // 限制只能上传一张图片
     __isDebug: false, // 调试模式开关，默认关闭
-    checked: false
+    checked: false,
+    navBarHeight: 0 // 添加导航栏高度数据
   },
 
   onLoad: function () {

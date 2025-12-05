@@ -52,12 +52,46 @@ Component({
           statusBarHeight: statusBarHeight,
           navBarHeight: navBarHeight
         });
+
+        // 触发事件，将导航栏高度传递给父组件
+        this.triggerEvent('navbarheightchange', {
+          navBarHeight: navBarHeight,
+          statusBarHeight: statusBarHeight
+        });
+
+        // 同时将导航栏高度设置到页面的全局数据中
+        const pages = getCurrentPages();
+        if (pages.length > 0) {
+          const currentPage = pages[pages.length - 1];
+          if (currentPage) {
+            currentPage.setData({
+              navBarHeight: navBarHeight
+            });
+          }
+        }
       }).catch(() => {
         // 默认值
         this.setData({
           statusBarHeight: 20,
           navBarHeight: 64
         });
+
+        // 触发事件，将导航栏高度传递给父组件
+        this.triggerEvent('navbarheightchange', {
+          navBarHeight: 64,
+          statusBarHeight: 20
+        });
+
+        // 同时将导航栏高度设置到页面的全局数据中
+        const pages = getCurrentPages();
+        if (pages.length > 0) {
+          const currentPage = pages[pages.length - 1];
+          if (currentPage) {
+            currentPage.setData({
+              navBarHeight: 64
+            });
+          }
+        }
       });
     }
   },

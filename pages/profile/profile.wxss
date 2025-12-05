@@ -2,7 +2,7 @@
   box-sizing: border-box;
   position: relative;
   background: linear-gradient(180deg, #0c1117 0%, #f48eb5 100%);
-  min-height: calc(100vh - 148rpx);
+
   /* padding: 20rpx; */
 }
 
@@ -131,9 +131,8 @@
 .menueList-content {
   width: 100%;
   margin-top: 30rpx;
-  border-radius: 20rpx;
   overflow: hidden;
-  box-shadow: 0 4rpx 20rpx rgba(12, 17, 23, 0.1);
+  /* box-shadow: 0 4rpx 20rpx rgba(12, 17, 23, 0.1); */
 }
 
 .menueList-list {
@@ -145,6 +144,12 @@
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
+  height: 100rpx;
+  line-height: 100rpx;
+  display: flex;
+  align-items: center;
+  margin: 10rpx;
+  border-radius: 20rpx;
 }
 
 .menueList-list:last-child {

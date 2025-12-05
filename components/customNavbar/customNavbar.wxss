@@ -23,27 +23,27 @@
 
 @keyframes starmove {
   0% {
-    left: 60rpx;
+    left: 70rpx;
   }
 
   25% {
-    left: 70rpx;
+    left: 80rpx;
 
   }
 
   50% {
-    left: 80rpx;
+    left: 90rpx;
     opacity: 0.5;
   }
 
   75% {
-    left: 70rpx;
+    left: 80rpx;
 
   }
 
 
   100% {
-    left: 60rpx;
+    left: 70rpx;
 
   }
 }
@@ -54,7 +54,7 @@
   align-items: center;
   justify-content: space-between;
   height: 88rpx;
-  /* padding: 0 20rpx; */
+  padding: 0 30rpx;
   box-sizing: border-box;
 }
 

@@ -1,6 +1,6 @@
 <global-background>
-  <custom-navbar title="ormkornnaphat" showBack="{{true}}" showHome="{{false}}"></custom-navbar>
-<view class="container" style="margin-top:128rpx;">
+<custom-navbar showBack="{{true}}" showHome="{{false}}"></custom-navbar>
+<view class="container" style="margin-top: {{navBarHeight}}px;min-height:calc(100vh - {{navBarHeight}}px);">
   <view class="publish-form">
     <view class="form-item">
       <input class="title-input" placeholder="请输入标题" value="{{title}}" bindinput="onTitleInput" maxlength="20" />

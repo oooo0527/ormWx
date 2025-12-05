@@ -1,4 +1,8 @@
-Page({
+// 引入基类页面创建函数
+const { createPage } = require('../../utils/basePage.js');
+
+// 使用 createPage 创建页面，自动包含导航栏高度处理功能
+createPage({
   data: {
     userInfo: null,
     isLogin: true,

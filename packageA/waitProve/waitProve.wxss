@@ -2,10 +2,9 @@
 .container {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 128rpx);
   background: linear-gradient(180deg, #0c1117 0%, #f48eb5 100%);
-  padding: 20rpx;
   box-sizing: border-box;
+  position: relative;
 }
 
 .header {
@@ -35,6 +34,10 @@
   backdrop-filter: blur(10rpx);
   border: 2rpx solid rgba(244, 142, 181, 0.3);
   width: 100%;
+  position: fixed;
+  /* top: 130rpx; */
+  width: 100%;
+  z-index: 3;
 }
 
 .tab {
@@ -81,7 +84,7 @@
 
 .content {
   flex: 1;
-  padding: 20rpx 0;
+  /* padding: 20rpx 0; */
 }
 
 .list {
@@ -337,6 +340,15 @@
   display: flex;
   justify-content: space-between;
   gap: 20rpx;
+
+  margin-top: 20rpx;
+  /* padding-top: 20rpx; */
+  border-top: 2rpx solid rgba(244, 142, 181, 0.2);
+  box-shadow: 0 4rpx 20rpx rgba(12, 17, 23, 0.2);
+  height: 100rpx;
+  /* line-height: 100rpx; */
+  align-items: center;
+  border-radius: 20rpx;
 }
 
 .btn {

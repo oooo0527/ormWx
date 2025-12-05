@@ -9,6 +9,7 @@ Page({
     pendingStatusList: [], // 待审核留言列表 (status='0')
     pendingCheckedList: [], // 待审核精选列表 (checked='1')
     isLoading: false, // 是否正在加载数据
+    navBarHeight: 0, // 添加导航栏高度数据
 
     // 拒绝理由相关数据
     showRejectModal: false, // 是否显示拒绝理由弹窗

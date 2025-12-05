@@ -1,9 +1,7 @@
-<custom-navbar title="Orm个人信息" background-color="transparent" scrolled-background-color="#f48eb5" text-color="#ffffff" show-back="{{true}}" show-home="{{false}}"></custom-navbar>
-
 <global-background>
-  <view class="container">
-    <!-- 添加一个占位视图，确保内容不会被导航栏遮挡 -->
-    <view class="navbar-placeholder"></view>
+<custom-navbar title="煎蛋卷" showBack="{{false}}" showHome="{{true}}"></custom-navbar>
+<view class="container" style="margin-top: {{navBarHeight}}px;min-height:calc(100vh - {{navBarHeight}}px);">
+
     
     <text class="page-title">🌟 Orm个人信息</text>
     

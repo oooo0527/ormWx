@@ -142,8 +142,8 @@ Page({
       const comments = selectedWork.comments.map((item, index) => {
         return {
           id: item._id || index,
-          avatar: item.userInfo.userInfo && item.userInfo.userInfo.avatar ? item.userInfo.userInfo.avatar : "/images/avatar-default.png",
-          nickname: item.userInfo.userInfo && item.userInfo.userInfo.nickname ? item.userInfo.userInfo.nickname : "用户" + (index + 1),
+          avatar: item.userInfo && item.userInfo.avatar ? item.userInfo.avatar : "/images/avatar-default.png",
+          nickname: item.userInfo && item.userInfo.nickname ? item.userInfo.nickname : "用户" + (index + 1),
           content: item.content,
           createTime: item.createTime,
           createDate: item.createDate,

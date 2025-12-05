@@ -59,7 +59,7 @@ Page({
     // console.log('Scroll Top:', scrollTop, e);
 
     // 判断是否需要吸顶：滚动距离 > 轮播图高度
-    if (scrollTop > 310) {
+    if (scrollTop > 320) {
       if (!this.data.isFixed) {
         this.setData({ isFixed: true });
       }
@@ -168,8 +168,9 @@ Page({
               likes: 0,
               isLiked: false,
               comments: item.comments || [],
-              creator: item.userInfo && item.userInfo.nickname ? item.userInfo.nickname : (item.creator || '匿名用户'), // 使用用户信息中的昵称
-              commentsCount: (item.comments || []).length
+              creator: item.userInfo.userInfo && item.userInfo.userInfo.nickname ? item.userInfo.userInfo.nickname : (item.creator || '匿名用户'), // 使用用户信息中的昵称
+              commentsCount: (item.comments || []).length,
+              createImg: item.userInfo.userInfo && item.userInfo.userInfo.avatar ? item.userInfo.userInfo.avatar : item.createImg
             }
           });
           // 判断是否还有更多数据
