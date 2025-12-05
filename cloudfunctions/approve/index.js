@@ -33,7 +33,9 @@ async function getPendingApprovals(event) {
     // 获取status为'0'的留言（待审核留言）
     const pendingStatusResult = await db.collection('interactions')
       .where({
-        status: '0'
+        status: '0',
+        checked: '0'
+
       })
       .orderBy('createTime', 'desc')
       .get()
@@ -109,6 +111,7 @@ async function rejectInteraction(event) {
     } else if (type === 'checked') {
       // 更新checked字段: '1' -> '0'
       updateData.checked = '0'
+      updateData.status = '2'
     }
 
     // 添加拒绝理由

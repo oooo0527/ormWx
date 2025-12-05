@@ -188,7 +188,8 @@ Page({
               comments: item.comments || [],
               creator: item.userInfo.userInfo && item.userInfo.userInfo.nickname ? item.userInfo.userInfo.nickname : (item.creator || '匿名用户'), // 使用用户信息中的昵称
               commentsCount: (item.comments || []).length,
-              status: item.status || '0' // 添加状态字段
+              status: item.status || '0', // 添加状态字段
+              rejectReason: item.rejectReason || '未知'
             };
 
             // 根据状态分类

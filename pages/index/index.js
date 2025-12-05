@@ -213,7 +213,6 @@ Page({
               action: 'login',
               userInfo: {
                 ...res.userInfo,
-                nickName: ''
               }
             },
             success: res => {

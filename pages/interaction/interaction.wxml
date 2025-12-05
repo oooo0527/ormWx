@@ -19,7 +19,7 @@
             <view class="carousel-card" wx:for="{{displayWorks}}" wx:key="id" style="transform: {{cardTransforms[index]}}; z-index: {{cardZIndexes[index]}}; opacity: {{cardOpacities[index]}};" data-index="{{index}}" bindtap="selectCard">
               <view class="card-content1">
 
-                <view class="card-description">{{item.description}}</view>
+                <view class="card-description">{{item.content}}</view>
                 <view class="card-title">{{item.title}}</view>
               </view>
               <view class="card-more">
@@ -47,24 +47,21 @@
 
             <view class="hot-interaction-info">
             <view class="img-box">
-                 <image src="{{item.createImg}}" class="user-image" mode="widthFix" wx:if="{{item.createImg}}" lazy-load></image>
+                 <image src="{{item.userInfo.avatar}}" class="user-image" mode="widthFix" wx:if="{{item.userInfo.avatar}}" lazy-load></image>
             
-            </view>
-
-           
-   
+            </view> 
               <view class="info-box">
                 <view class='hott-title'>{{item.title}}</view>
-              <view class="hott-des">{{item.description}}</view>
+              <view class="hott-des">{{item.content}}</view>
               <view class="hott-text">
-                  {{item.commentsCount}} 条评论
+                  {{item.comments.length}} 条评论
                 </view>
               </view>
 
 
             </view>
-            <view class="creator" wx:if="{{item.cover}}">
-              <image src="{{item.cover}}" class="hot-image" mode="widthFix" lazy-load></image>
+            <view class="creator" wx:if="{{item.images.length>0}}">
+              <image src="{{item.images[0]}}" class="hot-image" mode="widthFix" lazy-load></image>
             </view>
           </view>
         </view>

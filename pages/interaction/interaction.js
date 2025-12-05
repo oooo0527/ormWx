@@ -44,7 +44,7 @@ Page({
 
   onLoad: function () {
     this.setData({
-      userInfo: wx.getStorageSync('userInfo').userInfo
+      userInfo: wx.getStorageSync('userInfo')
     });
 
 
@@ -97,29 +97,9 @@ Page({
       success: res => {
         console.log('获取互动留言成功：', res.result.data);
         if (res.result && res.result.success && res.result.data.length > 0) {
-          // 将云端数据转换为页面所需格式
-          const works = res.result.data.map((item, index) => {
-            return {
-              id: item._id,
-              title: item.title,
-              role: "用户互动",
-              type: "互动",
-              cover: item.images && item.images.length > 0 ? item.images[0] : "", // 使用第一张图片作为封面
-              updateTime: item.updateTime || '',
-              createDate: item.createDate || '',
-              createTime: item.createTime || '',
-              description: item.content,
-              likes: 0,
-
-              status: '1',
-              isLiked: false,
-              comments: item.comments || [],
-              creator: item.userInfo && item.userInfo.nickname ? item.userInfo.nickname : (item.creator || '匿名用户'), // 使用用户信息中的昵称
-            }
-          });
 
           this.setData({
-            works: works
+            works: res.result.data
           }, () => {
             // 数据更新后重新初始化轮播图
             this.init3DCarousel();
@@ -154,25 +134,7 @@ Page({
         console.log('获取热门互动留言成功：', currentPage, pageSize, res.result.data);
         if (res.result && res.result.success && res.result.data.length > 0) {
           // 处理热门互动留言数据
-          const hotInteractions = res.result.data.map((item, index) => {
-            return {
-              id: item._id,
-              title: item.title,
-              role: "用户互动",
-              type: "互动",
-              cover: item.images && item.images.length > 0 ? item.images[0] : "", // 使用第一张图片作为封面
-              updateTime: item.updateTime || '',
-              description: item.content,
-              createDate: item.createDate || '',
-              createTime: item.createTime || '',
-              likes: 0,
-              isLiked: false,
-              comments: item.comments || [],
-              creator: item.userInfo.userInfo && item.userInfo.userInfo.nickname ? item.userInfo.userInfo.nickname : (item.creator || '匿名用户'), // 使用用户信息中的昵称
-              commentsCount: (item.comments || []).length,
-              createImg: item.userInfo.userInfo && item.userInfo.userInfo.avatar ? item.userInfo.userInfo.avatar : item.createImg
-            }
-          });
+
           // 判断是否还有更多数据
           if (res.result.data.length < this.data.pageSize) {
             this.setData({
@@ -186,7 +148,7 @@ Page({
               loadMore: false
             });
           }
-          const hotInteractions2 = [...hotInteractions]
+          const hotInteractions2 = [...res.result.data]
             .sort((a, b) =>
               new Date(`${b.createDate} ${b.createTime}`) -
               new Date(`${a.createDate} ${a.createTime}`)

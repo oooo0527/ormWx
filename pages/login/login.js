@@ -9,12 +9,47 @@ Page({
     userInfo: null
   },
   onChooseAvatar(e) {
-    const { avatarUrl } = e.detail
-    this.setData({
-      avatar: avatarUrl,
-    })
+    const { avatarUrl } = e.detail;
 
+    // 显示加载提示
+    wx.showLoading({
+      title: '上传头像中...'
+    });
 
+    // 上传头像到云存储
+    const cloudPath = 'user/avatar-' + Date.now() + '-' + Math.floor(Math.random() * 1000) + '.png';
+    wx.cloud.uploadFile({
+      cloudPath: cloudPath,
+      filePath: avatarUrl,
+      success: res => {
+        // 上传成功，获取文件ID
+        const fileID = res.fileID;
+
+        // 设置头像为云存储中的文件
+        this.setData({
+          avatar: fileID
+        });
+
+        wx.hideLoading();
+        wx.showToast({
+          title: '头像上传成功',
+          icon: 'success'
+        });
+      },
+      fail: err => {
+        console.error('头像上传失败', err);
+        wx.hideLoading();
+        wx.showToast({
+          title: '头像上传失败',
+          icon: 'none'
+        });
+
+        // 上传失败时，仍然使用临时路径
+        this.setData({
+          avatar: avatarUrl
+        });
+      }
+    });
   },
 
   /**
@@ -29,8 +64,6 @@ Page({
     if (userInfo) {
       this.setData({
         userInfo: userInfo,
-        nickname: '',
-        avatar: userInfo.avatar || ''
       });
     }
   },
@@ -123,12 +156,9 @@ Page({
           if (res.result && res.result.success) {
             // 更新成功，更新本地存储和全局数据
             const updatedUserInfo = {
-              openid: userInfo.openid,
-              userInfo: {
-                ...userInfo,
-                nickname: updateData.nickname,
-                avatar: updateData.avatar || userInfo.avatar || ''
-              }
+              ...userInfo,
+              nickname: updateData.nickname,
+              avatar: updateData.avatar || userInfo.avatar || ''
 
             };
 
@@ -167,28 +197,7 @@ Page({
           });
         }
       });
-    } else {
-      // 如果没有用户信息，说明是新用户或者用户信息丢失
-      // 这种情况下，我们需要重新获取用户授权
-
-      // 先隐藏加载提示
-      wx.hideLoading();
-
-      // 提示用户需要重新授权登录
-      wx.showModal({
-        title: '提示',
-        content: '需要重新授权登录才能保存信息',
-        showCancel: true,
-        confirmText: '去登录',
-        success: res => {
-          if (res.confirm) {
-            // 跳转回首页进行重新登录
-            wx.redirectTo({
-              url: '/pages/index/index'
-            });
-          }
-        }
-      });
     }
+
   }
 });

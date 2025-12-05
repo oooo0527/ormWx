@@ -109,6 +109,14 @@
 
 .item-header {
   margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.item-reject {
+  font-size: 12px;
+  color: #f46c6c;
 }
 
 .item-title {

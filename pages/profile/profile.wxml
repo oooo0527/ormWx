@@ -4,9 +4,9 @@
 <view class="container" style="margin-top: {{navBarHeight}}px;min-height:calc(100vh - {{navBarHeight}}px);">
   <view wx:if="{{isLogin}}" class="profile-card">
     <button class="avatar-wrapper" >
-      <image class="avatar" src="{{userInfo.userInfo.avatar}}" lazy-load></image>
+      <image class="avatar" src="{{userInfo.avatar}}" lazy-load></image>
     </button>
-    <text class="nickname">{{userInfo.userInfo.nickname}}</text>
+    <text class="nickname">{{userInfo.nickname}}</text>
 
     <view class="action-buttons">
       <button class="action-btn edit-btn" bindtap="editProfile">
@@ -24,8 +24,11 @@
     </view>
     
     <view class="menueList-content">
-      <view wx:for="{{menueList}}" wx:key="index" bindtap="navigateToPage" data-url="{{item.path}}" class="menueList-list">
-        {{item.title}}
+      <view wx:for="{{menueList}}" wx:key="index" bindtap="navigateToPage" data-url="{{item.path}}" class="menueList-list"  wx-if="{{item.isManager<=userInfo.isManager}}" >
+      <view>
+            {{item.title}}
+      </view>
+  
       </view>
     </view>
   </view>

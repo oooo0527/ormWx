@@ -138,22 +138,7 @@ Page({
   loadComments: function () {
     const selectedWork = this.data.works;
     if (selectedWork && selectedWork.comments) {
-      // 将云端数据转换为页面所需格式
-      const comments = selectedWork.comments.map((item, index) => {
-        return {
-          id: item._id || index,
-          avatar: item.userInfo && item.userInfo.avatar ? item.userInfo.avatar : "/images/avatar-default.png",
-          nickname: item.userInfo && item.userInfo.nickname ? item.userInfo.nickname : "用户" + (index + 1),
-          content: item.content,
-          createTime: item.createTime,
-          createDate: item.createDate,
-          likes: 0,
-          isLiked: false,
-          replies: [],
-
-        }
-      });
-      const sortedComments2 = [...comments]
+      const sortedComments2 = [...selectedWork.comments]
         .sort((a, b) =>
           new Date(`${b.createDate} ${b.createTime}`) -
           new Date(`${a.createDate} ${a.createTime}`)
@@ -232,18 +217,9 @@ Page({
           // 清空输入框
           this.setData({
             newComment: "",
-            works: {
-              ...this.data.works,
-              comments: [...this.data.works.comments, res.result.data]
-            }
           });
-          console.log(this.data.works, 'ndsjkcnjdfnv')
-
-          // 重新加载评论
-          this.loadComments();
-
           // 同时更新当前作品的评论数据
-          // this.refreshCurrentWorkComments();
+          this.refreshCurrentWorkComments();
         } else {
           wx.showToast({
             title: res.result.message || '评论失败',
@@ -268,9 +244,10 @@ Page({
       name: 'fanVoice',
       data: {
         action: 'getInteractionById',
-        id: this.data.works.id
+        id: this.data.works.id || this.data.works._id
       },
       success: res => {
+        console.log('res', res)
         if (res.result && res.result.success && res.result.data) {
           const updatedWork = res.result.data;
 
@@ -278,6 +255,8 @@ Page({
           this.setData({
             works: updatedWork
           });
+          // 重新加载评论
+          this.loadComments();
 
         }
       },

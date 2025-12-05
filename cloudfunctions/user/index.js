@@ -68,20 +68,11 @@ async function login(event, wxContext) {
       const updateData = {
         lastLoginTime: new Date()
       };
-
-      // 如果前端传递了用户信息，则更新
-      if (userInfo) {
-        updateData.nickname = userInfo.nickName ? userInfo.nickName : userData.nickname;
-        updateData.avatar = userInfo.avatarUrl ? userInfo.avatarUrl : userData.avatar;
-      }
-
       await db.collection('users').where({
         openid: openid
       }).update({
         data: updateData
       });
-
-      console.log('用户已存在，更新用户信息');
     } else {
       // 新用户，创建用户记录
       const newUser = {
@@ -89,7 +80,8 @@ async function login(event, wxContext) {
         nickname: userInfo ? (userInfo.nickName ? userInfo.nickName : '微信用户') : '微信用户',
         avatar: userInfo ? (userInfo.avatarUrl ? userInfo.avatarUrl : '') : '',
         createTime: new Date().getTime(),
-        lastLoginTime: new Date().getTime()
+        lastLoginTime: new Date().getTime(),
+        isManager: '0'
       };
 
       const addRes = await db.collection('users').add({

@@ -4,12 +4,12 @@
 
     <view class="carousel-container1">
 
-      <image src="{{works.cover}}" mode="aspectFill" class="selected-work-image" wx:show="{{works.cover}}" lazy-load></image>
+      <image src="{{works.images[0]}}" mode="aspectFill" class="selected-work-image" wx:show="{{works.images.length>0}}" lazy-load></image>
 
       <view class="selected-work-detail">
-        <image src="{{works.cover}}" class="swiper-image" mode="widthFix" wx:if="{{works.cover}}" lazy-load bindtap="onSwiperImageTap"></image>
+        <image src="{{works.images[0]}}" class="swiper-image" mode="widthFix" wx:if="{{works.images.length>0}}" lazy-load bindtap="onSwiperImageTap"></image>
         <view class="selected-work-title">{{works.title}}</view>
-        <view class="selected-work-description">{{works.description}}</view>
+        <view class="selected-work-description">{{works.content}}</view>
 
         <!-- 收藏按钮 -->
         <view class="favorite-section">
@@ -36,9 +36,9 @@
           <view class="comment-item">
             <!-- 评论者信息 -->
             <view class="comment-header">
-              <image class="comment-avatar" src="{{item.avatar}}"></image>
+              <image class="comment-avatar" src="{{item.userInfo.avatar}}"></image>
               <view class="comment-user-info">
-                <text class="comment-nickname">{{item.nickname}}</text>
+                <text class="comment-nickname">{{item.userInfo.nickname}}</text>
                 <text class="comment-time"> {{item.createDate}} /{{item.createTime}}</text>
               </view>
               <view class="comment-like" bindtap="toggleCommentLike" wx:if="{{false}}" data-id="{{item.id}}">

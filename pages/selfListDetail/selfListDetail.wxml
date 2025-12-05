@@ -61,6 +61,7 @@
         <view class="interaction-item failed-item" wx:for="{{publishedFailList}}" wx:key="id"  data-index="{{index}}" data-status="fail">
           <view class="item-header">
             <text class="item-title">{{item.title}}</text>
+            <text class="item-reject">拒绝原因 : {{item.rejectReason}}</text>
           </view>
           <view class="item-content">
             <text class="content-text">{{item.description}}</text>
