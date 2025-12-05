@@ -217,16 +217,16 @@ Page({
     const windowWidth = wx.getSystemInfoSync().windowWidth;
 
     // 生成20个祝福项
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 100; i++) {
       blessingItems.push({
         id: i,
         text: this.data.blessingText,
         color: colors[Math.floor(Math.random() * colors.length)],
         bgColor: bgColors[Math.floor(Math.random() * bgColors.length)],
-        top: Math.random() * (windowHeight - 100),
-        left: Math.random() * (windowWidth - 200),
+        top: Math.random() * (windowHeight + 10),
+        left: Math.random() * (windowWidth - 10),
         show: false, // 初始不显示
-        animationClass: Math.random() > 0.5 ? 'floating' : 'pulsing' // 随机添加动画类
+        animationClass: Math.random() > 0.2 ? 'floating' : 'pulsing' // 随机添加动画类
       });
     }
 

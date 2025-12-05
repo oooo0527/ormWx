@@ -1,6 +1,6 @@
 Page({
   data: {
-    currentSlide: 0,
+    currentCarousel: 0,
     works: [
       {
         id: 1,
@@ -101,39 +101,51 @@ Page({
         likes: 0,
         isLiked: false
       }
-    ],
-
-    // 按类型分类的作品
-    categorizedWorks: {},
-
-
+    ]
   },
 
   onLoad: function () {
-
-    this.categorizeWorks();
+    // 页面加载时的初始化操作
   },
 
-  // 页面滚动事件
-  onPageScroll: function (e) {
-    // 空函数，用于被自定义导航栏组件重写
-  },
-
-  // 按类型分类作品
-  categorizeWorks: function () {
-    const works = this.data.works;
-    const categorizedWorks = {};
-
-    // 按类型分组
-    works.forEach(work => {
-      if (!categorizedWorks[work.type]) {
-        categorizedWorks[work.type] = [];
-      }
-      categorizedWorks[work.type].push(work);
-    });
-
+  // 轮播图变化事件
+  onCarouselChange: function (e) {
     this.setData({
-      categorizedWorks: categorizedWorks
+      currentCarousel: e.detail.current
     });
   },
+
+  // 卡片点击事件
+  onCardTap: function (e) {
+    const index = e.currentTarget.dataset.index;
+    this.setData({
+      currentCarousel: index
+    });
+  },
+
+  // 三搭入口点击事件
+  onEntranceTap: function (e) {
+    const type = e.currentTarget.dataset.type;
+    wx.showToast({
+      title: `点击了${type}入口`,
+      icon: 'none'
+    });
+    // 这里可以添加跳转到不同类型作品列表的逻辑
+  },
+
+  // 点赞按钮点击事件
+  onLikeTap: function () {
+    wx.showToast({
+      title: '点赞成功',
+      icon: 'success'
+    });
+  },
+
+  // 分享按钮点击事件
+  onShareTap: function () {
+    wx.showToast({
+      title: '分享功能开发中',
+      icon: 'none'
+    });
+  }
 });
