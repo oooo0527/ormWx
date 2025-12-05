@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "Orm个人信息",
   "usingComponents": {
+    "custom-navbar": "/components/customNavbar/customNavbar",
     "global-background": "/components/globalBackground/globalBackground"
   }
 }

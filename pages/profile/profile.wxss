@@ -1,22 +1,37 @@
 .container {
   box-sizing: border-box;
   position: relative;
-  background: #f48eb5;
-  min-height: 100vh;
+  background: linear-gradient(180deg, #0c1117 0%, #f48eb5 100%);
+  min-height: calc(100vh - 148rpx);
+  /* padding: 20rpx; */
 }
 
 .profile-card {
-  background: #ffffff;
-  border-radius: 20rpx;
-  padding: 50rpx 40rpx;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10rpx);
+  border-radius: 30rpx;
+  /* padding: 50rpx 40rpx; */
   width: 100%;
-  box-shadow: 0 4rpx 20rpx rgba(12, 17, 23, 0.05);
+  box-shadow: 0 8rpx 30rpx rgba(12, 17, 23, 0.2);
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-bottom: 30rpx;
   box-sizing: border-box;
-  border: 2rpx solid #f48eb5;
+  border: 2rpx solid rgba(244, 142, 181, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.profile-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+  z-index: -1;
 }
 
 .avatar-wrapper {
@@ -25,38 +40,44 @@
   align-items: center;
   justify-content: center;
   margin: 60rpx 0;
-  width: 160rpx;
-  height: 160rpx;
+  width: 180rpx;
+  height: 180rpx;
+  border-radius: 50%;
+  border: 4rpx solid #ffffff;
+  box-shadow: 0 0 30rpx rgba(244, 142, 181, 0.5);
+  position: relative;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .avatar {
-  width: 160rpx;
-  height: 160rpx;
-  /* border-radius: 50%; */
-  /* margin-bottom: 60rpx; */
-  border: 2rpx solid #eee;
+  width: 170rpx;
+  height: 170rpx;
+  border-radius: 50%;
+  border: 2rpx solid rgba(255, 255, 255, 0.3);
 }
 
-
 .nickname {
-  font-size: 36rpx;
+  font-size: 40rpx;
   font-weight: bold;
   margin-bottom: 10rpx;
-  color: #0c1117;
+  color: #ffffff;
+  text-shadow: 0 2rpx 4rpx rgba(12, 17, 23, 0.3);
 }
 
 .username {
   font-size: 28rpx;
-  color: #ffffff;
+  color: rgba(255, 255, 255, 0.8);
   margin-bottom: 30rpx;
 }
 
 /* 操作按钮 */
 .action-buttons {
   display: flex;
-  gap: 20rpx;
+  gap: 30rpx;
   width: 100%;
   box-sizing: border-box;
+  margin: 40rpx 0;
 }
 
 .action-btn {
@@ -65,42 +86,93 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 20rpx;
-  border-radius: 15rpx;
-  border: 2rpx solid #f48eb5;
-  background: #ffffff;
+  padding: 25rpx;
+  border-radius: 20rpx;
+  background: rgba(255, 255, 255, 0.15);
   color: #ffffff;
-  font-size: 26rpx;
+  font-size: 28rpx;
   box-sizing: border-box;
+  border: 2rpx solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
 }
 
 .action-btn:active {
-  transform: scale(0.98);
-  background: #f48eb5;
+  transform: scale(0.95);
+  background: rgba(244, 142, 181, 0.3);
+  box-shadow: 0 0 20rpx rgba(244, 142, 181, 0.5);
 }
 
 .action-icon {
-  width: 40rpx;
-  height: 40rpx;
-  margin-bottom: 10rpx;
+  width: 50rpx;
+  height: 50rpx;
+  margin-bottom: 15rpx;
+  filter: drop-shadow(0 2rpx 4rpx rgba(12, 17, 23, 0.3));
 }
 
 .edit-btn {
-  background: #0c1117;
+  background: linear-gradient(135deg, #0c1117 0%, #3a4047 100%);
   color: #ffffff;
-  border: 2rpx solid #f48eb5;
+  border: 2rpx solid rgba(244, 142, 181, 0.3);
 }
 
 .background-btn {
-  background: #f48eb5;
+  background: linear-gradient(135deg, #f48eb5 0%, #f7669d 100%);
   color: #ffffff;
-  border: 2rpx solid #f48eb5;
+  border: 2rpx solid rgba(255, 255, 255, 0.3);
 }
 
 .logout-btn {
-  background: #f48eb5;
+  background: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
   color: #ffffff;
-  border: 2rpx solid #f48eb5;
+  border: 2rpx solid rgba(255, 255, 255, 0.3);
+}
+
+/* 菜单列表 */
+.menueList-content {
+  width: 100%;
+  margin-top: 30rpx;
+  border-radius: 20rpx;
+  overflow: hidden;
+  box-shadow: 0 4rpx 20rpx rgba(12, 17, 23, 0.1);
+}
+
+.menueList-list {
+  padding: 30rpx;
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  font-size: 32rpx;
+  border-bottom: 2rpx solid rgba(244, 142, 181, 0.2);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.menueList-list:last-child {
+  border-bottom: none;
+}
+
+.menueList-list::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -20rpx;
+  width: 10rpx;
+  height: 10rpx;
+  background: #f48eb5;
+  border-radius: 50%;
+  transform: translateY(-50%);
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.menueList-list:active {
+  background: rgba(244, 142, 181, 0.2);
+  transform: translateX(10rpx);
+}
+
+.menueList-list:active::before {
+  opacity: 1;
+  left: 20rpx;
 }
 
 /* 弹窗样式 */
@@ -110,7 +182,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(12, 17, 23, 0.5);
+  background: rgba(12, 17, 23, 0.7);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -119,13 +191,14 @@
 }
 
 .modal-content {
-  background: #ffffff;
-  border-radius: 20rpx;
-  width: 80%;
-  max-width: 600rpx;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 30rpx;
+  width: 85%;
+  max-width: 650rpx;
   overflow: hidden;
   box-sizing: border-box;
-  border: 2rpx solid #f48eb5;
+  border: 2rpx solid rgba(244, 142, 181, 0.5);
+  backdrop-filter: blur(10rpx);
 }
 
 .modal-header {
@@ -133,19 +206,22 @@
   justify-content: space-between;
   align-items: center;
   padding: 30rpx;
-  border-bottom: 2rpx solid #f48eb5;
+  border-bottom: 2rpx solid rgba(244, 142, 181, 0.3);
   box-sizing: border-box;
+  background: linear-gradient(135deg, #f48eb5 0%, #f7669d 100%);
 }
 
 .modal-title {
   font-size: 36rpx;
   font-weight: bold;
   color: #ffffff;
+  text-shadow: 0 2rpx 4rpx rgba(12, 17, 23, 0.3);
 }
 
 .close-btn {
   width: 40rpx;
   height: 40rpx;
+  filter: invert(1);
 }
 
 .modal-body {
@@ -165,18 +241,19 @@
 .input-label {
   display: block;
   font-size: 28rpx;
-  color: #ffffff;
+  color: #0c1117;
   margin-bottom: 15rpx;
+  font-weight: bold;
 }
 
 .input {
   width: 100%;
   padding: 20rpx;
-  border: 2rpx solid #f48eb5;
-  border-radius: 10rpx;
+  border: 2rpx solid rgba(244, 142, 181, 0.5);
+  border-radius: 15rpx;
   font-size: 28rpx;
   box-sizing: border-box;
-  background: #ffffff;
+  background: rgba(255, 255, 255, 0.8);
   color: #0c1117;
 }
 
@@ -195,18 +272,68 @@
   font-size: 28rpx;
   border: none;
   box-sizing: border-box;
+  font-weight: bold;
 }
 
 .cancel-btn {
-  background: #f48eb5;
+  background: linear-gradient(135deg, #f48eb5 0%, #f7669d 100%);
   color: #ffffff;
-  border: 2rpx solid #f48eb5;
+  border: 2rpx solid rgba(255, 255, 255, 0.5);
 }
 
 .confirm-btn {
-  background: #0c1117;
+  background: linear-gradient(135deg, #0c1117 0%, #3a4047 100%);
   color: #ffffff;
-  border: 2rpx solid #f48eb5;
+  border: 2rpx solid rgba(244, 142, 181, 0.5);
+}
+
+/* 响应式设计 */
+/* 动画效果 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30rpx);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.05);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.profile-card {
+  animation: fadeIn 0.6s ease-out;
+}
+
+.avatar-wrapper {
+  animation: pulse 2s infinite;
+}
+
+.menueList-list {
+  animation: fadeIn 0.3s ease-out;
+  animation-fill-mode: backwards;
+}
+
+.menueList-list:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.menueList-list:nth-child(2) {
+  animation-delay: 0.2s;
 }
 
 /* 响应式设计 */
@@ -218,7 +345,6 @@
   .profile-card {
     padding: 40rpx 30rpx;
   }
-
 
   .action-buttons {
     gap: 15rpx;
@@ -235,14 +361,14 @@
   }
 
   .menueList-content {
-    height: 300px;
+    height: auto;
     width: 100%;
     display: flex;
     flex-direction: column;
   }
 
   .menueList-list {
-    height: 100px;
-    line-height: 100px;
+    padding: 25rpx;
+    font-size: 28rpx;
   }
 }

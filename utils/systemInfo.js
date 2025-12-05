@@ -5,14 +5,12 @@
  */
 function getSystemInfo() {
   return new Promise((resolve, reject) => {
-    wx.getSystemInfo({
-      success: function (res) {
-        resolve(res);
-      },
-      fail: function (err) {
-        reject(err);
-      }
-    });
+    try {
+      const res = wx.getSystemInfoSync();
+      resolve(res);
+    } catch (err) {
+      reject(err);
+    }
   });
 }
 
@@ -35,26 +33,18 @@ function getStatusBarHeight() {
  */
 function getNavBarHeight() {
   return new Promise((resolve) => {
-    getSystemInfo().then(res => {
-      // iOS和Android的导航栏高度计算方式不同
-      let navHeight = 44; // 默认iOS导航栏高度
+    getSystemInfo().then(systemInfo => {
+      // 安全区域顶部位置（从屏幕顶部到安全区域的距离）
+      const { statusBarHeight } = systemInfo;
 
-      // Android导航栏高度通常为48px
-      if (res.system.indexOf('Android') !== -1) {
-        navHeight = 48;
-      }
+      // 获取菜单按钮（胶囊按钮）的布局位置信息
+      const menuButtonInfo = wx.getMenuButtonBoundingClientRect();
 
-      // 如果是iPhone X及以上机型（有刘海屏），需要额外增加安全区域高度
-      if (res.model.indexOf('iPhone X') !== -1 ||
-        res.model.indexOf('iPhone 11') !== -1 ||
-        res.model.indexOf('iPhone 12') !== -1 ||
-        res.model.indexOf('iPhone 13') !== -1 ||
-        res.model.indexOf('iPhone 14') !== -1 ||
-        res.model.indexOf('iPhone 15') !== -1) {
-        navHeight = 88; // 包含状态栏和导航栏的高度
-      }
+      // 计算导航栏高度
+      // 公式：状态栏高度 + (胶囊按钮顶部到状态栏底部的距离) * 2 + 胶囊按钮高度
+      const navBarHeight = statusBarHeight + (menuButtonInfo.top - statusBarHeight) * 2 + menuButtonInfo.height;
 
-      resolve(navHeight);
+      resolve(navBarHeight);
     }).catch(() => {
       // 默认值
       resolve(64);

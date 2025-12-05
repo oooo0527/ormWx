@@ -35,6 +35,7 @@ Component({
 
   data: {
     statusBarHeight: 0,
+    navBarHeight: 0, // 添加导航栏高度数据
     image: '/components/customNavbar/tabBg.png',
     isScrolled: false
   },
@@ -42,10 +43,20 @@ Component({
   lifetimes: {
     attached: function () {
       // 组件实例进入页面节点树时执行
-      // 获取状态栏高度
-      systemInfo.getStatusBarHeight().then(height => {
+      // 获取状态栏高度和导航栏高度
+      Promise.all([
+        systemInfo.getStatusBarHeight(),
+        systemInfo.getNavBarHeight()
+      ]).then(([statusBarHeight, navBarHeight]) => {
         this.setData({
-          statusBarHeight: height
+          statusBarHeight: statusBarHeight,
+          navBarHeight: navBarHeight
+        });
+      }).catch(() => {
+        // 默认值
+        this.setData({
+          statusBarHeight: 20,
+          navBarHeight: 64
         });
       });
     }

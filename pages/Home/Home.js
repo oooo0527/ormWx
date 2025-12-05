@@ -31,7 +31,7 @@ Page({
       },
       {
         name: '菜单2',
-        url: '/packHome/dream/dream',
+        url: '/packHome/personal/personal',
         icon: 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/925db0f17c54d003a63bdfb90bfdd0c1.jpg'
       },
       {

@@ -3,11 +3,16 @@
   <view class="container" style="margin-top:128rpx;">
     <view wx:if="{{isLogin}}" class="profile-card">
       <button class="avatar-wrapper" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
-        <image class="avatar" src="{{userInfo.userInfo.avatar || '/images/default_avatar.png'}}" lazy-load></image>
+        <image class="avatar" src="{{userInfo.avatar || '/images/default_avatar.svg'}}" lazy-load></image>
       </button>
-      <text class="nickname">{{userInfo.userInfo.nickname}}</text>
+      <text class="nickname">{{userInfo.nickname}}</text>
+ 
 
       <view class="action-buttons">
+        <button class="action-btn edit-btn" bindtap="editProfile">
+          <image class="action-icon" src="/images/profile/edit.svg" lazy-load></image>
+          <text>编辑资料</text>
+        </button>
         <button class="action-btn background-btn" bindtap="goToBackgroundSetting">
           <image class="action-icon" src="/images/profile/upload.svg" lazy-load></image>
           <text>背景设置</text>
@@ -17,14 +22,12 @@
           <text>退出登录</text>
         </button>
       </view>
+      
       <view class="menueList-content">
         <view wx:for="{{menueList}}" wx:key="index" bindtap="navigateToPage" data-url="{{item.path}}" class="menueList-list">
           {{item.title}}
-
         </view>
       </view>
-
     </view>
   </view>
-
 </global-background>

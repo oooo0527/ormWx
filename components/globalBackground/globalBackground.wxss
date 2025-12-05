@@ -9,4 +9,13 @@
   /* 确保背景组件不影响布局 */
   position: relative;
   /* 确保子元素可以正确使用固定定位 */
+  z-index: 1;
+  /* 确保背景在正确层级 */
+  padding-top: 0;
+  /* 移除顶部padding，因为有导航栏占位 */
+}
+
+/* 添加导航栏占位样式 */
+.navbar-placeholder {
+  width: 100%;
 }

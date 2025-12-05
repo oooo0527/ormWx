@@ -1,7 +1,9 @@
 .container {
   padding: 20rpx;
-  min-height: 100vh;
+  height: calc(100vh - 148rpx);
   box-sizing: border-box;
+  padding-top: 0;
+  /* 移除顶部padding，因为有导航栏占位 */
 }
 
 .page-title {

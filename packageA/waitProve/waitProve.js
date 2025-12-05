@@ -76,6 +76,15 @@ Page({
             pendingStatusList: pendingStatusList,
             pendingCheckedList: pendingCheckedList
           });
+
+          // 添加成功提示
+          if (pendingStatusList.length > 0 || pendingCheckedList.length > 0) {
+            wx.showToast({
+              title: '数据加载成功',
+              icon: 'success',
+              duration: 1000
+            });
+          }
         } else {
           wx.showToast({
             title: res.result ? res.result.message : '获取数据失败',
@@ -105,8 +114,12 @@ Page({
     this.setData({
       activeTab: tab
     });
-    // 页面加载时获取待审核数据
-    this.getPendingApprovals();
+
+    // 添加切换动画效果
+    wx.pageScrollTo({
+      scrollTop: 0,
+      duration: 300
+    });
   },
 
   /**
@@ -237,6 +250,7 @@ Page({
     wx.showModal({
       title: '确认拒绝',
       content: `确定要拒绝此${currentRejectType === 'status' ? '留言' : '精选'}吗？\n拒绝理由：${reasonText}`,
+      confirmColor: '#f48eb5',
       success: res => {
         if (res.confirm) {
           this.updateApprovalStatus(currentRejectId, currentRejectType, 'reject', reasonText);
@@ -255,6 +269,7 @@ Page({
     wx.showModal({
       title: '确认审核通过',
       content: type === 'status' ? '确定要通过此留言的审核吗？' : '确定要将此留言设为精选吗？',
+      confirmColor: '#4cd964',
       success: res => {
         if (res.confirm) {
           this.updateApprovalStatus(id, type, 'approve');
@@ -296,12 +311,30 @@ Page({
             this.setData({
               pendingStatusList: newList
             });
+
+            // 如果列表为空，显示提示
+            if (newList.length === 0 && this.data.activeTab === 'status') {
+              wx.showToast({
+                title: '暂无待审核留言',
+                icon: 'none',
+                duration: 2000
+              });
+            }
           } else if (type === 'checked') {
             // 从待审核精选列表中移除
             const newList = this.data.pendingCheckedList.filter(item => item._id !== id);
             this.setData({
               pendingCheckedList: newList
             });
+
+            // 如果列表为空，显示提示
+            if (newList.length === 0 && this.data.activeTab === 'checked') {
+              wx.showToast({
+                title: '暂无待审核精选',
+                icon: 'none',
+                duration: 2000
+              });
+            }
           }
         } else {
           wx.showToast({

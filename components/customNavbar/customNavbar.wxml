@@ -1,6 +1,6 @@
 <!--components/customNavbar/customNavbar.wxml-->
-<view class="navbar" style="background-color: {{isScrolled ? scrolledBackgroundColor : backgroundColor}}; padding-top: {{statusBarHeight}}px;">
-  <view class="navbar-content"  style="background-color: {{isScrolled ? scrolledBackgroundColor : backgroundColor}};" >
+<view class="navbar" style="background-color: {{isScrolled ? scrolledBackgroundColor : backgroundColor}}; height: {{navBarHeight}}px; padding-top: {{statusBarHeight}}px;">
+  <view class="navbar-content"  style="background-color: {{isScrolled ? scrolledBackgroundColor : backgroundColor}}; height: {{navBarHeight - statusBarHeight}}px;" >
     <image src="{{image}}" mode="fit" lazy-load class="nav-image"></image>
     <!-- 返回按钮 -->
     <view wx:if="{{showBack}}" class="nav-btn back-btn" bindtap="onBack">

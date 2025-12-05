@@ -8,6 +8,8 @@
   /* padding: 200rpx 0; */
   box-sizing: border-box;
   width: 100%;
+  padding-top: 0;
+  /* 移除顶部padding，因为有导航栏占位 */
 }
 
 /* 全局样式 */
@@ -19,8 +21,6 @@
 
 /* 自定义导航栏样式 */
 .navbar-placeholder {
-  height: 128rpx;
-  /* 与自定义导航栏高度一致 */
   width: 100%;
 }
 
@@ -116,4 +116,9 @@ navigator {
 /* 确保全局样式不影响瀑布流布局 */
 .global-background {
   display: block !important;
+  z-index: 1;
+}
+
+.custom-navbar {
+  z-index: 9999;
 }

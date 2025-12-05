@@ -1,9 +1,7 @@
 <!--packageA/waitProve/waitProve.wxml-->
-<view class="container">
-  <!-- 标题 -->
-  <view class="header">
-    <text class="header-title">待审核内容</text>
-  </view>
+<global-background>
+  <custom-navbar title="煎蛋卷" showBack="{{true}}" showHome="{{false}}"></custom-navbar>
+<view class="container"  style="margin-top:128rpx;">
 
   <!-- 标签页 -->
   <view class="tabs">
@@ -19,8 +17,14 @@
 
   <!-- 内容区域 -->
   <scroll-view class="content" scroll-y="true">
+    <!-- 加载状态 -->
+    <view class="loading" wx:if="{{isLoading}}">
+      <view class="loading-spinner"></view>
+      <text class="loading-text">加载中...</text>
+    </view>
+    
     <!-- 留言审核列表 -->
-    <view class="list" wx:if="{{activeTab === 'status'}}">
+    <view class="list" wx:elif="{{activeTab === 'status'}}">
       <view class="empty" wx:if="{{pendingStatusList.length === 0}}">
         <text class="empty-text">暂无待审核留言</text>
       </view>
@@ -30,7 +34,11 @@
           <text class="item-title">{{item.title}}</text>
           <text class="item-time">{{item.createTime}}</text>
         </view>
+
+
         <view class="item-content">
+        
+          <image class="item-image" wx-if="{{item.images.length>0}}"  src="{{item.images[0]}}" lazy-load mode="widthFix"></image>
           <!-- 收起/展开内容 -->
           <text class="{{item.isExpanded ? '' : 'collapsed'}}">{{item.content}}</text>
           <view class="expand-collapse" wx:if="{{item.content.length > 100}}">
@@ -47,7 +55,7 @@
     </view>
 
     <!-- 精选审核列表 -->
-    <view class="list" wx:if="{{activeTab === 'checked'}}">
+    <view class="list" wx:elif="{{activeTab === 'checked'}}">
       <view class="empty" wx:if="{{pendingCheckedList.length === 0}}">
         <text class="empty-text">暂无待审核精选</text>
       </view>
@@ -58,6 +66,7 @@
           <text class="item-time">{{item.createTime}}</text>
         </view>
         <view class="item-content">
+                 <image class="item-image" wx-if="{{item.images.length>0}}"  src="{{item.images[0]}}" lazy-load mode="widthFix"></image>
           <!-- 收起/展开内容 -->
           <text class="{{item.isExpanded ? '' : 'collapsed'}}">{{item.content}}</text>
           <view class="expand-collapse" wx:if="{{item.content.length > 100}}">
@@ -84,7 +93,7 @@
       <view class="modal-body">
         <radio-group bindchange="onReasonChange">
           <label class="reason-item" wx:for="{{rejectReasons}}" wx:key="index">
-            <radio value="{{item.value}}" checked="{{item.checked}}" color="#ff6b6b" />
+            <radio value="{{item.value}}" checked="{{item.checked}}" color="#f48eb5" />
             <text class="reason-text">{{item.text}}</text>
           </label>
         </radio-group>
@@ -97,3 +106,4 @@
     </view>
   </view>
 </view>
+</global-background>

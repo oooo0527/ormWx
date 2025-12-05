@@ -1,5 +1,3 @@
-
-
 Page({
   data: {
     userInfo: null,
@@ -13,7 +11,6 @@ Page({
         title: '我得留言版',
         path: '/pages/selfListDetail/selfListDetail'
       },
-
     ]
 
   },
@@ -21,6 +18,11 @@ Page({
   onLoad: function (options) {
     this.checkLoginStatus();
   },
+
+  onShow: function () {
+    this.checkLoginStatus();
+  },
+
   navigateToPage(e) {
     console.log(e);
     const url = e.currentTarget.dataset.url;
@@ -29,9 +31,6 @@ Page({
     });
   },
 
-  onShow: function () {
-    this.checkLoginStatus();
-  },
   onChooseAvatar(e) {
     const { avatarUrl } = e.detail
     this.setData({
@@ -44,7 +43,6 @@ Page({
       },
     })
     this.saveUserInfo()
-
   },
 
   // 检查登录状态
@@ -132,11 +130,28 @@ Page({
 
 
   },
+
+  // 编辑资料
+  editProfile: function () {
+    wx.showToast({
+      title: '编辑资料功能待开发',
+      icon: 'none'
+    });
+
+    // 可以在这里添加实际的编辑逻辑
+    /*
+    wx.navigateTo({
+      url: '/pages/editProfile/editProfile'
+    });
+    */
+  },
+
   // 退出登录
   logout: function () {
     wx.showModal({
       title: '确认退出',
       content: '确定要退出登录吗？',
+      confirmColor: '#f48eb5',
       success: (res) => {
         if (res.confirm) {
           // 清除用户信息
