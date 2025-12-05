@@ -23,18 +23,18 @@
       <block wx:for="{{timelineData}}" wx:key="id">
         <!-- 左侧时间点 -->
         <view class="timeline-item left" wx:if="{{index % 2 === 0}}" data-index="{{index}}">
-          <view class="timeline-content"  bindtap="onTapTimelinePoint">
+          <view class="timeline-content" bindtap="onTapTimelineContent" data-index="{{index}}">
             <view class="timeline-date">{{item.year}} {{item.month}}</view>
             <view class="timeline-title">{{item.title}}</view>
             <view class="timeline-desc">{{item.description}}</view>
           </view>
-          <view class="timeline-marker"></view>
+          <view class="timeline-marker" bindtap="onTapTimelineMarker" data-index="{{index}}"></view>
         </view>
         
         <!-- 右侧时间点 -->
-        <view class="timeline-item right" wx:else data-index="{{index}}" >
-          <view class="timeline-marker"></view>
-          <view class="timeline-content"  bindtap="onTapTimelinePoint">
+        <view class="timeline-item right" wx:else data-index="{{index}}">
+          <view class="timeline-marker" bindtap="onTapTimelineMarker" data-index="{{index}}"></view>
+          <view class="timeline-content" bindtap="onTapTimelineContent" data-index="{{index}}">
             <view class="timeline-date">{{item.year}} {{item.month}}</view>
             <view class="timeline-title">{{item.title}}</view>
             <view class="timeline-desc">{{item.description}}</view>
@@ -65,12 +65,12 @@
   <view class="blessing-modal {{showBlessingModal ? 'show' : ''}}">
     <view class="blessing-content">
       <view class="blessing-header">
-        <text class="blessing-title">给Orm的祝福</text>
+        <text class="blessing-title">To: ORM</text>
         <view class="close-btn" bindtap="onCloseBlessingModal">×</view>
       </view>
       <view class="blessing-body">
         <textarea class="blessing-input" placeholder="请输入你想对Orm说的话..." maxlength="200" value="{{blessingText}}" bindinput="onBlessingInput"></textarea>
-        <button class="submit-btn" bindtap="onSubmitBlessing">发送祝福</button>
+        <button class="submit-btn" bindtap="onSubmitBlessing">谢谢你成为orm</button>
       </view>
     </view>
   </view>

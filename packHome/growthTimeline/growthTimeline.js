@@ -1,5 +1,6 @@
 Page({
   data: {
+    innerAudioContext: null,
     voiceMap: [
       "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/vedio/等左左买饼干 - 你好.mp3",
       "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/vedio/等左左买饼干 - 你是我的女朋友.mp3",
@@ -110,8 +111,17 @@ Page({
 
   onLoad: function () {
     this.initStars(); // 初始化星空背景
+    // 创建音频上下文
+    this.innerAudioContext = wx.createInnerAudioContext();
   },
 
+  onUnload: function () {
+    // 页面卸载时停止并销毁音频
+    if (this.innerAudioContext) {
+      this.innerAudioContext.stop();
+      this.innerAudioContext.destroy();
+    }
+  },
 
   // 初始化星空背景
   initStars: function () {
@@ -131,17 +141,31 @@ Page({
     });
   },
 
-  // 点击时间点事件
-  onTapTimelinePoint: function (e) {
+  // 点击时间线内容事件
+  onTapTimelineContent: function (e) {
     const index = e.currentTarget.dataset.index;
 
     this.setData({
       showDetailModal: true,
       currentDetailIndex: index
     });
+  },
 
-    // 触发播放语音事件
-    this.triggerEvent('playvoice');
+  // 点击时间线标记事件
+  onTapTimelineMarker: function (e) {
+    const index = e.currentTarget.dataset.index;
+    // 从voiceMap中随机选择一个音频文件
+    const randomIndex = Math.floor(Math.random() * this.data.voiceMap.length);
+    const audioSrc = this.data.voiceMap[randomIndex];
+
+    // 设置音频源并播放
+    this.innerAudioContext.src = audioSrc;
+    this.innerAudioContext.play();
+
+    wx.showToast({
+      title: '播放语音中...',
+      icon: 'none'
+    });
   },
 
   // 关闭时间点详情
@@ -193,14 +217,14 @@ Page({
     const windowWidth = wx.getSystemInfoSync().windowWidth;
 
     // 生成20个祝福项
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 20; i++) {
       blessingItems.push({
         id: i,
         text: this.data.blessingText,
         color: colors[Math.floor(Math.random() * colors.length)],
         bgColor: bgColors[Math.floor(Math.random() * bgColors.length)],
         top: Math.random() * (windowHeight - 100),
-        left: Math.random() * (windowWidth - 100),
+        left: Math.random() * (windowWidth - 200),
         show: false, // 初始不显示
         animationClass: Math.random() > 0.5 ? 'floating' : 'pulsing' // 随机添加动画类
       });

@@ -151,7 +151,7 @@
 
 .timeline-desc {
   font-size: 22rpx;
-  color: #f0f0f0;
+  color: #716a8e;
   line-height: 1.4;
 }
 
