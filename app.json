@@ -1,6 +1,5 @@
 {
   "pages": [
-    "pages/workRecommend/workRecommend",
     "pages/Home/Home",
     "pages/profile/profile",
     "pages/index/index",
@@ -38,12 +37,6 @@
         "text": "互动"
       },
       {
-        "pagePath": "pages/workRecommend/workRecommend",
-        "iconPath": "images/icon_work.png",
-        "selectedIconPath": "images/icon_work_HL.png",
-        "text": "作品安利"
-      },
-      {
         "pagePath": "pages/profile/profile",
         "iconPath": "images/icon_work.png",
         "selectedIconPath": "images/icon_work_HL.png",
@@ -56,20 +49,13 @@
       "root": "packageA",
       "pages": [
         "backgroundSetting/backgroundSetting",
-        "support-detail/detail",
         "waitProve/waitProve"
       ]
     },
     {
       "root": "packHome",
       "pages": [
-        "dream/dream",
-        "support/support",
-        "growthTimeline/growthTimeline",
-        "personal/personal",
-        "musicPlayer/musicPlayer",
-        "ormHome/ormHome",
-        "dataWorkshop/dataWorkshop"
+        "personal/personal"
       ]
     }
   ],

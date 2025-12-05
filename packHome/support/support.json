@@ -1,6 +1,0 @@
-{
-  "component": true,
-  "usingComponents": {
-    "global-background": "/components/globalBackground/globalBackground"
-  }
-}
