@@ -15,6 +15,17 @@ Page({
     replyToNickname: "",
     newReply: "",
 
+    // 回复的回复相关
+    replyingToCommentIndex: -1, // 当前正在回复的评论索引
+    replyingToReplyIndex: -1,   // 当前正在回复的回复索引
+    replyToReplyId: null,       // 被回复的回复ID
+    replyToReplyNickname: "",   // 被回复的回复昵称
+    newReplyToReply: "",        // 回复的回复内容
+
+    // 控制回复列表展开/收起状态
+    expandedReplies: {},
+    expandFlage: true,
+
     // 收藏状态
     isFavorited: false
   },
@@ -359,6 +370,123 @@ Page({
       replyToCommentId: null,
       replyToNickname: "",
       newReply: ""
+    });
+  },
+
+  // 开始回复评论中的回复
+  startReply1: function (e) {
+    const replyId = e.currentTarget.dataset.id;
+    const nickname = e.currentTarget.dataset.nickname;
+    const commentIndex = e.currentTarget.dataset.index; // 评论索引
+    const replyIndex = e.currentTarget.dataset.replyIndex; // 回复索引
+
+    this.setData({
+      replyingToCommentIndex: commentIndex,
+      replyingToReplyIndex: replyIndex,
+      replyToReplyId: replyId,
+      replyToReplyNickname: nickname,
+      newReplyToReply: "" // 清空之前的回复内容
+    });
+  },
+
+  // 输入回复的回复
+  onReplyToReplyInput: function (e) {
+    this.setData({
+      newReplyToReply: e.detail.value
+    });
+  },
+
+  // 提交回复的回复
+  submitReplyToReply: function (e) {
+    const commentIndex = e.currentTarget.dataset.commentIndex;
+    const replyIndex = e.currentTarget.dataset.replyIndex;
+    const commentId = e.currentTarget.dataset.commentId;
+    const replyId = e.currentTarget.dataset.replyId;
+
+    if (!this.data.newReplyToReply.trim()) {
+      wx.showToast({
+        title: '请输入回复内容',
+        icon: 'none'
+      });
+      return;
+    }
+
+    // 获取用户信息
+    const app = getApp();
+    const userInfo = app.globalData.userInfo;
+
+    // 调用云函数添加回复（这里简化处理，实际应该有专门的回复数据结构）
+    wx.cloud.callFunction({
+      name: 'fanVoice',
+      data: {
+        action: 'addCommentReply',
+        interactionId: this.data.works.id || this.data.works._id,
+        commentId: commentId,
+        replyId: replyId,
+        content: `回复 @${this.data.replyToReplyNickname}: ${this.data.newReplyToReply}`,
+        userInfo: userInfo || {} // 添加用户信息
+      },
+      success: res => {
+        console.log('res', res)
+        if (res.result && res.result.success) {
+          wx.showToast({
+            title: '回复成功',
+            icon: 'success'
+          });
+
+          // 重置回复状态
+          this.setData({
+            replyingToCommentIndex: -1,
+            replyingToReplyIndex: -1,
+            replyToReplyId: null,
+            replyToReplyNickname: "",
+            newReplyToReply: ""
+          });
+
+          // 重新加载评论
+          this.loadComments();
+
+          // 同时更新当前作品的评论数据
+          this.refreshCurrentWorkComments();
+        } else {
+          wx.showToast({
+            title: res.result.message || '回复失败',
+            icon: 'none'
+          });
+        }
+      },
+      fail: err => {
+        console.error('回复失败：', err);
+        wx.showToast({
+          title: '回复失败，请稍后再试',
+          icon: 'none'
+        });
+      }
+    });
+  },
+
+  // 取消回复的回复
+  cancelReplyToReply: function () {
+    this.setData({
+      replyingToCommentIndex: -1,
+      replyingToReplyIndex: -1,
+      replyToReplyId: null,
+      replyToReplyNickname: "",
+      newReplyToReply: ""
+    });
+  },
+
+  // 展开/收起回复列表
+  toggleReplies: function (e) {
+    const commentIndex = e.currentTarget.dataset.commentIndex;
+    const expandedReplies = this.data.expandedReplies;
+
+    // 切换展开状态
+    expandedReplies[commentIndex] = !expandedReplies[commentIndex];
+
+    this.setData({
+      expandedReplies: expandedReplies,
+      expandFlage: !this.data.expandFlage
     });
   },
 

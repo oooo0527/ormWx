@@ -117,11 +117,31 @@
   border-bottom: none;
 }
 
+
 /* 评论头部 */
 .comment-header {
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   margin-bottom: 15rpx;
+  align-items: flex-start;
+}
+
+.comment-Box {
+  flex: 1;
+
+}
+
+.comment-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+}
+
+.comment-text {
+  color: #ffffff;
+  line-height: 1.6;
 }
 
 .comment-avatar {
@@ -182,16 +202,35 @@
 
 /* 回复列表 */
 .replies-list {
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 15rpx;
-  padding: 15rpx;
+  /* background: rgba(255, 255, 255, 0.05); */
+  /* border-radius: 15rpx; */
+  /* padding: 15rpx; */
   margin-top: 15rpx;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.toggle-replies {
+  text-align: right;
+  font-size: 24rpx;
+  color: #f48eb5;
+  padding: 10rpx 0;
+  margin-bottom: 10rpx;
 }
 
 .reply-item {
   margin-bottom: 15rpx;
   padding: 10rpx 0;
   border-bottom: 1rpx solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: flex-start;
+}
+
+.reply-actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
 }
 
 .reply-item:last-child {
@@ -234,7 +273,8 @@
   font-size: 24rpx;
   color: #dddddd;
   line-height: 1.5;
-  margin-left: 55rpx;
+  margin-left: 10rpx;
+  flex: 1;
 }
 
 .reply-nickname {
@@ -272,6 +312,7 @@
 .reply-actions {
   display: flex;
   justify-content: space-between;
+  align-items: baseline;
 }
 
 .cancel-btn,
@@ -341,7 +382,7 @@
 .reply-text {
   width: 120rpx;
   height: 60rpx;
-  background: rgba(255, 255, 255, 0.1);
+  /* background: rgba(255, 255, 255, 0.1); */
   border-radius: 10rpx;
   font-size: 26rpx;
   color: #ffffff;
@@ -349,4 +390,29 @@
   text-align: center;
   line-height: 60rpx;
 
+}
+
+/* 回复的回复输入区域 */
+.reply-to-reply-input-area {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15rpx;
+  padding: 15rpx;
+  margin: 20rpx 0;
+  margin-left: 55rpx;
+}
+
+.reply-button2 {
+  width: 100%;
+  height: 40rpx;
+  display: flex;
+  /* background: rgba(255, 255, 255, 0.1) ; */
+  justify-content: flex-end;
+  font-size: 24rpx;
+  color: #aaaaaa;
+  text-align: center;
+
+}
+
+.reply-text2 {
+  color: #ffffff;
 }
