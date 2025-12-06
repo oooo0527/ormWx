@@ -16,6 +16,10 @@ exports.main = async (event, context) => {
       return await initMusicCollection(event)
     case 'initInteractionsCollection':
       return await initInteractionsCollection(event)
+    case 'initCommentsCollection':
+      return await initCommentsCollection(event)
+    case 'initRepliesCollection':
+      return await initRepliesCollection(event)
     default:
       return {
         success: false,
@@ -31,7 +35,7 @@ async function initMusicCollection(event) {
     const musicData = [
       {
         "type": "mis",
-        "url": "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/music/รักแท้...ยังไง (真爱…如何) - Orm Kornnaphat & Nunew 251108 曼谷万人演唱会(3).mp3",
+        "url": "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/music/รักแท้...ยังไง (真爱…如何) - Orm Kornnaphat & Nunew 251108 曼谷爱น演唱会上(3).mp3",
         "tag": "head",
         "src": "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/ormmm/陈奥/3916c9499882d66371bc6573597693bf.jpg",
         "title": "真爱…如何 - Orm Kornnaphat & Nunew",
@@ -41,7 +45,7 @@ async function initMusicCollection(event) {
       },
       {
         "type": "mis",
-        "url": "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/music/สตอร์เบอร์เยอรี่มรกต (Strawberry Morakot) - Orm Kornnaphat 251108 曼谷万人演唱会(1).mp3",
+        "url": "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/music/สตอร์เบอร์เยอรี่มรกต (Strawberry Morakot) - Orm Kornnaphat 251108 曼谷爱น演唱会上(1).mp3",
         "tag": "head",
         "src": "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/ormmm/陈奥/2246a8c4f6c263a32bfbb898a3992cc1.jpg",
         "title": "Strawberry Morakot - Orm Kornnaphat",
@@ -114,6 +118,114 @@ async function initInteractionsCollection(event) {
       success: true,
       data: results,
       message: '互动留言数据初始化成功'
+    }
+  } catch (err) {
+    return {
+      success: false,
+      message: err.message
+    }
+  }
+}
+
+// 初始化评论通知集合并添加示例数据
+async function initCommentsCollection(event) {
+  try {
+    // 创建 comments 集合的索引
+    // 注意：在实际环境中，这可能需要管理员权限
+
+    // 示例评论通知数据
+    const commentData = [
+      {
+        "commentId": "sample_comment_id_1",
+        "content": "这是第一条测试评论",
+        "userId": "sample_user_id_2",
+        "userInfo": {
+          "nickname": "测试用户1",
+          "avatar": "/images/default-avatar.png"
+        },
+        "interactionId": "sample_interaction_id_1",
+        "interactionUserId": "sample_user_id_1",
+        "interactionUserInfo": {
+          "nickname": "发帖用户1",
+          "avatar": "/images/default-avatar.png"
+        },
+        "interactionTitle": "测试留言",
+        "createTime": new Date().toLocaleTimeString('en-GB'),
+        "createDate": new Date().toISOString().slice(0, 10),
+        "read": false
+      }
+    ];
+
+    // 插入示例数据
+    const results = [];
+    for (const comment of commentData) {
+      const result = await db.collection('comments').add({
+        data: comment
+      });
+      results.push(result);
+    }
+
+    return {
+      success: true,
+      data: results,
+      message: '评论通知数据初始化成功'
+    }
+  } catch (err) {
+    return {
+      success: false,
+      message: err.message
+    }
+  }
+}
+
+// 初始化回复通知集合并添加示例数据
+async function initRepliesCollection(event) {
+  try {
+    // 创建 replies 集合的索引
+    // 注意：在实际环境中，这可能需要管理员权限
+
+    // 示例回复通知数据
+    const replyData = [
+      {
+        "replyId": "sample_reply_id_1",
+        "content": "这是第一条测试回复",
+        "userId": "sample_user_id_3",
+        "userInfo": {
+          "nickname": "测试用户2",
+          "avatar": "/images/default-avatar.png"
+        },
+        "interactionId": "sample_interaction_id_1",
+        "interactionUserId": "sample_user_id_1",
+        "interactionUserInfo": {
+          "nickname": "发帖用户1",
+          "avatar": "/images/default-avatar.png"
+        },
+        "interactionTitle": "测试留言",
+        "commentId": "sample_comment_id_1",
+        "targetUserId": "sample_user_id_2",
+        "targetUserInfo": {
+          "nickname": "被回复用户1",
+          "avatar": "/images/default-avatar.png"
+        },
+        "createTime": new Date().toLocaleTimeString('en-GB'),
+        "createDate": new Date().toISOString().slice(0, 10),
+        "read": false
+      }
+    ];
+
+    // 插入示例数据
+    const results = [];
+    for (const reply of replyData) {
+      const result = await db.collection('replies').add({
+        data: reply
+      });
+      results.push(result);
+    }
+
+    return {
+      success: true,
+      data: results,
+      message: '回复通知数据初始化成功'
     }
   } catch (err) {
     return {

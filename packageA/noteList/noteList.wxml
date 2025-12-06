@@ -1,0 +1,83 @@
+<!-- packageA/noteList/noteList.wxml -->
+<view class="notification-container">
+  <!-- 页面标题 -->
+  <view class="page-header">
+    <text class="page-title">消息通知</text>
+  </view>
+  <!-- 消息分类标签 -->
+  <scroll-view class="tab-container" scroll-x="true">
+    <view class="tab-item {{currentTab === 1 ? 'active' : ''}}" data-tab="1" bindtap="switchTab">
+      <text>评论</text>
+      <text wx:if="{{unreadCommentCount > 0}}" class="unread-count">{{unreadCommentCount}}</text>
+    </view>
+    <view class="tab-item {{currentTab === 2 ? 'active' : ''}}" data-tab="2" bindtap="switchTab">
+      <text>回复</text>
+      <text wx:if="{{unreadReplyCount > 0}}" class="unread-count">{{unreadReplyCount}}</text>
+    </view>
+    <view class="tab-item {{currentTab === 3 ? 'active' : ''}}" data-tab="3" bindtap="switchTab">
+      <text>公告</text>
+    </view>
+  </scroll-view>
+  <!-- 消息列表 -->
+  <scroll-view class="notification-list" scroll-y="true">
+    <!-- 评论消息 -->
+    <block wx:if="{{currentTab === 1}}">
+      <block wx:for="{{commentNotifications}}" wx:key="index">
+        <view class="notification-item {{item.read ? 'read' : ''}}" bindtap="navigateToComment" data-index="{{index}}">
+          <view class="notification-header">
+            <image class="avatar" src="{{item.userInfo.avatar}}"></image>
+            <view class="user-info">
+              <text class="username">{{item.userInfo.nickname}}</text>
+              <text class="action">评论了你的留言</text>
+            </view>
+            <text class="time">{{item.time}}</text>
+          </view>
+          <view class="notification-content">
+            <text class="content-text">{{item.content}}</text>
+          </view>
+        </view>
+      </block>
+    </block>
+    <!-- 回复消息 -->
+    <block wx:elif="{{currentTab === 2}}">
+      <block wx:for="{{replyNotifications}}" wx:key="index">
+        <view class="notification-item {{item.read ? 'read' : ''}}" bindtap="navigateToReply" data-index="{{index}}">
+          <view class="notification-header">
+            <image class="avatar" src="{{item.userInfo.avatar}}"></image>
+            <view class="user-info">
+              <text class="username">{{item.userInfo.nickname}}</text>
+              <text class="action">回复了你的评论</text>
+            </view>
+            <text class="time">{{item.time}}</text>
+          </view>
+          <view class="notification-content">
+            <text class="content-text">{{item.content}}</text>
+          </view>
+        </view>
+      </block>
+    </block>
+    <!-- 公告消息 -->
+    <block wx:elif="{{currentTab === 3}}">
+      <block wx:for="{{announcementNotifications}}" wx:key="index">
+        <view class="notification-item announcement" bindtap="navigateToAnnouncement" data-id="{{item.id}}">
+          <view class="notification-header">
+            <image class="avatar" src="{{item.userInfo.avatar}}"></image>
+            <view class="user-info">
+              <text class="username">{{item.userInfo.nickname}}</text>
+              <text class="action">发布了新公告</text>
+            </view>
+            <text class="time">{{item.time}}</text>
+          </view>
+          <view class="notification-content">
+            <text class="content-text">{{item.title}}</text>
+          </view>
+        </view>
+      </block>
+    </block>
+    <!-- 空状态 -->
+    <view class="empty-state" wx:if="{{!commentNotifications.length && !replyNotifications.length && !announcementNotifications.length}}">
+      <image class="empty-icon" src="/images/no-notification.png"></image>
+      <text class="empty-text">暂无消息通知</text>
+    </view>
+  </scroll-view>
+</view>

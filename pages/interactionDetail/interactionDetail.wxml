@@ -27,7 +27,7 @@
       <!-- 评论列表 -->
       <view class="comments-list">
         <block wx:for="{{comments}}" wx:key="index">
-          <view class="comment-item">
+          <view class="comment-item" id="comment-{{item.commentId}}" style="{{highlightCommentId === item.commentId ? 'animation: highlightAnimation 3s ease-in-out;' : ''}}">
             <!-- 评论者信息 -->
             <view class="comment-header">
               <image class="comment-avatar" src="{{item.userInfo.avatar}}"></image>
@@ -62,7 +62,7 @@
               <block wx:for="{{item.replies}}" wx:for-item="replyItem" wx:for-index="replyIndex" wx:key="index">
                 <!-- 如果回复数超过3条且未展开，则只显示前3条 -->
                 <view wx:if="{{expandedReplies[index] || replyIndex < 3}}">
-                  <view class="reply-item">
+                  <view class="reply-item" id="reply-{{replyItem.replyId || replyItem.id}}" style="{{highlightReplyId === (replyItem.replyId || replyItem.id) ? 'animation: highlightAnimation 3s ease-in-out;' : ''}}">
                     <view class="reply-header">
                       <image class="reply-avatar" src="{{replyItem.userInfo.avatar}}" wx:if="{{replyItem.userInfo.avatar}}"></image>
                       <image class="reply-avatar" src="/images/default-avatar.png" wx:else></image>

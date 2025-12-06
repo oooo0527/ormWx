@@ -27,7 +27,13 @@ Page({
     expandFlage: true,
 
     // 收藏状态
-    isFavorited: false
+    isFavorited: false,
+
+    // 高亮评论ID
+    highlightCommentId: null,
+
+    // 高亮回复ID
+    highlightReplyId: null
   },
 
   onLoad: function (options) {
@@ -40,12 +46,20 @@ Page({
         console.log('da ta', data)
         this.setData({
           works: data.works,
-          showFlag: true
+          showFlag: true,
+          highlightCommentId: data.highlightCommentId || null,  // 接收高亮评论ID
+          highlightReplyId: data.highlightReplyId || null  // 接收高亮回复ID
         }, () => {
           // 加载评论数据
           this.loadComments();
           // 检查是否已收藏
           this.checkFavoriteStatus();
+          // 高亮指定评论或回复
+          if (this.data.highlightCommentId) {
+            this.highlightComment(this.data.highlightCommentId);
+          } else if (this.data.highlightReplyId) {
+            this.highlightReply(this.data.highlightReplyId);
+          }
         });
       });
     }
@@ -156,6 +170,13 @@ Page({
         );
       this.setData({
         comments: sortedComments2
+      }, () => {
+        // 如果有需要高亮的评论或回复，则执行高亮操作
+        if (this.data.highlightCommentId) {
+          this.highlightComment(this.data.highlightCommentId);
+        } else if (this.data.highlightReplyId) {
+          this.highlightReply(this.data.highlightReplyId);
+        }
       });
     }
   },
@@ -275,6 +296,102 @@ Page({
         console.error('刷新作品数据失败：', err);
       }
     });
+  },
+
+  // 高亮指定评论
+  highlightComment: function (commentId) {
+    // 延迟一段时间确保DOM渲染完成
+    setTimeout(() => {
+      // 使用selector查询需要高亮的评论元素
+      const query = wx.createSelectorQuery();
+      query.select(`#comment-${commentId}`).boundingClientRect();
+      query.exec((res) => {
+        if (res[0]) {
+          // 获取系统信息以计算屏幕高度
+          wx.getSystemInfo({
+            success: (sysInfo) => {
+              // 计算将元素居中显示所需的滚动位置
+              // scrollTop = 元素距离页面顶部的距离 - (屏幕高度 - 元素高度) / 2
+              const scrollTop = res[0].top - (sysInfo.windowHeight - res[0].height) / 2;
+
+              // 如果找到了元素，滚动到该元素位置
+              wx.pageScrollTo({
+                scrollTop: scrollTop,
+                duration: 300
+              });
+            },
+            fail: () => {
+              // 如果获取系统信息失败，回退到原来的逻辑
+              wx.pageScrollTo({
+                scrollTop: res[0].top + 50, // 留出一些间距
+                duration: 300
+              });
+            }
+          });
+
+          // 设置高亮状态
+          this.setData({
+            highlightCommentId: commentId
+          });
+
+          // 3秒后取消高亮
+          setTimeout(() => {
+            this.setData({
+              highlightCommentId: null
+            });
+          }, 3000);
+        }
+      });
+    }, 500);
+  },
+
+  // 高亮指定回复
+  highlightReply: function (replyId) {
+    console.log('highlightReply', replyId)
+    // 延迟一段时间确保DOM渲染完成
+    setTimeout(() => {
+      // 使用selector查询需要高亮的回复元素
+      const query = wx.createSelectorQuery();
+      query.select(`#reply-${replyId}`).boundingClientRect();
+      query.exec((res) => {
+        if (res[0]) {
+          console.log('res', res)
+          // 获取系统信息以计算屏幕高度
+          wx.getSystemInfo({
+            success: (sysInfo) => {
+              // 计算将元素居中显示所需的滚动位置
+              // scrollTop = 元素距离页面顶部的距离 - (屏幕高度 - 元素高度) / 2
+              const scrollTop = res[0].top - (sysInfo.windowHeight - res[0].height) / 2;
+
+              // 如果找到了元素，滚动到该元素位置
+              wx.pageScrollTo({
+                scrollTop: scrollTop,
+                duration: 300
+              });
+            },
+            fail: () => {
+              // 如果获取系统信息失败，回退到原来的逻辑
+              wx.pageScrollTo({
+                scrollTop: res[0].top + 200, // 留出一些间距
+                duration: 300
+              });
+            }
+          });
+
+          // 设置高亮状态
+          this.setData({
+            highlightReplyId: replyId
+          });
+
+          // 3秒后取消高亮
+          setTimeout(() => {
+            this.setData({
+              highlightReplyId: null
+            });
+          }, 3000);
+        }
+      });
+    }, 500);
   },
 
   // 开始回复评论 - 修改为支持每个评论独立回复
@@ -422,7 +539,7 @@ Page({
         action: 'addCommentReply',
         interactionId: this.data.works.id || this.data.works._id,
         commentId: commentId,
-        replyId: replyId,
+        replyToReplyId: replyId, // 添加这个参数用于识别回复目标
         content: `回复 @${this.data.replyToReplyNickname}: ${this.data.newReplyToReply}`,
         userInfo: userInfo || {} // 添加用户信息
       },

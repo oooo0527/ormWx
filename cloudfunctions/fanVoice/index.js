@@ -48,6 +48,16 @@ exports.main = async (event, context) => {
       return await getFavoriteInteractionList(wxContext.OPENID, event)
     case 'getUserInteractions':
       return await getUserInteractions(wxContext.OPENID, event)
+    case 'getUserReplies':
+      return await getUserReplies(wxContext.OPENID, event)
+    case 'getUserComments':
+      return await getUserComments(wxContext.OPENID, event)
+    case 'getUserReplyNotifications':
+      return await getUserReplyNotifications(wxContext.OPENID, event)
+    case 'markCommentAsRead':
+      return await markCommentAsRead(wxContext.OPENID, event)
+    case 'markReplyAsRead':
+      return await markReplyAsRead(wxContext.OPENID, event)
     default:
       return {
         success: false,
@@ -451,6 +461,29 @@ async function addComment(openid, event) {
     // 为返回的评论对象添加一个唯一标识符
     comment._id = `${event.interactionId}_${Date.now()}_${Math.floor(Math.random() * 1000)}`;
 
+    // 获取被评论的互动留言信息（用于存储到comments集合）
+    const interactionResult = await db.collection('interactions').doc(event.interactionId).get();
+    if (interactionResult.data) {
+      const interaction = interactionResult.data;
+
+      // 将评论信息存储到comments集合中，用于通知功能
+      await db.collection('comments').add({
+        data: {
+          commentId: comment.commentId,
+          content: comment.content,
+          userId: comment.userId,         // 评论人ID
+          userInfo: comment.userInfo,     // 评论人信息
+          interactionId: event.interactionId,  // 被评论的帖子ID
+          interactionUserId: interaction.userId,  // 发帖人ID
+          interactionUserInfo: interaction.userInfo || {}, // 发帖人信息
+          interactionTitle: interaction.title || '',  // 帖子标题
+          createTime: comment.createTime,
+          createDate: comment.createDate,
+          read: false  // 是否已读，默认未读
+        }
+      });
+    }
+
     return {
       success: true,
       data: comment
@@ -673,10 +706,167 @@ async function getUserInteractions(openid, event) {
   }
 }
 
+// 获取用户收到的回复
+async function getUserReplies(openid, event) {
+  try {
+    // 计算一个月前的日期
+    const oneMonthAgo = new Date();
+    oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
+    const oneMonthAgoStr = oneMonthAgo.toISOString().slice(0, 10);
+
+    // 获取用户发布的所有互动留言（近一个月内的）
+    const interactionsResult = await db.collection('interactions')
+      .where({
+        userId: openid,
+        createDate: _.gte(oneMonthAgoStr)
+      })
+      .get();
+
+    if (!interactionsResult.data || interactionsResult.data.length === 0) {
+      return {
+        success: true,
+        data: []
+      };
+    }
+
+    // 获取所有互动留言的ID
+    const interactionIds = interactionsResult.data.map(item => item._id);
+
+    // 查询这些互动留言下的所有评论和回复
+    const commentsResult = await db.collection('interactions')
+      .where({
+        _id: _.in(interactionIds)
+      })
+      .get();
+
+    // 收集所有回复数据
+    let allReplies = [];
+
+    commentsResult.data.forEach(interaction => {
+      // 遍历每条评论
+      (interaction.comments || []).forEach(comment => {
+        // 如果评论有回复
+        if (comment.replies && comment.replies.length > 0) {
+          // 为每个回复添加互动留言ID和评论ID
+          comment.replies.forEach(reply => {
+            allReplies.push({
+              ...reply,
+              interactionId: interaction._id,  // 原始留言帖子的_id
+              interactionTitle: interaction.title,
+              commentId: comment.commentId,
+              parentId: comment._id || null
+            });
+          });
+        }
+      });
+    });
+
+    // 按时间倒序排列
+    allReplies.sort((a, b) => new Date(b.createTime) - new Date(a.createTime));
+
+    return {
+      success: true,
+      data: allReplies
+    };
+  } catch (err) {
+    console.error('获取用户回复失败：', err);
+    return {
+      success: false,
+      message: err.message || '获取用户回复失败'
+    };
+  }
+}
+
+// 获取用户收到的评论通知
+async function getUserComments(openid, event) {
+  try {
+    // 获取用户收到的评论通知（近一个月内的）
+    const oneMonthAgo = new Date();
+    oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
+    const oneMonthAgoStr = oneMonthAgo.toISOString().slice(0, 10);
+
+    // 查询未读评论数量
+    const unreadCommentsCount = await db.collection('comments')
+      .where({
+        interactionUserId: openid,  // 发帖人是当前用户
+        createDate: _.gte(oneMonthAgoStr),
+        read: false  // 未读
+      })
+      .count();
+
+    const commentsResult = await db.collection('comments')
+      .where({
+        interactionUserId: openid,  // 发帖人是当前用户
+        createDate: _.gte(oneMonthAgoStr)
+      })
+      .orderBy('createTime', 'desc')
+      .skip(event.skip || 0)
+      .limit(event.limit || 20)
+      .get();
+
+    return {
+      success: true,
+      data: commentsResult.data || [],
+      unreadCount: unreadCommentsCount.total || 0
+    };
+  } catch (err) {
+    console.error('获取用户评论通知失败：', err);
+    return {
+      success: false,
+      message: err.message || '获取用户评论通知失败'
+    };
+  }
+}
+
+// 获取用户收到的回复通知（从replies集合中获取）
+async function getUserReplyNotifications(openid, event) {
+  try {
+    // 获取用户收到的回复通知（近一个月内的）
+    const oneMonthAgo = new Date();
+    oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
+    const oneMonthAgoStr = oneMonthAgo.toISOString().slice(0, 10);
+
+    // 查询未读回复数量
+    const unreadRepliesCount = await db.collection('replies')
+      .where({
+        targetUserId: openid,  // 被回复的用户是当前用户
+        createDate: _.gte(oneMonthAgoStr),
+        read: false  // 未读
+      })
+      .count();
+
+    const repliesResult = await db.collection('replies')
+      .where({
+        targetUserId: openid,  // 被回复的用户是当前用户
+        createDate: _.gte(oneMonthAgoStr)
+      })
+      .orderBy('createTime', 'desc')
+      .skip(event.skip || 0)
+      .limit(event.limit || 20)
+      .get();
+
+    return {
+      success: true,
+      data: repliesResult.data || [],
+      unreadCount: unreadRepliesCount.total || 0
+    };
+  } catch (err) {
+    console.error('获取用户回复通知失败：', err);
+    return {
+      success: false,
+      message: err.message || '获取用户回复通知失败'
+    };
+  }
+}
+
 // 回复评论
 async function addCommentReply(openid, event) {
   try {
+    // 生成唯一的回复ID
+    const replyId = `reply_${Date.now()}_${Math.floor(Math.random() * 1000)}`;
+
     const reply = {
+      id: replyId, // 添加唯一的回复ID
       content: event.content,
       userId: openid,
       userInfo: event.userInfo || {}, // 添加用户信息
@@ -695,8 +885,10 @@ async function addCommentReply(openid, event) {
       };
     }
 
+    const interaction = interactionResult.data;
+
     // 获取现有的评论数组
-    const comments = interactionResult.data.comments || [];
+    const comments = interaction.comments || [];
 
     // 查找要回复的评论索引
     const commentIndex = comments.findIndex(comment =>
@@ -728,6 +920,41 @@ async function addCommentReply(openid, event) {
       }
     });
 
+    // 将回复信息存储到replies集合中，用于通知功能
+    // 首先需要找到被回复的用户ID（可能是评论的作者，也可能是其他回复的作者）
+    let targetUserId = comments[commentIndex].userId; // 默认是评论作者
+    let targetUserInfo = comments[commentIndex].userInfo || {}; // 默认是评论作者信息
+
+    // 检查是否是对其他回复的回复
+    if (event.replyToReplyId) {
+      // 查找被回复的具体回复
+      const targetReply = comments[commentIndex].replies.find(r => r.id === event.replyToReplyId);
+      if (targetReply) {
+        targetUserId = targetReply.userId;
+        targetUserInfo = targetReply.userInfo || {};
+      }
+    }
+
+    // 存储到replies集合中
+    await db.collection('replies').add({
+      data: {
+        replyId: replyId, // 回复ID
+        content: reply.content,
+        userId: reply.userId,         // 回复人ID
+        userInfo: reply.userInfo,     // 回复人信息
+        interactionId: event.interactionId,  // 被回复的帖子ID
+        interactionUserId: interaction.userId,  // 发帖人ID
+        interactionUserInfo: interaction.userInfo || {}, // 发帖人信息
+        interactionTitle: interaction.title || '',  // 帖子标题
+        commentId: event.commentId,  // 被回复的评论ID
+        targetUserId: targetUserId,  // 被回复的用户ID
+        targetUserInfo: targetUserInfo, // 被回复的用户信息
+        createTime: reply.createTime,
+        createDate: reply.createDate,
+        read: false  // 是否已读，默认未读
+      }
+    });
+
     return {
       success: true,
       data: reply
@@ -737,5 +964,55 @@ async function addCommentReply(openid, event) {
       success: false,
       message: err.message
     }
+  }
+}
+
+// 标记评论为已读
+async function markCommentAsRead(openid, event) {
+  try {
+    const { commentId } = event;
+
+    // 更新comments集合中的read字段
+    const result = await db.collection('comments').doc(commentId).update({
+      data: {
+        read: true
+      }
+    });
+
+    return {
+      success: true,
+      data: result
+    };
+  } catch (err) {
+    console.error('标记评论为已读失败：', err);
+    return {
+      success: false,
+      message: err.message || '标记评论为已读失败'
+    };
+  }
+}
+
+// 标记回复为已读
+async function markReplyAsRead(openid, event) {
+  try {
+    const { replyId } = event;
+
+    // 更新replies集合中的read字段
+    const result = await db.collection('replies').doc(replyId).update({
+      data: {
+        read: true
+      }
+    });
+
+    return {
+      success: true,
+      data: result
+    };
+  } catch (err) {
+    console.error('标记回复为已读失败：', err);
+    return {
+      success: false,
+      message: err.message || '标记回复为已读失败'
+    };
   }
 }
