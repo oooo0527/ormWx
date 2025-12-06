@@ -16,7 +16,13 @@ Page({
     hasMoreFavorite: true, // 是否还有更多收藏的留言
     publishedPage: 0, // 发布留言的页码
     favoritePage: 0, // 收藏留言的页码
-    pageSize: 10 // 每页数据条数
+    pageSize: 10, // 每页数据条数
+
+    // 滑动删除相关数据
+    startX: 0,
+    startY: 0,
+    slideThreshold: 30, // 滑动阈值
+    swipeWidth: 80 // 删除按钮宽度
   },
 
   /**
@@ -189,7 +195,8 @@ Page({
               creator: item.userInfo.userInfo && item.userInfo.userInfo.nickname ? item.userInfo.userInfo.nickname : (item.creator || '匿名用户'), // 使用用户信息中的昵称
               commentsCount: (item.comments || []).length,
               status: item.status || '0', // 添加状态字段
-              rejectReason: item.rejectReason || '未知'
+              rejectReason: item.rejectReason || '未知',
+              images: item.images || [] // 添加图片信息
             };
 
             // 根据状态分类
@@ -370,6 +377,34 @@ Page({
   },
 
   /**
+   * 编辑发布失败的留言
+   */
+  editFailedItem(e) {
+    const index = e.currentTarget.dataset.index;
+    const item = this.data.publishedFailList[index];
+
+    // 跳转到publish页面进行重新编辑
+    wx.navigateTo({
+      url: `/pages/publish/publish?id=${item.id}&title=${encodeURIComponent(item.title)}&content=${encodeURIComponent(item.description)}&images=${encodeURIComponent(JSON.stringify(item.images || []))}`,
+    });
+  },
+
+  /**
+   * 切换待审核留言的展开状态
+   */
+  togglePendingItem(e) {
+    const index = e.currentTarget.dataset.index;
+    const pendingList = this.data.publishedPendingList;
+
+    // 切换展开状态
+    pendingList[index].expanded = !pendingList[index].expanded;
+
+    this.setData({
+      publishedPendingList: pendingList
+    });
+  },
+
+  /**
    * 取消收藏
    */
   unfavorite(e) {
@@ -417,5 +452,197 @@ Page({
         }
       }
     });
+  },
+
+  /**
+   * 滑动删除相关函数
+   */
+  onTouchStart(e) {
+    const touch = e.touches[0];
+    this.setData({
+      startX: touch.clientX,
+      startY: touch.clientY
+    });
+  },
+
+  onTouchMove(e) {
+    if (!this.data.startX || !this.data.startY) return;
+
+    const touch = e.touches[0];
+    const moveX = touch.clientX;
+    const moveY = touch.clientY;
+    const diffX = this.data.startX - moveX;
+    const diffY = this.data.startY - moveY;
+
+    // 判断是否为水平滑动
+    if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > this.data.slideThreshold) {
+      const index = e.currentTarget.dataset.index;
+      const status = e.currentTarget.dataset.status;
+
+      // 计算滑动偏移量
+      let offset = -diffX;
+      if (offset > 0) offset = 0;
+      if (offset < -this.data.swipeWidth) offset = -this.data.swipeWidth;
+
+      // 更新对应列表项的滑动偏移量
+      this.updateSwipeOffset(index, status, offset);
+    }
+  },
+
+  onTouchEnd(e) {
+    const touch = e.changedTouches[0];
+    const endX = touch.clientX;
+    const endY = touch.clientY;
+    const diffX = this.data.startX - endX;
+    const diffY = this.data.startY - endY;
+
+    const index = e.currentTarget.dataset.index;
+    const status = e.currentTarget.dataset.status;
+
+    // 判断是否为水平滑动并且超过阈值
+    if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > this.data.slideThreshold) {
+      // 根据滑动方向决定是否完全展开删除按钮
+      let offset = -this.data.swipeWidth;
+      if (diffX < 0) {
+        // 向右滑动，收起删除按钮
+        offset = 0;
+      }
+      this.updateSwipeOffset(index, status, offset);
+    } else {
+      // 不满足条件，收起删除按钮
+      this.updateSwipeOffset(index, status, 0);
+    }
+
+    // 重置起始坐标
+    this.setData({
+      startX: 0,
+      startY: 0
+    });
+  },
+
+  /**
+   * 更新滑动偏移量
+   */
+  updateSwipeOffset(index, status, offset) {
+    // 根据状态更新对应的列表
+    switch (status) {
+      case 'success':
+        const successList = this.data.publishedSuccessList;
+        if (successList[index]) {
+          successList[index].swipeOffset = offset;
+          this.setData({
+            publishedSuccessList: successList
+          });
+        }
+        break;
+      case 'fail':
+        const failList = this.data.publishedFailList;
+        if (failList[index]) {
+          failList[index].swipeOffset = offset;
+          this.setData({
+            publishedFailList: failList
+          });
+        }
+        break;
+      case 'pending':
+        const pendingList = this.data.publishedPendingList;
+        if (pendingList[index]) {
+          pendingList[index].swipeOffset = offset;
+          this.setData({
+            publishedPendingList: pendingList
+          });
+        }
+        break;
+    }
+  },
+
+  /**
+   * 删除留言
+   */
+  deleteItem(e) {
+    const index = e.currentTarget.dataset.index;
+    const status = e.currentTarget.dataset.status;
+
+    wx.showModal({
+      title: '确认删除',
+      content: '确定要删除这条留言吗？',
+      success: res => {
+        if (res.confirm) {
+          // 获取要删除的留言ID
+          let itemId = null;
+          switch (status) {
+            case 'success':
+              itemId = this.data.publishedSuccessList[index].id;
+              break;
+            case 'fail':
+              itemId = this.data.publishedFailList[index].id;
+              break;
+            case 'pending':
+              itemId = this.data.publishedPendingList[index].id;
+              break;
+          }
+
+          if (itemId) {
+            // 调用云函数删除留言
+            wx.cloud.callFunction({
+              name: 'fanVoice',
+              data: {
+                action: 'delete',
+                id: itemId
+              },
+              success: res => {
+                if (res.result && res.result.success) {
+                  wx.showToast({
+                    title: '删除成功',
+                    icon: 'success'
+                  });
+
+                  // 从列表中移除
+                  this.removeItemFromList(index, status);
+                } else {
+                  wx.showToast({
+                    title: res.result.message || '删除失败',
+                    icon: 'none'
+                  });
+                }
+              },
+              fail: err => {
+                console.error('删除失败：', err);
+                wx.showToast({
+                  title: '网络错误',
+                  icon: 'none'
+                });
+              }
+            });
+          }
+        }
+      }
+    });
+  },
+
+  /**
+   * 从列表中移除留言
+   */
+  removeItemFromList(index, status) {
+    switch (status) {
+      case 'success':
+        const newSuccessList = this.data.publishedSuccessList.filter((_, i) => i !== index);
+        this.setData({
+          publishedSuccessList: newSuccessList
+        });
+        break;
+      case 'fail':
+        const newFailList = this.data.publishedFailList.filter((_, i) => i !== index);
+        this.setData({
+          publishedFailList: newFailList
+        });
+        break;
+      case 'pending':
+        const newPendingList = this.data.publishedPendingList.filter((_, i) => i !== index);
+        this.setData({
+          publishedPendingList: newPendingList
+        });
+        break;
+    }
   }
 })

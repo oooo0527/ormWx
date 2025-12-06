@@ -271,15 +271,16 @@
 
 .reply-actions {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
 }
 
 .cancel-btn,
 .submit-btn {
+  width: 45%;
   font-size: 24rpx;
-  padding: 10rpx 30rpx;
-  border-radius: 30rpx;
-  margin-left: 20rpx;
+  /* padding: 10rpx 30rpx; */
+  /* border-radius: 30rpx; */
+  /* margin-left: 20rpx; */
 }
 
 .cancel-btn {

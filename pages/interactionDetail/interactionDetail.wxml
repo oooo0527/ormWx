@@ -42,17 +42,19 @@
             </view>
             <!-- 回复按钮 -->
             <view class="reply-button">
-              <view class="reply-text" bindtap="startReply" data-id="{{item.commentId}}" data-nickname="{{item.userInfo.nickname}}">
+              <view class="reply-text" bindtap="startReply" data-id="{{item.commentId}}" data-nickname="{{item.userInfo.nickname}}" data-index="{{index}}">
                 回复
               </view>
             </view>
-            <!-- 回复输入区域 (全局) -->
-            <view class="reply-input-area" wx:if="{{isReplying}}">
-              <view class="reply-to">回复 @{{replyToNickname}}:</view>
+            <!-- 回复输入区域 (当前评论专用) -->
+            <view class="reply-input-area" wx:if="{{replyingToIndex === index}}">
+              <view class="reply-to">回复 @{{item.userInfo.nickname}}:</view>
               <textarea class="reply-textarea" placeholder="请输入回复内容..." value="{{newReply}}" bindinput="onReplyInput"></textarea>
               <view class="reply-actions">
                 <button class="cancel-btn" bindtap="cancelReply">取消</button>
-                <button class="submit-btn" bindtap="submitReply">发送</button>
+                <button class="submit-btn" bindtap="submitReply" data-comment-id="{{item.commentId}}" data-index="{{index}}">
+                  发送
+                </button>
               </view>
             </view>
             <!-- 回复列表 -->
@@ -68,6 +70,9 @@
                   </view>
                   <view class="reply-content">
                     <text>{{item.content}}</text>
+                  </view>
+                  <view class="reply-text" bindtap="startReply" data-id="{{item.commentId}}" data-nickname="{{item.userInfo.nickname}}" data-index="{{index}}">
+                    回复
                   </view>
                 </view>
               </block>

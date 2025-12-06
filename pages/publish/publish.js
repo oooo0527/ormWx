@@ -1,5 +1,6 @@
 Page({
   data: {
+    id: '', // 添加留言ID，用于编辑
     title: '',
     content: '',
     imageList: [],
@@ -9,7 +10,16 @@ Page({
     navBarHeight: 0 // 添加导航栏高度数据
   },
 
-  onLoad: function () {
+  onLoad: function (options) {
+    // 检查是否有传入参数，如果有则用于编辑
+    if (options.id) {
+      this.setData({
+        id: options.id,
+        title: decodeURIComponent(options.title || ''),
+        content: decodeURIComponent(options.content || ''),
+        imageList: JSON.parse(decodeURIComponent(options.images || '[]'))
+      });
+    }
   },
 
   // 输入标题
@@ -63,10 +73,10 @@ Page({
   // 提交发布
   submitPublish: function () {
     const that = this;
+    const id = this.data.id;
     const title = this.data.title;
     const content = this.data.content;
     const imageList = this.data.imageList;
-
 
     // 验证输入
     if (!title.trim()) {
@@ -87,12 +97,15 @@ Page({
 
     // 显示加载提示
     wx.showLoading({
-      title: '发布中...'
+      title: id ? '更新中...' : '发布中...'
     });
 
     // 如果有图片，先上传图片
-    if (imageList.length > 0) {
-      // 上传图片到云存储
+    if (imageList.length > 0 && imageList[0].startsWith('http')) {
+      // 如果是网络图片链接，直接使用
+      that.saveToDatabase(title, content, imageList);
+    } else if (imageList.length > 0) {
+      // 如果是本地图片，上传到云存储
       const uploadTasks = imageList.map((filePath, index) => {
         return new Promise((resolve, reject) => {
           // 创建云存储文件路径
@@ -131,6 +144,7 @@ Page({
       that.saveToDatabase(title, content, []);
     }
   },
+
   bindchange: function (e) {
     console.log('checkbox change', e.detail);
     this.setData({
@@ -166,31 +180,41 @@ Page({
       return;
     }
 
+    // 构造数据对象
+    const data = {
+      title: title,
+      content: content,
+      images: imageUrls,
+      checked: that.data.checked,
+      status: '0', // 重新提交设置为待审核状态
+      userInfo: userInfo || {} // 添加用户信息
+    };
+
+    // 判断是新增还是更新
+    const action = this.data.id ? 'update' : 'add';
+    if (this.data.id) {
+      data.id = this.data.id; // 更新时需要提供ID
+    }
+
     // 调用云函数保存数据
     wx.cloud.callFunction({
       name: 'fanVoice',
       data: {
-        action: 'add',
-        data: {
-          title: title,
-          content: content,
-          images: imageUrls,
-          checked: that.data.checked,
-          status: '0',
-          userInfo: userInfo || {} // 添加用户信息
-        }
+        action: action,
+        data: data
       },
       success: res => {
         wx.hideLoading();
         console.log('云函数调用成功：', res);
         if (res.result && res.result.success) {
           wx.showToast({
-            title: '发布成功',
+            title: this.data.id ? '更新成功' : '发布成功',
             icon: 'success'
           });
 
           // 清空表单
           that.setData({
+            id: '',
             title: '',
             content: '',
             imageList: [],
@@ -204,14 +228,16 @@ Page({
               const prevPage = pages[pages.length - 2]; // 上一个页面
               if (prevPage && typeof prevPage.loadInteractions === 'function') {
                 prevPage.loadInteractions(); // 调用上一个页面的刷新方法
+              } else if (prevPage && typeof prevPage.onShow === 'function') {
+                prevPage.onShow(); // 调用上一个页面的onShow方法刷新数据
               }
             }
             wx.navigateBack();
           }, 1500);
         } else {
-          console.error('发布失败：', res.result ? res.result.message : '未知错误');
+          console.error('操作失败：', res.result ? res.result.message : '未知错误');
           wx.showToast({
-            title: res.result ? res.result.message : '发布失败',
+            title: res.result ? res.result.message : '操作失败',
             icon: 'none'
           });
         }
@@ -225,7 +251,5 @@ Page({
         });
       }
     });
-  },
-
-
+  }
 });

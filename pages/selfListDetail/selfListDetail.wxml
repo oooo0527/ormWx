@@ -1,148 +1,185 @@
-<!--pages/selfListDetail/selfListDetail.wxml-->
+<!-- pages/selfListDetail/selfListDetail.wxml -->
 <global-background>
   <custom-navbar title="ormkornnaphat" showBack="{{true}}" showHome="{{false}}"></custom-navbar>
-<view class="container" style="margin-top: 128rpx;">
-  <!-- 标签页切换 -->
-  <view class="tab-bar">
-    <view class="tab {{activeTab === 'published' ? 'active' : ''}}" data-tab="published" bindtap="switchTab">
-      我发布的
-    </view>
-    <view class="tab {{activeTab === 'favorite' ? 'active' : ''}}" data-tab="favorite" bindtap="switchTab">
-      我收藏的
-    </view>
-  </view>
-
-  <!-- 发布的互动留言列表 -->
-  <view class="list-container" wx:if="{{activeTab === 'published'}}">
-    <!-- 状态分类导航 -->
-    <view class="status-tabs">
-      <view class="status-tab {{activePublishStatus === 'all' ? 'active' : ''}}" data-status="all" bindtap="switchPublishStatus">
-        全部
+  <view class="container" style="margin-top: 128rpx;">
+    <!-- 标签页切换 -->
+    <view class="tab-bar">
+      <view class="tab {{activeTab === 'published' ? 'active' : ''}}" data-tab="published" bindtap="switchTab">
+        我发布的
       </view>
-      <view class="status-tab {{activePublishStatus === 'success' ? 'active' : ''}}" data-status="success" bindtap="switchPublishStatus">
-        发布成功
-      </view>
-      <view class="status-tab {{activePublishStatus === 'fail' ? 'active' : ''}}" data-status="fail" bindtap="switchPublishStatus">
-        发布失败
-      </view>
-      <view class="status-tab {{activePublishStatus === 'pending' ? 'active' : ''}}" data-status="pending" bindtap="switchPublishStatus">
-        待审核
+      <view class="tab {{activeTab === 'favorite' ? 'active' : ''}}" data-tab="favorite" bindtap="switchTab">
+        我收藏的
       </view>
     </view>
-    
-    <!-- 根据选中的状态显示对应内容 -->
-    <view wx:if="{{activePublishStatus === 'all' || activePublishStatus === 'success'}}">
-      <view wx:if="{{publishedSuccessList.length > 0}}">
-        <view class="section-title" wx:if="{{activePublishStatus === 'all'}}">发布成功</view>
-        <view class="interaction-item" wx:for="{{publishedSuccessList}}" wx:key="id" bindtap="goToDetail" data-index="{{index}}" data-status="success">
+    <!-- 发布的互动留言列表 -->
+    <view class="list-container" wx:if="{{activeTab === 'published'}}">
+      <!-- 状态分类导航 -->
+      <view class="status-tabs">
+        <view class="status-tab {{activePublishStatus === 'all' ? 'active' : ''}}" data-status="all" bindtap="switchPublishStatus">
+          全部
+        </view>
+        <view class="status-tab {{activePublishStatus === 'success' ? 'active' : ''}}" data-status="success" bindtap="switchPublishStatus">
+          发布成功
+        </view>
+        <view class="status-tab {{activePublishStatus === 'fail' ? 'active' : ''}}" data-status="fail" bindtap="switchPublishStatus">
+          发布失败
+        </view>
+        <view class="status-tab {{activePublishStatus === 'pending' ? 'active' : ''}}" data-status="pending" bindtap="switchPublishStatus">
+          待审核
+        </view>
+      </view>
+      <!-- 根据选中的状态显示对应内容 -->
+      <view wx:if="{{activePublishStatus === 'all' || activePublishStatus === 'success'}}">
+        <view wx:if="{{publishedSuccessList.length > 0}}">
+          <view class="section-title" wx:if="{{activePublishStatus === 'all'}}">发布成功</view>
+          <view class="interaction-item-wrapper" wx:for="{{publishedSuccessList}}" wx:key="id">
+            <view class="interaction-item-swipe" data-index="{{index}}" data-status="success" bindtouchstart="onTouchStart" bindtouchmove="onTouchMove" bindtouchend="onTouchEnd">
+              <view class="interaction-item-content" style="transform: translateX({{item.swipeOffset || 0}}px);">
+                <view class="interaction-item" bindtap="goToDetail" data-index="{{index}}" data-status="success">
+                  <view class="item-header">
+                    <text class="item-title">{{item.title}}</text>
+                  </view>
+                  <view class="item-content">
+                    <text class="content-text">{{item.description}}</text>
+                  </view>
+                  <view class="item-footer">
+                    <text class="time-text">{{item.createTime}}</text>
+                    <text class="comment-count">评论({{item.commentsCount}})</text>
+                  </view>
+                </view>
+                <view class="swipe-delete" bindtap="deleteItem" data-index="{{index}}" data-status="success">
+                  删除
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view wx:else>
+          <view class="empty-tip" wx:if="{{!loading}}">
+            <text wx:if="{{activePublishStatus === 'all'}}">暂无发布成功的内容</text>
+            <text wx:else>暂无内容</text>
+          </view>
+        </view>
+      </view>
+      <view wx:if="{{activePublishStatus === 'all' || activePublishStatus === 'fail'}}">
+        <view wx:if="{{publishedFailList.length > 0}}">
+          <view class="section-title" wx:if="{{activePublishStatus === 'all'}}">发布失败</view>
+          <view class="interaction-item-wrapper" wx:for="{{publishedFailList}}" wx:key="id">
+            <view class="interaction-item-swipe" data-index="{{index}}" data-status="fail" bindtouchstart="onTouchStart" bindtouchmove="onTouchMove" bindtouchend="onTouchEnd">
+              <view class="interaction-item-content" style="transform: translateX({{item.swipeOffset || 0}}px);">
+                <!-- 发布失败的留言可点击跳转到编辑页面 -->
+                <view class="interaction-item failed-item" bindtap="editFailedItem" data-index="{{index}}" data-status="fail">
+                  <view class="item-header">
+                    <text class="item-title">{{item.title}}</text>
+                    <text class="item-reject">拒绝原因 : {{item.rejectReason}}</text>
+                  </view>
+                  <view class="item-content">
+                    <text class="content-text">{{item.description}}</text>
+                  </view>
+                  <view class="item-footer">
+                    <text class="time-text">{{item.createTime}}</text>
+                  </view>
+                </view>
+                <view class="swipe-delete" bindtap="deleteItem" data-index="{{index}}" data-status="fail">
+                  删除
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view wx:else>
+          <view class="empty-tip" wx:if="{{!loading}}">
+            <text wx:if="{{activePublishStatus === 'all'}}">暂无发布失败的内容</text>
+            <text wx:else>暂无内容</text>
+          </view>
+        </view>
+      </view>
+      <view wx:if="{{activePublishStatus === 'all' || activePublishStatus === 'pending'}}">
+        <view wx:if="{{publishedPendingList.length > 0}}">
+          <view class="section-title" wx:if="{{activePublishStatus === 'all'}}">待审核</view>
+          <view class="interaction-item-wrapper" wx:for="{{publishedPendingList}}" wx:key="id">
+            <!-- 待审核的留言支持展开查看更多信息 -->
+            <view class="interaction-item-pending-expand" bindtap="togglePendingItem" data-index="{{index}}">
+              <view class="interaction-item-swipe" data-index="{{index}}" data-status="pending" bindtouchstart="onTouchStart" bindtouchmove="onTouchMove" bindtouchend="onTouchEnd">
+                <view class="interaction-item-content" style="transform: translateX({{item.swipeOffset || 0}}px);">
+                  <view class="interaction-item pending-item">
+                    <view class="item-header">
+                      <text class="item-title">{{item.title}}</text>
+                    </view>
+                    <view class="item-content">
+                      <text class="content-text">{{item.description}}</text>
+                    </view>
+                    <view class="item-footer">
+                      <text class="time-text">{{item.createTime}}</text>
+                    </view>
+                    <!-- 展开后显示更多信息 -->
+                    <view class="pending-item-expanded" wx:if="{{item.expanded}}">
+                      <view class="expanded-content">
+                        <text class="expanded-label">详细信息:</text>
+                        <text class="expanded-text">{{item.description}}</text>
+                      </view>
+                      <view class="expanded-images" wx:if="{{item.images && item.images.length > 0}}">
+                        <text class="expanded-label">图片:</text>
+                        <view class="image-grid">
+                          <image wx:for="{{item.images}}" wx:key="index" src="{{item}}" class="expanded-image" mode="aspectFill"></image>
+                        </view>
+                      </view>
+                    </view>
+                  </view>
+                  <view class="swipe-delete" bindtap="deleteItem" data-index="{{index}}" data-status="pending">
+                    删除
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view wx:else>
+          <view class="empty-tip" wx:if="{{!loading}}">
+            <text wx:if="{{activePublishStatus === 'all'}}">暂无待审核的内容</text>
+            <text wx:else>暂无内容</text>
+          </view>
+        </view>
+      </view>
+      <!-- 加载更多提示 -->
+      <view class="load-more" wx:if="{{loading}}">
+        <text>发那么多干嘛...</text>
+      </view>
+      <view class="load-more" wx:elif="{{!hasMorePublished && (publishedSuccessList.length > 0 || publishedFailList.length > 0 || publishedPendingList.length > 0)}}">
+        <text>下次别发了</text>
+      </view>
+    </view>
+    <!-- 收藏的互动留言列表 -->
+    <view class="list-container" wx:if="{{activeTab === 'favorite'}}">
+      <view wx:if="{{favoriteList.length > 0}}">
+        <view class="interaction-item" wx:for="{{favoriteList}}" wx:key="id">
           <view class="item-header">
             <text class="item-title">{{item.title}}</text>
           </view>
-          <view class="item-content">
+          <view class="item-content" bindtap="goToDetail1" data-index="{{index}}">
             <text class="content-text">{{item.description}}</text>
           </view>
           <view class="item-footer">
             <text class="time-text">{{item.createTime}}</text>
-            <text class="comment-count">评论({{item.commentsCount}})</text>
+            <view class="favorite-actions">
+              <text class="comment-count">评论({{item.commentsCount}})</text>
+              <text class="unfavorite-btn" bindtap="unfavorite" data-index="{{index}}">取消收藏</text>
+            </view>
           </view>
         </view>
       </view>
       <view wx:else>
         <view class="empty-tip" wx:if="{{!loading}}">
-          <text wx:if="{{activePublishStatus === 'all'}}">暂无发布成功的内容</text>
-          <text wx:else>暂无内容</text>
+          <text>暂无收藏的互动留言</text>
         </view>
       </view>
-    </view>
-    
-    <view wx:if="{{activePublishStatus === 'all' || activePublishStatus === 'fail'}}">
-      <view wx:if="{{publishedFailList.length > 0}}">
-        <view class="section-title" wx:if="{{activePublishStatus === 'all'}}">发布失败</view>
-        <view class="interaction-item failed-item" wx:for="{{publishedFailList}}" wx:key="id"  data-index="{{index}}" data-status="fail">
-          <view class="item-header">
-            <text class="item-title">{{item.title}}</text>
-            <text class="item-reject">拒绝原因 : {{item.rejectReason}}</text>
-          </view>
-          <view class="item-content">
-            <text class="content-text">{{item.description}}</text>
-          </view>
-          <view class="item-footer">
-            <text class="time-text">{{item.createTime}}</text>
-          </view>
-        </view>
+      <!-- 加载更多提示 -->
+      <view class="load-more" wx:if="{{loading}}">
+        <text>加载中...</text>
       </view>
-      <view wx:else>
-        <view class="empty-tip" wx:if="{{!loading}}">
-          <text wx:if="{{activePublishStatus === 'all'}}">暂无发布失败的内容</text>
-          <text wx:else>暂无内容</text>
-        </view>
+      <view class="load-more" wx:elif="{{!hasMoreFavorite && favoriteList.length > 0}}">
+        <text>没有更多了</text>
       </view>
-    </view>
-    
-    <view wx:if="{{activePublishStatus === 'all' || activePublishStatus === 'pending'}}">
-      <view wx:if="{{publishedPendingList.length > 0}}">
-        <view class="section-title" wx:if="{{activePublishStatus === 'all'}}">待审核</view>
-        <view class="interaction-item pending-item" wx:for="{{publishedPendingList}}" wx:key="id" data-index="{{index}}" data-status="pending">
-          <view class="item-header">
-            <text class="item-title">{{item.title}}</text>
-          </view>
-          <view class="item-content">
-            <text class="content-text">{{item.description}}</text>
-          </view>
-          <view class="item-footer">
-            <text class="time-text">{{item.createTime}}</text>
-          </view>
-        </view>
-      </view>
-      <view wx:else>
-        <view class="empty-tip" wx:if="{{!loading}}">
-          <text wx:if="{{activePublishStatus === 'all'}}">暂无待审核的内容</text>
-          <text wx:else>暂无内容</text>
-        </view>
-      </view>
-    </view>
-    
-    <!-- 加载更多提示 -->
-    <view class="load-more" wx:if="{{loading}}">
-      <text>发那么多干嘛...</text>
-    </view>
-    <view class="load-more" wx:elif="{{!hasMorePublished && (publishedSuccessList.length > 0 || publishedFailList.length > 0 || publishedPendingList.length > 0)}}">
-      <text>下次别发了</text>
     </view>
   </view>
-
-  <!-- 收藏的互动留言列表 -->
-  <view class="list-container" wx:if="{{activeTab === 'favorite'}}">
-    <view wx:if="{{favoriteList.length > 0}}">
-      <view class="interaction-item" wx:for="{{favoriteList}}" wx:key="id">
-        <view class="item-header">
-          <text class="item-title">{{item.title}}</text>
-        </view>
-        <view class="item-content" bindtap="goToDetail1" data-index="{{index}}">
-          <text class="content-text">{{item.description}}</text>
-        </view>
-        <view class="item-footer">
-          <text class="time-text">{{item.createTime}}</text>
-          <view class="favorite-actions">
-            <text class="comment-count">评论({{item.commentsCount}})</text>
-            <text class="unfavorite-btn" bindtap="unfavorite" data-index="{{index}}">取消收藏</text>
-          </view>
-        </view>
-      </view>
-    </view>
-    <view wx:else>
-      <view class="empty-tip" wx:if="{{!loading}}">
-        <text>暂无收藏的互动留言</text>
-      </view>
-    </view>
-    
-    <!-- 加载更多提示 -->
-    <view class="load-more" wx:if="{{loading}}">
-      <text>加载中...</text>
-    </view>
-    <view class="load-more" wx:elif="{{!hasMoreFavorite && favoriteList.length > 0}}">
-      <text>没有更多了</text>
-    </view>
-  </view>
-</view>
 </global-background>

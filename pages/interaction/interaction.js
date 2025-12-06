@@ -43,25 +43,7 @@ Page({
   },
 
   onLoad: function () {
-    this.setData({
-      userInfo: wx.getStorageSync('userInfo')
-    });
-    this.setData({
-      works: [],
-      displayWorks: [],
-      hotInteractions: [],
-      searchList: [],
-      searchValue: '',
-      searchFlag: false,
-      currentPage: 0,
-      hasMore: true,
-      loadAll: false,
-      pageSize: 5,
 
-
-    });
-    this.loadInteractions();
-    this.loadHotInteractions();
 
 
   },
@@ -99,6 +81,24 @@ Page({
   },
   onShow: function () {
     // this.onPullDownRefresh();
+    this.setData({
+      userInfo: wx.getStorageSync('userInfo')
+    });
+    this.setData({
+      works: [],
+      displayWorks: [],
+      hotInteractions: [],
+      searchList: [],
+      searchValue: '',
+      searchFlag: false,
+      currentPage: 0,
+      hasMore: true,
+      loadAll: false,
+      pageSize: 5,
+
+    });
+    this.loadInteractions();
+    this.loadHotInteractions();
   },
 
   // 加载互动留言数据

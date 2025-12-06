@@ -9,8 +9,8 @@ Page({
     // 新评论内容
     newComment: "",
 
-    // 回复相关
-    isReplying: false,
+    // 回复相关 - 修改为支持每个评论独立回复
+    replyingToIndex: -1, // 当前正在回复的评论索引，-1表示没有正在回复的评论
     replyToCommentId: null,
     replyToNickname: "",
     newReply: "",
@@ -266,15 +266,17 @@ Page({
     });
   },
 
-  // 开始回复评论
+  // 开始回复评论 - 修改为支持每个评论独立回复
   startReply: function (e) {
     const commentId = e.currentTarget.dataset.id;
     const nickname = e.currentTarget.dataset.nickname;
+    const index = e.currentTarget.dataset.index; // 获取评论索引
 
     this.setData({
-      isReplying: true,
+      replyingToIndex: index, // 设置正在回复的评论索引
       replyToCommentId: commentId,
-      replyToNickname: nickname
+      replyToNickname: nickname,
+      newReply: "" // 清空之前的回复内容
     });
   },
 
@@ -285,8 +287,11 @@ Page({
     });
   },
 
-  // 提交回复
-  submitReply: function () {
+  // 提交回复 - 修改为支持每个评论独立回复
+  submitReply: function (e) {
+    // 获取当前评论的索引
+    const index = e.currentTarget.dataset.index;
+
     if (!this.data.newReply.trim()) {
       wx.showToast({
         title: '请输入回复内容',
@@ -319,7 +324,7 @@ Page({
 
           // 重置回复状态
           this.setData({
-            isReplying: false,
+            replyingToIndex: -1, // 重置正在回复的评论索引
             replyToCommentId: null,
             replyToNickname: "",
             newReply: ""
@@ -350,7 +355,7 @@ Page({
   // 取消回复
   cancelReply: function () {
     this.setData({
-      isReplying: false,
+      replyingToIndex: -1,
       replyToCommentId: null,
       replyToNickname: "",
       newReply: ""

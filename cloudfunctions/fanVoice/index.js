@@ -26,6 +26,8 @@ exports.main = async (event, context) => {
     // 新增互动留言相关操作
     case 'add':
       return await addInteraction(wxContext.OPENID, event)
+    case 'update':
+      return await updateInteraction(wxContext.OPENID, event)
     case 'getList':
       return await getInteractionList(event)
     case 'getInteractionById':
@@ -38,8 +40,6 @@ exports.main = async (event, context) => {
       return await deleteComment(wxContext.OPENID, event)
     case 'addCommentReply':
       return await addCommentReply(wxContext.OPENID, event)
-
-    // 收藏相关操作
     case 'favorite':
       return await favoriteInteraction(wxContext.OPENID, event)
     case 'unfavorite':
@@ -56,10 +56,17 @@ exports.main = async (event, context) => {
   }
 }
 
-// 获取心声列表
+// 获取声音列表
 async function getVoices(event) {
   try {
-    let query = db.collection('fan_voices')
+    let query = db.collection('voices')
+
+    // 如果有日期参数，则按日期筛选
+    if (event.date) {
+      query = query.where({
+        date: event.date
+      })
+    }
 
     // 分页查询
     const result = await query
@@ -80,96 +87,106 @@ async function getVoices(event) {
   }
 }
 
-// 发布心声
+// 发布声音
 async function postVoice(openid, event) {
   try {
-    const voice = {
-      content: event.content,
-      userId: openid,
-      likes: [],
-      comments: [],
-      createTime: new Date().toISOString().slice(0, 10),
-      updateTime: new Date().toISOString().slice(0, 10),
-      userInfo: event.userInfo
-    }
-
-    const result = await db.collection('fan_voices').add({
-      data: voice
-    })
-
-    return {
-      success: true,
-      data: {
-        _id: result._id,
-        ...voice
-      }
-    }
-  } catch (err) {
-    return {
-      success: false,
-      message: err.message
-    }
-  }
-}
-
-// 点赞心声
-async function likeVoice(openid, event) {
-  try {
-    const voiceId = event.voiceId
-
-    // 检查是否已经点赞
-    const voiceResult = await db.collection('fan_voices').doc(voiceId).get()
-    const voice = voiceResult.data
-
-    if (!voice) {
+    // 检查必要参数
+    if (!event.data || !event.data.content) {
       return {
         success: false,
-        message: '心声不存在'
-      }
+        message: '内容不能为空'
+      };
     }
 
-    const likes = voice.likes || []
-    const likeIndex = likes.indexOf(openid)
+    const voice = {
+      content: event.data.content,
+      userId: openid,
+      userInfo: event.data.userInfo || {}, // 添加用户信息
+      likes: 0,
+      likedBy: [],
+      createTime: new Date().toISOString().slice(0, 10),
+      date: event.data.date || new Date().toISOString().slice(0, 10)
+    };
 
-    if (likeIndex > -1) {
-      // 取消点赞
-      likes.splice(likeIndex, 1)
-    } else {
-      // 点赞
-      likes.push(openid)
-    }
-
-    // 更新点赞数
-    const result = await db.collection('fan_voices').doc(voiceId).update({
-      data: {
-        likes: likes,
-        updateTime: new Date()
-      }
-    })
+    const result = await db.collection('voices').add({
+      data: voice
+    });
 
     return {
       success: true,
-      data: {
-        likes: likes,
-        likeCount: likes.length
-      }
-    }
+      data: result
+    };
   } catch (err) {
     return {
       success: false,
       message: err.message
-    }
+    };
   }
 }
 
-// 删除心声
+// 点赞声音
+async function likeVoice(openid, event) {
+  try {
+    const voiceId = event.id;
+
+    // 先获取声音文档
+    const voiceResult = await db.collection('voices').doc(voiceId).get();
+    if (!voiceResult.data) {
+      return {
+        success: false,
+        message: '声音不存在'
+      };
+    }
+
+    const voice = voiceResult.data;
+    let updateData = {};
+
+    // 检查用户是否已经点赞
+    if (voice.likedBy && voice.likedBy.includes(openid)) {
+      // 取消点赞
+      updateData = {
+        likes: _.inc(-1),
+        likedBy: _.pull(openid)
+      };
+    } else {
+      // 点赞
+      updateData = {
+        likes: _.inc(1),
+        likedBy: _.push(openid)
+      };
+    }
+
+    const result = await db.collection('voices').doc(voiceId).update({
+      data: updateData
+    });
+
+    return {
+      success: true,
+      data: result
+    };
+  } catch (err) {
+    return {
+      success: false,
+      message: err.message
+    };
+  }
+}
+
+// 删除声音
 async function deleteVoice(openid, event) {
   try {
-    // 只能删除自己发布的心声
-    const result = await db.collection('fan_voices').where({
-      _id: event.voiceId,
+    // 只能删除自己发布的声音
+    const result = await db.collection('voices').where({
+      _id: event.id,
       userId: openid
     }).remove()
+
+    if (result.stats.removed === 0) {
+      return {
+        success: false,
+        message: '删除失败，可能是声音不存在或不是您的声音'
+      }
+    }
 
     return {
       success: true,
@@ -249,6 +266,60 @@ async function addInteraction(openid, event) {
     return {
       success: false,
       message: err.message || '新增互动留言失败'
+    };
+  }
+}
+
+// 更新互动留言
+async function updateInteraction(openid, event) {
+  try {
+    // 检查必要参数
+    if (!event.data || !event.data.id || !event.data.title || !event.data.content) {
+      return {
+        success: false,
+        message: '缺少必要参数'
+      };
+    }
+
+    // 只能更新自己发布的互动留言
+    const interactionResult = await db.collection('interactions').doc(event.data.id).get();
+    if (!interactionResult.data) {
+      return {
+        success: false,
+        message: '互动留言不存在'
+      };
+    }
+
+    if (interactionResult.data.userId !== openid) {
+      return {
+        success: false,
+        message: '无权限更新此留言'
+      };
+    }
+
+    // 更新数据，重新设置为待审核状态
+    const updateData = {
+      title: event.data.title,
+      content: event.data.content,
+      images: event.data.images || [],
+      updateTime: new Date().toISOString().slice(0, 10),
+      status: '0', // 重新提交设置为待审核状态
+      checked: event.data.checked || '0',
+    };
+
+    const result = await db.collection('interactions').doc(event.data.id).update({
+      data: updateData
+    });
+
+    return {
+      success: true,
+      data: result
+    };
+  } catch (err) {
+    console.error('更新互动留言失败：', err);
+    return {
+      success: false,
+      message: err.message || '更新互动留言失败'
     };
   }
 }
@@ -351,6 +422,7 @@ async function deleteInteraction(openid, event) {
     }
   }
 }
+
 function randomCommentId() {
   return Math.random().toString(36).substring(2, 9);
 }
