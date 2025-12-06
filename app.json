@@ -1,8 +1,7 @@
 {
   "pages": [
-    "pages/index/index",
     "pages/interaction/interaction",
-
+    "pages/index/index",
     "pages/profile/profile",
     "pages/Home/Home",
     "pages/selfListDetail/selfListDetail",

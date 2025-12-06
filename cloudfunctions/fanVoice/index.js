@@ -36,6 +36,9 @@ exports.main = async (event, context) => {
       return await addComment(wxContext.OPENID, event)
     case 'deleteComment':
       return await deleteComment(wxContext.OPENID, event)
+    case 'addCommentReply':
+      return await addCommentReply(wxContext.OPENID, event)
+
     // 收藏相关操作
     case 'favorite':
       return await favoriteInteraction(wxContext.OPENID, event)
@@ -348,6 +351,9 @@ async function deleteInteraction(openid, event) {
     }
   }
 }
+function randomCommentId() {
+  return Math.random().toString(36).substring(2, 9);
+}
 
 // 添加评论
 async function addComment(openid, event) {
@@ -358,7 +364,8 @@ async function addComment(openid, event) {
       userInfo: event.userInfo || {}, // 添加用户信息
       createTime: new Date().toLocaleTimeString('en-GB') || new Date().toISOString().slice(0, 10),
       createDate: new Date().toISOString().slice(0, 10),
-      interactionId: event.interactionId
+      interactionId: event.interactionId,
+      commentId: randomCommentId(),
     }
 
     // 向互动留言中添加评论
@@ -591,5 +598,72 @@ async function getUserInteractions(openid, event) {
       success: false,
       message: err.message || '获取用户互动留言失败'
     };
+  }
+}
+
+// 回复评论
+async function addCommentReply(openid, event) {
+  try {
+    const reply = {
+      content: event.content,
+      userId: openid,
+      userInfo: event.userInfo || {}, // 添加用户信息
+      createTime: new Date().toLocaleTimeString('en-GB') || new Date().toISOString().slice(0, 10),
+      createDate: new Date().toISOString().slice(0, 10),
+      commentId: event.commentId
+    }
+
+    // 首先获取当前互动留言的数据
+    const interactionResult = await db.collection('interactions').doc(event.interactionId).get();
+
+    if (!interactionResult.data) {
+      return {
+        success: false,
+        message: '互动留言不存在'
+      };
+    }
+
+    // 获取现有的评论数组
+    const comments = interactionResult.data.comments || [];
+
+    // 查找要回复的评论索引
+    const commentIndex = comments.findIndex(comment =>
+      comment.commentId === event.commentId ||
+      // 兼容旧数据，如果没有_id字段，则使用数组索引
+      (comment.commentId === undefined && comments.indexOf(comment).toString() === event.commentId)
+    );
+
+    if (commentIndex === -1) {
+      return {
+        success: false,
+        message: '评论不存在'
+      };
+    }
+
+    // 如果评论还没有 replies 字段，则初始化一个空数组
+    if (!comments[commentIndex].replies) {
+      comments[commentIndex].replies = [];
+    }
+
+    // 将回复添加到特定评论的 replies 数组中
+    comments[commentIndex].replies.push(reply);
+
+    // 更新数据库中的评论数据
+    const result = await db.collection('interactions').doc(event.interactionId).update({
+      data: {
+        comments: comments,
+        updateTime: new Date()
+      }
+    });
+
+    return {
+      success: true,
+      data: reply
+    }
+  } catch (err) {
+    return {
+      success: false,
+      message: err.message
+    }
   }
 }

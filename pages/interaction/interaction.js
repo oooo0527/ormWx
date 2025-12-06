@@ -46,6 +46,22 @@ Page({
     this.setData({
       userInfo: wx.getStorageSync('userInfo')
     });
+    this.setData({
+      works: [],
+      displayWorks: [],
+      hotInteractions: [],
+      searchList: [],
+      searchValue: '',
+      searchFlag: false,
+      currentPage: 0,
+      hasMore: true,
+      loadAll: false,
+      pageSize: 5,
+
+
+    });
+    this.loadInteractions();
+    this.loadHotInteractions();
 
 
   },
@@ -82,7 +98,7 @@ Page({
     this.loadHotInteractions();
   },
   onShow: function () {
-    this.onPullDownRefresh();
+    // this.onPullDownRefresh();
   },
 
   // 加载互动留言数据
@@ -173,25 +189,7 @@ Page({
       }
     });
   },
-  onPullDownRefresh: function () {
-    // 重置状态
-    this.setData({
-      hotInteractions: [],
-      works: [],
-      currentPage: 0,
-      hasMore: true,
-      loadAll: false,
-      pageSize: 5,
-      date: new Date().toISOString().slice(0, 10),
-      endDate: new Date().toISOString().slice(0, 10),
-    });
 
-    // 加载互动留言数据
-    this.loadInteractions();
-    // 加载热门互动留言数据
-    this.loadHotInteractions();
-    // wx.stopPullDownRefresh();
-  },
 
   // 初始化3D轮播图
   init3DCarousel: function () {

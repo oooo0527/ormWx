@@ -1,16 +1,12 @@
 <global-background>
   <custom-navbar title="ormkornnaphat" showBack="{{true}}" showHome="{{false}}"></custom-navbar>
-<view class="container" style="margin-top: {{navBarHeight}}px;min-height:calc(100vh - {{navBarHeight}}px);">
-
+  <view class="container" style="margin-top: {{navBarHeight}}px;min-height:calc(100vh - {{navBarHeight}}px);">
     <view class="carousel-container1">
-
       <image src="{{works.images[0]}}" mode="aspectFill" class="selected-work-image" wx:show="{{works.images.length>0}}" lazy-load></image>
-
       <view class="selected-work-detail">
         <image src="{{works.images[0]}}" class="swiper-image" mode="widthFix" wx:if="{{works.images.length>0}}" lazy-load bindtap="onSwiperImageTap"></image>
         <view class="selected-work-title">{{works.title}}</view>
         <view class="selected-work-description">{{works.content}}</view>
-
         <!-- 收藏按钮 -->
         <view class="favorite-section">
           <button class="favorite-btn" bindtap="toggleFavorite">
@@ -19,9 +15,7 @@
           </button>
         </view>
       </view>
-
     </view>
-
     <!-- 评论区域 -->
     <view class="comments-section">
       <view class="section-title">评论 ({{comments.length}})</view>
@@ -32,56 +26,55 @@
       </view>
       <!-- 评论列表 -->
       <view class="comments-list">
-        <block wx:for="{{comments}}" wx:key="id">
+        <block wx:for="{{comments}}" wx:key="index">
           <view class="comment-item">
             <!-- 评论者信息 -->
             <view class="comment-header">
               <image class="comment-avatar" src="{{item.userInfo.avatar}}"></image>
               <view class="comment-user-info">
                 <text class="comment-nickname">{{item.userInfo.nickname}}</text>
-                <text class="comment-time"> {{item.createDate}} /{{item.createTime}}</text>
-              </view>
-              <view class="comment-like" bindtap="toggleCommentLike" wx:if="{{false}}" data-id="{{item.id}}">
-                <text class="like-icon">{{item.isLiked ? '♥' : '♡'}}</text>
-                <text class="like-count">{{item.likes}}</text>
+                <text class="comment-time">{{item.createDate}} {{item.createTime}}</text>
               </view>
             </view>
-
             <!-- 评论内容 -->
             <view class="comment-content">
               <text>{{item.content}}</text>
             </view>
-
             <!-- 回复按钮 -->
-            <view class="reply-button" bindtap="startReply" data-id="{{item.id}}" data-nickname="{{item.nickname}}" wx:if="{{false}}">
-              <text>回复</text>
+            <view class="reply-button">
+              <view class="reply-text" bindtap="startReply" data-id="{{item.commentId}}" data-nickname="{{item.userInfo.nickname}}">
+                回复
+              </view>
             </view>
-
+            <!-- 回复输入区域 (全局) -->
+            <view class="reply-input-area" wx:if="{{isReplying}}">
+              <view class="reply-to">回复 @{{replyToNickname}}:</view>
+              <textarea class="reply-textarea" placeholder="请输入回复内容..." value="{{newReply}}" bindinput="onReplyInput"></textarea>
+              <view class="reply-actions">
+                <button class="cancel-btn" bindtap="cancelReply">取消</button>
+                <button class="submit-btn" bindtap="submitReply">发送</button>
+              </view>
+            </view>
             <!-- 回复列表 -->
-            <view class="replies-list" wx:if="{{item.replies.length > 0}}">
-              <block wx:for="{{item.replies}}" wx:key="id">
+            <view class="replies-list" wx:if="{{item.replies && item.replies.length > 0}}">
+              <block wx:for="{{item.replies}}" wx:key="{{index}}">
                 <view class="reply-item">
-                  <text class="reply-nickname">{{item.nickname}}:</text>
-                  <text class="reply-content">{{item.content}}</text>
+                  <view class="reply-header">
+                    <image class="reply-avatar" src="{{item.userInfo.avatar}}"></image>
+                    <view class="reply-user-info">
+                      <text class="reply-nickname">{{item.userInfo.nickname}}</text>
+                      <text class="reply-time">{{item.createDate}} {{item.createTime}}</text>
+                    </view>
+                  </view>
+                  <view class="reply-content">
+                    <text>{{item.content}}</text>
+                  </view>
                 </view>
               </block>
             </view>
           </view>
         </block>
       </view>
-
-      <!-- 回复输入区域 -->
-      <view class="reply-input-area" wx:if="{{isReplying}}">
-        <view class="reply-to">回复 @{{replyToNickname}}:</view>
-        <textarea class="reply-textarea" placeholder="请输入回复内容..." value="{{newReply}}" bindinput="onReplyInput"></textarea>
-        <view class="reply-actions">
-          <button class="cancel-btn" bindtap="cancelReply">取消</button>
-          <button class="submit-btn" bindtap="submitReply">发送</button>
-        </view>
-      </view>
-
-
     </view>
-
   </view>
 </global-background>

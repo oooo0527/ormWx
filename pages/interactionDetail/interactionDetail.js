@@ -303,10 +303,9 @@ Page({
     wx.cloud.callFunction({
       name: 'fanVoice',
       data: {
-        action: 'addComment',
-        interactionId: this.data.works.id,
-        createDate: new Date().toISOString().slice(0, 10), // 添加创建时间
-        createTime: new Date().toLocaleTimeString(), // 添加创建时间
+        action: 'addCommentReply',
+        interactionId: this.data.works.id || this.data.works._id,
+        commentId: this.data.replyToCommentId,
         content: `回复 @${this.data.replyToNickname}: ${this.data.newReply}`,
         userInfo: userInfo || {} // 添加用户信息
       },
@@ -323,18 +322,14 @@ Page({
             isReplying: false,
             replyToCommentId: null,
             replyToNickname: "",
-            newReply: "",
-            works: {
-              ...this.data.works,
-              comments: [...this.data.works.comments, res.result.data]
-            }
+            newReply: ""
           });
 
           // 重新加载评论
           this.loadComments();
 
           // 同时更新当前作品的评论数据
-          // this.refreshCurrentWorkComments();
+          this.refreshCurrentWorkComments();
         } else {
           wx.showToast({
             title: res.result.message || '回复失败',

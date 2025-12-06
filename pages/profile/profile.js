@@ -67,7 +67,7 @@ createPage({
       });
       // 未登录则跳转到登录页面
       wx.redirectTo({
-        url: '/pages/login/login'
+        url: '/pages/index/index'
       });
     }
   },
