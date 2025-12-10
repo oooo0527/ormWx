@@ -1,3 +1,5 @@
+import timeUtils from '../../utils/timeUtils.js';
+
 Page({
   data: {
     works: {},
@@ -164,10 +166,12 @@ Page({
     const selectedWork = this.data.works;
     if (selectedWork && selectedWork.comments) {
       const sortedComments2 = [...selectedWork.comments]
-        .sort((a, b) =>
-          new Date(`${b.createDate} ${b.createTime}`) -
-          new Date(`${a.createDate} ${a.createTime}`)
-        );
+        .sort((a, b) => {
+          // 修复iOS日期格式兼容性问题
+          const dateB = new Date(`${b.createDate}T${b.createTime}`);
+          const dateA = new Date(`${a.createDate}T${a.createTime}`);
+          return dateB - dateA;
+        });
       this.setData({
         comments: sortedComments2
       }, () => {
@@ -181,16 +185,6 @@ Page({
     }
   },
 
-  // 格式化时间
-  formatTime: function (time) {
-    const date = new Date(time);
-    const year = date.getFullYear();
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const day = date.getDate().toString().padStart(2, '0');
-    const hour = date.getHours().toString().padStart(2, '0');
-    const minute = date.getMinutes().toString().padStart(2, '0');
-    return `${year}-${month}-${day} ${hour}:${minute}`;
-  },
 
 
   // 评论点赞功能
@@ -237,7 +231,10 @@ Page({
         action: 'addComment',
         interactionId: this.data.works.id || this.data.works._id,
         content: this.data.newComment,
-        userInfo: userInfo || {} // 添加用户信息
+        userInfo: userInfo || {}, // 添加用户信息
+        createDate: timeUtils.getCurrentDate(),
+        createTime: timeUtils.getCurrentTime(),
+        updateTime: timeUtils.getCurrentTime()
       },
       success: res => {
         if (res.result && res.result.success) {
@@ -440,7 +437,10 @@ Page({
         interactionId: this.data.works.id || this.data.works._id,
         commentId: this.data.replyToCommentId,
         content: `回复 @${this.data.replyToNickname}: ${this.data.newReply}`,
-        userInfo: userInfo || {} // 添加用户信息
+        userInfo: userInfo || {}, // 添加用户信息
+        createDate: timeUtils.getCurrentDate(),
+        createTime: timeUtils.getCurrentTime(),
+        updateTime: timeUtils.getCurrentTime()
       },
       success: res => {
         console.log('res', res)
@@ -541,7 +541,10 @@ Page({
         commentId: commentId,
         replyToReplyId: replyId, // 添加这个参数用于识别回复目标
         content: `回复 @${this.data.replyToReplyNickname}: ${this.data.newReplyToReply}`,
-        userInfo: userInfo || {} // 添加用户信息
+        userInfo: userInfo || {}, // 添加用户信息
+        createDate: timeUtils.getCurrentDate(),
+        createTime: timeUtils.getCurrentTime(),
+        updateTime: timeUtils.getCurrentTime()
       },
       success: res => {
         console.log('res', res)

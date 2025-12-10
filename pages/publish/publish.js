@@ -1,3 +1,6 @@
+// pages/publish/publish.js
+const timeUtils = require('../../utils/timeUtils.js');
+
 Page({
   data: {
     id: '', // 添加留言ID，用于编辑
@@ -187,7 +190,10 @@ Page({
       images: imageUrls,
       checked: that.data.checked,
       status: '0', // 重新提交设置为待审核状态
-      userInfo: userInfo || {} // 添加用户信息
+      userInfo: userInfo || {}, // 添加用户信息
+      createDate: timeUtils.getCurrentDate(),
+      createTime: timeUtils.getCurrentTime(),
+      updateTime: timeUtils.getCurrentTime()
     };
 
     // 判断是新增还是更新

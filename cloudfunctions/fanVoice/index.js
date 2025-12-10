@@ -114,7 +114,7 @@ async function postVoice(openid, event) {
       userInfo: event.data.userInfo || {}, // 添加用户信息
       likes: 0,
       likedBy: [],
-      createTime: new Date().toISOString().slice(0, 10),
+      createTime: event.data.createTime,
       date: event.data.date || new Date().toISOString().slice(0, 10)
     };
 
@@ -234,6 +234,24 @@ async function getSupportImages(event) {
     }
   }
 }
+function convertUTCToBeijing(utcString) {
+  // 1. 解析UTC时间字符串
+  const utcDate = new Date(utcString); // 假设utcString是 "2025-12-08T05:51:31Z"
+
+  // 2. 转换为北京时间（UTC+8）
+  const beijingDate = new Date(utcDate.getTime() + 8 * 60 * 60 * 1000);
+
+  // 3. 格式化输出
+  const year = beijingDate.getFullYear();
+  const month = String(beijingDate.getMonth() + 1).padStart(2, '0');
+  const day = String(beijingDate.getDate()).padStart(2, '0');
+  const hour = String(beijingDate.getHours()).padStart(2, '0');
+  const minute = String(beijingDate.getMinutes()).padStart(2, '0');
+  const second = String(beijingDate.getSeconds()).padStart(2, '0');
+
+  return `${year}-${month}-${day} ${hour}:${minute}:${second}`;
+}
+
 
 // 新增互动留言
 async function addInteraction(openid, event) {
@@ -253,9 +271,9 @@ async function addInteraction(openid, event) {
       userId: openid,
       userInfo: event.data.userInfo || {}, // 添加用户信息
       comments: [],
-      createDate: event.data.createDate || new Date().toISOString().slice(0, 10),
-      createTime: new Date().toLocaleTimeString('en-GB') || new Date().toISOString().slice(0, 10),
-      updateTime: event.data.updateTime || new Date().toISOString().slice(0, 10),
+      createDate: event.data.createDate,
+      createTime: event.data.createTime,
+      updateTime: event.data.updateTime,
       status: event.data.status || '0',
       checked: event.data.checked || '0',
     };
@@ -444,8 +462,8 @@ async function addComment(openid, event) {
       content: event.content,
       userId: openid,
       userInfo: event.userInfo || {}, // 添加用户信息
-      createTime: new Date().toLocaleTimeString('en-GB') || new Date().toISOString().slice(0, 10),
-      createDate: new Date().toISOString().slice(0, 10),
+      createTime: event.createTime,
+      createDate: event.createDate,
       interactionId: event.interactionId,
       commentId: randomCommentId(),
     }
@@ -577,7 +595,7 @@ async function favoriteInteraction(openid, event) {
     const favorite = {
       userId: openid,
       interactionId: interactionId,
-      createTime: new Date().toISOString().slice(0, 10),
+      createTime: event.createTime,
     };
 
     const result = await db.collection('favorites').add({
@@ -762,7 +780,12 @@ async function getUserReplies(openid, event) {
     });
 
     // 按时间倒序排列
-    allReplies.sort((a, b) => new Date(b.createTime) - new Date(a.createTime));
+    // 修复iOS日期格式兼容性问题
+    allReplies.sort((a, b) => {
+      const dateB = new Date(b.createTime.replace(' ', 'T'));
+      const dateA = new Date(a.createTime.replace(' ', 'T'));
+      return dateB - dateA;
+    });
 
     return {
       success: true,
@@ -870,8 +893,8 @@ async function addCommentReply(openid, event) {
       content: event.content,
       userId: openid,
       userInfo: event.userInfo || {}, // 添加用户信息
-      createTime: new Date().toLocaleTimeString('en-GB') || new Date().toISOString().slice(0, 10),
-      createDate: new Date().toISOString().slice(0, 10),
+      createTime: event.createTime,
+      createDate: event.createDate,
       commentId: event.commentId
     }
 
