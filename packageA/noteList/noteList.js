@@ -91,7 +91,7 @@ Page({
   },
 
   /**
-   * 加载消息数据
+   * 加载消息数据 - 增强版本，支持缓存机制
    */
   loadNotifications(callback) {
     // 获取用户信息
@@ -105,7 +105,30 @@ Page({
       return;
     }
 
-    // 显示加载提示
+    // 检查是否有缓存数据且未过期（5分钟内）
+    const cachedData = this.getCachedNotifications();
+    if (cachedData && !this.isCacheExpired(cachedData.timestamp)) {
+      console.log('使用缓存数据');
+      // 使用缓存数据更新页面
+      this.setData({
+        commentNotifications: cachedData.commentNotifications,
+        replyNotifications: cachedData.replyNotifications,
+        announcementNotifications: cachedData.announcementNotifications,
+        unreadCommentCount: cachedData.unreadCommentCount || 0,
+        unreadReplyCount: cachedData.unreadReplyCount || 0
+      });
+
+      // 执行回调函数（如果有）
+      if (callback && typeof callback === 'function') {
+        callback();
+      }
+
+      // 异步更新缓存数据（不影响当前显示）
+      this.fetchAndCacheNotifications(userInfo);
+      return;
+    }
+
+    // 没有有效缓存，显示加载提示并从服务器获取数据
     wx.showLoading({
       title: '加载中...'
     });
@@ -123,13 +146,18 @@ Page({
       wx.hideLoading();
 
       // 设置数据
-      this.setData({
+      const newData = {
         commentNotifications: results[0].notifications,
         replyNotifications: results[1].notifications,
         announcementNotifications: results[2],
         unreadCommentCount: results[0].unreadCount || 0,
         unreadReplyCount: results[1].unreadCount || 0
-      });
+      };
+
+      this.setData(newData);
+
+      // 缓存数据
+      this.cacheNotifications(newData);
 
       // 执行回调函数（如果有）
       if (callback && typeof callback === 'function') {
@@ -286,6 +314,15 @@ Page({
           this.setData({
             commentNotifications: commentNotifications
           });
+
+          // 更新缓存
+          this.cacheNotifications({
+            commentNotifications: commentNotifications,
+            replyNotifications: this.data.replyNotifications,
+            announcementNotifications: this.data.announcementNotifications,
+            unreadCommentCount: Math.max(0, this.data.unreadCommentCount - 1),
+            unreadReplyCount: this.data.unreadReplyCount
+          });
         } else {
           console.error('标记评论为已读失败：', res.result.message);
         }
@@ -355,6 +392,15 @@ Page({
           this.setData({
             replyNotifications: replyNotifications
           });
+
+          // 更新缓存
+          this.cacheNotifications({
+            commentNotifications: this.data.commentNotifications,
+            replyNotifications: replyNotifications,
+            announcementNotifications: this.data.announcementNotifications,
+            unreadCommentCount: this.data.unreadCommentCount,
+            unreadReplyCount: Math.max(0, this.data.unreadReplyCount - 1)
+          });
         } else {
           console.error('标记回复为已读失败：', res.result.message);
         }
@@ -410,5 +456,74 @@ Page({
     // wx.navigateTo({
     //   url: `/pages/announcementDetail/announcementDetail?id=${id}`
     // });
+  },
+
+  /**
+   * 缓存通知数据
+   */
+  cacheNotifications(data) {
+    const cacheData = {
+      ...data,
+      timestamp: Date.now() // 添加时间戳
+    };
+    try {
+      wx.setStorageSync('notificationCache', cacheData);
+      console.log('通知数据已缓存');
+    } catch (e) {
+      console.error('缓存通知数据失败：', e);
+    }
+  },
+
+  /**
+   * 获取缓存的通知数据
+   */
+  getCachedNotifications() {
+    try {
+      const cacheData = wx.getStorageSync('notificationCache');
+      return cacheData || null;
+    } catch (e) {
+      console.error('获取缓存通知数据失败：', e);
+      return null;
+    }
+  },
+
+  /**
+   * 检查缓存是否过期（5分钟有效期）
+   */
+  isCacheExpired(timestamp) {
+    const now = Date.now();
+    const fiveMinutes = 5 * 60 * 1000; // 5分钟毫秒数
+    return (now - timestamp) > fiveMinutes;
+  },
+
+  /**
+   * 异步获取并缓存最新的通知数据
+   */
+  fetchAndCacheNotifications(userInfo) {
+    // 并行调用云函数获取最新数据
+    Promise.all([
+      this.getCommentNotifications(userInfo.openid),
+      this.getReplyNotifications(userInfo.openid),
+      this.getAnnouncementNotifications()
+    ]).then(results => {
+      // 更新缓存
+      const newData = {
+        commentNotifications: results[0].notifications,
+        replyNotifications: results[1].notifications,
+        announcementNotifications: results[2],
+        unreadCommentCount: results[0].unreadCount || 0,
+        unreadReplyCount: results[1].unreadCount || 0,
+        timestamp: Date.now() // 更新时间戳
+      };
+
+      try {
+        wx.setStorageSync('notificationCache', newData);
+        console.log('缓存数据已更新');
+      } catch (e) {
+        console.error('更新缓存数据失败：', e);
+      }
+    }).catch(err => {
+      console.error('异步更新缓存数据失败：', err);
+    });
   }
 });
