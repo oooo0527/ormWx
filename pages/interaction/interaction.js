@@ -23,7 +23,7 @@ Page({
     touchEndX: 0,
     isSwiping: false,
     swipeDirection: 0, // -1: 左滑, 1: 右滑
-    pageSize: 5,             // 每页数据条数
+    pageSize: 20,             // 每页数据条数
     currentPage: 0,           // 当前页码（从0开始方便计算skip）
     hasMore: true,            // 是否还有更多数据
     loadMore: false,          // "正在加载"状态
@@ -444,6 +444,12 @@ Page({
     this.setData({
       cardTransforms: transforms,
       swipeDirection: deltaX > 0 ? 1 : -1
+    });
+  },
+  //跳转热门留言
+  showHistories: function () {
+    wx.navigateTo({
+      url: '/packageA/hot/hot',
     });
   },
 

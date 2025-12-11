@@ -50,7 +50,8 @@
       "pages": [
         "backgroundSetting/backgroundSetting",
         "waitProve/waitProve",
-        "noteList/noteList"
+        "noteList/noteList",
+        "hot/hot"
       ]
     },
     {

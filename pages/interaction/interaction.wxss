@@ -11,6 +11,13 @@
   text-align: center;
 }
 
+.hot-histories-section {
+  height: 128rpx;
+  line-height: 128rpx;
+  font-size: 32rpx;
+  color: #010101;
+}
+
 .shawBg {
   width: 100vw;
   height: 100vh;
@@ -246,6 +253,17 @@
 .card-more {
   height: 20%;
   background: #ffffff;
+  position: relative;
+
+}
+
+.card-image {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 30%;
+  height: 100%;
+  object-fit: cover;
 
 }
 
@@ -268,6 +286,7 @@
   width: 100%;
   text-align: center;
   height: 50%;
+  line-height: 100%;
 
 }
 
@@ -278,6 +297,7 @@
   text-align: center;
   height: 50%;
 
+  line-height: 100%;
 
 }
 
@@ -727,11 +747,16 @@
 .info-box {
   flex: 1;
   padding: 0 20rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .hott-text {
   width: 100%;
-  text-align: right;
+  /* text-align: right; */
+  display: flex;
+  justify-content: space-between;
 }
 
 .hot-interaction-info {
