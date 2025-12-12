@@ -93,12 +93,24 @@ Component({
           }
         }
       });
+    },
+
+    ready: function () {
+      // 在组件完全准备好后绑定页面滚动事件
+      this.bindPageScroll();
     }
   },
 
   pageLifetimes: {
     show: function () {
-      // 监听页面滚动
+      // 页面显示时重新绑定滚动事件
+      this.bindPageScroll();
+    }
+  },
+
+  methods: {
+    // 绑定页面滚动事件
+    bindPageScroll: function () {
       const pages = getCurrentPages();
       if (pages.length > 0) {
         const currentPage = pages[pages.length - 1];
@@ -126,10 +138,8 @@ Component({
           }
         };
       }
-    }
-  },
+    },
 
-  methods: {
     // 返回上一页
     onBack: function () {
       if (getCurrentPages().length > 1) {
