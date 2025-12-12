@@ -38,6 +38,15 @@ Page({
     highlightReplyId: null
   },
 
+  /**
+   * 页面滚动事件处理
+   * 必须实现此方法以便自定义导航栏组件可以正确绑定滚动事件
+   */
+  onPageScroll: function (e) {
+    // 空实现，但必须保留以便自定义导航栏组件可以绑定滚动事件
+    // 实际的滚动处理由custom-navbar组件完成
+  },
+
   onLoad: function (options) {
     console.log('999999999999999999')
     if (!this.data.showFlag) {

@@ -1,0 +1,208 @@
+/* packHome/musicPlayer/musicPlayer.wxss */
+.music-player-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  /* background: linear-gradient(135deg, #FF99CC, #FFCCFF); */
+  /* padding: 20rpx; */
+  box-sizing: border-box;
+}
+
+.music-player-header {
+  height: 500rpx;
+  width: 500rpx;
+  /* background: rgba(233, 221, 221, 0.8); */
+  border: 75rpx solid black;
+  border-radius: 500rpx;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.8;
+}
+
+.music-player-header1 {
+  flex: 2;
+  height: 515rpx;
+  width: 515rpx;
+  /* background: rgba(233, 221, 221, 0.8); */
+  border: 15rpx solid rgb(168, 137, 137);
+  border-radius: 515rpx;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -167rpx);
+  opacity: 0.8;
+  z-index: -1;
+}
+
+.music-player-bg {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+
+/* 音乐列表轮播样式 */
+.music-list-carousel {
+  flex: 2;
+  min-height: 600rpx;
+  /* margin-top: 500rpx; */
+
+}
+
+.carousel-swiper {
+  height: 100%;
+}
+
+.carousel-item {
+  width: 400rpx;
+  height: 400rpx;
+  border-radius: 400rpx;
+  position: relative;
+}
+
+/* 旋转动画类 */
+.music-info.rotating {
+  animation: rotate 20s linear infinite;
+  transform-origin: center center;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.music-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  /* padding: 20rpx; */
+  /* background: rgba(255, 255, 255, 0.8); */
+  /* border-radius: 20rpx; */
+  /* box-shadow: 0 8rpx 16rpx rgba(0, 0, 0, 0.1); */
+  position: relative;
+  justify-content: center;
+}
+
+.album-cover {
+  position: absolute;
+  width: 300rpx;
+  height: 300rpx;
+  border-radius: 300rpx;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 99;
+  border: 10rpx solid #FFFFFF;
+  /* margin-bottom: 20rpx; */
+  /* border: 5rpx solid #FFFFFF; */
+}
+
+.music-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.music-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333333;
+  margin-bottom: 10rpx;
+  text-align: center;
+}
+
+.music-singer {
+  font-size: 28rpx;
+  color: #666666;
+}
+
+/* 播放控制区域样式 */
+.player-controls {
+  margin-bottom: 30rpx;
+}
+
+.progress-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.time-text {
+  font-size: 24rpx;
+  color: #666666;
+  width: 80rpx;
+  text-align: center;
+}
+
+.progress-slider {
+  flex: 1;
+  margin: 0 10rpx;
+}
+
+.control-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.control-btn {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 20rpx;
+  box-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+.control-btn::after {
+  border: none;
+}
+
+.play-btn {
+  width: 100rpx;
+  height: 100rpx;
+}
+
+.iconfont {
+  font-size: 40rpx;
+  color: #FF6699;
+}
+
+/* 歌词显示区域样式 */
+.lyric-container {
+  flex: 1;
+  border-radius: 20rpx;
+  padding: 30rpx;
+  box-sizing: border-box;
+  overflow-y: auto;
+  z-index: 99;
+  /* box-shadow: 0 8rpx 16rpx rgba(0, 0, 0, 0.1); */
+}
+
+.lyric-line {
+  text-align: center;
+  font-size: 30rpx;
+  color: #666666;
+  margin-bottom: 20rpx;
+}
+
+.lyric-placeholder {
+  text-align: center;
+  font-size: 30rpx;
+  color: #999999;
+  padding: 50rpx 0;
+}

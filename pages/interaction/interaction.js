@@ -43,6 +43,24 @@ Page({
   },
 
   onLoad: function () {
+    this.setData({
+      userInfo: wx.getStorageSync('userInfo')
+    });
+    this.setData({
+      works: [],
+      displayWorks: [],
+      hotInteractions: [],
+      searchList: [],
+      searchValue: '',
+      searchFlag: false,
+      currentPage: 0,
+      hasMore: true,
+      loadAll: false,
+      pageSize: 20,
+
+    });
+    this.loadInteractions();
+    this.loadHotInteractions();
 
 
 
@@ -73,7 +91,7 @@ Page({
       currentPage: 0,
       hasMore: true,
       loadAll: false,
-      pageSize: 5,
+      pageSize: 20,
 
     })
     // 加载热门互动留言数据
@@ -81,24 +99,7 @@ Page({
   },
   onShow: function () {
     // this.onPullDownRefresh();
-    this.setData({
-      userInfo: wx.getStorageSync('userInfo')
-    });
-    this.setData({
-      works: [],
-      displayWorks: [],
-      hotInteractions: [],
-      searchList: [],
-      searchValue: '',
-      searchFlag: false,
-      currentPage: 0,
-      hasMore: true,
-      loadAll: false,
-      pageSize: 5,
 
-    });
-    this.loadInteractions();
-    this.loadHotInteractions();
   },
 
   // 加载互动留言数据
@@ -144,7 +145,7 @@ Page({
         limit: pageSize, // 限制获取10条数据
         status: '1',
         skip: currentPage * pageSize,
-        date: this.data.date || new Date().toISOString().slice(0, 10),
+        date: this.data.date,
       },
       success: res => {
         console.log('获取热门互动留言成功：', currentPage, pageSize, res.result.data);
@@ -166,8 +167,8 @@ Page({
           }
           const hotInteractions2 = [...res.result.data]
             .sort((a, b) =>
-              new Date(`${b.createDate} ${b.createTime}`) -
-              new Date(`${a.createDate} ${a.createTime}`)
+              `${b.createDate} ${b.createTime}` -
+              `${a.createDate} ${a.createTime}`
             );
           if (currentPage === 0) {
             this.setData({
@@ -608,7 +609,7 @@ Page({
       currentPage: 0,
       hasMore: true,
       loadAll: false,
-      pageSize: 5,
+      pageSize: 20,
 
 
     });

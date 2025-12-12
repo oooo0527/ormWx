@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "音乐播放器",
+  "usingComponents": {
+    "global-background": "/components/globalBackground/globalBackground"
+  }
+}

@@ -1,0 +1,36 @@
+<global-background>
+  <view class="container">  
+    <view class="stories-container">
+      <view class="story-card" wx:for="{{storyList}}" wx:key="index" style="animation-delay: {{index * 0.1}}s" bindtap="showDetail" data-index="{{index}}">
+        <view class="story-header">
+          <image class="story-image" src="{{item.image}}"></image>
+          <text class="story-title">{{item.title}}</text>
+        </view>
+        
+        <view class="story-content">
+          <text class="content-paragraph">{{item.content[0]}}</text>
+        </view>
+      </view>
+    </view>
+    
+    <!-- 详情弹窗 -->
+    <view class="modal-mask" wx:if="{{showModal}}" bindtap="hideDetail">
+      <view class="modal-content" catchtap="preventTap">
+        <view class="modal-header">
+          <text class="modal-title">{{selectedStory.title}}</text>
+          <view class="modal-close" bindtap="hideDetail">×</view>
+        </view>
+        <scroll-view class="modal-body" scroll-y="true">
+          <view class="modal-story-content">
+            <text wx:for="{{selectedStory.content}}" wx:key="idx" class="modal-content-paragraph">{{item}}</text>
+          </view>
+        </scroll-view>
+      </view>
+    </view>
+    
+    <!-- 回到顶部按钮 -->
+    <view class="scroll-to-top" wx:if="{{scrollTop > 500}}" bindtap="scrollToTop">
+      <text class="scroll-to-top-text">↑</text>
+    </view>
+  </view>
+</global-background>

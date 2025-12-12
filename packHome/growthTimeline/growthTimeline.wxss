@@ -1,0 +1,486 @@
+/* packHome/growthTimeline/growthTimeline.wxss */
+.container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.star-background-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: -1;
+}
+
+.star-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.star {
+  position: absolute;
+  background-color: white;
+  border-radius: 50%;
+  animation: twinkle 3s infinite alternate;
+}
+
+@keyframes twinkle {
+  0% {
+    opacity: 0.2;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.timeline-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  padding: 20rpx;
+  box-sizing: border-box;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 40rpx;
+}
+
+.page-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: white;
+  text-shadow: 0 0 10rpx rgba(255, 255, 255, 0.5);
+}
+
+.vertical-timeline {
+  position: relative;
+  padding: 40rpx 0;
+}
+
+.vertical-timeline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 4rpx;
+  /* background: rgba(255, 255, 255, 0.3); */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 40rpx;
+  z-index: 2;
+  width: 40%;
+  text-align: center;
+}
+
+.timeline-item.left {
+  float: left;
+  clear: both;
+
+  padding-right: 30rpx;
+}
+
+.timeline-item.right {
+  float: right;
+  clear: both;
+
+  padding-left: 30rpx;
+}
+
+.timeline-marker {
+  position: absolute;
+  width: 16rpx;
+  height: 16rpx;
+  background-color: #ffffff;
+  border-radius: 50%;
+  top: 20rpx;
+  z-index: 3;
+  animation: starTwinkle 1.5s infinite alternate;
+  filter: drop-shadow(0 0 5rpx rgba(245, 243, 244, 0.8));
+}
+
+.timeline-item.left .timeline-marker {
+  right: -8rpx;
+}
+
+.timeline-item.right .timeline-marker {
+  left: -8rpx;
+}
+
+.timeline-content {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15rpx;
+  padding: 15rpx;
+  backdrop-filter: blur(10rpx);
+  border: 1rpx solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+  box-shadow: 0 4rpx 10rpx rgba(0, 0, 0, 0.2);
+}
+
+.timeline-item:active .timeline-content {
+  transform: scale(0.98);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.timeline-date {
+  font-size: 20rpx;
+  color: #e0e0e0;
+  margin-bottom: 8rpx;
+  border-radius: 10rpx;
+}
+
+.timeline-title {
+  font-size: 26rpx;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 10rpx;
+}
+
+.timeline-desc {
+  font-size: 22rpx;
+  color: #716a8e;
+  line-height: 1.4;
+}
+
+.footer-tip {
+  text-align: center;
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.6);
+  margin-top: 40rpx;
+  padding-bottom: 40rpx;
+  clear: both;
+}
+
+/* 详情弹窗样式 */
+.detail-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.detail-modal.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.detail-content {
+  width: 80%;
+  max-width: 500rpx;
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  border-radius: 20rpx;
+  padding: 30rpx;
+  box-shadow: 0 10rpx 30rpx rgba(0, 0, 0, 0.3);
+  transform: translateY(50rpx);
+  transition: transform 0.3s ease;
+}
+
+.detail-modal.show .detail-content {
+  transform: translateY(0);
+}
+
+.detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+  padding-bottom: 15rpx;
+  border-bottom: 2rpx solid rgba(255, 255, 255, 0.3);
+}
+
+.detail-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: white;
+}
+
+.close-btn {
+  width: 40rpx;
+  height: 40rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36rpx;
+  color: white;
+  cursor: pointer;
+}
+
+.detail-body {
+  display: flex;
+  flex-direction: column;
+  gap: 15rpx;
+}
+
+.detail-time {
+  font-size: 24rpx;
+  color: #e0e0e0;
+  font-weight: 500;
+}
+
+.detail-description {
+  font-size: 26rpx;
+  color: white;
+  line-height: 1.5;
+}
+
+/* 祝福输入弹窗样式 */
+.blessing-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.blessing-modal.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.blessing-content {
+  width: 80%;
+  max-width: 500rpx;
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  border-radius: 20rpx;
+  padding: 30rpx;
+  box-shadow: 0 10rpx 30rpx rgba(0, 0, 0, 0.3);
+  transform: translateY(50rpx);
+  transition: transform 0.3s ease;
+}
+
+.blessing-modal.show .blessing-content {
+  transform: translateY(0);
+}
+
+.blessing-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+  padding-bottom: 15rpx;
+  border-bottom: 2rpx solid rgba(255, 255, 255, 0.3);
+}
+
+.blessing-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: white;
+}
+
+.blessing-body {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.blessing-input {
+  width: 100%;
+  height: 200rpx;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10rpx;
+  padding: 20rpx;
+  box-sizing: border-box;
+  color: white;
+  font-size: 28rpx;
+  border: none;
+  outline: none;
+}
+
+.blessing-input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.submit-btn {
+  background: #ff4081;
+  color: white;
+  border: none;
+  border-radius: 10rpx;
+  padding: 20rpx;
+  font-size: 28rpx;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.submit-btn:active {
+  background: #f50057;
+}
+
+/* 单个祝福弹窗样式 */
+.single-blessing-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 200;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.single-blessing-modal.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.single-blessing-content {
+  position: absolute;
+  min-width: 200rpx;
+  max-width: 400rpx;
+  padding: 30rpx;
+  border-radius: 20rpx;
+  box-shadow: 0 10rpx 30rpx rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10rpx);
+  border: 1rpx solid rgba(255, 255, 255, 0.2);
+  transform: scale(0) rotate(0deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  word-break: break-all;
+  opacity: 0;
+}
+
+.single-blessing-content.animate {
+  animation: contentPopIn 0.5s ease-out forwards;
+}
+
+.blessing-text {
+  font-size: 28rpx;
+  font-weight: bold;
+  line-height: 1.4;
+}
+
+/* 弹窗入场动画 */
+@keyframes modalPopIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes contentPopIn {
+  0% {
+    transform: scale(0) rotate(0deg);
+    opacity: 0;
+  }
+
+  70% {
+    transform: scale(1.1) rotate(5deg);
+  }
+
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+/* 祝福弹窗浮动动画 */
+@keyframes floatAnimation {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  25% {
+    transform: translateY(-10rpx) rotate(2deg);
+  }
+
+  50% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  75% {
+    transform: translateY(10rpx) rotate(-2deg);
+  }
+
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+.floating {
+  animation: floatAnimation 3s ease-in-out infinite;
+}
+
+/* 祝福弹窗脉冲动画 */
+@keyframes pulseAnimation {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.8);
+  }
+
+  70% {
+    box-shadow: 0 0 0 10rpx rgba(255, 255, 255, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+  }
+}
+
+.pulsing {
+  animation: pulseAnimation 2s infinite;
+}
+
+@keyframes starTwinkle {
+  0% {
+    opacity: 0.4;
+    transform: translate(-50%, -50%) rotate(0deg) scale(1);
+    filter: drop-shadow(0 0 2rpx rgba(214, 205, 210, 0.5));
+  }
+
+  25% {
+    opacity: 0.7;
+    transform: translate(-50%, -50%) rotate(20deg) scale(1.1);
+    filter: drop-shadow(0 0 5rpx rgba(202, 190, 196, 0.7));
+  }
+
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(45deg) scale(1.2);
+    filter: drop-shadow(0 0 10rpx rgb(216, 202, 209));
+  }
+
+  75% {
+    opacity: 0.7;
+    transform: translate(-50%, -50%) rotate(70deg) scale(1.1);
+    filter: drop-shadow(0 0 5rpx rgba(180, 158, 169, 0.7));
+  }
+
+  100% {
+    opacity: 0.4;
+    transform: translate(-50%, -50%) rotate(90deg) scale(1);
+    filter: drop-shadow(0 0 2rpx rgba(212, 205, 208, 0.5));
+  }
+}

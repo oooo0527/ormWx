@@ -3,6 +3,8 @@
   /* background: linear-gradient(135deg, #0c1117 0%, #f48eb5 100%); */
   /* min-height: 100vh; */
   box-sizing: border-box;
+  position: relative;
+  min-height: 100vh;
 }
 
 .carousel-container1 {

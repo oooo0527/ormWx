@@ -2,6 +2,9 @@ App({
   globalData: {
     userInfo: null,
     isLogin: false,
+    menuList: [],
+    contentList: [],
+    musicList: [],
     apiUrl: 'https://your-api-url.com',
     // 全局背景设置
     backgroundSettings: {

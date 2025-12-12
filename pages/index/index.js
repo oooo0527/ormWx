@@ -221,8 +221,10 @@ Page({
 
               if (res.result && res.result.success) {
                 // 登录成功，存储用户信息
-                const userInfo = res.result.data;
-                getApp().globalData.userInfo = userInfo;
+                const userInfo = { ...res.result.data.userData, openid: res.result.data.openid };
+                getApp().globalData.menuList = res.result.data.menuList;
+                getApp().globalData.contentList = res.result.data.contentList;
+                getApp().globalData.musicList = res.result.data.musicList;
                 getApp().globalData.isLogin = true;
                 console.log('用户信息', userInfo);
 

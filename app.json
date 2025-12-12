@@ -1,9 +1,9 @@
 {
   "pages": [
+    "pages/Home/Home",
     "pages/interaction/interaction",
     "pages/index/index",
     "pages/profile/profile",
-    "pages/Home/Home",
     "pages/selfListDetail/selfListDetail",
     "pages/login/login",
     "pages/publish/publish",
@@ -57,7 +57,16 @@
     {
       "root": "packHome",
       "pages": [
-        "personal/personal"
+        "personal/personal",
+        "growthTimeline/growthTimeline",
+        "dream/dream",
+        "ormHome/ormHome",
+        "footPrints/footPrints",
+        "Remarkable/Remarkable",
+        "musicPlayer/musicPlayer",
+        "mami/mami",
+        "remark/remark",
+        "highEmotion/highEmotion"
       ]
     }
   ],

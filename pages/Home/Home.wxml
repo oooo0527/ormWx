@@ -1,12 +1,13 @@
-<view class="container" >
-
+<view class="container">
   <view class="banner">
     <swiper class="banner-swiper" autoplay="{{true}}" interval="5000" duration="1000">
-      <swiper-item><image src="./Home.jpg" mode="widthFix" class="banner-image"></image></swiper-item>
-
-      <swiper-item><image src="./Home2.jpg" mode="widthFix" class="banner-image"></image></swiper-item>
+      <swiper-item>
+        <image src="./Home.jpg" mode="widthFix" class="banner-image"></image>
+      </swiper-item>
+      <swiper-item>
+        <image src="./Home2.jpg" mode="widthFix" class="banner-image"></image>
+      </swiper-item>
     </swiper>
-
     <scroll-view class="menu-scroll-view" scroll-x="{{true}}">
       <view class="menu-container">
         <view class="menu-item" wx:for="{{menuList}}" wx:key="index" bindtap="navigateToPage" data-url="{{item.url}}">
@@ -26,29 +27,25 @@
   <!-- // 音乐 煎蛋卷 好人好事 -->
   <view class="contentList">
     <view class="ListBox">
-    <!-- 左   陈奥的缘 -->
-    <view class="list-item">
-
-      <!-- <view class="list-item-text">我的陈奥</view> -->
-      <image src="./my.jpg" mode="widthFix" lazy-load class="list-image"></image>
-    </view>
-    <!-- 右   音乐，公益 等 -->
-    <view class="list-item1">
-    
-      <view class="music-item" wx:for="{{musicList}}" wx:key="index" bindtap="navigateToPage" data-url="{{item.url}}">    
+      <!-- 左   陈奥的缘 -->
+      <view class="list-item" bindtap="navigateToPage" data-url="/packHome/personal/personal">
+        <!-- <view class="list-item-text">我的陈奥</view> -->
+        <image src="./my.jpg" mode="widthFix" lazy-load class="list-image"></image>
+      </view>
+      <!-- 右   音乐，公益 等 -->
+      <view class="list-item1">
+        <view class="music-item" wx:for="{{musicList}}" wx:key="index" bindtap="navigateToPage" data-url="{{item.url}}">
           <view class="music-title">{{item.title}}</view>
           <view class="music-des">{{item.des}}</view>
         </view>
-    </view>  
+      </view>
     </view>
   </view>
   <view class="content">
     <view class="content-container">
-
-      <view class="content-container-item" wx:for="{{contentList}}" wx:key="index">
+      <view class="content-container-item" wx:for="{{contentList}}" wx:key="index" bindtap="navigateToPage" data-url="{{item.url}}">
         <image src="{{item.image}}" mode="aspectFill" class="content-image"></image>
         <view class="content-text">{{item.name}}</view>
-
       </view>
     </view>
   </view>
