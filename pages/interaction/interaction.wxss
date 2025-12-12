@@ -3,7 +3,7 @@
   /* min-height: 100vh; */
   box-sizing: border-box;
   position: relative;
-  background: #f48eb5;
+  /* background: #f48eb5; */
   min-height: 100vh;
 }
 

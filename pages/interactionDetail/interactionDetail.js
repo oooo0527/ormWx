@@ -35,11 +35,7 @@ Page({
     highlightCommentId: null,
 
     // 高亮回复ID
-    highlightReplyId: null,
-
-    // 批量提交队列
-    commentQueue: [], // 评论队列
-    replyQueue: []    // 回复队列
+    highlightReplyId: null
   },
 
   onLoad: function (options) {
@@ -69,18 +65,11 @@ Page({
         });
       });
     }
-
-    // 启动批量提交定时器
-    this.startBatchSubmitTimer();
   },
 
-  // 页面卸载时清理定时器
+  // 页面卸载时不需要停止轮询
   onUnload: function () {
-    // 停止批量提交定时器
-    this.stopBatchSubmitTimer();
-
-    // 在离开页面前提交所有未提交的操作
-    this.submitAllPendingOperations();
+    // 不需要做任何事情
   },
 
   // 页面隐藏时不需要停止轮询
@@ -91,52 +80,6 @@ Page({
   // 页面显示时不需要重新启动轮询
   onShow: function () {
     // 不需要做任何事情
-  },
-
-  // 启动批量提交定时器
-  startBatchSubmitTimer: function () {
-    // 每30秒检查一次是否有待提交的操作
-    this.batchSubmitTimer = setInterval(() => {
-      this.processBatchSubmit();
-    }, 30000); // 30秒
-  },
-
-  // 停止批量提交定时器
-  stopBatchSubmitTimer: function () {
-    if (this.batchSubmitTimer) {
-      clearInterval(this.batchSubmitTimer);
-      this.batchSubmitTimer = null;
-    }
-  },
-
-  // 处理批量提交
-  processBatchSubmit: function () {
-    const { commentQueue, replyQueue } = this.data;
-
-    // 如果有待提交的评论
-    if (commentQueue.length > 0) {
-      this.submitCommentBatch(commentQueue);
-    }
-
-    // 如果有待提交的回复
-    if (replyQueue.length > 0) {
-      this.submitReplyBatch(replyQueue);
-    }
-  },
-
-  // 提交所有未提交的操作
-  submitAllPendingOperations: function () {
-    const { commentQueue, replyQueue } = this.data;
-
-    // 提交所有待提交的评论
-    if (commentQueue.length > 0) {
-      this.submitCommentBatch(commentQueue);
-    }
-
-    // 提交所有待提交的回复
-    if (replyQueue.length > 0) {
-      this.submitReplyBatch(replyQueue);
-    }
   },
 
   // 检查收藏状态
@@ -222,26 +165,15 @@ Page({
   loadComments: function () {
     const selectedWork = this.data.works;
     if (selectedWork && selectedWork.comments) {
-      // 获取当前页面上的本地评论
-      const localComments = this.data.comments.filter(comment => comment.isLocal);
-
-      // 合并服务器评论和本地评论
-      let allComments = [...selectedWork.comments];
-
-      // 将本地评论添加到列表开头
-      allComments = [...localComments, ...allComments];
-
-      // 对所有评论进行排序
-      const sortedComments = [...allComments]
+      const sortedComments2 = [...selectedWork.comments]
         .sort((a, b) => {
           // 修复iOS日期格式兼容性问题
           const dateB = new Date(`${b.createDate}T${b.createTime}`);
           const dateA = new Date(`${a.createDate}T${a.createTime}`);
           return dateB - dateA;
         });
-
       this.setData({
-        comments: sortedComments
+        comments: sortedComments2
       }, () => {
         // 如果有需要高亮的评论或回复，则执行高亮操作
         if (this.data.highlightCommentId) {
@@ -252,6 +184,8 @@ Page({
       });
     }
   },
+
+
 
   // 评论点赞功能
   toggleCommentLike: function (e) {
@@ -276,7 +210,7 @@ Page({
     });
   },
 
-  // 提交评论（加入队列）
+  // 提交评论
   submitComment: function () {
     if (!this.data.newComment.trim()) {
       wx.showToast({
@@ -290,90 +224,50 @@ Page({
     // 获取用户信息
     const userInfo = wx.getStorageSync('userInfo');
 
-    // 创建评论对象
-    const commentObj = {
-      content: this.data.newComment,
-      userId: userInfo.openid || '', // 添加用户ID
-      userInfo: userInfo || {}, // 添加用户信息
-      createTime: timeUtils.getCurrentTime(),
-      createDate: timeUtils.getCurrentDate(),
-      commentId: 'temp_' + Date.now(), // 临时ID用于本地显示
-      isLocal: true // 标记为本地评论
-    };
-
-    // 立即在页面上显示自己的评论
-    const updatedComments = [...this.data.comments];
-    updatedComments.unshift(commentObj); // 将新评论添加到列表顶部
-
-    // 将评论添加到队列
-    const newQueue = [...this.data.commentQueue, {
-      interactionId: this.data.works.id || this.data.works._id,
-      content: this.data.newComment,
-      userInfo: userInfo || {},
-      createDate: timeUtils.getCurrentDate(),
-      createTime: timeUtils.getCurrentTime(),
-      updateTime: timeUtils.getCurrentTime()
-    }];
-
-    this.setData({
-      comments: updatedComments, // 立即更新页面显示
-      commentQueue: newQueue,
-      newComment: "" // 清空输入框
-    });
-
-    // 如果队列长度达到5条，立即提交
-    if (newQueue.length >= 5) {
-      this.submitCommentBatch(newQueue);
-      // 清空队列
-      this.setData({
-        commentQueue: []
-      });
-    }
-    // 不再显示提示信息
-
-    // 同时更新当前作品的评论数据
-    this.refreshCurrentWorkComments();
-  },
-
-  // 批量提交评论
-  submitCommentBatch: function (queue) {
-    if (queue.length === 0) return;
-
-    // 不再显示loading提示
-
-    // 调用云函数批量添加评论
+    // 调用云函数添加评论
     wx.cloud.callFunction({
       name: 'fanVoice',
       data: {
-        action: 'addCommentsBatch', // 新增批量添加评论的云函数
-        comments: queue
+        action: 'addComment',
+        interactionId: this.data.works.id || this.data.works._id,
+        content: this.data.newComment,
+        userInfo: userInfo || {}, // 添加用户信息
+        createDate: timeUtils.getCurrentDate(),
+        createTime: timeUtils.getCurrentTime(),
+        updateTime: timeUtils.getCurrentTime()
       },
       success: res => {
-        // 不再显示成功提示
         if (res.result && res.result.success) {
-          // 清空队列
-          this.setData({
-            commentQueue: []
+          wx.showToast({
+            title: '评论成功',
+            icon: 'success'
           });
 
+          // 清空输入框
+          this.setData({
+            newComment: "",
+          });
           // 同时更新当前作品的评论数据
           this.refreshCurrentWorkComments();
         } else {
-          // 不再显示失败提示
+          wx.showToast({
+            title: res.result.message || '评论失败',
+            icon: 'none'
+          });
         }
       },
       fail: err => {
-        console.error('评论提交失败：', err);
-        // 不再显示失败提示
+        console.error('评论失败：', err);
+        wx.showToast({
+          title: '评论失败，请稍后再试',
+          icon: 'none'
+        });
       }
     });
   },
 
   // 刷新当前作品的评论数据
   refreshCurrentWorkComments: function () {
-    // 保存当前的本地评论
-    const localComments = this.data.comments.filter(comment => comment.isLocal);
-
     // 重新获取当前作品的最新数据
     wx.cloud.callFunction({
       name: 'fanVoice',
@@ -390,46 +284,15 @@ Page({
           this.setData({
             works: updatedWork
           });
-          // 重新加载评论，同时保留本地评论
-          this.loadCommentsWithLocal(localComments);
+          // 重新加载评论
+          this.loadComments();
+
         }
       },
       fail: err => {
         console.error('刷新作品数据失败：', err);
       }
     });
-  },
-
-  // 带本地评论的加载评论数据
-  loadCommentsWithLocal: function (localComments) {
-    const selectedWork = this.data.works;
-    if (selectedWork && selectedWork.comments) {
-      // 合并服务器评论和本地评论
-      let allComments = [...selectedWork.comments];
-
-      // 将本地评论添加到列表开头
-      allComments = [...localComments, ...allComments];
-
-      // 对所有评论进行排序
-      const sortedComments = [...allComments]
-        .sort((a, b) => {
-          // 修复iOS日期格式兼容性问题
-          const dateB = new Date(`${b.createDate}T${b.createTime}`);
-          const dateA = new Date(`${a.createDate}T${a.createTime}`);
-          return dateB - dateA;
-        });
-
-      this.setData({
-        comments: sortedComments
-      }, () => {
-        // 如果有需要高亮的评论或回复，则执行高亮操作
-        if (this.data.highlightCommentId) {
-          this.highlightComment(this.data.highlightCommentId);
-        } else if (this.data.highlightReplyId) {
-          this.highlightReply(this.data.highlightReplyId);
-        }
-      });
-    }
   },
 
   // 高亮指定评论
@@ -549,7 +412,7 @@ Page({
     });
   },
 
-  // 提交回复 - 修改为支持每个评论独立回复（加入队列）
+  // 提交回复 - 修改为支持每个评论独立回复
   submitReply: function (e) {
     // 获取当前评论的索引
     const index = e.currentTarget.dataset.index;
@@ -566,77 +429,33 @@ Page({
     const app = getApp();
     const userInfo = app.globalData.userInfo;
 
-    // 创建回复对象
-    const replyObj = {
-      content: `回复 @${this.data.replyToNickname}: ${this.data.newReply}`,
-      userId: userInfo.openid || '',
-      userInfo: userInfo || {},
-      createTime: timeUtils.getCurrentTime(),
-      createDate: timeUtils.getCurrentDate(),
-      id: 'temp_reply_' + Date.now(), // 临时ID用于本地显示
-      isLocal: true // 标记为本地回复
-    };
-
-    // 立即在页面上显示自己的回复
-    const updatedComments = [...this.data.comments];
-    if (!updatedComments[index].replies) {
-      updatedComments[index].replies = [];
-    }
-    updatedComments[index].replies.push(replyObj);
-
-    // 将回复添加到队列
-    const newQueue = [...this.data.replyQueue, {
-      interactionId: this.data.works.id || this.data.works._id,
-      commentId: this.data.replyToCommentId,
-      content: `回复 @${this.data.replyToNickname}: ${this.data.newReply}`,
-      userInfo: userInfo || {},
-      createDate: timeUtils.getCurrentDate(),
-      createTime: timeUtils.getCurrentTime(),
-      updateTime: timeUtils.getCurrentTime()
-    }];
-
-    this.setData({
-      comments: updatedComments, // 立即更新页面显示
-      replyQueue: newQueue,
-      replyingToIndex: -1, // 重置正在回复的评论索引
-      replyToCommentId: null,
-      replyToNickname: "",
-      newReply: ""
-    });
-
-    // 如果队列长度达到5条，立即提交
-    if (newQueue.length >= 5) {
-      this.submitReplyBatch(newQueue);
-      // 清空队列
-      this.setData({
-        replyQueue: []
-      });
-    }
-    // 不再显示提示信息
-
-    // 同时更新当前作品的评论数据
-    this.refreshCurrentWorkComments();
-  },
-
-  // 批量提交回复
-  submitReplyBatch: function (queue) {
-    if (queue.length === 0) return;
-
-    // 不再显示loading提示
-
-    // 调用云函数批量添加回复
+    // 调用云函数添加回复（这里简化处理，实际应该有专门的回复数据结构）
     wx.cloud.callFunction({
       name: 'fanVoice',
       data: {
-        action: 'addCommentRepliesBatch', // 新增批量添加回复的云函数
-        replies: queue
+        action: 'addCommentReply',
+        interactionId: this.data.works.id || this.data.works._id,
+        commentId: this.data.replyToCommentId,
+        content: `回复 @${this.data.replyToNickname}: ${this.data.newReply}`,
+        userInfo: userInfo || {}, // 添加用户信息
+        createDate: timeUtils.getCurrentDate(),
+        createTime: timeUtils.getCurrentTime(),
+        updateTime: timeUtils.getCurrentTime()
       },
       success: res => {
-        // 不再显示成功提示
+        console.log('res', res)
         if (res.result && res.result.success) {
-          // 清空队列
+          wx.showToast({
+            title: '回复成功',
+            icon: 'success'
+          });
+
+          // 重置回复状态
           this.setData({
-            replyQueue: []
+            replyingToIndex: -1, // 重置正在回复的评论索引
+            replyToCommentId: null,
+            replyToNickname: "",
+            newReply: ""
           });
 
           // 重新加载评论
@@ -645,12 +464,18 @@ Page({
           // 同时更新当前作品的评论数据
           this.refreshCurrentWorkComments();
         } else {
-          // 不再显示失败提示
+          wx.showToast({
+            title: res.result.message || '回复失败',
+            icon: 'none'
+          });
         }
       },
       fail: err => {
-        console.error('回复提交失败：', err);
-        // 不再显示失败提示
+        console.error('回复失败：', err);
+        wx.showToast({
+          title: '回复失败，请稍后再试',
+          icon: 'none'
+        });
       }
     });
   },

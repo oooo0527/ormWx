@@ -36,14 +36,10 @@ exports.main = async (event, context) => {
       return await deleteInteraction(wxContext.OPENID, event)
     case 'addComment':
       return await addComment(wxContext.OPENID, event)
-    case 'addCommentsBatch': // 新增批量添加评论
-      return await addCommentsBatch(wxContext.OPENID, event)
     case 'deleteComment':
       return await deleteComment(wxContext.OPENID, event)
     case 'addCommentReply':
       return await addCommentReply(wxContext.OPENID, event)
-    case 'addCommentRepliesBatch': // 新增批量添加回复
-      return await addCommentRepliesBatch(wxContext.OPENID, event)
     case 'favorite':
       return await favoriteInteraction(wxContext.OPENID, event)
     case 'unfavorite':
@@ -515,85 +511,6 @@ async function addComment(openid, event) {
       success: false,
       message: err.message
     }
-  }
-}
-
-// 批量添加评论
-async function addCommentsBatch(openid, event) {
-  try {
-    const comments = event.comments || [];
-    if (comments.length === 0) {
-      return {
-        success: false,
-        message: '没有评论数据'
-      };
-    }
-
-    // 批量处理评论
-    const results = [];
-    const commentsToAdd = [];
-
-    for (const commentData of comments) {
-      const comment = {
-        content: commentData.content,
-        userId: openid,
-        userInfo: commentData.userInfo || {}, // 添加用户信息
-        createTime: commentData.createTime,
-        createDate: commentData.createDate,
-        interactionId: commentData.interactionId,
-        commentId: randomCommentId(),
-      };
-
-      // 向互动留言中添加评论
-      await db.collection('interactions').doc(commentData.interactionId).update({
-        data: {
-          comments: _.push([comment]),
-          updateTime: new Date()
-        }
-      });
-
-      // 为返回的评论对象添加一个唯一标识符
-      comment._id = `${commentData.interactionId}_${Date.now()}_${Math.floor(Math.random() * 1000)}`;
-      results.push(comment);
-
-      // 获取被评论的互动留言信息（用于存储到comments集合）
-      const interactionResult = await db.collection('interactions').doc(commentData.interactionId).get();
-      if (interactionResult.data) {
-        const interaction = interactionResult.data;
-
-        // 准备存储到comments集合中的数据
-        commentsToAdd.push({
-          commentId: comment.commentId,
-          content: comment.content,
-          userId: comment.userId,         // 评论人ID
-          userInfo: comment.userInfo,     // 评论人信息
-          interactionId: commentData.interactionId,  // 被评论的帖子ID
-          interactionUserId: interaction.userId,  // 发帖人ID
-          interactionUserInfo: interaction.userInfo || {}, // 发帖人信息
-          interactionTitle: interaction.title || '',  // 帖子标题
-          createTime: comment.createTime,
-          createDate: comment.createDate,
-          read: false  // 是否已读，默认未读
-        });
-      }
-    }
-
-    // 批量插入到comments集合中
-    if (commentsToAdd.length > 0) {
-      await db.collection('comments').add({
-        data: commentsToAdd
-      });
-    }
-
-    return {
-      success: true,
-      data: results
-    };
-  } catch (err) {
-    return {
-      success: false,
-      message: err.message
-    };
   }
 }
 
@@ -1070,129 +987,6 @@ async function addCommentReply(openid, event) {
       success: false,
       message: err.message
     }
-  }
-}
-
-// 批量添加回复
-async function addCommentRepliesBatch(openid, event) {
-  try {
-    const replies = event.replies || [];
-    if (replies.length === 0) {
-      return {
-        success: false,
-        message: '没有回复数据'
-      };
-    }
-
-    // 批量处理回复
-    const results = [];
-    const repliesToAdd = [];
-
-    for (const replyData of replies) {
-      // 生成唯一的回复ID
-      const replyId = `reply_${Date.now()}_${Math.floor(Math.random() * 1000)}`;
-
-      const reply = {
-        id: replyId, // 添加唯一的回复ID
-        content: replyData.content,
-        userId: openid,
-        userInfo: replyData.userInfo || {}, // 添加用户信息
-        createTime: replyData.createTime,
-        createDate: replyData.createDate,
-        commentId: replyData.commentId
-      };
-
-      // 首先获取当前互动留言的数据
-      const interactionResult = await db.collection('interactions').doc(replyData.interactionId).get();
-
-      if (!interactionResult.data) {
-        continue; // 跳过不存在的互动留言
-      }
-
-      const interaction = interactionResult.data;
-
-      // 获取现有的评论数组
-      const comments = interaction.comments || [];
-
-      // 查找要回复的评论索引
-      const commentIndex = comments.findIndex(comment =>
-        comment.commentId === replyData.commentId ||
-        // 兼容旧数据，如果没有_id字段，则使用数组索引
-        (comment.commentId === undefined && comments.indexOf(comment).toString() === replyData.commentId)
-      );
-
-      if (commentIndex === -1) {
-        continue; // 跳过不存在的评论
-      }
-
-      // 如果评论还没有 replies 字段，则初始化一个空数组
-      if (!comments[commentIndex].replies) {
-        comments[commentIndex].replies = [];
-      }
-
-      // 将回复添加到特定评论的 replies 数组中
-      comments[commentIndex].replies.push(reply);
-
-      // 更新数据库中的评论数据
-      await db.collection('interactions').doc(replyData.interactionId).update({
-        data: {
-          comments: comments,
-          updateTime: new Date()
-        }
-      });
-
-      // 将回复信息存储到replies集合中，用于通知功能
-      // 首先需要找到被回复的用户ID（可能是评论的作者，也可能是其他回复的作者）
-      let targetUserId = comments[commentIndex].userId; // 默认是评论作者
-      let targetUserInfo = comments[commentIndex].userInfo || {}; // 默认是评论作者信息
-
-      // 检查是否是对其他回复的回复
-      if (replyData.replyToReplyId) {
-        // 查找被回复的具体回复
-        const targetReply = comments[commentIndex].replies.find(r => r.id === replyData.replyToReplyId);
-        if (targetReply) {
-          targetUserId = targetReply.userId;
-          targetUserInfo = targetReply.userInfo || {};
-        }
-      }
-
-      // 准备存储到replies集合中的数据
-      repliesToAdd.push({
-        replyId: replyId, // 回复ID
-        content: reply.content,
-        userId: reply.userId,         // 回复人ID
-        userInfo: reply.userInfo,     // 回复人信息
-        interactionId: replyData.interactionId,  // 被回复的帖子ID
-        interactionUserId: interaction.userId,  // 发帖人ID
-        interactionUserInfo: interaction.userInfo || {}, // 发帖人信息
-        interactionTitle: interaction.title || '',  // 帖子标题
-        commentId: replyData.commentId,  // 被回复的评论ID
-        targetUserId: targetUserId,  // 被回复的用户ID
-        targetUserInfo: targetUserInfo, // 被回复的用户信息
-        createTime: reply.createTime,
-        createDate: reply.createDate,
-        read: false  // 是否已读，默认未读
-      });
-
-      results.push(reply);
-    }
-
-    // 批量插入到replies集合中
-    if (repliesToAdd.length > 0) {
-      await db.collection('replies').add({
-        data: repliesToAdd
-      });
-    }
-
-    return {
-      success: true,
-      data: results
-    };
-  } catch (err) {
-    return {
-      success: false,
-      message: err.message
-    };
   }
 }
 

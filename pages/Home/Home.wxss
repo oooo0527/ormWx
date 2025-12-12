@@ -1,5 +1,6 @@
 .container {
-  background: linear-gradient(180deg, #0c1117 0%, #f48eb5 100%);
+  /* /* background: linear-gradient(180deg, #0c1117 0%, #f48eb5 100%); */
+  background: #0c1117;
 }
 
 
@@ -57,16 +58,51 @@
   position: relative;
   width: 180rpx;
   overflow: hidden;
+
 }
 
 .menu-item:nth-of-type(2n) {
   margin-top: 18rpx;
-  box-shadow: 0 4rpx 6rpx 2rpx #ffffff;
+  box-shadow: 0 2rpx 4rpx #ffffff;
+  animation-delay: 0.5s;
+  animation: floatUp 3s ease-in-out infinite;
 }
 
 .menu-item:nth-of-type(2n+1) {
   margin-bottom: 18rpx;
   box-shadow: 0 4rpx 6rpx 2rpx #0c1117;
+  animation-delay: 1s;
+  animation: floatDown 3s ease-in-out infinite;
+}
+
+/* 上下浮动动画 */
+@keyframes floatUp {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10rpx);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* 上下浮动动画 */
+@keyframes floatDown {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(10rpx);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
 }
 
 .spacer {
