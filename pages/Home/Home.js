@@ -23,8 +23,8 @@ Page({
         url: '/packHome/ormHome/ormHome',
         icon: 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/be8d30d68a86ef11752dfff29fd7af38.jpg'
       }, {
-        name: '粉丝',
-        url: '/packHome/fanClub/fanClub',
+        name: 'behind',
+        url: '/packHome/behind/behind',
         icon: 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/d0f92161e2ed52200dfb1c600e65c239.jpg'
       }
     ],

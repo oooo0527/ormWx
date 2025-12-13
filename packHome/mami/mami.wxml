@@ -1,0 +1,28 @@
+<global-background>
+  <custom-navbar title="ormkornnaphat" showBack="{{true}}" showHome="{{false}}"></custom-navbar>
+  <view class="container">
+    <!-- 视频容器 -->
+    <view class="video-container" bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd">
+      <!-- 当前视频 -->
+      <video id="videoPlayer" class="video-player" src="{{sadList[currentVideoIndex]}}" autoplay="{{true}}" loop="{{false}}" show-play-btn="{{true}}" show-center-play-btn="{{true}}" enable-progress-gesture="{{false}}" bindended="onVideoEnded" binderror="onVideoError" controls="{{true}}" lazy-load="{{true}}"></video>
+      <!-- 视频指示器 -->
+      <view class="video-indicator">
+        <block wx:for="{{sadList}}" wx:key="index">
+          <view class="indicator-dot {{index === currentVideoIndex ? 'active' : ''}}"></view>
+        </block>
+      </view>
+      <!-- 上一个视频按钮 -->
+      <view class="nav-button prev-button" wx:if="{{currentVideoIndex > 0}}" bindtap="switchToPreviousVideo">
+        <text class="arrow-up">↑</text>
+      </view>
+      <!-- 下一个视频按钮 -->
+      <view class="nav-button next-button" wx:if="{{currentVideoIndex < sadList.length - 1}}" bindtap="switchToNextVideo">
+        <text class="arrow-down">↓</text>
+      </view>
+      <!-- 滑动提示 -->
+      <view class="swipe-hint" wx:if="{{sadList.length > 1}}">
+        <text class="hint-text">↑ ↓ 滑动切换视频</text>
+      </view>
+    </view>
+  </view>
+</global-background>

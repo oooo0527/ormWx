@@ -1,0 +1,20 @@
+<view class="container">
+  <custom-navbar title="Behind the Scenes" showBack="{{true}}" showHome="{{false}}"></custom-navbar>
+  <!-- 翻书效果容器 -->
+  <view class="book-container">
+    <!-- 书籍页面 -->
+    <view class="book-page {{turning && turningDirection === 'forward' ? 'turning' : ''}} {{turning && turningDirection === 'backward' ? 'turning-back' : ''}}">
+      <view class="page-content">
+        <image class="main-image" src="{{currentImage}}" mode="widthFix" wx:if="{{currentImage}}"></image>
+        <view class="placeholder" wx:else>加载中...</view>
+      </view>
+      <text class="page-number">{{currentIndex + 1}} / {{behindList.length}}</text>
+    </view>
+  </view>
+  <!-- 页面指示器 -->
+  <!-- <view class="page-indicator">
+    <text class="current-page">{{currentIndex + 1}} / {{behindList.length}}</text>
+  </view> -->
+  <!-- 滑动区域 -->
+  <view class="swipe-area" bindtouchstart="handleTouchStart" bindtouchend="handleTouchEnd" bindtouchmove="handleTouchMove"></view>
+</view>

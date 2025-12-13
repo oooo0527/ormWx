@@ -1,4 +1,3 @@
-/* packHome/mami/mami.wxss */
 .container {
   position: relative;
   width: 100%;
@@ -381,11 +380,11 @@
 .number-display {
   width: 80%;
   height: 150rpx;
-  background: rgba(10, 15, 30, 0.7);
+  background: red;
   border-radius: 20rpx;
   backdrop-filter: blur(10rpx);
   border: 1rpx solid rgba(0, 195, 255, 0.3);
-  box-shadow: 0 0 20rpx rgba(0, 195, 255, 0.2),
+  box-shadow: 0 0 20rpx rgba(108, 244, 73, 0.2),
     inset 0 0 20rpx rgba(0, 195, 255, 0.1);
   display: flex;
   justify-content: center;
@@ -393,6 +392,7 @@
   margin-bottom: 30rpx;
   position: relative;
   z-index: 2;
+  margin-top: 150rpx;
 }
 
 .number-text {
@@ -449,18 +449,18 @@
 
 /* 圆形按钮 */
 .circle-button {
-  width: 200rpx;
-  height: 200rpx;
-  background: radial-gradient(circle, rgba(0, 195, 255, 0.3) 0%, rgba(10, 15, 30, 0.7) 70%);
+  width: 500rpx;
+  height: 500rpx;
+  background: radial-gradient(circle, green 0%, rgba(10, 15, 30, 0.7) 70%);
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 0 30rpx rgba(0, 195, 255, 0.4),
-    inset 0 0 20rpx rgba(0, 195, 255, 0.2);
+  box-shadow: 0 0 60rpx green,
+    inset 0 0 20rpx green;
   transition: all 0.2s ease;
   transform: scale(1);
-  border: 1rpx solid rgba(0, 195, 255, 0.5);
+  border: 12rpx solid green;
   position: relative;
   overflow: hidden;
 }
@@ -471,8 +471,7 @@
   width: 200%;
   height: 200%;
   background: conic-gradient(transparent,
-      rgba(0, 195, 255, 0.8),
-      transparent 30%);
+      green transparent 30%);
   animation: rotate 3s linear infinite;
   z-index: -1;
 }
@@ -486,11 +485,146 @@
   z-index: -1;
 }
 
+/* 圆形按钮内部装饰 */
+.circle-button-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+/* 装饰同心圆 */
+.circle-button-inner::before {
+  content: '';
+  position: absolute;
+  width: 80%;
+  height: 80%;
+  border: 2rpx solid green;
+  border-radius: 50%;
+  box-shadow: 0 0 10rpx green;
+  animation: pulse 2s infinite alternate;
+}
+
+.circle-button-inner::after {
+  content: '';
+  position: absolute;
+  width: 60%;
+  height: 60%;
+  border: 2rpx solid green;
+  border-radius: 50%;
+  box-shadow: 0 0 8rpx green;
+  animation: pulse 3s infinite alternate-reverse;
+}
+
+/* 装饰点 */
+.decoration-dot {
+  position: absolute;
+  width: 20rpx;
+  height: 20rpx;
+  background: green;
+  border-radius: 50%;
+  box-shadow: 0 0 10rpx green;
+}
+
+.dot-1 {
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.dot-2 {
+  top: 50%;
+  right: 20%;
+  transform: translateY(-50%);
+}
+
+.dot-3 {
+  bottom: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.dot-4 {
+  top: 50%;
+  left: 20%;
+  transform: translateY(-50%);
+}
+
+/* 中心图标 */
+.center-icon {
+  font-size: 80rpx;
+  color: green;
+  text-shadow: 0 0 15rpx green;
+  animation: iconPulse 2s infinite;
+  z-index: 2;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* 装饰动画 */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+
+  100% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+}
+
+@keyframes iconPulse {
+  0% {
+    transform: scale(1);
+    text-shadow: 0 0 10rpx green;
+  }
+
+  50% {
+    transform: scale(1.1);
+    text-shadow: 0 0 20rpx green;
+  }
+
+  100% {
+    transform: scale(1);
+    text-shadow: 0 0 10rpx green;
+  }
+}
+
 .circle-button.pressing {
   transform: scale(1.1);
-  box-shadow: 0 0 50rpx rgba(0, 195, 255, 0.8),
-    inset 0 0 30rpx rgba(0, 195, 255, 0.4);
+  box-shadow: 0 0 50rpx green,
+    inset 0 0 30rpx green;
   animation: pulse 0.5s infinite alternate;
+}
+
+.circle-button.pressing .circle-button-inner::before {
+  animation: pulse 0.5s infinite alternate;
+  border-color: green;
+  box-shadow: 0 0 20rpx green;
+}
+
+.circle-button.pressing .circle-button-inner::after {
+  animation: pulse 0.5s infinite alternate;
+  border-color: green;
+  box-shadow: 0 0 15rpx green;
+}
+
+.circle-button.pressing .decoration-dot {
+  background: green;
+  box-shadow: 0 0 15rpx green;
+  animation: pulse 0.3s infinite alternate;
+}
+
+.circle-button.pressing .center-icon {
+  text-shadow: 0 0 25rpx green;
+  animation: iconPulse 0.3s infinite;
 }
 
 @keyframes rotate {
@@ -507,20 +641,25 @@
   font-size: 28rpx;
   color: #00c3ff;
   text-align: center;
-  text-shadow: 0 0 10rpx rgba(0, 195, 255, 0.8);
+  text-shadow: 0 0 10rpx green;
   font-family: 'Courier New', monospace;
   font-weight: bold;
+  position: absolute;
+  bottom: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
 }
 
 @keyframes pulse {
   0% {
-    box-shadow: 0 0 30rpx rgba(0, 195, 255, 0.6),
-      inset 0 0 20rpx rgba(0, 195, 255, 0.3);
+    box-shadow: 0 0 30rpx green,
+      inset 0 0 20rpx green;
   }
 
   100% {
-    box-shadow: 0 0 60rpx rgba(0, 195, 255, 0.9),
-      inset 0 0 40rpx rgba(0, 195, 255, 0.5);
+    box-shadow: 0 0 60rpx green,
+      inset 0 0 40rpx green;
   }
 }
 
@@ -536,19 +675,19 @@
   border-radius: 10rpx;
   color: #00c3ff;
   font-size: 32rpx;
-  border: 1rpx solid rgba(0, 195, 255, 0.3);
+  /* border: 1rpx solid green; */
   outline: none;
-  box-shadow: 0 0 20rpx rgba(0, 195, 255, 0.2),
-    inset 0 0 10rpx rgba(0, 195, 255, 0.1);
+  /* box-shadow: 0 0 20rpx green,
+    inset 0 0 10rpx green; */
   font-family: 'Courier New', monospace;
   font-weight: bold;
 }
 
 .reset-button:active {
-  background: rgba(0, 195, 255, 0.2);
+  background: green;
   transform: scale(0.98);
-  box-shadow: 0 0 30rpx rgba(0, 195, 255, 0.4),
-    inset 0 0 20rpx rgba(0, 195, 255, 0.2);
+  box-shadow: 0 0 30rpx green,
+    inset 0 0 20rpx green;
 }
 
 /* 底部提示 */
