@@ -49,4 +49,53 @@
       </view>
     </view>
   </view>
+  <!-- 行程日历表 -->
+  <view class="calendar-section">
+    <view class="calendar-content">
+      <!-- 星空背景 -->
+      <view class="star-background">
+        <block wx:for="{{stars}}" wx:key="id">
+          <view class="star" style="left: {{item.x}}%; top: {{item.y}}%; opacity: {{item.opacity}};"></view>
+        </block>
+      </view>
+      <view class="calendar-header">
+        <picker mode="date" fields="month" value="{{selectedDate}}" bindchange="bindDateChange">
+          <view class="date-selector">{{selectedYear}}年{{selectedMonth}}月</view>
+        </picker>
+      </view>
+      <view class="calendar-grid">
+        <view class="weekdays">
+          <text class="weekday">日</text>
+          <text class="weekday">一</text>
+          <text class="weekday">二</text>
+          <text class="weekday">三</text>
+          <text class="weekday">四</text>
+          <text class="weekday">五</text>
+          <text class="weekday">六</text>
+        </view>
+        <view class="days-grid">
+          <block wx:for="{{calendarDays}}" wx:key="index">
+            <view class="day-item {{item.isToday ? 'today' : ''}} {{item.hasEvent ? 'event-day' : ''}} {{item.isSelected ? 'selected' : ''}}" bindtap="selectDay" data-date="{{item.date}}" data-event="{{item.event}}">
+              <text class="day-number">{{item.day}}</text>
+              <!-- <view class="event-indicator" wx:if="{{item.hasEvent}}"></view> -->
+              <view class="event-summary" wx:if="{{item.hasEvent}}">{{item.event.title}}</view>
+            </view>
+          </block>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- 活动详情弹窗 -->
+  <view class="event-detail-modal {{showEventDetailModal ? 'show' : ''}}">
+    <view class="event-detail-content">
+      <view class="event-detail-header">
+        <text class="event-detail-title">{{selectedEvent.title}}</text>
+        <view class="close-btn" bindtap="closeEventDetailModal">×</view>
+      </view>
+      <view class="event-detail-body">
+        <text class="event-detail-date">{{selectedEvent.date}}</text>
+        <text class="event-detail-description">{{selectedEvent.description}}</text>
+      </view>
+    </view>
+  </view>
 </view>

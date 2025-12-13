@@ -51,7 +51,8 @@
         "backgroundSetting/backgroundSetting",
         "waitProve/waitProve",
         "noteList/noteList",
-        "hot/hot"
+        "hot/hot",
+        "manager/manager"
       ]
     },
     {

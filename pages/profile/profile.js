@@ -8,6 +8,11 @@ createPage({
     isLogin: true,
     menueList: [
       {
+        title: '后台管理',
+        path: '/packageA/manager/manager',
+        isManager: '1'
+      },
+      {
         title: '待我审核',
         path: '/packageA/waitProve/waitProve',
         isManager: '1'

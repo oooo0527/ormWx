@@ -1,0 +1,223 @@
+// packageA/manager/manager.js
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    events: [],
+    newEvent: {
+      date: '',
+      title: '',
+      description: ''
+    }
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad(options) {
+    this.loadEvents();
+  },
+
+  /**
+   * 加载所有事件数据
+   */
+  loadEvents() {
+    wx.cloud.callFunction({
+      name: 'events',
+      data: {
+        action: 'getEvents'
+      },
+      success: res => {
+        if (res.result.success) {
+          this.setData({
+            events: res.result.data
+          });
+        } else {
+          console.error('获取事件数据失败:', res.result.message);
+        }
+      },
+      fail: err => {
+        console.error('调用云函数失败:', err);
+      }
+    });
+  },
+
+  /**
+   * 输入框绑定事件
+   */
+  bindInput(e) {
+    const field = e.currentTarget.dataset.field;
+    const value = e.detail.value;
+
+    this.setData({
+      [`newEvent.${field}`]: value
+    });
+  },
+
+  /**
+   * 日期选择器绑定事件
+   */
+  bindDateChange(e) {
+    this.setData({
+      'newEvent.date': e.detail.value
+    });
+  },
+
+  /**
+   * 添加新事件
+   */
+  addEvent() {
+    const { date, title, description } = this.data.newEvent;
+
+    if (!date || !title || !description) {
+      wx.showToast({
+        title: '请填写完整信息',
+        icon: 'none'
+      });
+      return;
+    }
+
+    // 调用云函数添加事件
+    wx.cloud.callFunction({
+      name: 'events',
+      data: {
+        action: 'addEvent',
+        event: {
+          date,
+          title,
+          description
+        }
+      },
+      success: res => {
+        if (res.result.success) {
+          wx.showToast({
+            title: '添加成功',
+            icon: 'success'
+          });
+
+          // 清空表单
+          this.setData({
+            newEvent: {
+              date: '',
+              title: '',
+              description: ''
+            }
+          });
+
+          // 重新加载事件数据
+          this.loadEvents();
+        } else {
+          wx.showToast({
+            title: '添加失败: ' + res.result.message,
+            icon: 'none'
+          });
+        }
+      },
+      fail: err => {
+        console.error('添加事件失败:', err);
+        wx.showToast({
+          title: '添加失败',
+          icon: 'none'
+        });
+      }
+    });
+  },
+
+  /**
+   * 删除事件
+   */
+  deleteEvent(e) {
+    const id = e.currentTarget.dataset.id;
+
+    wx.showModal({
+      title: '确认删除',
+      content: '确定要删除这个事件吗？',
+      success: res => {
+        if (res.confirm) {
+          // 调用云函数删除事件
+          wx.cloud.callFunction({
+            name: 'events',
+            data: {
+              action: 'deleteEvent',
+              id: id
+            },
+            success: res => {
+              if (res.result.success) {
+                wx.showToast({
+                  title: '删除成功',
+                  icon: 'success'
+                });
+
+                // 重新加载事件数据
+                this.loadEvents();
+              } else {
+                wx.showToast({
+                  title: '删除失败: ' + res.result.message,
+                  icon: 'none'
+                });
+              }
+            },
+            fail: err => {
+              console.error('删除事件失败:', err);
+              wx.showToast({
+                title: '删除失败',
+                icon: 'none'
+              });
+            }
+          });
+        }
+      }
+    });
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload() {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh() {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom() {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage() {
+
+  }
+})

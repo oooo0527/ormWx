@@ -20,6 +20,8 @@ exports.main = async (event, context) => {
       return await initCommentsCollection(event)
     case 'initRepliesCollection':
       return await initRepliesCollection(event)
+    case 'initEventsCollection':
+      return await initEventsCollection(event)
     default:
       return {
         success: false,
@@ -226,6 +228,55 @@ async function initRepliesCollection(event) {
       success: true,
       data: results,
       message: '回复通知数据初始化成功'
+    }
+  } catch (err) {
+    return {
+      success: false,
+      message: err.message
+    }
+  }
+}
+
+// 初始化事件集合并添加示例数据
+async function initEventsCollection(event) {
+  try {
+    // 示例事件数据
+    const eventData = [
+      {
+        date: '2023-04-05',
+        title: '广告拍摄',
+        description: '参与某知名品牌广告拍摄，地点在曼谷市中心摄影棚。'
+      },
+      {
+        date: '2023-04-12',
+        title: '粉丝见面会',
+        description: '在Central World商场举办粉丝见面会，与粉丝互动交流。'
+      },
+      {
+        date: '2023-04-18',
+        title: '电视剧开机',
+        description: '新电视剧《星辰之恋》正式开机，担任女主角。'
+      },
+      {
+        date: '2023-04-26',
+        title: '杂志封面拍摄',
+        description: '为知名时尚杂志拍摄封面，造型师将打造全新形象。'
+      }
+    ];
+
+    // 插入示例数据
+    const results = [];
+    for (const event of eventData) {
+      const result = await db.collection('events').add({
+        data: event
+      });
+      results.push(result);
+    }
+
+    return {
+      success: true,
+      data: results,
+      message: '事件数据初始化成功'
     }
   } catch (err) {
     return {
