@@ -1,15 +1,415 @@
-/* 轮播图容器 */
-.carousel-container {
-  margin: 20rpx;
+/* 页面容器 */
+.container {
+  background: linear-gradient(135deg, #0c1117 0%, #f48eb5 100%);
+  min-height: 100vh;
+  padding-bottom: 40rpx;
+}
+
+/* 头部标题 */
+.header {
+  padding: 40rpx 30rpx 20rpx;
+  text-align: center;
+}
+
+.page-title {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #ffffff;
+  text-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.3);
+}
+
+/* 标签页切换 */
+.tabs {
+  display: flex;
+  justify-content: center;
+  margin: 0 30rpx 30rpx;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50rpx;
+  overflow: hidden;
+  width: 95%;
+}
+
+.tab-item {
+  flex: 1;
+  text-align: center;
+  padding: 20rpx 0;
+  font-size: 28rpx;
+  color: #ffffff;
+  transition: all 0.3s ease;
+}
+
+.tab-item.active {
+  background: rgba(244, 142, 181, 0.8);
+  font-weight: bold;
+}
+
+/* 内容区域 */
+.content {
+  margin: 0 30rpx 30rpx;
   border-radius: 20rpx;
   overflow: hidden;
-  position: relative;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.1);
+  width: 95%;
+}
+
+/* 排行榜列表 */
+.ranking-list {
+  padding: 30rpx;
+}
+
+.list-header {
   display: flex;
-  width: 100vw;
-  flex-direction: column;
+  justify-content: space-between;
+  padding: 20rpx 0;
+  border-bottom: 2rpx solid #f48eb5;
+  font-weight: bold;
+  color: #333;
+}
+
+.header-rank {
+  width: 100rpx;
+  text-align: center;
+}
+
+.header-user {
+  flex: 1;
+  text-align: left;
+  padding-left: 20rpx;
+}
+
+.header-score,
+.header-photos {
+  width: 120rpx;
+  text-align: center;
+}
+
+/* 排行榜项 */
+.ranking-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #eee;
+}
+
+.ranking-item.top-three {
+  background: linear-gradient(90deg, rgba(244, 142, 181, 0.1) 0%, rgba(244, 142, 181, 0.05) 100%);
+}
+
+.rank-number {
+  width: 100rpx;
+  text-align: center;
+  font-size: 36rpx;
+  font-weight: bold;
+}
+
+.gold {
+  color: #FFD700;
+}
+
+.silver {
+  color: #C0C0C0;
+}
+
+.bronze {
+  color: #CD7F32;
+}
+
+.user-info {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding-left: 20rpx;
+}
+
+.user-avatar {
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 50%;
+  margin-right: 20rpx;
+  border: 2rpx solid #f48eb5;
+}
+
+.user-name {
+  font-size: 28rpx;
+  color: #333;
+}
+
+.score,
+.photos-count {
+  width: 120rpx;
 
 }
 
-.carousel-item {
-  width: 300px;
+/* 照片网格 */
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20rpx;
+  padding: 20rpx;
+}
+
+.photo-item {
+  border-radius: 15rpx;
+  overflow: hidden;
+  box-shadow: 0 4rpx 10rpx rgba(0, 0, 0, 0.1);
+  background: #fff;
+}
+
+.photo-preview {
+  position: relative;
+}
+
+.photo-image {
+  width: 100%;
+  height: 300rpx;
+  display: block;
+}
+
+.photo-count {
+  position: absolute;
+  bottom: 10rpx;
+  right: 10rpx;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 5rpx 10rpx;
+  border-radius: 10rpx;
+  font-size: 24rpx;
+}
+
+.photo-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15rpx;
+}
+
+.photo-name {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.like-section {
+  display: flex;
+  align-items: center;
+  background: #f8f8f8;
+  padding: 10rpx 15rpx;
+  border-radius: 30rpx;
+}
+
+.like-count {
+  font-size: 24rpx;
+  color: #666;
+  margin-right: 10rpx;
+}
+
+.heart {
+  font-size: 24rpx;
+}
+
+.like-section.liked {
+  background: #ffebee;
+}
+
+.like-section.liked .heart {
+  color: #f44336;
+}
+
+/* 投稿表单 */
+.submit-form {
+  padding: 30rpx;
+}
+
+.form-section {
+  margin-bottom: 40rpx;
+}
+
+.section-title {
+  display: block;
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20rpx;
+}
+
+/* 风格选项 */
+.style-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20rpx;
+}
+
+.style-option {
+  padding: 15rpx 30rpx;
+  background: #f0f0f0;
+  border-radius: 30rpx;
+  font-size: 28rpx;
+  color: #666;
+}
+
+.style-option.selected {
+  background: #f48eb5;
+  color: white;
+}
+
+/* 上传区域 */
+.upload-section {
+  height: 300rpx;
+  border: 2rpx dashed #ccc;
+  border-radius: 15rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fafafa;
+}
+
+.upload-placeholder {
+  text-align: center;
+  color: #999;
+}
+
+.upload-placeholder text {
+  font-size: 28rpx;
+}
+
+.uploaded-image {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border-radius: 15rpx;
+}
+
+/* 描述输入框 */
+.description-input {
+  width: 100%;
+  height: 150rpx;
+  padding: 20rpx;
+  border: 2rpx solid #ccc;
+  border-radius: 15rpx;
+  font-size: 28rpx;
+  box-sizing: border-box;
+}
+
+/* 冷却提示 */
+.cooldown-info {
+  text-align: center;
+  color: #ff4d4f;
+  margin-bottom: 20rpx;
+  font-size: 28rpx;
+}
+
+/* 提交按钮 */
+.submit-btn {
+  width: 100%;
+  background: #f48eb5;
+  color: white;
+  border: none;
+  border-radius: 10rpx;
+  padding: 20rpx;
+  font-size: 32rpx;
+}
+
+.submit-btn[disabled] {
+  background: #cccccc;
+}
+
+/* 我的投稿页面样式 */
+.my-photos-list {
+  padding: 20rpx;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60rpx 0;
+  color: #999;
+  font-size: 28rpx;
+}
+
+.photo-card {
+  background: #fff;
+  border-radius: 15rpx;
+  overflow: hidden;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+
+.photo-img {
+  width: 100%;
+  height: 300rpx;
+  display: block;
+}
+
+.photo-details {
+  padding: 20rpx;
+}
+
+.photo-meta {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15rpx;
+}
+
+.photo-style {
+  font-size: 26rpx;
+  color: #666;
+}
+
+.photo-status {
+  font-size: 24rpx;
+  padding: 5rpx 15rpx;
+  border-radius: 20rpx;
+}
+
+.status-approved {
+  background: #e8f5e9;
+  color: #4caf50;
+}
+
+.status-pending {
+  background: #fff3e0;
+  color: #ff9800;
+}
+
+.status-rejected {
+  background: #ffebee;
+  color: #f44336;
+}
+
+.photo-desc {
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 15rpx;
+  line-height: 1.4;
+}
+
+.photo-time {
+  font-size: 24rpx;
+  color: #999;
+  margin-bottom: 20rpx;
+}
+
+.photo-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20rpx;
+}
+
+.action-btn {
+  font-size: 24rpx;
+  padding: 10rpx 20rpx;
+  border-radius: 10rpx;
+  border: none;
+  width: 45%;
+}
+
+.view-btn {
+  background: #e3f2fd;
+  color: #1976d2;
+}
+
+.delete-btn {
+  background: #ffebee;
+  color: #d32f2f;
 }

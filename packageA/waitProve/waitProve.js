@@ -5,9 +5,10 @@ Page({
    * 页面的初始数据
    */
   data: {
-    activeTab: 'status', // 当前激活的标签页 ('status' 或 'checked')
+    activeTab: 'status', // 当前激活的标签页 ('status' 或 'checked' 或 'dream')
     pendingStatusList: [], // 待审核留言列表 (status='0')
     pendingCheckedList: [], // 待审核精选列表 (checked='1')
+    pendingDreamList: [], // 待审核梦女照片列表
     isLoading: false, // 是否正在加载数据
     navBarHeight: 0, // 添加导航栏高度数据
 
@@ -92,6 +93,9 @@ Page({
             icon: 'none'
           });
         }
+
+        // 获取待审核的梦女照片
+        this.getPendingDreamPhotos();
       },
       fail: err => {
         wx.hideLoading();
@@ -103,6 +107,39 @@ Page({
           title: '网络请求失败',
           icon: 'none'
         });
+
+        // 获取待审核的梦女照片
+        this.getPendingDreamPhotos();
+      }
+    });
+  },
+
+  // 获取待审核的梦女照片
+  getPendingDreamPhotos() {
+    wx.cloud.callFunction({
+      name: 'submitDreamPhoto',
+      data: {
+        action: 'getPendingPhotos'
+      },
+      success: res => {
+        if (res.result && res.result.success) {
+          // 为每个项目添加展开状态属性
+          const pendingDreamList = res.result.data.map(item => {
+            return {
+              ...item,
+              isExpanded: false
+            };
+          });
+
+          this.setData({
+            pendingDreamList: pendingDreamList
+          });
+        } else {
+          console.error('获取待审核梦女照片失败:', res.result ? res.result.message : '未知错误');
+        }
+      },
+      fail: err => {
+        console.error('获取待审核梦女照片失败:', err);
       }
     });
   },
@@ -128,7 +165,7 @@ Page({
    */
   toggleContent(e) {
     const id = e.currentTarget.dataset.id;
-    const type = e.currentTarget.dataset.type; // 'status' 或 'checked'
+    const type = e.currentTarget.dataset.type; // 'status' 或 'checked' 或 'dream'
 
     if (type === 'status') {
       const pendingStatusList = this.data.pendingStatusList.map(item => {
@@ -158,6 +195,20 @@ Page({
       this.setData({
         pendingCheckedList: pendingCheckedList
       });
+    } else if (type === 'dream') {
+      const pendingDreamList = this.data.pendingDreamList.map(item => {
+        if (item._id === id) {
+          return {
+            ...item,
+            isExpanded: !item.isExpanded
+          };
+        }
+        return item;
+      });
+
+      this.setData({
+        pendingDreamList: pendingDreamList
+      });
     }
   },
 
@@ -166,7 +217,7 @@ Page({
    */
   showRejectReasonModal(e) {
     const id = e.currentTarget.dataset.id;
-    const type = e.currentTarget.dataset.type; // 'status' 或 'checked'
+    const type = e.currentTarget.dataset.type; // 'status' 或 'checked' 或 'dream'
 
     // 重置拒绝理由选项
     const rejectReasons = this.data.rejectReasons.map((item, index) => {
@@ -248,9 +299,20 @@ Page({
     this.hideRejectModal();
 
     // 执行拒绝操作
+    let content = '';
+    if (currentRejectType === 'status') {
+      content = '确定要拒绝此留言吗？';
+    } else if (currentRejectType === 'checked') {
+      content = '确定要拒绝此精选吗？';
+    } else if (currentRejectType === 'dream') {
+      content = '确定要拒绝此照片吗？';
+    }
+
+    content += `\n拒绝理由：${reasonText}`;
+
     wx.showModal({
       title: '确认拒绝',
-      content: `确定要拒绝此${currentRejectType === 'status' ? '留言' : '精选'}吗？\n拒绝理由：${reasonText}`,
+      content: content,
       confirmColor: '#f48eb5',
       success: res => {
         if (res.confirm) {
@@ -265,11 +327,21 @@ Page({
    */
   onApprove(e) {
     const id = e.currentTarget.dataset.id;
-    const type = e.currentTarget.dataset.type; // 'status' 或 'checked'
+    const type = e.currentTarget.dataset.type; // 'status' 或 'checked' 或 'dream'
+
+    let title = '确认审核通过';
+    let content = '';
+    if (type === 'status') {
+      content = '确定要通过此留言的审核吗？';
+    } else if (type === 'checked') {
+      content = '确定要将此留言设为精选吗？';
+    } else if (type === 'dream') {
+      content = '确定要通过此照片的审核吗？';
+    }
 
     wx.showModal({
-      title: '确认审核通过',
-      content: type === 'status' ? '确定要通过此留言的审核吗？' : '确定要将此留言设为精选吗？',
+      title: title,
+      content: content,
       confirmColor: '#4cd964',
       success: res => {
         if (res.confirm) {
@@ -287,72 +359,123 @@ Page({
       title: '处理中...',
     });
 
-    // 调用云函数更新审核状态
-    wx.cloud.callFunction({
-      name: 'approve',
-      data: {
-        action: action === 'approve' ? 'approveInteraction' : 'rejectInteraction',
-        id: id,
-        type: type,
-        reason: reason // 传递拒绝理由
-      },
-      success: res => {
-        wx.hideLoading();
+    // 根据不同类型调用不同的云函数
+    if (type === 'dream') {
+      // 处理梦女照片审核
+      wx.cloud.callFunction({
+        name: 'submitDreamPhoto',
+        data: {
+          action: action === 'approve' ? 'approvePhoto' : 'rejectPhoto',
+          photoId: id,
+          reason: reason // 传递拒绝理由
+        },
+        success: res => {
+          wx.hideLoading();
 
-        if (res.result && res.result.success) {
-          wx.showToast({
-            title: action === 'approve' ? '审核通过' : '已拒绝',
-            icon: 'success'
-          });
+          if (res.result && res.result.success) {
+            wx.showToast({
+              title: action === 'approve' ? '审核通过' : '已拒绝',
+              icon: 'success'
+            });
 
-          // 更新本地数据
-          if (type === 'status') {
-            // 从待审核留言列表中移除
-            const newList = this.data.pendingStatusList.filter(item => item._id !== id);
+            // 更新本地数据
+            const newList = this.data.pendingDreamList.filter(item => item._id !== id);
             this.setData({
-              pendingStatusList: newList
+              pendingDreamList: newList
             });
 
             // 如果列表为空，显示提示
-            if (newList.length === 0 && this.data.activeTab === 'status') {
+            if (newList.length === 0 && this.data.activeTab === 'dream') {
               wx.showToast({
-                title: '暂无待审核留言',
+                title: '暂无待审核照片',
                 icon: 'none',
                 duration: 2000
               });
             }
-          } else if (type === 'checked') {
-            // 从待审核精选列表中移除
-            const newList = this.data.pendingCheckedList.filter(item => item._id !== id);
-            this.setData({
-              pendingCheckedList: newList
+          } else {
+            wx.showToast({
+              title: res.result ? res.result.message : '操作失败',
+              icon: 'none'
             });
-
-            // 如果列表为空，显示提示
-            if (newList.length === 0 && this.data.activeTab === 'checked') {
-              wx.showToast({
-                title: '暂无待审核精选',
-                icon: 'none',
-                duration: 2000
-              });
-            }
           }
-        } else {
+        },
+        fail: err => {
+          wx.hideLoading();
+          console.error('更新审核状态失败', err);
           wx.showToast({
-            title: res.result ? res.result.message : '操作失败',
+            title: '网络请求失败',
             icon: 'none'
           });
         }
-      },
-      fail: err => {
-        wx.hideLoading();
-        console.error('更新审核状态失败', err);
-        wx.showToast({
-          title: '网络请求失败',
-          icon: 'none'
-        });
-      }
-    });
+      });
+    } else {
+      // 处理留言审核
+      wx.cloud.callFunction({
+        name: 'approve',
+        data: {
+          action: action === 'approve' ? 'approveInteraction' : 'rejectInteraction',
+          id: id,
+          type: type,
+          reason: reason // 传递拒绝理由
+        },
+        success: res => {
+          wx.hideLoading();
+
+          if (res.result && res.result.success) {
+            wx.showToast({
+              title: action === 'approve' ? '审核通过' : '已拒绝',
+              icon: 'success'
+            });
+
+            // 更新本地数据
+            if (type === 'status') {
+              // 从待审核留言列表中移除
+              const newList = this.data.pendingStatusList.filter(item => item._id !== id);
+              this.setData({
+                pendingStatusList: newList
+              });
+
+              // 如果列表为空，显示提示
+              if (newList.length === 0 && this.data.activeTab === 'status') {
+                wx.showToast({
+                  title: '暂无待审核留言',
+                  icon: 'none',
+                  duration: 2000
+                });
+              }
+            } else if (type === 'checked') {
+              // 从待审核精选列表中移除
+              const newList = this.data.pendingCheckedList.filter(item => item._id !== id);
+              this.setData({
+                pendingCheckedList: newList
+              });
+
+              // 如果列表为空，显示提示
+              if (newList.length === 0 && this.data.activeTab === 'checked') {
+                wx.showToast({
+                  title: '暂无待审核精选',
+                  icon: 'none',
+                  duration: 2000
+                });
+              }
+            }
+          } else {
+            wx.showToast({
+              title: res.result ? res.result.message : '操作失败',
+              icon: 'none'
+            });
+          }
+        },
+        fail: err => {
+          wx.hideLoading();
+          console.error('更新审核状态失败', err);
+          wx.showToast({
+            title: '网络请求失败',
+            icon: 'none'
+          });
+        }
+      });
+    }
   },
 
   /**

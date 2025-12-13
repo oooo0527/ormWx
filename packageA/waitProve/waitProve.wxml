@@ -16,6 +16,12 @@
           {{pendingCheckedList.length}}
         </text>
       </view>
+      <view class="tab {{activeTab === 'dream' ? 'active' : ''}}" data-tab="dream" bindtap="onTabChange">
+        <text>梦女审核</text>
+        <text class="badge" wx:if="{{pendingDreamList.length > 0}}">
+          {{pendingDreamList.length}}
+        </text>
+      </view>
     </view>
     <!-- 内容区域 -->
     <scroll-view class="content" style="height:calc(100vh - {{navBarHeight}}px - 120rpx); margin-top:120rpx" scroll-y="true">
@@ -79,6 +85,39 @@
               拒绝
             </button>
             <button class="btn btn-approve" data-id="{{item._id}}" data-type="checked" bindtap="onApprove">
+              通过
+            </button>
+          </view>
+        </view>
+      </view>
+      <!-- 梦女照片审核列表 -->
+      <view class="list" wx:elif="{{activeTab === 'dream'}}">
+        <view class="empty" wx:if="{{pendingDreamList.length === 0}}">
+          <text class="empty-text">暂无待审核照片</text>
+        </view>
+        <view class="item" wx:for="{{pendingDreamList}}" wx:key="_id">
+          <view class="item-header">
+            <text class="item-title">{{item.userName}}</text>
+            <text class="item-time">{{item.createTime}}</text>
+          </view>
+          <view class="item-content">
+            <image class="item-image" src="{{item.imageUrl}}" lazy-load mode="widthFix"></image>
+            <view class="dream-info">
+              <text class="dream-style">风格：{{item.style}}</text>
+              <text class="dream-desc">{{item.description}}</text>
+            </view>
+            <!-- 收起/展开内容 -->
+            <view class="expand-collapse" wx:if="{{item.description.length > 50}}">
+              <text class="expand-btn" bindtap="toggleContent" data-id="{{item._id}}" data-type="dream">
+                {{item.isExpanded ? '收起' : '展开'}}
+              </text>
+            </view>
+          </view>
+          <view class="item-footer">
+            <button class="btn btn-reject" data-id="{{item._id}}" data-type="dream" bindtap="showRejectReasonModal">
+              拒绝
+            </button>
+            <button class="btn btn-approve" data-id="{{item._id}}" data-type="dream" bindtap="onApprove">
               通过
             </button>
           </view>
