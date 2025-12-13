@@ -1,10 +1,3 @@
-/* 页面容器 */
-.container {
-  background: linear-gradient(135deg, #0c1117 0%, #f48eb5 100%);
-  min-height: 100vh;
-  padding-bottom: 40rpx;
-}
-
 /* 头部标题 */
 .header {
   padding: 40rpx 30rpx 20rpx;
@@ -18,6 +11,97 @@
   text-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.3);
 }
 
+/* 装饰性元素 */
+.decorative-elements {
+  display: flex;
+  justify-content: space-around;
+  padding: 20rpx;
+  position: relative;
+  z-index: 1;
+  max-width: 600rpx;
+  margin: 0 auto;
+}
+
+.decorative-icon {
+  font-size: 36rpx;
+  animation: float 3s ease-in-out infinite;
+  text-shadow: 1rpx 1rpx 2rpx rgba(0, 0, 0, 0.2);
+}
+
+.book-icon {
+  animation-delay: 0s;
+}
+
+.pencil-icon {
+  animation-delay: 1s;
+}
+
+.heart-icon {
+  animation-delay: 2s;
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10rpx);
+  }
+}
+
+
+
+.campus-wall-subtitle {
+  font-size: 28rpx;
+  opacity: 0.9;
+  font-family: 'Microsoft YaHei', sans-serif;
+  /* 斜体效果 */
+  font-style: italic;
+}
+
+/* 照片预览容器 */
+.photo-preview-container {
+  display: flex;
+  padding: 20rpx;
+
+  border-top: 2rpx dashed #eee;
+
+  background-size: 20rpx 20rpx;
+}
+
+.preview-image {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 10rpx;
+  margin-right: 15rpx;
+  box-shadow: 0 2rpx 6rpx rgba(0, 0, 0, 0.1);
+  border: 1rpx solid #eee;
+  object-fit: cover;
+  /* 添加相框效果 */
+  border: 3rpx solid white;
+  box-shadow: 0 2rpx 8px rgba(0, 0, 0, 0.2);
+}
+
+.more-photos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 120rpx;
+  height: 120rpx;
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  border-radius: 10rpx;
+  color: white;
+  font-size: 24rpx;
+  font-weight: bold;
+  box-shadow: 0 2rpx 6rpx rgba(0, 0, 0, 0.1);
+  border: 2rpx solid #ffd700;
+  /* 添加胶带粘贴效果 */
+  transform: rotate(5deg);
+}
+
 /* 标签页切换 */
 .tabs {
   display: flex;
@@ -27,6 +111,9 @@
   border-radius: 50rpx;
   overflow: hidden;
   width: 95%;
+  /* 添加校园风格的边框 */
+  border: 2rpx solid #ffd700;
+  box-shadow: 0 2rpx 8px rgba(0, 0, 0, 0.1);
 }
 
 .tab-item {
@@ -36,11 +123,8 @@
   font-size: 28rpx;
   color: #ffffff;
   transition: all 0.3s ease;
-}
-
-.tab-item.active {
-  background: rgba(244, 142, 181, 0.8);
-  font-weight: bold;
+  /* 添加手绘风格 */
+  text-shadow: 1rpx 1rpx 2rpx rgba(0, 0, 0, 0.3);
 }
 
 /* 内容区域 */
@@ -48,10 +132,14 @@
   margin: 0 30rpx 30rpx;
   border-radius: 20rpx;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.9);
+  background: #ffffff;
   box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.1);
   width: 95%;
+
+  background-size: 20rpx 20rpx, 20rpx 20rpx;
+  position: relative;
 }
+
 
 /* 排行榜列表 */
 .ranking-list {
@@ -140,6 +228,70 @@
 .photos-count {
   width: 120rpx;
 
+}
+
+/* 风格分组容器 */
+.style-groups {
+  padding: 20rpx;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20rpx;
+  align-items: center;
+
+}
+
+/* 风格分组 */
+.style-group {
+  height: 300rpx;
+  width: 45%;
+  margin-bottom: 40rpx;
+  /* background: #fff; */
+  border-radius: 15rpx;
+  overflow: hidden;
+  box-shadow: 0 4rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+
+.style-group:nth-of-type(3n+1) {
+  background: #626bec;
+  /* 第一个颜色 */
+}
+
+.style-group:nth-of-type(3n+2) {
+
+  background: #f48eb5;
+  /* 第二个颜色 */
+}
+
+.style-group:nth-of-type(3n+3) {
+  background: #4facfe;
+  /* 第三个颜色 */
+}
+
+
+
+/* 风格头部 */
+.style-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30rpx 20rpx;
+  height: 100%;
+
+}
+
+.style-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  text-shadow: 1rpx 1rpx 2rpx rgba(0, 0, 0, 0.3);
+  /* 文字阴影 */
+  font-family: 'Microsoft YaHei', sans-serif;
+}
+
+.photo-count {
+  font-size: 24rpx;
+  padding: 5rpx 15rpx;
+  border-radius: 20rpx;
 }
 
 /* 照片网格 */
@@ -256,7 +408,7 @@
 
 /* 上传区域 */
 .upload-section {
-  height: 300rpx;
+  height: 600rpx;
   border: 2rpx dashed #ccc;
   border-radius: 15rpx;
   display: flex;
@@ -322,9 +474,12 @@
 
 .empty-state {
   text-align: center;
-  padding: 60rpx 0;
+  padding: 60rpx 20rpx;
   color: #999;
   font-size: 28rpx;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 15rpx;
+  border: 2rpx dashed #ccc;
 }
 
 .photo-card {
@@ -412,4 +567,32 @@
 .delete-btn {
   background: #ffebee;
   color: #d32f2f;
+}
+
+/* 底部装饰 */
+.bottom-decoration {
+  text-align: center;
+  padding: 30rpx 20rpx;
+  margin-top: 20rpx;
+  border-top: 2rpx dashed #ccc;
+  position: relative;
+}
+
+.bottom-decoration::before {
+  content: "";
+  position: absolute;
+  top: -10rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50rpx;
+  height: 20rpx;
+  background: #ffd700;
+  border-radius: 10rpx;
+}
+
+.school-motto {
+  font-size: 24rpx;
+  color: #666;
+  font-style: italic;
+  font-family: 'KaiTi', serif;
 }

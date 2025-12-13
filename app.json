@@ -67,7 +67,9 @@
         "musicPlayer/musicPlayer",
         "mami/mami",
         "remark/remark",
-        "highEmotion/highEmotion"
+        "highEmotion/highEmotion",
+        "fanClub/fanClub",
+        "photoDetail/photoDetail"
       ]
     }
   ],

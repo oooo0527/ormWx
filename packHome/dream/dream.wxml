@@ -49,24 +49,22 @@
     </view>
     <!-- 风格照片内容 -->
     <view class="content" wx:if="{{activeTab === 'photos'}}">
-      <view class="photo-grid">
-        <block wx:for="{{approvedPhotos}}" wx:key="_id">
-          <view class="photo-item">
-            <view class="photo-preview" bindtap="viewPhoto" data-image="{{item.imageUrl}}">
-              <image class="photo-image" src="{{item.imageUrl}}" mode="aspectFill"></image>
-            </view>
-            <view class="photo-info">
-              <text class="photo-name">{{item.style}}</text>
-              <view class="like-section {{likedPhotoIds.indexOf(item._id) !== -1 ? 'liked' : ''}}" data-id="{{item._id}}" bindtap="likePhoto">
-                <text class="like-count">{{item.likes || 0}}</text>
-                <text class="heart">❤️</text>
-              </view>
+      <view class="style-groups">
+        <block wx:for="{{groupedPhotos}}" wx:for-item="photos" wx:for-index="style" wx:key="style">
+          <view class="style-group">
+            <view class="style-header" bindtap="viewStyleDetail" data-style="{{style}}">
+              <text class="style-title">{{style}}</text>
+              <text>{{groupedPhotos[style].length}}张</text>
             </view>
           </view>
         </block>
-        <view wx:if="{{approvedPhotos.length === 0}}" class="empty-state">
+        <view wx:if="{{Object.keys(groupedPhotos).length === 0}}" class="empty-state">
           <text>暂无审核通过的照片</text>
         </view>
+      </view>
+      <!-- 底部装饰 -->
+      <view class="bottom-decoration">
+        <text class="school-motto">知识改变命运，学习成就未来</text>
       </view>
     </view>
     <!-- 投稿内容 -->
@@ -95,10 +93,10 @@
           <text class="section-title">照片描述</text>
           <textarea class="description-input" placeholder="请输入照片描述..." value="{{submissionForm.description}}" bindinput="inputDescription"></textarea>
         </view>
-        <view class="cooldown-info" wx:if="{{!canSubmit}}">
+        <view class="cooldown-info" wx:if="{{false}}">
           <text>您今天已投稿，请明天再来</text>
         </view>
-        <button class="submit-btn" bindtap="submitPhoto" disabled="{{!canSubmit || !userInfo}}">
+        <button class="submit-btn" bindtap="submitPhoto">
           {{canSubmit && userInfo ? '提交投稿' : (userInfo ? '今日已投稿' : '请先登录')}}
         </button>
       </view>

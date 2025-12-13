@@ -1,0 +1,20 @@
+<!-- packHome/fanClub/fanClub.wxml -->
+<header class="fan-club-header">
+  2023年8月27日，Orm的粉丝们有了专属名字，这一天是「煎蛋卷：Omelette」 的诞生日🍳 
+
+Omelette：包含Orm的名字发音，而且爸爸公司有卖蛋卷，所以orm敲定了这个名字。
+医爱之名播出后正式拥有了个人粉丝团名字 ​​​
+</header>
+<view class="fan-club-container"></view>
+<footer class="fan-club-footer">
+  <text>
+    「#ท้องฟ้าของกรณ์นภัส」意为「Kornnaphat的天空」，27日对应orm27生日，这个应援项目是由早期泰饭发起的。
+写下想对orm说的话， 每月27日一起上传天空照，用活动的标签向她传达爱与支持。
+
+该项目标签：
+ท้องฟ้าของกรณ์นภัส：Kornnaphat的天空
+ออมกรณ์นภัส：Orm泰语名字
+Ormkornnaphat：英文名字
+艾特Orm推特账号
+  </text>
+</footer>

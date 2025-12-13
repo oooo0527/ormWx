@@ -43,6 +43,8 @@ Page({
     styleOptions: ['韩系', '猫系', '狗系', '欧美', '性感', '可爱'],
     // 审核通过的照片
     approvedPhotos: [],
+    // 按风格分组的照片
+    groupedPhotos: {},
     // 已点赞的照片ID列表（用于防止重复点赞）
     likedPhotoIds: []
   },
@@ -138,8 +140,12 @@ Page({
       },
       success: res => {
         if (res.result && res.result.success) {
+          // 按风格分组照片
+          const groupedPhotos = this.groupPhotosByStyle(res.result.data);
+
           this.setData({
-            approvedPhotos: res.result.data
+            approvedPhotos: res.result.data,
+            groupedPhotos: groupedPhotos
           });
         } else {
           console.error('获取审核通过照片失败:', res.result ? res.result.message : '未知错误');
@@ -148,6 +154,47 @@ Page({
       fail: err => {
         console.error('获取审核通过照片失败:', err);
       }
+    });
+  },
+
+  // 按风格分组照片
+  groupPhotosByStyle(photos) {
+    const grouped = {};
+
+    photos.forEach(photo => {
+      const style = photo.style || '未分类';
+      if (!grouped[style]) {
+        grouped[style] = [];
+      }
+      grouped[style].push(photo);
+    });
+
+    return grouped;
+  },
+
+  // 查看风格详情
+  viewStyleDetail(e) {
+    console.log('查看风格详情', e, this.data.groupedPhotos);
+    const style = e.currentTarget.dataset.style;
+    console.log('点击的风格:', style);
+
+    // 检查style是否为空
+    if (!style) {
+      wx.showToast({
+        title: '无法获取风格信息',
+        icon: 'none'
+      });
+      return;
+    }
+
+    // 获取该风格下的所有照片
+    const photos = this.data.groupedPhotos[style] || [];
+
+    // 将照片数据转换为JSON字符串传递
+    const photosJson = encodeURIComponent(JSON.stringify(photos));
+
+    wx.navigateTo({
+      url: `/packHome/photoDetail/photoDetail?style=${style}&photos=${photosJson}`
     });
   },
 
@@ -234,13 +281,13 @@ Page({
       return;
     }
 
-    if (!this.data.canSubmit) {
-      wx.showToast({
-        title: '每天只能投稿一次',
-        icon: 'none'
-      });
-      return;
-    }
+    // if (!this.data.canSubmit) {
+    //   wx.showToast({
+    //     title: '每天只能投稿一次',
+    //     icon: 'none'
+    //   });
+    //   return;
+    // }
 
     const { style, image, description } = this.data.submissionForm;
 
@@ -367,11 +414,26 @@ Page({
             return photo;
           });
 
+          // 更新分组照片中的点赞数
+          const groupedPhotos = { ...this.data.groupedPhotos };
+          for (const style in groupedPhotos) {
+            groupedPhotos[style] = groupedPhotos[style].map(photo => {
+              if (photo._id === photoId) {
+                return {
+                  ...photo,
+                  likes: (photo.likes || 0) + 1
+                };
+              }
+              return photo;
+            });
+          }
+
           // 将照片ID添加到已点赞列表中
           const likedPhotoIds = [...this.data.likedPhotoIds, photoId];
 
           this.setData({
             approvedPhotos: approvedPhotos,
+            groupedPhotos: groupedPhotos,
             likedPhotoIds: likedPhotoIds
           });
 

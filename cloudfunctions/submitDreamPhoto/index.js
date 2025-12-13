@@ -30,6 +30,8 @@ exports.main = async (event, context) => {
         return await getRankingList(event)
       case 'likePhoto':
         return await likePhoto(event)
+      case 'getPhotosByStyle':
+        return await getPhotosByStyle(event)
       default:
         return {
           success: false,
@@ -66,12 +68,12 @@ async function submitPhoto(event) {
     createTime: db.command.gte(today)
   }).count()
 
-  if (countResult.total >= 1) {
-    return {
-      success: false,
-      message: '每天只能投稿一次'
-    }
-  }
+  // if (countResult.total >= 1) {
+  //   return {
+  //     success: false,
+  //     message: '每天只能投稿一次'
+  //   }
+  // }
 
   // 插入新照片到待审核状态
   const result = await db.collection('dream_photos').add({
@@ -253,13 +255,49 @@ async function getApprovedPhotos(event) {
   }
 }
 
+// 根据风格获取照片
+async function getPhotosByStyle(event) {
+  const { style } = event;
+
+  // 参数验证
+  if (!style) {
+    return {
+      success: false,
+      message: '缺少风格参数'
+    };
+  }
+
+  try {
+    // 获取指定风格的审核通过照片，按时间倒序排列
+    const result = await db.collection('dream_photos')
+      .where({
+        style: style,
+        status: 'approved'
+      })
+      .orderBy('createTime', 'desc')
+      .get();
+
+    return {
+      success: true,
+      data: result.data,
+      message: '获取照片成功'
+    };
+  } catch (err) {
+    console.error('获取照片失败:', err);
+    return {
+      success: false,
+      message: err.message
+    };
+  }
+}
+
 // 获取排行榜数据
 async function getRankingList(event) {
   try {
     // 获取排行榜数据，按积分降序排列
     const result = await db.collection('dream_photos')
       .orderBy('likes', 'desc')
-      .limit(10) // 限制返回前10名
+      .limit(7) // 限制返回前7名
       .get()
 
     // 为每条记录添加排名字段

@@ -1,0 +1,101 @@
+/* photoDetail.wxss */
+.container {
+  padding: 20rpx;
+}
+
+.photos-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30rpx;
+}
+
+.photo-card {
+  background: #fff;
+  border-radius: 20rpx;
+  overflow: hidden;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.1);
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  padding: 20rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.user-avatar {
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 50%;
+  margin-right: 15rpx;
+}
+
+.user-details {
+  flex: 1;
+}
+
+.user-name {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.post-time {
+  font-size: 20rpx;
+  color: #999;
+}
+
+.photo-wrapper {
+  width: 100%;
+}
+
+.photo-image {
+  width: 100%;
+  display: block;
+}
+
+.photo-description {
+  padding: 20rpx;
+  font-size: 26rpx;
+  color: #666;
+  line-height: 1.5;
+}
+
+.photo-actions {
+  padding: 0 20rpx 20rpx;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.like-section {
+  display: flex;
+  align-items: center;
+  background: #f8f8f8;
+  padding: 10rpx 20rpx;
+  border-radius: 30rpx;
+}
+
+.like-count {
+  font-size: 24rpx;
+  color: #666;
+  margin-right: 10rpx;
+}
+
+.heart {
+  font-size: 24rpx;
+}
+
+.like-section.liked {
+  background: #ffebee;
+}
+
+.like-section.liked .heart {
+  color: #f44336;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 100rpx 0;
+  color: #999;
+  font-size: 28rpx;
+}

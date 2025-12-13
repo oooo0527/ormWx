@@ -1,0 +1,33 @@
+<global-background>
+  <custom-navbar title="name" showBack="{{true}}" showHome="{{false}}"></custom-navbar>
+  <view class="container" style="margin-top: {{navBarHeight}}px;min-height:calc(100vh - {{navBarHeight}}px);">
+    <view class="photos-container">
+      <block wx:for="{{photos}}" wx:key="_id">
+        <view class="photo-card">
+          <view class="user-info">
+            <image class="user-avatar" src="{{item.userAvatar}}" mode="aspectFill"></image>
+            <view class="user-details">
+              <text class="user-name">{{item.userName}}</text>
+              <text class="post-time">{{item.createTime}}</text>
+            </view>
+          </view>
+          <view class="photo-wrapper" bindtap="viewPhoto" data-image="{{item.imageUrl}}">
+            <image class="photo-image" src="{{item.imageUrl}}" mode="widthFix"></image>
+          </view>
+          <view class="photo-description">
+            <text>{{item.description}}</text>
+          </view>
+          <view class="photo-actions">
+            <view class="like-section {{likedPhotoIds.indexOf(item._id) !== -1 ? 'liked' : ''}}" data-id="{{item._id}}" data-index="{{index}}" bindtap="likePhoto">
+              <text class="like-count">{{item.likes || 0}}</text>
+              <text class="heart">❤️</text>
+            </view>
+          </view>
+        </view>
+      </block>
+      <view wx:if="{{photos.length === 0}}" class="empty-state">
+        <text>暂无照片</text>
+      </view>
+    </view>
+  </view>
+</global-background>
