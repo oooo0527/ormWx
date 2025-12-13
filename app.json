@@ -69,7 +69,8 @@
         "remark/remark",
         "highEmotion/highEmotion",
         "fanClub/fanClub",
-        "photoDetail/photoDetail"
+        "photoDetail/photoDetail",
+        "rambling/rambling"
       ]
     }
   ],

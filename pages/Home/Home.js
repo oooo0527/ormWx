@@ -35,7 +35,7 @@ Page({
     },
     {
       name: '语录',
-      url: '/packHome/remark/remark',
+      url: '/packHome/rambling/rambling',
       image: 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/d0f92161e2ed52200dfb1c600e65c239.jpg'
     }, {
       name: '高情商',

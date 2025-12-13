@@ -26,12 +26,12 @@
           <text class="header-photos">照片</text>
         </view>
         <block wx:for="{{rankingList}}" wx:key="_id">
-          <view class="ranking-item {{index < 3 ? 'top-three' : ''}}">
+          <view class="ranking-item {{index === 0 ? 'first-place' : (index === 1 ? 'second-place' : (index === 2 ? 'third-place' : ''))}}" bindtap="showModal" data-index="{{index}}">
             <view class="rank-number">
               <text wx:if="{{index === 0}}" class="gold">🥇</text>
               <text wx:if="{{index === 1}}" class="silver">🥈</text>
               <text wx:if="{{index === 2}}" class="bronze">🥉</text>
-              <text wx:if="{{index > 2}}">{{item.rank}}</text>
+              <text wx:if="{{index > 2}}">{{index + 1}}</text>
             </view>
             <view class="user-info">
               <image class="user-avatar" src="{{item.userAvatar}}" mode="aspectFill"></image>
@@ -44,6 +44,46 @@
         </block>
         <view wx:if="{{rankingList.length === 0}}" class="empty-state">
           <text>暂无排行榜数据</text>
+        </view>
+      </view>
+    </view>
+    <!-- 排行榜详情弹窗 -->
+    <view class="ranking-modal {{showModal ? 'show' : ''}}" bindtap="hideModal">
+      <view class="modal-content" catchtap="preventTap">
+        <view class="modal-header">
+          <text class="modal-title">排行榜详情</text>
+          <view class="close-btn" bindtap="hideModal">×</view>
+        </view>
+        <view class="modal-body" wx:if="{{selectedItem}}">
+          <view class="user-info-section">
+            <image class="modal-user-avatar" src="{{selectedItem.userAvatar || '/images/default-avatar.png'}}" mode="aspectFill"></image>
+            <view class="user-details">
+              <text class="modal-user-name">{{selectedItem.userName || '未知用户'}}</text>
+              <text class="modal-rank">排名: {{selectedItem.rank || index+1}}</text>
+            </view>
+          </view>
+          <view class="photo-section">
+            <image class="modal-photo" src="{{selectedItem.imageUrl}}" mode="widthFix" bindtap="viewPhotoInModal"></image>
+          </view>
+          <view class="stats-section">
+            <view class="stat-item">
+              <text class="stat-label">点赞数</text>
+              <text class="stat-value">{{selectedItem.likes || 0}}</text>
+            </view>
+            <view class="stat-item">
+              <text class="stat-label">风格</text>
+              <text class="stat-value">{{selectedItem.style || '未分类'}}</text>
+            </view>
+          </view>
+          <view class="description-section">
+            <text class="description-label">描述:</text>
+            <text class="description-text">{{selectedItem.description || '暂无描述'}}</text>
+          </view>
+          <view class="action-section">
+            <button class="like-btn {{likedPhotoIds.includes(selectedItem._id) ? 'liked' : ''}}" bindtap="likePhotoInModal">
+              {{likedPhotoIds.includes(selectedItem._id) ? '已点赞' : '点赞'}}
+            </button>
+          </view>
         </view>
       </view>
     </view>

@@ -1,0 +1,36 @@
+<!-- packHome/rambling/rambling.wxml -->
+<view class="container">
+  <!-- 网格背景 -->
+  <view class="grid-bg"></view>
+  <!-- 星空背景 -->
+  <view class="stars-bg">
+    <block wx:for="{{stars}}" wx:key="id">
+      <view class="star" style="left: {{item.x}}%; top: {{item.y}}%; width: {{item.size}}px; height: {{item.size}}px; opacity: {{item.opacity}};"></view>
+    </block>
+  </view>
+  <!-- 数字显示面板 -->
+  <view class="number-display">
+    <text class="number-text">{{currentNumber}}</text>
+  </view>
+  <!-- 内容显示区域 -->
+  <view class="content-display">
+    <text class="content-text">{{currentContent}}</text>
+  </view>
+  <!-- 底部按钮区域 -->
+  <view class="bottom-controls">
+    <!-- 圆形按钮 -->
+    <view class="circle-button-container">
+      <view class="circle-button {{isPressing ? 'pressing' : ''}}" bindtouchstart="handleTouchStart" bindtouchend="handleTouchEnd" bindtouchcancel="handleTouchCancel">
+        <text class="button-text">长按浏览</text>
+      </view>
+    </view>
+    <!-- 重置按钮 -->
+    <view class="reset-button-container">
+      <button class="reset-button" bindtap="resetNumber">重置</button>
+    </view>
+  </view>
+  <!-- 底部提示 -->
+  <view class="footer-tip">
+    <text>长按圆形按钮循环浏览内容，松开停止并显示</text>
+  </view>
+</view>

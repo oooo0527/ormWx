@@ -33,6 +33,9 @@ Page({
     photoStyles: [],
     // 排行榜数据
     rankingList: [],
+    // 弹窗相关数据
+    showModal: false,
+    selectedItem: null,
     // 投稿表单数据
     submissionForm: {
       style: '',
@@ -207,6 +210,7 @@ Page({
       },
       success: res => {
         if (res.result && res.result.success) {
+          console.log('排行榜数据:', res.result.data); // 添加日志查看数据结构
           this.setData({
             rankingList: res.result.data
           });
@@ -497,5 +501,110 @@ Page({
         }
       }
     });
+  },
+
+  // 显示弹窗
+  showModal(e) {
+    const index = e.currentTarget.dataset.index;
+    const item = this.data.rankingList[index];
+
+    this.setData({
+      showModal: true,
+      selectedItem: item
+    });
+  },
+
+  // 隐藏弹窗
+  hideModal() {
+    this.setData({
+      showModal: false,
+      selectedItem: null
+    });
+  },
+
+  // 点赞功能（弹窗内）
+  likePhotoInModal(e) {
+    const photoId = this.data.selectedItem._id;
+
+    // 检查是否已经点赞过
+    if (this.data.likedPhotoIds.includes(photoId)) {
+      wx.showToast({
+        title: '您已经点赞过了',
+        icon: 'none'
+      });
+      return;
+    }
+
+    // 调用云函数处理点赞
+    wx.cloud.callFunction({
+      name: 'submitDreamPhoto',
+      data: {
+        action: 'likePhoto',
+        photoId: photoId
+      },
+      success: res => {
+        if (res.result && res.result.success) {
+          // 更新前端显示的点赞数
+          const rankingList = this.data.rankingList.map(item => {
+            if (item._id === photoId) {
+              return {
+                ...item,
+                likes: (item.likes || 0) + 1
+              };
+            }
+            return item;
+          });
+
+          // 更新selectedItem中的点赞数
+          const selectedItem = {
+            ...this.data.selectedItem,
+            likes: (this.data.selectedItem.likes || 0) + 1
+          };
+
+          // 将照片ID添加到已点赞列表中
+          const likedPhotoIds = [...this.data.likedPhotoIds, photoId];
+
+          this.setData({
+            rankingList: rankingList,
+            selectedItem: selectedItem,
+            likedPhotoIds: likedPhotoIds
+          });
+
+          // 将已点赞的照片ID保存到本地存储中
+          wx.setStorageSync('likedDreamPhotoIds', likedPhotoIds);
+
+          wx.showToast({
+            title: '点赞成功',
+            icon: 'success'
+          });
+        } else {
+          wx.showToast({
+            title: res.result ? res.result.message : '点赞失败',
+            icon: 'none'
+          });
+        }
+      },
+      fail: err => {
+        console.error('点赞失败:', err);
+        wx.showToast({
+          title: '点赞失败',
+          icon: 'none'
+        });
+      }
+    });
+  },
+
+  // 查看大图（弹窗内）
+  viewPhotoInModal() {
+    const imageUrl = this.data.selectedItem.imageUrl;
+    wx.previewImage({
+      urls: [imageUrl],
+      current: imageUrl
+    });
+  },
+
+  // 阻止事件冒泡
+  preventTap(e) {
+    console.log('阻止事件冒泡');
   }
 });
