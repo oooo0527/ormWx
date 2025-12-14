@@ -8,31 +8,13 @@ Page({
     submissionCooldown: false,
     submissionTime: '',
     userPhotos: [], // 用户投稿的照片列表
-    // 轮播图相关数据
-    carouselItems: [
-      {
-        id: 1,
-        image: 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/d554005a153ae86aa6b8de351230cbf6.jpg',
-        title: "热门推荐1",
-        description: "这是第一个推荐内容的详细描述信息，展示了相关内容的详细介绍和说明。"
-      },
-      {
-        id: 2,
-        image: 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/d554005a153ae86aa6b8de351230cbf6.jpg',
-        title: "热门推荐2",
-        description: "这是第二个推荐内容的详细描述信息，包含了更多相关内容的详细说明和介绍。"
-      },
-      {
-        id: 3,
-        image: 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/d554005a153ae86aa6b8de351230cbf6.jpg',
-        title: "热门推荐3",
-        description: "这是第三个推荐内容的详细描述信息，提供了最全面的相关内容说明和详细介绍。"
-      }
-    ],
+
     // 不同风格的照片数据
     photoStyles: [],
     // 排行榜数据
     rankingList: [],
+    // 前三名数据
+    topThreeList: [],
     // 弹窗相关数据
     showModal: false,
     selectedItem: null,
@@ -50,6 +32,10 @@ Page({
     groupedPhotos: {},
     // 已点赞的照片ID列表（用于防止重复点赞）
     likedPhotoIds: []
+  },
+  onPageScroll: function (e) {
+    // 空实现，但必须保留以便自定义导航栏组件可以绑定滚动事件
+    // 实际的滚动处理由custom-navbar组件完成
   },
 
   onLoad() {
@@ -211,8 +197,13 @@ Page({
       success: res => {
         if (res.result && res.result.success) {
           console.log('排行榜数据:', res.result.data); // 添加日志查看数据结构
+
+          // 提取前三名数据
+          const topThree = res.result.data.slice(0, 3);
+
           this.setData({
-            rankingList: res.result.data
+            rankingList: res.result.data,
+            topThreeList: topThree
           });
         } else {
           console.error('获取排行榜数据失败:', res.result ? res.result.message : '未知错误');
@@ -508,9 +499,15 @@ Page({
     const index = e.currentTarget.dataset.index;
     const item = this.data.rankingList[index];
 
+    // 更新选中项的排名信息
+    const updatedItem = {
+      ...item,
+      rank: index + 1
+    };
+
     this.setData({
       showModal: true,
-      selectedItem: item
+      selectedItem: updatedItem
     });
   },
 
