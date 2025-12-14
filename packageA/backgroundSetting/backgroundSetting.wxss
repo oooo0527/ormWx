@@ -2,23 +2,23 @@
   /* padding: 20rpx; */
   min-height: 100vh;
   box-sizing: border-box;
-  background: #f48eb5;
+  background: #E9E8EF;
 }
 
 .header {
-  background: #ffffff;
+  background: #E9E8EF;
   border-radius: 20rpx;
   /* padding: 30rpx; */
   margin-bottom: 30rpx;
-  box-shadow: 0 4rpx 20rpx rgba(12, 17, 23, 0.1);
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
-  border: 2rpx solid #f48eb5;
+  border: 2rpx solid #eeeeee;
 }
 
 .page-title {
   font-size: 36rpx;
   font-weight: bold;
-  color: #ffffff;
+  color: #333333;
   text-align: center;
 }
 
@@ -30,17 +30,17 @@
 }
 
 .setting-item {
-  background: #ffffff;
+  background: #E9E8EF;
   border-radius: 20rpx;
   padding: 30rpx;
-  box-shadow: 0 4rpx 20rpx rgba(12, 17, 23, 0.1);
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
-  border: 2rpx solid #f48eb5;
+  border: 2rpx solid #eeeeee;
 }
 
 .item-label {
   font-size: 32rpx;
-  color: #ffffff;
+  color: #333333;
   font-weight: bold;
   margin-bottom: 30rpx;
   display: block;
@@ -58,9 +58,9 @@
   width: 60rpx;
   height: 60rpx;
   border-radius: 50%;
-  box-shadow: 0 2rpx 8rpx rgba(12, 17, 23, 0.1);
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
-  border: 2rpx solid #f48eb5;
+  border: 2rpx solid #dddddd;
 }
 
 .color-item:active {
@@ -78,13 +78,14 @@
 .gradient-btn {
   padding: 25rpx;
   border-radius: 15rpx;
-  color: #ffffff;
+  color: #333333;
   font-weight: bold;
   text-align: center;
-  box-shadow: 0 2rpx 8rpx rgba(12, 17, 23, 0.1);
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
   font-size: 28rpx;
-  border: 2rpx solid #f48eb5;
+  border: 2rpx solid #dddddd;
+  background: #f5f5f5;
 }
 
 .gradient-btn:active {
@@ -107,21 +108,21 @@
   padding: 25rpx;
   border-radius: 15rpx;
   border: none;
-  background: #f8f9fa;
-  color: #ffffff;
+  background: #f5f5f5;
+  color: #333333;
   font-size: 28rpx;
   box-sizing: border-box;
-  border: 2rpx solid #f48eb5;
+  border: 2rpx solid #dddddd;
 }
 
 .upload-btn {
-  background: linear-gradient(135deg, #0c1117 0%, #f48eb5 100%);
-  color: #ffffff;
+  background: linear-gradient(135deg, #E9E8EF 0%, #f5f5f5 100%);
+  color: #333333;
 }
 
 .reset-btn {
-  background: linear-gradient(135deg, #f48eb5 0%, #ffffff 100%);
-  color: #ffffff;
+  background: linear-gradient(135deg, #f5f5f5 0%, #eeeeee 100%);
+  color: #333333;
 }
 
 .option-btn:active {

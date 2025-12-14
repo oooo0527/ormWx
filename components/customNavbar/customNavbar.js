@@ -17,11 +17,11 @@ Component({
     },
     scrolledBackgroundColor: {
       type: String,
-      value: '#f48eb5'
+      value: '#1E2020'
     },
     textColor: {
       type: String,
-      value: '#ffffff'
+      value: '#E9E8EF'
     },
     showBack: {
       type: Boolean,

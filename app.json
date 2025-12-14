@@ -12,34 +12,34 @@
   "window": {
     "backgroundTextStyle": "light",
     "navigationStyle": "custom",
-    "navigationBarBackgroundColor": "#f48eb5",
+    "navigationBarBackgroundColor": "#E9E8EF",
     "navigationBarTitleText": "明星互动平台",
     "navigationBarTextStyle": "white"
   },
   "cloud": true,
   "tabBar": {
-    "color": "#ffffff",
-    "selectedColor": "#0c1117",
-    "borderStyle": "white",
-    "backgroundColor": "#f48eb5",
+    "color": "#0c1117",
+    "selectedColor": "#f77030",
+    "borderStyle": "black",
+    "backgroundColor": "#E9E8EF",
     "position": "bottom",
     "list": [
       {
         "pagePath": "pages/Home/Home",
-        "iconPath": "images/icon_star.png",
-        "selectedIconPath": "images/icon_star_HL.png",
+        "iconPath": "images/icon/1.png",
+        "selectedIconPath": "images/icon/11.png",
         "text": "首页"
       },
       {
         "pagePath": "pages/interaction/interaction",
-        "iconPath": "images/icon_data.png",
-        "selectedIconPath": "images/icon_data_HL.png",
+        "iconPath": "images/icon/2.png",
+        "selectedIconPath": "images/icon/22.png",
         "text": "互动"
       },
       {
         "pagePath": "pages/profile/profile",
-        "iconPath": "images/icon_work.png",
-        "selectedIconPath": "images/icon_work_HL.png",
+        "iconPath": "images/icon/3.png",
+        "selectedIconPath": "images/icon/33.png",
         "text": "煎蛋卷"
       }
     ]

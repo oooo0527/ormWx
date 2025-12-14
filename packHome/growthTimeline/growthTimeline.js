@@ -1,6 +1,7 @@
 Page({
   data: {
     innerAudioContext: null,
+    showBg: true,
     voiceMap: [
       "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/vedio/等左左买饼干 - 你好.mp3",
       "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/vedio/等左左买饼干 - 你是我的女朋友.mp3",
@@ -210,9 +211,6 @@ Page({
 
     // 生成多个祝福项
     const blessingItems = [];
-    const colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#FFBE0B', '#FB5607', '#8338EC', '#3A86FF'];
-    const bgColors = ['rgba(106, 17, 203, 0.8)', 'rgba(37, 117, 252, 0.8)', 'rgba(255, 107, 107, 0.8)', 'rgba(255, 190, 11, 0.8)'];
-
     const windowHeight = wx.getSystemInfoSync().windowHeight;
     const windowWidth = wx.getSystemInfoSync().windowWidth;
 
@@ -221,19 +219,18 @@ Page({
       blessingItems.push({
         id: i,
         text: this.data.blessingText,
-        color: colors[Math.floor(Math.random() * colors.length)],
-        bgColor: bgColors[Math.floor(Math.random() * bgColors.length)],
-        top: Math.random() * (windowHeight + 10),
-        left: Math.random() * (windowWidth - 10),
+        top: Math.random() * (windowHeight),
+        left: Math.random() * (windowWidth),
         show: false, // 初始不显示
-        animationClass: Math.random() > 0.2 ? 'floating' : 'pulsing' // 随机添加动画类
+        animationClass: Math.random() > 0.3 ? 'floating' : 'pulsing' // 随机添加动画类
       });
     }
 
     this.setData({
       blessingItems: blessingItems,
       showBlessingModal: false,
-      blessingText: ''
+      blessingText: '',
+      showBg: false
     });
 
     // 逐个显示祝福弹窗
@@ -251,7 +248,6 @@ Page({
     if (index >= this.data.blessingItems.length) {
       return;
     }
-
     // 更新当前项为显示状态
     const blessingItems = this.data.blessingItems;
     blessingItems[index].show = true;
@@ -262,6 +258,6 @@ Page({
     // 递归调用，延迟显示下一个
     setTimeout(function () {
       that.showBlessingItemsOneByOne(index + 1);
-    }, 150); // 每150毫秒显示一个
+    }, 100); // 每150毫秒显示一个
   }
 })

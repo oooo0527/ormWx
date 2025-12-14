@@ -1,26 +1,25 @@
 // pages/backgroundSetting/backgroundSetting.js
 Page({
   data: {
-    // 背景设置相关数据
+    // 背景设置相关数据（已更新为白色背景方案）
     backgroundSettings: {
-      type: 'gradient',
-      value: 'linear-gradient(135deg, #0c1117 0%, #f48eb5 100%)',
+      type: 'color',
+      value: '#E9E8EF',
       customImage: ''
     },
     colorOptions: [
-      '#0c1117', '#f48eb5', '#ffffff'
+      '#E9E8EF', '#f5f5f5', '#1E2020'
     ],
     gradientOptions: [
-      'linear-gradient(180deg, #0c1117 0%, #f48eb5 100%)',
-      'linear-gradient(180deg, #f48eb5 0%, #0c1117 100%,)',
-      'linear-gradient(135deg, #0c1117 0%, #ffffff 100%)',
-      'linear-gradient(135deg, #f48eb5 0%, #ffffff 100%)',
-      'linear-gradient(45deg, #0c1117 0%, #f48eb5 50%, #ffffff 100%)'
+      'linear-gradient(180deg, #E9E8EF 0%, #1E2020 100%)',
+      'linear-gradient(180deg, #1E2020 0%, #E9E8EF 100%)',
+      'linear-gradient(135deg, #E9E8EF 0%, #1E2020 100%)',
+      'linear-gradient(135deg, #f5f5f5 0%, #1E2020 100%)',
     ]
   },
 
   onLoad: function (options) {
-    // 从全局数据获取背景设置
+    // 从全局数据获取背景设置（使用白色背景方案）
     const app = getApp();
     this.setData({
       backgroundSettings: app.globalData.backgroundSettings
@@ -73,8 +72,8 @@ Page({
   // 重置为默认背景
   resetBackground: function () {
     const settings = {
-      type: 'gradient',
-      value: 'linear-gradient(135deg, #0c1117 0%, #f48eb5 100%)',
+      type: 'color',
+      value: '#E9E8EF',
       customImage: ''
     };
 

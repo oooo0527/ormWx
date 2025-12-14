@@ -1,9 +1,7 @@
 .container {
-  /* background: linear-gradient(135deg, #0c1117 0%, #f48eb5 100%); */
-  /* min-height: 100vh; */
+  background: #E9E8EF;
   box-sizing: border-box;
   position: relative;
-  /* background: #f48eb5; */
   min-height: 100vh;
 }
 
@@ -15,13 +13,12 @@
   height: 128rpx;
   line-height: 128rpx;
   font-size: 32rpx;
-  color: #010101;
+  color: #333333;
 }
 
 .shawBg {
   width: 100vw;
   height: 100vh;
-
   position: absolute;
   z-index: 2;
   display: flex;
@@ -34,27 +31,25 @@
   width: 500rpx;
   height: 700rpx;
   z-index: 5;
-  box-shadow: 0 0 40rpx #ffffff;
+  box-shadow: 0 0 40rpx #dddddd;
 }
 
 .shawBg-text {
   margin-top: 20rpx;
   width: 100rpx;
   height: 100rpx;
-  background: #65646472;
-  color: #ffffff;
+  background: rgba(101, 100, 100, 0.5);
+  color: #333333;
   z-index: 5;
   text-align: center;
   line-height: 100rpx;
   border-radius: 100rpx;
-
 }
 
 .shawBg-bg {
   width: 100vw;
   height: 100vh;
-
-  background: #656464;
+  background: #f5f5f5;
   opacity: 0.6;
   position: absolute;
   z-index: 3;
@@ -63,8 +58,6 @@
 .title-container {
   width: 80rpx;
   height: 80rpx;
-
-
 }
 
 .title-image {
@@ -75,14 +68,15 @@
 .search-result {
   position: absolute;
   z-index: 99;
-  background: #ffffff;
+  background: #E9E8EF;
   width: 80%;
-  color: black;
+  color: #333333;
   left: 0;
   transform: translateX(10%);
   padding: 10rpx;
   border-radius: 20rpx;
   box-shadow: 0 0 10rpx rgba(0, 0, 0, 0.1);
+  border: 1rpx solid #eeeeee;
 }
 
 .search-item {
@@ -90,7 +84,7 @@
   align-items: center;
   justify-content: space-between;
   font-size: 28rpx;
-  color: #010101;
+  color: #333333;
   line-height: 1.5;
   height: 80rpx;
 }
@@ -99,24 +93,24 @@
   height: 120rpx;
   line-height: 120rpx;
   text-align: center;
-  color: rgb(215, 213, 213);
+  color: #999999;
 }
 
 .load-all {
   height: 120rpx;
   line-height: 120rpx;
   text-align: center;
-  color: rgb(198, 194, 194);
+  color: #cccccc;
 }
 
 .custom-search-bar {
   display: flex;
   align-items: center;
   padding: 18rpx 30rpx;
-  background-color: rgba(207, 202, 202, 0.363);
+  background-color: rgba(240, 240, 240, 0.9);
   border-radius: 32rpx;
   width: 100%;
-  color: #ffffff;
+  color: #333333;
   margin: 30rpx 0;
   /* 圆角 */
 }
@@ -130,6 +124,7 @@
 .search-input {
   flex: 1;
   font-size: 28rpx;
+  color: #333333;
 }
 
 .clear-btn {
@@ -143,7 +138,7 @@
   font-weight: bold;
   text-align: center;
   margin-bottom: 30rpx;
-  color: #ffffff;
+  color: #333333;
   margin-top: 30rpx;
 }
 
@@ -151,12 +146,10 @@
   /* padding: 20rpx; */
   /* margin: 20rpx; */
   height: 620rpx;
-
 }
 
 /* 3D堆叠式轮播图 */
 .carousel-container {
-
   position: relative;
   height: 620rpx;
   /* margin-bottom: 100rpx; */
@@ -166,8 +159,6 @@
   width: 100%;
   margin-top: 20rpx;
 }
-
-
 
 .carousel-3d {
   position: relative;
@@ -192,7 +183,7 @@
   margin-left: -200rpx;
   border-radius: 8rpx;
   overflow: hidden;
-  box-shadow: 0 15rpx 35rpx rgba(12, 17, 23, 0.25);
+  box-shadow: 0 15rpx 35rpx rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease-in-out;
   /* 缩短动画时间并使用ease-out缓动 */
   box-sizing: border-box;
@@ -205,7 +196,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  background: #ffffff;
+  background: #E9E8EF;
 }
 
 .card-content1 {
@@ -221,30 +212,29 @@
 }
 
 .carousel-card:nth-of-type(3n+1) {
-  background: #626bec;
+  background: #060606;
   /* 第一个颜色 */
 }
 
 .carousel-card:nth-of-type(3n+2) {
-  background: #f2a058;
+  background: #4116f0;
   /* 第二个颜色 */
 }
 
 .carousel-card:nth-of-type(3n+3) {
-  background: #030303;
+  background: #07ed0f;
   /* 第三个颜色 */
 }
 
-
 .carousel-card {
   padding: 10rpx;
-  box-shadow: 0 0 15rpx #ffffff;
+  box-shadow: 0 0 15rpx #dddddd;
 }
 
 .card-title {
   font-size: 32rpx;
   font-weight: bold;
-  color: #ffffff;
+  color: #333333;
   height: 100%;
   writing-mode: vertical-rl;
   width: 100rpx;
@@ -252,9 +242,8 @@
 
 .card-more {
   height: 20%;
-  background: #ffffff;
+  background: #f5f5f5;
   position: relative;
-
 }
 
 .card-image {
@@ -264,12 +253,11 @@
   width: 30%;
   height: 100%;
   object-fit: cover;
-
 }
 
 .card-description {
   font-size: 24rpx;
-  color: #ffffff;
+  color: #E9E8EF;
   height: 100%;
   writing-mode: vertical-rl;
   flex: 1;
@@ -277,28 +265,24 @@
   text-overflow: ellipsis;
   /* overflow-x: hidden; */
   /* white-space: nowrap; */
-
 }
 
 .card-creator {
   font-size: 24rpx;
-  color: #010101;
+  color: #edebeb;
   width: 100%;
   text-align: center;
   height: 50%;
   line-height: 100%;
-
 }
 
 .card-date {
   font-size: 24rpx;
-  color: #121111;
+  color: #333333;
   width: 100%;
   text-align: center;
   height: 50%;
-
   line-height: 100%;
-
 }
 
 .card-overlay {
@@ -307,7 +291,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to top, rgba(12, 17, 23, 0.7) 0%, transparent 50%);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.1) 0%, transparent 50%);
 }
 
 .card-content {
@@ -317,7 +301,7 @@
   width: 100%;
   padding: 30rpx;
   box-sizing: border-box;
-  color: #ffffff;
+  color: #333333;
   z-index: 2;
 }
 
@@ -326,7 +310,7 @@
   font-weight: bold;
   display: block;
   margin-bottom: 10rpx;
-  color: #ffffff;
+  color: #333333;
 }
 
 .card-role {
@@ -334,14 +318,14 @@
   display: block;
   margin-bottom: 5rpx;
   opacity: 0.9;
-  color: #ffffff;
+  color: #333333;
 }
 
 .card-year {
   font-size: 22rpx;
   display: block;
   opacity: 0.8;
-  color: #ffffff;
+  color: #333333;
 }
 
 /* 导航按钮 */
@@ -361,22 +345,22 @@
   width: 60rpx;
   height: 60rpx;
   border-radius: 50%;
-  background: rgba(12, 17, 23, 0.8);
+  background: rgba(240, 240, 240, 0.9);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 36rpx;
   font-weight: bold;
-  color: #ffffff;
-  box-shadow: 0 5rpx 15rpx rgba(12, 17, 23, 0.2);
+  color: #333333;
+  box-shadow: 0 5rpx 15rpx rgba(0, 0, 0, 0.1);
   pointer-events: auto;
   transition: all 0.3s ease;
-  border: 2rpx solid #f48eb5;
+  border: 2rpx solid #cccccc;
 }
 
 .nav-btn:active {
   transform: scale(0.9);
-  background: rgba(12, 17, 23, 1);
+  background: rgba(220, 220, 220, 0.9);
 }
 
 .prev-btn {
@@ -401,13 +385,13 @@
   width: 12rpx;
   height: 12rpx;
   border-radius: 50%;
-  background: #f48eb5;
+  background: #cccccc;
   margin: 0 8rpx;
   transition: all 0.3s ease;
 }
 
 .indicator.active {
-  background: #0c1117;
+  background: #333333;
   transform: scale(1.2);
 }
 
@@ -423,7 +407,6 @@
   align-items: center;
   width: 400rpx;
   flex-direction: column;
-
 }
 
 .swiper-content {
@@ -431,7 +414,7 @@
   height: 100%;
   border-radius: 20rpx;
   overflow: hidden;
-  box-shadow: 0 10rpx 30rpx rgba(12, 17, 23, 0.3);
+  box-shadow: 0 10rpx 30rpx rgba(0, 0, 0, 0.1);
   width: 400rpx;
   height: 620rpx;
 }
@@ -500,17 +483,17 @@
 .detail-title {
   font-size: 32rpx;
   font-weight: bold;
-  color: #ffffff;
+  color: #333333;
 }
 
 .like-button {
   display: flex;
   align-items: center;
-  background: #f48eb5;
+  background: #f0f0f0;
   padding: 10rpx 20rpx;
   border-radius: 30rpx;
   transition: all 0.3s ease;
-  border: 2rpx solid #f48eb5;
+  border: 2rpx solid #cccccc;
 }
 
 .like-button:active {
@@ -519,18 +502,18 @@
 
 .like-icon {
   font-size: 28rpx;
-  color: #ffffff;
+  color: #333333;
   margin-right: 10rpx;
 }
 
 .like-count {
   font-size: 24rpx;
-  color: #ffffff;
+  color: #333333;
 }
 
 .detail-description {
   font-size: 26rpx;
-  color: #ffffff;
+  color: #333333;
   line-height: 1.6;
 }
 
@@ -546,9 +529,9 @@
 }
 
 .back-text {
-  color: #ffffff;
+  color: #333333;
   font-size: 28rpx;
-  background: #0c1117;
+  background: #f5f5f5;
   /* padding: 15rpx 40rpx; */
   border-radius: 50rpx;
   /* border: 2rpx solid #f48eb5; */
@@ -556,13 +539,13 @@
 
 .image-Box {
   margin-top: 100rpx;
-  color: #ffffff;
+  color: #333333;
 }
 
 .image-title {
   font-size: 32rpx;
   font-weight: bold;
-  color: #ffffff;
+  color: #333333;
   margin: 40rpx 10rpx;
   /* height: 120rpx; */
 }
@@ -580,7 +563,7 @@
   overflow: hidden;
   border-radius: 8rpx;
   margin: 0 8rpx;
-  border: 2rpx solid #f48eb5;
+  border: 2rpx solid #cccccc;
 }
 
 .image-thumb {
@@ -605,11 +588,11 @@
   width: 100rpx;
   height: 100rpx;
   border-radius: 50%;
-  background: #f48eb5;
+  background: #f0f0f0;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.1);
   z-index: 999;
   transition: all 0.3s ease;
 }
@@ -620,7 +603,7 @@
 
 .float-button-text {
   font-size: 60rpx;
-  color: white;
+  color: #333333;
   font-weight: bold;
 }
 
@@ -631,7 +614,6 @@
   /* height: 100vh; */
   margin-top: 100rpx;
   width: 100%;
-
 }
 
 .date-picker {
@@ -643,8 +625,6 @@
   justify-content: space-between;
   /* background: #f48eb5; */
   padding: 0 40rpx;
-
-
   /* background: red; */
 }
 
@@ -661,10 +641,10 @@
   left: 0;
   width: 100%;
   z-index: 3;
-  /* background: #ffffff; */
-  background: #f48eb5;
+  /* background: #E9E8EF; */
+  background: #1E2020;
   box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
-  color: #ffffff;
+  color: #333333;
   /* 确保在最上层 */
   /* background-color: #fff; */
   /* 避免透明看到下方内容 */
@@ -675,7 +655,7 @@
 .section-title {
   font-size: 32rpx;
   font-weight: bold;
-  color: #ffffff;
+  color: #333333;
   margin-bottom: 20rpx;
   text-align: center;
 }
@@ -687,15 +667,16 @@
   /* 添加过渡效果 */
   border-radius: 16rpx;
   padding: 20rpx;
+  color: #E9E8EF;
 }
 
 .hot-interactions-list.backBg {
-  background: #f9c3d8;
+  background: #e1e0e0;
 }
 
 .hot-interaction-item {
   padding: 20rpx 0;
-  border-bottom: 2rpx solid #939292;
+  border-bottom: 2rpx solid #eeeeee;
 }
 
 .hot-interaction-item:last-child {
@@ -711,7 +692,6 @@
   padding: 10rpx;
   /* box-shadow: 0 2rpx 10rpx rgba(230, 227, 227, 0.1); */
   /* background: rgba(245, 135, 102, 0.1); */
-
 }
 
 .creator {
@@ -732,14 +712,12 @@
 .user-image {
   width: 50rpx;
   height: 50rpx;
-
   object-fit: cover;
   border-radius: 10rpx;
   /* margin-right: 20rpx */
 }
 
 .img-box {
-
   width: 50rpx;
   height: 50rpx;
 }
@@ -770,14 +748,14 @@
 
 .hott-title {
   font-size: 32rpx;
-  color: #191818;
+  color: #333333;
   margin-bottom: 10rpx;
   font-weight: bold;
 }
 
 .hott-des {
   font-size: 24rpx;
-  color: #191818;
+  color: #333333;
   margin-bottom: 10rpx;
   line-height: 1.4;
   overflow: hidden;

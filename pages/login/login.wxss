@@ -59,6 +59,6 @@ input {
   position: absolute;
   bottom: 60rpx;
   background: #36c341;
-  color: #ffffff;
+  color: #E9E8EF;
   border-radius: 24rpx
 }

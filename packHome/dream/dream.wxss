@@ -7,8 +7,8 @@
 .page-title {
   font-size: 48rpx;
   font-weight: bold;
-  color: #ffffff;
-  text-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.3);
+  color: #333333;
+  text-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.1);
 }
 
 /* 装饰性元素 */
@@ -91,13 +91,13 @@
   justify-content: center;
   width: 120rpx;
   height: 120rpx;
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  background: linear-gradient(135deg, #f5f5f5 0%, #eeeeee 100%);
   border-radius: 10rpx;
-  color: white;
+  color: #333333;
   font-size: 24rpx;
   font-weight: bold;
   box-shadow: 0 2rpx 6rpx rgba(0, 0, 0, 0.1);
-  /* border: 2rpx solid #ffd700; */
+  /* border: 2rpx solid #333333; */
   /* 添加胶带粘贴效果 */
   transform: rotate(5deg);
 }
@@ -107,12 +107,12 @@
   display: flex;
   justify-content: center;
   margin: 0 30rpx 30rpx;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(245, 245, 245, 0.2);
   border-radius: 50rpx;
   overflow: hidden;
   width: 95%;
   /* 添加校园风格的边框 */
-  /* border: 2rpx solid #ffd700; */
+  /* border: 2rpx solid #333333; */
   box-shadow: 0 2rpx 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -121,10 +121,10 @@
   text-align: center;
   padding: 20rpx 0;
   font-size: 28rpx;
-  color: #ffffff;
+  color: #333333;
   transition: all 0.3s ease;
   /* 添加手绘风格 */
-  text-shadow: 1rpx 1rpx 2rpx rgba(0, 0, 0, 0.3);
+  text-shadow: 1rpx 1rpx 2rpx rgba(0, 0, 0, 0.1);
 }
 
 /* 内容区域 */
@@ -132,7 +132,7 @@
   margin: 0 30rpx 30rpx;
   border-radius: 20rpx;
   overflow: hidden;
-  background: #ffffff;
+  background: #E9E8EF;
   box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.1);
   width: 95%;
 
@@ -150,9 +150,9 @@
   display: flex;
   justify-content: space-between;
   padding: 20rpx 0;
-  border-bottom: 2rpx solid #f48eb5;
+  border-bottom: 2rpx solid #eeeeee;
   font-weight: bold;
-  color: #333;
+  color: #666666;
 }
 
 .header-rank {
@@ -183,7 +183,7 @@
 }
 
 .first-place {
-  background: linear-gradient(90deg, rgba(255, 215, 0, 0.2) 0%, rgba(255, 215, 0, 0.05) 100%);
+  background: linear-gradient(90deg, rgba(245, 245, 245, 0.2) 0%, rgba(245, 245, 245, 0.05) 100%);
   transform: scale(1.02);
   box-shadow: 0 4rpx 10rpx rgba(0, 0, 0, 0.1);
   border-radius: 10rpx;
@@ -192,7 +192,7 @@
 }
 
 .second-place {
-  background: linear-gradient(90deg, rgba(192, 192, 192, 0.15) 0%, rgba(192, 192, 192, 0.05) 100%);
+  background: linear-gradient(90deg, rgba(245, 245, 245, 0.15) 0%, rgba(245, 245, 245, 0.05) 100%);
   transform: scale(1.01);
   border-radius: 8rpx;
   margin: 8rpx 0;
@@ -200,7 +200,7 @@
 }
 
 .third-place {
-  background: linear-gradient(90deg, rgba(205, 127, 50, 0.1) 0%, rgba(205, 127, 50, 0.05) 100%);
+  background: linear-gradient(90deg, rgba(245, 245, 245, 0.1) 0%, rgba(245, 245, 245, 0.05) 100%);
   border-radius: 6rpx;
   margin: 5rpx 0;
   padding: 21rpx 0;
@@ -214,21 +214,21 @@
 }
 
 .gold {
-  color: #FFD700;
+  color: #333333;
   font-size: 40rpx;
-  text-shadow: 0 0 10rpx rgba(255, 215, 0, 0.5);
+  text-shadow: 0 0 10rpx rgba(245, 245, 245, 0.5);
 }
 
 .silver {
-  color: #C0C0C0;
+  color: #666666;
   font-size: 38rpx;
-  text-shadow: 0 0 8rpx rgba(192, 192, 192, 0.4);
+  text-shadow: 0 0 8rpx rgba(245, 245, 245, 0.4);
 }
 
 .bronze {
-  color: #CD7F32;
+  color: #999999;
   font-size: 36rpx;
-  text-shadow: 0 0 6rpx rgba(205, 127, 50, 0.3);
+  text-shadow: 0 0 6rpx rgba(245, 245, 245, 0.3);
 }
 
 .user-info {
@@ -243,52 +243,52 @@
   height: 60rpx;
   border-radius: 50%;
   margin-right: 20rpx;
-  border: 2rpx solid #f48eb5;
+  border: 2rpx solid #dddddd;
 }
 
 .first-place .user-avatar {
   width: 70rpx;
   height: 70rpx;
-  border: 3rpx solid #FFD700;
-  box-shadow: 0 0 10rpx rgba(255, 215, 0, 0.5);
+  border: 3rpx solid #333333;
+  box-shadow: 0 0 10rpx rgba(245, 245, 245, 0.5);
 }
 
 .second-place .user-avatar {
   width: 65rpx;
   height: 65rpx;
-  border: 2.5rpx solid #C0C0C0;
-  box-shadow: 0 0 8rpx rgba(192, 192, 192, 0.4);
+  border: 2.5rpx solid #666666;
+  box-shadow: 0 0 8rpx rgba(245, 245, 245, 0.4);
 }
 
 .third-place .user-avatar {
   width: 62rpx;
   height: 62rpx;
-  border: 2.5rpx solid #CD7F32;
-  box-shadow: 0 0 6rpx rgba(205, 127, 50, 0.3);
+  border: 2.5rpx solid #999999;
+  box-shadow: 0 0 6rpx rgba(245, 245, 245, 0.3);
 }
 
 .user-name {
   font-size: 28rpx;
-  color: #333;
+  color: #666666;
 }
 
 .first-place .user-name {
   font-size: 32rpx;
   font-weight: bold;
-  color: #FFD700;
-  text-shadow: 0 0 5rpx rgba(255, 215, 0, 0.3);
+  color: #333333;
+  text-shadow: 0 0 5rpx rgba(245, 245, 245, 0.3);
 }
 
 .second-place .user-name {
   font-size: 30rpx;
   font-weight: bold;
-  color: #C0C0C0;
+  color: #666666;
 }
 
 .third-place .user-name {
   font-size: 29rpx;
   font-weight: bold;
-  color: #CD7F32;
+  color: #999999;
 }
 
 .score,
@@ -302,19 +302,19 @@
 .first-place .score {
   font-size: 32rpx;
   font-weight: bold;
-  color: #FFD700;
+  color: #333333;
 }
 
 .second-place .score {
   font-size: 30rpx;
   font-weight: bold;
-  color: #C0C0C0;
+  color: #666666;
 }
 
 .third-place .score {
   font-size: 29rpx;
   font-weight: bold;
-  color: #CD7F32;
+  color: #999999;
 }
 
 .photos-count {
@@ -326,22 +326,22 @@
 .first-place .photos-count {
   width: 90rpx;
   height: 90rpx;
-  border: 2rpx solid #FFD700;
-  box-shadow: 0 0 8rpx rgba(255, 215, 0, 0.3);
+  border: 2rpx solid #333333;
+  box-shadow: 0 0 8rpx rgba(245, 245, 245, 0.3);
 }
 
 .second-place .photos-count {
   width: 85rpx;
   height: 85rpx;
-  border: 2rpx solid #C0C0C0;
-  box-shadow: 0 0 6rpx rgba(192, 192, 192, 0.2);
+  border: 2rpx solid #666666;
+  box-shadow: 0 0 6rpx rgba(245, 245, 245, 0.2);
 }
 
 .third-place .photos-count {
   width: 82rpx;
   height: 82rpx;
-  border: 2rpx solid #CD7F32;
-  box-shadow: 0 0 5rpx rgba(205, 127, 50, 0.2);
+  border: 2rpx solid #999999;
+  box-shadow: 0 0 5rpx rgba(245, 245, 245, 0.2);
 }
 
 /* 风格分组容器 */
@@ -367,18 +367,18 @@
 }
 
 .style-group:nth-of-type(3n+1) {
-  background: #626bec;
+  background: #f5f5f5;
   /* 第一个颜色 */
 }
 
 .style-group:nth-of-type(3n+2) {
 
-  background: #f48eb5;
+  background: #eeeeee;
   /* 第二个颜色 */
 }
 
 .style-group:nth-of-type(3n+3) {
-  background: #4facfe;
+  background: #E9E8EF;
   /* 第三个颜色 */
 }
 
@@ -397,9 +397,10 @@
 .style-title {
   font-size: 36rpx;
   font-weight: bold;
-  text-shadow: 1rpx 1rpx 2rpx rgba(0, 0, 0, 0.3);
+  text-shadow: 1rpx 1rpx 2rpx rgba(0, 0, 0, 0.1);
   /* 文字阴影 */
   font-family: 'Microsoft YaHei', sans-serif;
+  color: #333333;
 }
 
 .photo-count {
@@ -454,7 +455,7 @@
 .photo-name {
   font-size: 28rpx;
   font-weight: bold;
-  color: #333;
+  color: #666666;
 }
 
 .like-section {
@@ -467,7 +468,7 @@
 
 .like-count {
   font-size: 24rpx;
-  color: #666;
+  color: #999999;
   margin-right: 10rpx;
 }
 
@@ -476,11 +477,11 @@
 }
 
 .like-section.liked {
-  background: #ffebee;
+  background: #f5f5f5;
 }
 
 .like-section.liked .heart {
-  color: #f44336;
+  color: #333333;
 }
 
 /* 投稿表单 */
@@ -496,7 +497,7 @@
   display: block;
   font-size: 32rpx;
   font-weight: bold;
-  color: #333;
+  color: #333333;
   margin-bottom: 20rpx;
 }
 
@@ -509,31 +510,31 @@
 
 .style-option {
   padding: 15rpx 30rpx;
-  background: #f0f0f0;
+  background: #f5f5f5;
   border-radius: 30rpx;
   font-size: 28rpx;
-  color: #666;
+  color: #666666;
 }
 
 .style-option.selected {
-  background: #f48eb5;
-  color: white;
+  background: #eeeeee;
+  color: #333333;
 }
 
 /* 上传区域 */
 .upload-section {
   height: 600rpx;
-  border: 2rpx dashed #ccc;
+  border: 2rpx dashed #dddddd;
   border-radius: 15rpx;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #fafafa;
+  background: #E9E8EF;
 }
 
 .upload-placeholder {
   text-align: center;
-  color: #999;
+  color: #999999;
 }
 
 .upload-placeholder text {
@@ -552,16 +553,18 @@
   width: 100%;
   height: 150rpx;
   padding: 20rpx;
-  border: 2rpx solid #ccc;
+  border: 2rpx solid #dddddd;
   border-radius: 15rpx;
   font-size: 28rpx;
   box-sizing: border-box;
+  background: #E9E8EF;
+  color: #333333;
 }
 
 /* 冷却提示 */
 .cooldown-info {
   text-align: center;
-  color: #ff4d4f;
+  color: #333333;
   margin-bottom: 20rpx;
   font-size: 28rpx;
 }
@@ -569,8 +572,8 @@
 /* 提交按钮 */
 .submit-btn {
   width: 100%;
-  background: #f48eb5;
-  color: white;
+  background: #f5f5f5;
+  color: #333333;
   border: none;
   border-radius: 10rpx;
   padding: 20rpx;
@@ -578,7 +581,7 @@
 }
 
 .submit-btn[disabled] {
-  background: #cccccc;
+  background: #eeeeee;
 }
 
 /* 我的投稿页面样式 */
@@ -589,11 +592,11 @@
 .empty-state {
   text-align: center;
   padding: 60rpx 20rpx;
-  color: #999;
+  color: #999999;
   font-size: 28rpx;
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(245, 245, 245, 0.5);
   border-radius: 15rpx;
-  border: 2rpx dashed #ccc;
+  border: 2rpx dashed #dddddd;
 }
 
 .photo-card {
@@ -622,7 +625,7 @@
 
 .photo-style {
   font-size: 26rpx;
-  color: #666;
+  color: #999999;
 }
 
 .photo-status {
@@ -632,30 +635,30 @@
 }
 
 .status-approved {
-  background: #e8f5e9;
-  color: #4caf50;
+  background: #f5f5f5;
+  color: #333333;
 }
 
 .status-pending {
-  background: #fff3e0;
-  color: #ff9800;
+  background: #eeeeee;
+  color: #333333;
 }
 
 .status-rejected {
-  background: #ffebee;
-  color: #f44336;
+  background: #E9E8EF;
+  color: #333333;
 }
 
 .photo-desc {
   font-size: 28rpx;
-  color: #333;
+  color: #666666;
   margin-bottom: 15rpx;
   line-height: 1.4;
 }
 
 .photo-time {
   font-size: 24rpx;
-  color: #999;
+  color: #999999;
   margin-bottom: 20rpx;
 }
 
@@ -674,13 +677,13 @@
 }
 
 .view-btn {
-  background: #e3f2fd;
-  color: #1976d2;
+  background: #f5f5f5;
+  color: #333333;
 }
 
 .delete-btn {
-  background: #ffebee;
-  color: #d32f2f;
+  background: #E9E8EF;
+  color: #333333;
 }
 
 /* 底部装饰 */
@@ -700,13 +703,13 @@
   transform: translateX(-50%);
   width: 50rpx;
   height: 20rpx;
-  background: #ffd700;
+  background: #f5f5f5;
   border-radius: 10rpx;
 }
 
 .school-motto {
   font-size: 24rpx;
-  color: #666;
+  color: #999999;
   font-style: italic;
   font-family: 'KaiTi', serif;
 }
@@ -736,14 +739,14 @@
 .modal-content {
   width: 85%;
   max-width: 600rpx;
-  background: linear-gradient(135deg, #ffffff 0%, #fafafa 100%);
+  background: linear-gradient(135deg, #E9E8EF 0%, #f5f5f5 100%);
   border-radius: 20rpx;
   padding: 30rpx;
-  box-shadow: 0 10rpx 30rpx rgba(0, 0, 0, 0.3);
+  box-shadow: 0 10rpx 30rpx rgba(0, 0, 0, 0.1);
   transform: translateY(50rpx);
   transition: transform 0.3s ease;
   backdrop-filter: blur(10rpx);
-  border: 1rpx solid rgba(255, 255, 255, 0.3);
+  border: 1rpx solid rgba(221, 221, 221, 0.3);
 }
 
 .ranking-modal.show .modal-content {
@@ -762,7 +765,7 @@
 .modal-title {
   font-size: 36rpx;
   font-weight: bold;
-  color: #333;
+  color: #333333;
 }
 
 .close-btn {
@@ -815,12 +818,12 @@
 .modal-user-name {
   font-size: 32rpx;
   font-weight: bold;
-  color: #333;
+  color: #333333;
 }
 
 .modal-rank {
   font-size: 28rpx;
-  color: #666;
+  color: #999999;
 }
 
 .photo-section {
@@ -854,13 +857,13 @@
 
 .stat-label {
   font-size: 26rpx;
-  color: #666;
+  color: #999999;
 }
 
 .stat-value {
   font-size: 32rpx;
   font-weight: bold;
-  color: #f48eb5;
+  color: #333333;
 }
 
 .action-section {
@@ -879,13 +882,13 @@
   height: 100rpx;
   /* gap: 10rpx; */
   /* padding: 20rpx 40rpx; */
-  background: linear-gradient(135deg, #f48eb5 0%, #ff6b9c 100%);
+  background: linear-gradient(135deg, #f5f5f5 0%, #eeeeee 100%);
   border: none;
   /* border-radius: 50rpx; */
-  color: white;
+  color: #333333;
   font-size: 32rpx;
   font-weight: bold;
-  box-shadow: 0 4rpx 15rpx rgba(244, 142, 181, 0.3);
+  box-shadow: 0 4rpx 15rpx rgba(221, 221, 221, 0.3);
   transition: all 0.3s ease;
 }
 
@@ -895,7 +898,7 @@
 }
 
 .like-btn.liked {
-  background: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
+  background: linear-gradient(135deg, #eeeeee 0%, #f5f5f5 100%);
 }
 
 .like-icon {
@@ -911,13 +914,13 @@
 .description-label {
   font-size: 28rpx;
   font-weight: bold;
-  color: #333;
+  color: #333333;
   margin-bottom: 10rpx;
   display: block;
 }
 
 .description-text {
   font-size: 26rpx;
-  color: #666;
+  color: #666666;
   line-height: 1.5;
 }

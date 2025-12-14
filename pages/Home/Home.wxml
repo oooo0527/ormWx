@@ -50,7 +50,7 @@
     </view>
   </view>
   <!-- 行程日历表 -->
-  <view class="calendar-section">
+  <view class="calendar-section" wx:if="{{false}}">
     <view class="calendar-content">
       <!-- 星空背景 -->
       <view class="star-background">

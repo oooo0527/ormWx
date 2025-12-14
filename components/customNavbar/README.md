@@ -20,7 +20,7 @@
 <custom-navbar 
   title="页面标题" 
   backgroundColor="#f48eb5" 
-  textColor="#ffffff"
+  textColor="#E9E8EF"
   showBack="{{true}}"
   showHome="{{false}}">
 </custom-navbar>
@@ -40,7 +40,7 @@
 |-------|------|--------|------|
 | title | String | 明星互动平台 | 导航栏标题 |
 | backgroundColor | String | #f48eb5 | 导航栏背景色 |
-| textColor | String | #ffffff | 标题文字颜色 |
+| textColor | String | #E9E8EF | 标题文字颜色 |
 | showBack | Boolean | true | 是否显示返回按钮 |
 | showHome | Boolean | true | 是否显示首页按钮 |
 

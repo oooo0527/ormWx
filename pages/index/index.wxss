@@ -89,7 +89,7 @@
 .display-image-container-text1 {
   width: 120rpx;
   height: 120rpx;
-  background-color: #ffffff;
+  background-color: #E9E8EF;
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -100,7 +100,7 @@
   box-shadow: 0 4px 10px #f48eb5;
   position: relative;
   /* 创建气泡效果 */
-  border: 3px solid #ffffff;
+  border: 3px solid #E9E8EF;
   text-align: center;
   line-height: 1.2;
   padding: 10rpx;

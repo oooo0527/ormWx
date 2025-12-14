@@ -2,7 +2,7 @@
 .container {
   display: flex;
   flex-direction: column;
-  background: linear-gradient(180deg, #0c1117 0%, #f48eb5 100%);
+  background: #E9E8EF;
   box-sizing: border-box;
   position: relative;
   padding: 0 20rpx;
@@ -10,12 +10,12 @@
 
 .header {
   padding: 30rpx;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(245, 245, 245, 0.9);
   border-radius: 20rpx;
-  box-shadow: 0 4rpx 20rpx rgba(12, 17, 23, 0.2);
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.1);
   margin-bottom: 20rpx;
   backdrop-filter: blur(10rpx);
-  border: 2rpx solid rgba(244, 142, 181, 0.3);
+  border: 2rpx solid rgba(0, 0, 0, 0.1);
   width: 100%;
   position: fixed;
   top: calc(130rpx);
@@ -25,9 +25,9 @@
 .header-title {
   font-size: 36rpx;
   font-weight: bold;
-  color: #ffffff;
+  color: #333333;
   text-align: center;
-  text-shadow: 0 2rpx 4rpx rgba(12, 17, 23, 0.3);
+  text-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.1);
 }
 
 .hot-list {
@@ -48,18 +48,18 @@
   align-items: center;
   justify-content: center;
   padding: 100rpx 0;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(245, 245, 245, 0.9);
   border-radius: 20rpx;
   backdrop-filter: blur(10rpx);
-  border: 2rpx solid rgba(244, 142, 181, 0.3);
+  border: 2rpx solid rgba(0, 0, 0, 0.1);
   animation: fadeIn 0.5s ease-out;
 }
 
 .loading-spinner {
   width: 60rpx;
   height: 60rpx;
-  border: 4rpx solid rgba(244, 142, 181, 0.3);
-  border-top: 4rpx solid #f48eb5;
+  border: 4rpx solid rgba(0, 0, 0, 0.1);
+  border-top: 4rpx solid #333333;
   border-radius: 50%;
   animation: spin 1s linear infinite;
   margin-bottom: 30rpx;
@@ -77,7 +77,7 @@
 
 .loading-text {
   font-size: 28rpx;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(0, 0, 0, 0.9);
   text-align: center;
 }
 
@@ -88,29 +88,29 @@
   align-items: center;
   justify-content: center;
   padding: 100rpx 0;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(245, 245, 245, 0.9);
   border-radius: 20rpx;
   backdrop-filter: blur(10rpx);
-  border: 2rpx solid rgba(244, 142, 181, 0.3);
-  color: rgba(255, 255, 255, 0.7);
+  border: 2rpx solid rgba(0, 0, 0, 0.1);
+  color: rgba(0, 0, 0, 0.7);
   animation: fadeIn 0.5s ease-out;
 }
 
 .empty-text {
   font-size: 28rpx;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(0, 0, 0, 0.7);
   text-align: center;
   padding: 0 40rpx;
 }
 
 /* 留言项样式 */
 .item {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(250, 250, 250, 0.9);
   border-radius: 20rpx;
   padding: 30rpx;
-  box-shadow: 0 4rpx 20rpx rgba(12, 17, 23, 0.2);
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(10rpx);
-  border: 2rpx solid rgba(244, 142, 181, 0.3);
+  border: 2rpx solid rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
   animation: fadeIn 0.5s ease-out;
   animation-fill-mode: backwards;
@@ -158,7 +158,7 @@
 
 .item:hover {
   transform: translateY(-5rpx);
-  box-shadow: 0 6rpx 25rpx rgba(12, 17, 23, 0.3);
+  box-shadow: 0 6rpx 25rpx rgba(0, 0, 0, 0.1);
 }
 
 @keyframes fadeIn {
@@ -179,24 +179,24 @@
   align-items: center;
   margin-bottom: 20rpx;
   padding-bottom: 20rpx;
-  border-bottom: 2rpx solid rgba(244, 142, 181, 0.2);
+  border-bottom: 2rpx solid rgba(0, 0, 0, 0.1);
 }
 
 .item-title {
   font-size: 32rpx;
   font-weight: bold;
-  color: #ffffff;
+  color: #333333;
   flex: 1;
 }
 
 .item-time {
   font-size: 24rpx;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(0, 0, 0, 0.7);
 }
 
 .item-content {
   font-size: 28rpx;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(0, 0, 0, 0.9);
   line-height: 1.6;
   margin-bottom: 30rpx;
   word-wrap: break-word;
@@ -222,7 +222,7 @@
 }
 
 .expand-btn {
-  color: #f48eb5;
+  color: #333333;
   font-size: 26rpx;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -236,27 +236,27 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-top: 2rpx solid rgba(244, 142, 181, 0.2);
+  border-top: 2rpx solid rgba(0, 0, 0, 0.1);
   padding-top: 15rpx;
 }
 
 .comment-count {
   font-size: 24rpx;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(0, 0, 0, 0.7);
 }
 
 .load-more {
   text-align: center;
   padding: 20rpx 0;
   font-size: 26rpx;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(0, 0, 0, 0.7);
 }
 
 /* 评论区域样式 */
 .comments-section {
   margin-top: 20rpx;
   padding: 20rpx;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(245, 245, 245, 0.9);
   border-radius: 10rpx;
 }
 
@@ -267,7 +267,7 @@
 
 .comment-item {
   padding: 15rpx 0;
-  border-bottom: 1rpx solid rgba(244, 142, 181, 0.1);
+  border-bottom: 1rpx solid rgba(0, 0, 0, 0.1);
 }
 
 .comment-item:last-child {
@@ -283,16 +283,16 @@
 .comment-nickname {
   font-size: 26rpx;
   font-weight: bold;
-  color: #f48eb5;
+  color: #333333;
 }
 
 .comment-time {
   font-size: 22rpx;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(0, 0, 0, 0.6);
 }
 
 .comment-content {
   font-size: 24rpx;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(0, 0, 0, 0.8);
   line-height: 1.4;
 }

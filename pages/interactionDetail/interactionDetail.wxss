@@ -1,7 +1,5 @@
 .container {
-
-  /* background: linear-gradient(135deg, #0c1117 0%, #f48eb5 100%); */
-  /* min-height: 100vh; */
+  background: #E9E8EF;
   box-sizing: border-box;
   position: relative;
   min-height: 100vh;
@@ -9,13 +7,8 @@
 
 .carousel-container1 {
   position: relative;
-
-  /* margin-bottom: 100rpx; */
   box-sizing: border-box;
-
-  /* margin-top: 50rpx; */
   width: 100%;
-
 }
 
 .selected-work-detail {
@@ -28,27 +21,22 @@
   padding: 40rpx;
 }
 
-
 .swiper-image {
   width: 400rpx;
   height: 620rpx;
 }
-
-
 
 .selected-work-title {
   margin-top: 40rpx;
   text-align: center;
   margin-bottom: 20rpx;
   font-size: 32rpx;
-  color: #ffffff;
-
+  color: #333333;
 }
-
 
 .selected-work-description {
   font-size: 26rpx;
-  color: #ffffff;
+  color: #666666;
   line-height: 1.6;
   text-align: justify;
 }
@@ -59,22 +47,20 @@
 }
 
 .favorite-btn {
-  background: rgba(255, 255, 255, 0.1);
-  border: 2rpx solid #f48eb5;
-  color: #f48eb5;
+  background: rgba(245, 245, 245, 0.9);
+  border: 2rpx solid #333333;
+  color: #333333;
   border-radius: 50rpx;
   padding: 15rpx 40rpx;
   font-size: 28rpx;
 }
 
 .favorite-btn:active {
-  background: rgba(244, 142, 181, 0.3);
+  background: rgba(230, 230, 230, 0.9);
 }
 
 /* 返回按钮 */
 .back-button {
-  /* text-align: center; */
-  /* margin-top: 30rpx; */
   position: absolute;
   width: 100%;
   height: 50px;
@@ -82,37 +68,36 @@
   z-index: 99;
 }
 
-
 .selected-work-image {
   opacity: 0.3;
   position: absolute;
   height: 100%;
   width: 100%;
   z-index: -1;
-
 }
 
 /* 评论区域 */
 .comments-section {
   padding: 30rpx;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(250, 250, 250, 0.9);
   border-radius: 20rpx;
   margin: 20rpx;
+  box-shadow: 0 4rpx 10rpx rgba(0, 0, 0, 0.05);
 }
 
 .section-title {
   font-size: 32rpx;
   font-weight: bold;
-  color: #ffffff;
+  color: #333333;
   margin-bottom: 30rpx;
   padding-bottom: 20rpx;
-  border-bottom: 2rpx solid rgba(255, 255, 255, 0.2);
+  border-bottom: 2rpx solid rgba(0, 0, 0, 0.1);
 }
 
 /* 评论项 */
 .comment-item {
   padding: 20rpx 0;
-  border-bottom: 2rpx solid rgba(255, 255, 255, 0.1);
+  border-bottom: 2rpx solid rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
 }
 
@@ -120,18 +105,15 @@
   border-bottom: none;
 }
 
-
 /* 评论头部 */
 .comment-header {
   display: flex;
-  /* align-items: center; */
   margin-bottom: 15rpx;
   align-items: flex-start;
 }
 
 .comment-Box {
   flex: 1;
-
 }
 
 .comment-content {
@@ -139,11 +121,10 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-
 }
 
 .comment-text {
-  color: #ffffff;
+  color: #333333;
   line-height: 1.6;
 }
 
@@ -152,7 +133,8 @@
   height: 60rpx;
   border-radius: 50%;
   margin-right: 20rpx;
-  background-color: #cccccc;
+  background-color: #eeeeee;
+  border: 1rpx solid #dddddd;
 }
 
 .comment-user-info {
@@ -162,13 +144,13 @@
 .comment-nickname {
   font-size: 28rpx;
   font-weight: bold;
-  color: #f48eb5;
+  color: #333333;
   display: block;
 }
 
 .comment-time {
   font-size: 20rpx;
-  color: #aaaaaa;
+  color: #999999;
 }
 
 .comment-like {
@@ -176,38 +158,34 @@
   align-items: center;
   padding: 10rpx 20rpx;
   border-radius: 30rpx;
-  background: rgba(244, 142, 181, 0.2);
+  background: rgba(240, 240, 240, 0.9);
 }
 
 .like-icon {
   font-size: 28rpx;
-  color: #f48eb5;
+  color: #333333;
   margin-right: 10rpx;
 }
 
 .like-count {
   font-size: 24rpx;
-  color: #ffffff;
+  color: #333333;
 }
 
 /* 评论内容 */
 .comment-content {
   font-size: 26rpx;
-  color: #ffffff;
+  color: #333333;
   line-height: 1.6;
   margin-bottom: 15rpx;
 }
 
-
 .reply-button:active {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(240, 240, 240, 0.9);
 }
 
 /* 回复列表 */
 .replies-list {
-  /* background: rgba(255, 255, 255, 0.05); */
-  /* border-radius: 15rpx; */
-  /* padding: 15rpx; */
   margin-top: 15rpx;
   width: 90%;
   margin: 0 auto;
@@ -216,7 +194,7 @@
 .toggle-replies {
   text-align: right;
   font-size: 24rpx;
-  color: #f48eb5;
+  color: #333333;
   padding: 10rpx 0;
   margin-bottom: 10rpx;
 }
@@ -224,7 +202,7 @@
 .reply-item {
   margin-bottom: 15rpx;
   padding: 10rpx 0;
-  border-bottom: 1rpx solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1rpx solid rgba(0, 0, 0, 0.05);
   display: flex;
   align-items: flex-start;
   transition: all 0.3s ease;
@@ -253,7 +231,8 @@
   height: 40rpx;
   border-radius: 50%;
   margin-right: 15rpx;
-  background-color: #cccccc;
+  background-color: #eeeeee;
+  border: 1rpx solid #dddddd;
 }
 
 .reply-user-info {
@@ -262,54 +241,56 @@
 
 .reply-nickname {
   font-size: 24rpx;
-  color: #f48eb5;
+  color: #333333;
   font-weight: bold;
   display: block;
 }
 
 .reply-time {
   font-size: 20rpx;
-  color: #aaaaaa;
+  color: #999999;
 }
 
 .reply-content {
   font-size: 24rpx;
-  color: #dddddd;
+  color: #666666;
   line-height: 1.5;
   margin-left: 10rpx;
   flex: 1;
 }
 
 .reply-nickname {
-  color: #f48eb5;
+  color: #333333;
   font-weight: bold;
   margin-right: 10rpx;
 }
 
 /* 回复输入区域 */
 .reply-input-area {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(245, 245, 245, 0.9);
   border-radius: 15rpx;
   padding: 15rpx;
   margin: 20rpx 0;
+  box-shadow: 0 2rpx 5rpx rgba(0, 0, 0, 0.05);
 }
 
 .reply-to {
   font-size: 26rpx;
-  color: #f48eb5;
+  color: #333333;
   margin-bottom: 15rpx;
 }
 
 .reply-textarea {
   width: 100%;
   height: 120rpx;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.9);
   border-radius: 10rpx;
   padding: 15rpx;
   font-size: 26rpx;
-  color: #ffffff;
+  color: #333333;
   margin-bottom: 15rpx;
   box-sizing: border-box;
+  border: 1rpx solid #dddddd;
 }
 
 .reply-actions {
@@ -322,21 +303,18 @@
 .submit-btn {
   width: 45%;
   font-size: 24rpx;
-  /* padding: 10rpx 30rpx; */
-  /* border-radius: 30rpx; */
-  /* margin-left: 20rpx; */
 }
 
 .cancel-btn {
-  background: rgba(255, 255, 255, 0.1);
-  color: #ffffff;
-  border: 2rpx solid rgba(255, 255, 255, 0.3);
+  background: rgba(240, 240, 240, 0.9);
+  color: #333333;
+  border: 2rpx solid rgba(0, 0, 0, 0.1);
 }
 
 .submit-btn {
-  background: #f48eb5;
-  color: #ffffff;
-  border: 2rpx solid #f48eb5;
+  background: #333333;
+  color: #E9E8EF;
+  border: 2rpx solid #333333;
 }
 
 /* 评论输入区域 */
@@ -345,28 +323,29 @@
   align-items: flex-end;
   margin-top: 30rpx;
   padding-top: 20rpx;
-  border-top: 2rpx solid rgba(255, 255, 255, 0.2);
+  border-top: 2rpx solid rgba(0, 0, 0, 0.1);
 }
 
 .comment-textarea {
   flex: 1;
   height: 120rpx;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.9);
   border-radius: 10rpx;
   padding: 15rpx;
   font-size: 26rpx;
-  color: #ffffff;
+  color: #333333;
   margin-right: 20rpx;
   box-sizing: border-box;
+  border: 1rpx solid #dddddd;
 }
 
 .submit-comment-btn {
   height: 120rpx;
-  background: #f48eb5;
-  color: #ffffff;
+  background: #333333;
+  color: #E9E8EF;
   border-radius: 10rpx;
   font-size: 24rpx;
-  box-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.1);
   line-height: 120rpx;
 }
 
@@ -374,66 +353,62 @@
   width: 100%;
   height: 60rpx;
   display: flex;
-  /* background: rgba(255, 255, 255, 0.1) ; */
   justify-content: flex-end;
   font-size: 24rpx;
-  color: #aaaaaa;
+  color: #999999;
   text-align: center;
-
 }
 
 .reply-text {
   width: 120rpx;
   height: 60rpx;
-  /* background: rgba(255, 255, 255, 0.1); */
   border-radius: 10rpx;
   font-size: 26rpx;
-  color: #ffffff;
+  color: #333333;
   box-sizing: border-box;
   text-align: center;
   line-height: 60rpx;
-
+  background: rgba(245, 245, 245, 0.9);
 }
 
 /* 回复的回复输入区域 */
 .reply-to-reply-input-area {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(245, 245, 245, 0.9);
   border-radius: 15rpx;
   padding: 15rpx;
   margin: 20rpx 0;
   margin-left: 55rpx;
+  box-shadow: 0 2rpx 5rpx rgba(0, 0, 0, 0.05);
 }
 
 .reply-button2 {
   width: 100%;
   height: 40rpx;
   display: flex;
-  /* background: rgba(255, 255, 255, 0.1) ; */
   justify-content: flex-end;
   font-size: 24rpx;
-  color: #aaaaaa;
+  color: #999999;
   text-align: center;
-
 }
 
 .reply-text2 {
-  color: #ffffff;
+  color: #333333;
 }
 
 /* 高亮动画 */
 @keyframes highlightAnimation {
   0% {
-    background-color: rgba(244, 142, 181, 0.1);
+    background-color: rgba(240, 240, 240, 0.9);
     transform: scale(1);
   }
 
   50% {
-    background-color: rgba(244, 142, 181, 0.3);
+    background-color: rgba(220, 220, 220, 0.9);
     transform: scale(1.02);
   }
 
   100% {
-    background-color: rgba(244, 142, 181, 0.1);
+    background-color: rgba(240, 240, 240, 0.9);
     transform: scale(1);
   }
 }

@@ -2,6 +2,7 @@
   box-sizing: border-box;
   padding-top: 0;
   /* 移除顶部padding，因为有导航栏占位 */
+  background: #E9E8EF;
 }
 
 .page-title {
@@ -9,8 +10,8 @@
   font-weight: bold;
   text-align: center;
   margin-bottom: 30rpx;
-  color: #ffffff;
-  text-shadow: 0 2rpx 4rpx rgba(12, 17, 23, 0.3);
+  color: #333333;
+  text-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.1);
 }
 
 .info-card {
@@ -26,15 +27,15 @@
 
 .card-header {
   padding: 20rpx 30rpx;
-  background: #f48eb5;
-  /* border-bottom: 2rpx solid #f48eb5; */
+  background: #f5f5f5;
+  /* border-bottom: 2rpx solid #333333; */
   box-sizing: border-box;
 }
 
 .card-title {
   font-size: 36rpx;
   font-weight: bold;
-  color: #ffffff;
+  color: #333333;
 }
 
 .card-content {
@@ -51,21 +52,21 @@
 
 .label {
   width: 140rpx;
-  color: #ffffff;
+  color: #333333;
   font-weight: bold;
   font-size: 28rpx;
 }
 
 .value {
   flex: 1;
-  color: #ffffff;
+  color: #666666;
   font-size: 28rpx;
   line-height: 1.5;
 }
 
 .intro {
   line-height: 1.7;
-  color: #ffffff;
+  color: #666666;
 }
 
 .info-section {
@@ -83,7 +84,7 @@
 .section-subtitle {
   font-size: 32rpx;
   font-weight: bold;
-  color: #ffffff;
+  color: #333333;
   margin-bottom: 20rpx;
   display: block;
   position: relative;
@@ -98,7 +99,7 @@
   transform: translateY(-50%);
   width: 8rpx;
   height: 32rpx;
-  background: #f48eb5;
+  background: #333333;
   border-radius: 4rpx;
 }
 
@@ -113,7 +114,7 @@
 }
 
 .work-text {
-  color: #ffffff;
+  color: #666666;
   font-size: 28rpx;
   line-height: 1.6;
 }
@@ -128,6 +129,6 @@
 
 .divider {
   height: 2rpx;
-  background: #f48eb5;
+  background: #eeeeee;
   margin: 20rpx 0;
 }

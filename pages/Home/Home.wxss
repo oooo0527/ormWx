@@ -1,6 +1,6 @@
 .container {
-  /* /* background: linear-gradient(180deg, #0c1117 0%, #f48eb5 100%); */
-  background: #0c1117;
+  /* /* background: linear-gradient(180deg, #E9E8EF 0%, #f5f5f5 100%); */
+  background: #1E2020;
 }
 
 
@@ -50,8 +50,8 @@
   align-items: center;
   justify-content: center;
   font-size: 28rpx;
-  color: #333333;
-  /* border: 4rpx solid #ffffff; */
+  color: #666666;
+  /* border: 4rpx solid #E9E8EF; */
   height: 250rpx;
   margin: 0 10rpx;
   border-radius: 16rpx;
@@ -63,7 +63,7 @@
 
 .menu-item:nth-of-type(2n) {
   margin-top: 18rpx;
-  box-shadow: 0 2rpx 4rpx #ffffff;
+  box-shadow: 0 2rpx 4rpx #E9E8EF;
   animation-delay: 0.5s;
   animation: floatUp 3s ease-in-out infinite;
 }
@@ -108,7 +108,7 @@
 .spacer {
   width: 100%;
   height: 100rpx;
-  color: #ffffff;
+  color: #E9E8EF;
   padding: 0 30rpx;
 }
 
@@ -128,8 +128,8 @@
 .menu-text {
   position: absolute;
   font-size: 18rpx;
-  color: #ffffff;
-  background-color: black;
+  color: #333333;
+  background-color: #f5f5f5;
   bottom: 0;
   /* border-radius: 8rpx; */
   width: 100%;
@@ -147,7 +147,7 @@
   display: flex;
   height: 400rpx;
   justify-content: space-between;
-  color: #ffffff;
+  color: #333333;
   text-align: left;
 
 
@@ -179,7 +179,7 @@
   line-height: 60rpx;
   position: absolute;
   top: 30rpx;
-  color: #f48eb5;
+  color: #333333;
   z-index: 2;
 }
 
@@ -189,14 +189,14 @@
   /* border: 4rpx solid black; */
   /* padding: 20rpx; */
   /* background: black; */
-  /* border: 4rpx solid #ffffff; */
+  /* border: 4rpx solid #E9E8EF; */
   border-radius: 16rpx;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 20rpx 0;
-  background: #0c1117;
-  box-shadow: 0 0 15rpx #ffffff;
+  background: #E9E8EF;
+  box-shadow: 0 0 15rpx #dddddd;
   /* padding: 0 20rpx; */
   /* padding-bottom: 80rpx; */
 
@@ -215,31 +215,50 @@
 
 .music-item {
   height: 30%;
-  /* border: 4rpx solid #ffffff; */
+  /* border: 4rpx solid #E9E8EF; */
   border-radius: 16rpx;
   text-align: left;
   padding-left: 40rpx;
   /* background: #f48eb5; */
 }
 
-.music-item:nth-of-type(2n) {
-  background: linear-gradient(90deg, #ffffff 0%, #0c1117 100%);
-}
-
-.music-item:nth-of-type(2n+1) {
-  background: linear-gradient(90deg, #fc8a2c 0%, #f7669d 100%);
-}
-
 .music-title {
   font-size: 28rpx;
-  color: #333333;
+  color: #666666;
   line-height: 50rpx;
 }
 
 .music-des {
   font-size: 24rpx;
-  color: #ffffff;
+  color: #333333;
   line-height: 30rpx;
+}
+
+
+.music-item:nth-of-type(2n) {
+  background: #1E2020;
+
+  /* .music-title {
+    font-size: 28rpx;
+    color: #f9f6f6;
+    line-height: 50rpx;
+  }
+
+  .music-des {
+    font-size: 24rpx;
+    color: #f5f2f2;
+    line-height: 30rpx;
+  } */
+
+}
+
+.music-item:nth-of-type(2n) .music-title,
+.music-item:nth-of-type(2n) .music-des {
+  color: #f9f6f6;
+}
+
+.music-item:nth-of-type(2n+1) {
+  background: linear-gradient(90deg, #eeeeee 0%, #f5f5f5 100%);
 }
 
 /* //品牌 */
@@ -247,15 +266,17 @@
 .content {
   width: 90%;
   padding: 20rpx;
-  background: #efe938;
+  background: #050505;
   border-radius: 24rpx;
   /* margin: 0 auto; */
-  color: #ffffff;
-  box-shadow: 0 0 15rpx #ffffff;
+  color: #f7f4f4;
+  margin: 0 auto;
+  box-shadow: 0 0 15rpx #dddddd;
   margin-bottom: 40rpx;
 
   /* margin-top: 80rpx; */
   /* width: 100vw; */
+
 
 }
 
@@ -306,7 +327,7 @@
   margin-left: -25rpx;
 
   /* border-radius: 100rpx; */
-  /* background: #ffffff; */
+  /* background: #E9E8EF; */
 }
 
 .content-image-title {
@@ -327,7 +348,7 @@
   overflow: hidden;
   /* background: rgba(255, 255, 255, 0.1); */
   /* backdrop-filter: blur(10rpx); */
-  /* background: #ffffff; */
+  /* background: #E9E8EF; */
   border: 1rpx solid rgba(255, 255, 255, 0.2);
   /* opacity: 0.5; */
 }
@@ -389,12 +410,12 @@
 .date-selector {
   display: inline-block;
   padding: 10rpx 20rpx;
-  background: rgba(207, 84, 131, 0.8);
-  color: #ffffff;
+  background: rgba(245, 245, 245, 0.8);
+  color: #333333;
   border-radius: 8rpx;
   font-size: 28rpx;
   backdrop-filter: blur(10rpx);
-  border: 1rpx solid rgba(255, 255, 255, 0.3);
+  border: 1rpx solid rgba(221, 221, 221, 0.3);
 }
 
 .weekdays {
@@ -410,7 +431,7 @@
   flex: 1;
   text-align: center;
   font-size: 24rpx;
-  color: #fcf7f7;
+  color: #06f461;
 }
 
 .days-grid {
@@ -436,13 +457,13 @@
 
 .day-number {
   font-size: 28rpx;
-  color: #fcfcfc;
+  color: #06f461;
   z-index: 2;
   transition: all 0.3s ease;
 }
 
 .today .day-number {
-  color: #f48eb5;
+  color: red;
   font-weight: bold;
 }
 
@@ -452,8 +473,8 @@
 }
 
 .event-day .day-number {
-  color: #ffffff;
-  background: rgba(244, 142, 181, 0.8);
+  color: #020202;
+  background: rgba(245, 245, 245, 0.8);
   border-radius: 50%;
   width: 60rpx;
   height: 60rpx;
@@ -461,9 +482,9 @@
   align-items: center;
   justify-content: center;
   z-index: 2;
-  box-shadow: 0 4rpx 10rpx rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4rpx 10rpx rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(10rpx);
-  border: 1rpx solid rgba(255, 255, 255, 0.3);
+  border: 1rpx solid rgba(221, 221, 221, 0.3);
 }
 
 .event-day:active {
@@ -472,7 +493,7 @@
 
 .selected .day-number {
   background: #0c1117;
-  color: #ffffff;
+  color: #E9E8EF;
   border-radius: 50%;
 }
 
@@ -481,7 +502,7 @@
   bottom: 5rpx;
   width: 6rpx;
   height: 6rpx;
-  background: #f48eb5;
+  background: #333333;
   border-radius: 50%;
   z-index: 2;
 }
@@ -490,7 +511,7 @@
   /* position: absolute; */
   /* bottom: -30rpx; */
   font-size: 18rpx;
-  color: #f48eb5;
+  color: #666666;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -524,14 +545,14 @@
 .event-detail-content {
   width: 80%;
   max-width: 500rpx;
-  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  background: linear-gradient(135deg, #E9E8EF 0%, #f5f5f5 100%);
   border-radius: 20rpx;
   padding: 30rpx;
-  box-shadow: 0 10rpx 30rpx rgba(0, 0, 0, 0.3);
+  box-shadow: 0 10rpx 30rpx rgba(0, 0, 0, 0.1);
   transform: translateY(50rpx);
   transition: transform 0.3s ease;
   backdrop-filter: blur(10rpx);
-  border: 1rpx solid rgba(255, 255, 255, 0.3);
+  border: 1rpx solid rgba(221, 221, 221, 0.3);
 }
 
 .event-detail-modal.show .event-detail-content {
@@ -550,7 +571,7 @@
 .event-detail-title {
   font-size: 32rpx;
   font-weight: bold;
-  color: white;
+  color: #333333;
 }
 
 .close-btn {
@@ -572,13 +593,13 @@
 
 .event-detail-date {
   font-size: 24rpx;
-  color: #e0e0e0;
+  color: #666666;
   font-weight: 500;
 }
 
 .event-detail-description {
   font-size: 26rpx;
-  color: white;
+  color: #333333;
   line-height: 1.5;
 }
 

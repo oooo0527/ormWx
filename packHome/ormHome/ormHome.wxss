@@ -140,7 +140,7 @@
 
 /* 弹窗内容 */
 .modal-content {
-  background: linear-gradient(135deg, #ffffff 0%, #fafafa 100%);
+  background: linear-gradient(135deg, #E9E8EF 0%, #fafafa 100%);
   border-radius: 24rpx;
   width: 90%;
   max-width: 650rpx;
@@ -171,7 +171,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: linear-gradient(to right, #f8f8f8, #ffffff);
+  background: linear-gradient(to right, #f8f8f8, #E9E8EF);
 }
 
 .modal-title {

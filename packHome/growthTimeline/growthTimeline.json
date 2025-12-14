@@ -1,5 +1,8 @@
 {
-  "navigationBarTitleText": "Orm成长时间线",
-  "enablePullDownRefresh": false,
-  "backgroundTextStyle": "dark"
+  "component": true,
+  "usingComponents": {
+    "global-background": "/components/globalBackground/globalBackground",
+    "custom-navbar": "/components/customNavbar/customNavbar"
+  },
+  "enablePullDownRefresh": true
 }
