@@ -3,10 +3,19 @@
   padding: 20rpx;
 }
 
-.photos-container {
+/* 瀑布流容器 */
+.waterfall-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.waterfall-column {
+  flex: 1;
+  width: 0;
   display: flex;
   flex-direction: column;
-  gap: 30rpx;
+  margin: 0 10rpx;
 }
 
 .photo-card {
@@ -14,13 +23,67 @@
   border-radius: 20rpx;
   overflow: hidden;
   box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.1);
+  margin-bottom: 20rpx;
+  break-inside: avoid;
 }
+
+.photo-wrapper {
+  width: 100%;
+}
+
+.photo-image {
+  width: 100%;
+  display: block;
+}
+
+.photo-info {
+  padding: 20rpx;
+}
+
+.photo-description {
+  font-size: 26rpx;
+  color: #666;
+  line-height: 1.5;
+  margin-bottom: 20rpx;
+}
+
+.photo-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 15rpx;
+}
+
+.like-section {
+  display: flex;
+  /* align-items: center; */
+  /* background: #f8f8f8; */
+  /* padding: 10rpx 20rpx; */
+  /* border-radius: 30rpx; */
+  text-align: right;
+  /* align-self: flex-start; */
+  justify-content: flex-end;
+}
+
+.like-count {
+  font-size: 24rpx;
+  color: #666;
+  /* margin-right: 10rpx; */
+}
+
+.heart {
+  font-size: 24rpx;
+}
+
+.like-section.liked {
+  color: #f9082c;
+}
+
 
 .user-info {
   display: flex;
-  align-items: center;
-  padding: 20rpx;
-  border-bottom: 1rpx solid #f0f0f0;
+  align-items: end;
+  padding-top: 15rpx;
+  border-top: 1rpx solid #f0f0f0;
 }
 
 .user-avatar {
@@ -38,59 +101,13 @@
   font-size: 28rpx;
   font-weight: bold;
   color: #333;
+  display: block;
 }
 
 .post-time {
   font-size: 20rpx;
   color: #999;
-}
-
-.photo-wrapper {
-  width: 100%;
-}
-
-.photo-image {
-  width: 100%;
   display: block;
-}
-
-.photo-description {
-  padding: 20rpx;
-  font-size: 26rpx;
-  color: #666;
-  line-height: 1.5;
-}
-
-.photo-actions {
-  padding: 0 20rpx 20rpx;
-  display: flex;
-  justify-content: flex-end;
-}
-
-.like-section {
-  display: flex;
-  align-items: center;
-  background: #f8f8f8;
-  padding: 10rpx 20rpx;
-  border-radius: 30rpx;
-}
-
-.like-count {
-  font-size: 24rpx;
-  color: #666;
-  margin-right: 10rpx;
-}
-
-.heart {
-  font-size: 24rpx;
-}
-
-.like-section.liked {
-  background: #ffebee;
-}
-
-.like-section.liked .heart {
-  color: #f44336;
 }
 
 .empty-state {

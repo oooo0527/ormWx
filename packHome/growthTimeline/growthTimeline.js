@@ -219,7 +219,7 @@ Page({
       blessingItems.push({
         id: i,
         text: this.data.blessingText,
-        top: Math.random() * (windowHeight),
+        top: Math.random() * (windowHeight + 150),
         left: Math.random() * (windowWidth),
         show: false, // 初始不显示
         animationClass: Math.random() > 0.3 ? 'floating' : 'pulsing' // 随机添加动画类

@@ -1,4 +1,5 @@
 // packHome/dream/dream.js
+const timeUtils = require('../../utils/timeUtils.js');
 Page({
   data: {
     activeTab: 'ranking', // 默认显示排行榜
@@ -13,8 +14,6 @@ Page({
     photoStyles: [],
     // 排行榜数据
     rankingList: [],
-    // 前三名数据
-    topThreeList: [],
     // 弹窗相关数据
     showModal: false,
     selectedItem: null,
@@ -198,12 +197,9 @@ Page({
         if (res.result && res.result.success) {
           console.log('排行榜数据:', res.result.data); // 添加日志查看数据结构
 
-          // 提取前三名数据
-          const topThree = res.result.data.slice(0, 3);
-
           this.setData({
             rankingList: res.result.data,
-            topThreeList: topThree
+
           });
         } else {
           console.error('获取排行榜数据失败:', res.result ? res.result.message : '未知错误');
@@ -315,7 +311,9 @@ Page({
             description: description,
             userId: this.data.userInfo.openid,
             userName: this.data.userInfo.nickname,
-            userAvatar: this.data.userInfo.avatar
+            userAvatar: this.data.userInfo.avatar,
+            createDate: timeUtils.getCurrentDate(),
+            createTime: timeUtils.getCurrentTime(),
           },
           success: result => {
             wx.hideLoading();
@@ -378,14 +376,12 @@ Page({
 
   // 点赞功能
   likePhoto(e) {
-    const photoId = e.currentTarget.dataset.id;
+    const photoId = e.currentTarget.dataset._id;
 
     // 检查是否已经点赞过
     if (this.data.likedPhotoIds.includes(photoId)) {
-      wx.showToast({
-        title: '您已经点赞过了',
-        icon: 'none'
-      });
+      // 如果已经点赞，则取消点赞
+      this.cancelLikePhoto(photoId);
       return;
     }
 
@@ -403,6 +399,7 @@ Page({
             if (photo._id === photoId) {
               return {
                 ...photo,
+                isLiked: true,
                 likes: (photo.likes || 0) + 1
               };
             }
@@ -416,6 +413,7 @@ Page({
               if (photo._id === photoId) {
                 return {
                   ...photo,
+                  isLiked: true,
                   likes: (photo.likes || 0) + 1
                 };
               }
@@ -430,6 +428,11 @@ Page({
             approvedPhotos: approvedPhotos,
             groupedPhotos: groupedPhotos,
             likedPhotoIds: likedPhotoIds
+          }, () => {
+            // 数据更新完成后的回调
+            console.log('点赞后数据更新完成');
+            console.log('selectedItem:', this.data.selectedItem);
+            console.log('likedPhotoIds:', this.data.likedPhotoIds);
           });
 
           // 将已点赞的照片ID保存到本地存储中
@@ -456,6 +459,78 @@ Page({
     });
   },
 
+  // 取消点赞功能
+  cancelLikePhoto(photoId) {
+    // 调用云函数处理取消点赞
+    wx.cloud.callFunction({
+      name: 'submitDreamPhoto',
+      data: {
+        action: 'likePhoto',
+        photoId: photoId,
+        cancelLike: true
+      },
+      success: res => {
+        if (res.result && res.result.success) {
+          // 更新前端显示的点赞数
+          const approvedPhotos = this.data.approvedPhotos.map(photo => {
+            if (photo._id === photoId) {
+              return {
+                ...photo,
+                isLiked: false,
+                likes: Math.max(0, (photo.likes || 0) - 1) // 确保不会小于0
+              };
+            }
+            return photo;
+          });
+
+          // 更新分组照片中的点赞数
+          const groupedPhotos = { ...this.data.groupedPhotos };
+          for (const style in groupedPhotos) {
+            groupedPhotos[style] = groupedPhotos[style].map(photo => {
+              if (photo._id === photoId) {
+                return {
+                  ...photo,
+                  isLiked: false,
+                  likes: Math.max(0, (photo.likes || 0) - 1) // 确保不会小于0
+                };
+              }
+              return photo;
+            });
+          }
+
+          // 从已点赞列表中移除照片ID
+          const likedPhotoIds = this.data.likedPhotoIds.filter(id => id !== photoId);
+
+          this.setData({
+            approvedPhotos: approvedPhotos,
+            groupedPhotos: groupedPhotos,
+            likedPhotoIds: likedPhotoIds
+          });
+
+          // 更新本地存储中的已点赞照片ID
+          wx.setStorageSync('likedDreamPhotoIds', likedPhotoIds);
+
+          wx.showToast({
+            title: '取消点赞成功',
+            icon: 'success'
+          });
+        } else {
+          wx.showToast({
+            title: res.result ? res.result.message : '取消点赞失败',
+            icon: 'none'
+          });
+        }
+      },
+      fail: err => {
+        console.error('取消点赞失败:', err);
+        wx.showToast({
+          title: '取消点赞失败',
+          icon: 'none'
+        });
+      }
+    });
+  },
+
   // 查看大图
   viewPhoto(e) {
     const imageUrl = e.currentTarget.dataset.image;
@@ -476,19 +551,64 @@ Page({
   deletePhoto(e) {
     const photoId = e.currentTarget.dataset.id;
 
+    // 确保用户已登录
+    if (!this.data.userInfo) {
+      wx.showToast({
+        title: '请先登录',
+        icon: 'none'
+      });
+      return;
+    }
+
     wx.showModal({
       title: '确认删除',
-      content: '确定要删除这张照片吗？',
+      content: '确定要删除这张照片吗？删除后不可恢复',
+      confirmColor: '#e64340',
       success: res => {
         if (res.confirm) {
-          // 这里可以添加删除逻辑，比如调用云函数删除照片
-          wx.showToast({
-            title: '删除成功',
-            icon: 'success'
+          // 显示删除加载提示
+          wx.showLoading({
+            title: '删除中...'
           });
 
-          // 重新加载用户投稿记录
-          this.loadUserPhotos();
+          // 调用云函数删除照片
+          wx.cloud.callFunction({
+            name: 'submitDreamPhoto',
+            data: {
+              action: 'deletePhoto',
+              photoId: photoId,
+              userId: this.data.userInfo.openid
+            },
+            success: res => {
+              wx.hideLoading();
+
+              if (res.result && res.result.success) {
+                wx.showToast({
+                  title: '删除成功',
+                  icon: 'success'
+                });
+
+                // 直接从列表中移除该项，而不需要重新加载
+                const userPhotos = this.data.userPhotos.filter(photo => photo._id !== photoId);
+                this.setData({
+                  userPhotos: userPhotos
+                });
+              } else {
+                wx.showToast({
+                  title: res.result ? res.result.message : '删除失败',
+                  icon: 'none'
+                });
+              }
+            },
+            fail: err => {
+              wx.hideLoading();
+              console.error('删除照片失败:', err);
+              wx.showToast({
+                title: '删除失败',
+                icon: 'none'
+              });
+            }
+          });
         }
       }
     });
@@ -498,16 +618,19 @@ Page({
   showModal(e) {
     const index = e.currentTarget.dataset.index;
     const item = this.data.rankingList[index];
+    console.log('likedPhotoIds.includes(selectedItem._id)', this.data.likedPhotoIds.includes(item._id));
 
     // 更新选中项的排名信息
     const updatedItem = {
       ...item,
+      isLiked: this.data.likedPhotoIds.includes(item._id),
       rank: index + 1
     };
+    this.setData({ selectedItem: updatedItem });
 
     this.setData({
-      showModal: true,
-      selectedItem: updatedItem
+      showModal: true
+      // selectedItem: updatedItem
     });
   },
 
@@ -525,10 +648,9 @@ Page({
 
     // 检查是否已经点赞过
     if (this.data.likedPhotoIds.includes(photoId)) {
-      wx.showToast({
-        title: '您已经点赞过了',
-        icon: 'none'
-      });
+      // 如果已经点赞，则取消点赞
+      console.log('已点赞，执行取消点赞操作');
+      this.cancelLikePhotoInModal();
       return;
     }
 
@@ -541,30 +663,72 @@ Page({
       },
       success: res => {
         if (res.result && res.result.success) {
+          console.log('云端点赞成功');
+
           // 更新前端显示的点赞数
-          const rankingList = this.data.rankingList.map(item => {
+          const LIST = this.data.rankingList.map(item => {
             if (item._id === photoId) {
               return {
                 ...item,
+                isLiked: true,
                 likes: (item.likes || 0) + 1
               };
             }
             return item;
           });
+          let rankingList = LIST.sort((a, b) => b.likes - a.likes);
 
           // 更新selectedItem中的点赞数
           const selectedItem = {
             ...this.data.selectedItem,
+            isLiked: true,
             likes: (this.data.selectedItem.likes || 0) + 1
           };
+
+          // 更新approvedPhotos中的点赞数
+          const approvedPhotos = this.data.approvedPhotos.map(photo => {
+            if (photo._id === photoId) {
+              return {
+                ...photo,
+                isLiked: true,
+                likes: (photo.likes || 0) + 1
+              };
+            }
+            return photo;
+          });
+
+          // 更新分组照片中的点赞数
+          const groupedPhotos = { ...this.data.groupedPhotos };
+          for (const style in groupedPhotos) {
+            groupedPhotos[style] = groupedPhotos[style].map(photo => {
+              if (photo._id === photoId) {
+                return {
+                  ...photo,
+                  isLiked: true,
+                  likes: (photo.likes || 0) + 1
+                };
+              }
+              return photo;
+            });
+          }
 
           // 将照片ID添加到已点赞列表中
           const likedPhotoIds = [...this.data.likedPhotoIds, photoId];
 
+          console.log('更新后的likedPhotoIds:', likedPhotoIds);
+          this.setData({ likedPhotoIds: likedPhotoIds });
+
           this.setData({
             rankingList: rankingList,
             selectedItem: selectedItem,
-            likedPhotoIds: likedPhotoIds
+            approvedPhotos: approvedPhotos,
+            groupedPhotos: groupedPhotos,
+            // likedPhotoIds: likedPhotoIds
+          }, () => {
+            // 数据更新完成后的回调
+            console.log('点赞后数据更新完成');
+            console.log('selectedItem:', this.data.selectedItem);
+            console.log('likedPhotoIds:', this.data.likedPhotoIds);
           });
 
           // 将已点赞的照片ID保存到本地存储中
@@ -585,6 +749,113 @@ Page({
         console.error('点赞失败:', err);
         wx.showToast({
           title: '点赞失败',
+          icon: 'none'
+        });
+      }
+    });
+  },
+
+  // 取消点赞功能（弹窗内）
+  cancelLikePhotoInModal() {
+    const photoId = this.data.selectedItem._id;
+
+    console.log('执行取消点赞操作，photoId:', photoId);
+    console.log('当前likedPhotoIds:', this.data.likedPhotoIds);
+
+    // 调用云函数处理取消点赞
+    wx.cloud.callFunction({
+      name: 'submitDreamPhoto',
+      data: {
+        action: 'likePhoto',
+        photoId: photoId,
+        cancelLike: true
+      },
+      success: res => {
+        if (res.result && res.result.success) {
+          console.log('云端取消点赞成功');
+
+          // 更新前端显示的点赞数
+          const LIST = this.data.rankingList.map(item => {
+            if (item._id === photoId) {
+              return {
+                ...item,
+                isLiked: false,
+                likes: Math.max(0, (item.likes || 0) - 1) // 确保不会小于0
+              };
+            }
+            return item;
+          });
+          let rankingList = LIST.sort((a, b) => b.likes - a.likes);
+
+          // 更新selectedItem中的点赞数
+          const selectedItem = {
+            ...this.data.selectedItem,
+            isLiked: false,
+            likes: Math.max(0, (this.data.selectedItem.likes || 0) - 1) // 确保不会小于0
+          };
+
+          // 更新approvedPhotos中的点赞数
+          const approvedPhotos = this.data.approvedPhotos.map(photo => {
+            if (photo._id === photoId) {
+              return {
+                ...photo,
+                likes: Math.max(0, (photo.likes || 0) - 1) // 确保不会小于0
+              };
+            }
+            return photo;
+          });
+
+          // 更新分组照片中的点赞数
+          const groupedPhotos = { ...this.data.groupedPhotos };
+          for (const style in groupedPhotos) {
+            groupedPhotos[style] = groupedPhotos[style].map(photo => {
+              if (photo._id === photoId) {
+                return {
+                  ...photo,
+                  isLiked: false,
+                  likes: Math.max(0, (photo.likes || 0) - 1) // 确保不会小于0
+                };
+              }
+              return photo;
+            });
+          }
+
+          // 从已点赞列表中移除照片ID
+          const likedPhotoIds = this.data.likedPhotoIds.filter(id => id !== photoId);
+
+          console.log('更新后的likedPhotoIds:', likedPhotoIds);
+
+          this.setData({
+            rankingList: rankingList,
+            selectedItem: selectedItem,
+            approvedPhotos: approvedPhotos,
+            groupedPhotos: groupedPhotos,
+            likedPhotoIds: likedPhotoIds
+          }, () => {
+            // 数据更新完成后的回调
+            console.log('取消点赞后数据更新完成');
+            console.log('selectedItem:', this.data.selectedItem);
+            console.log('likedPhotoIds:', this.data.likedPhotoIds);
+          });
+
+          // 更新本地存储中的已点赞照片ID
+          wx.setStorageSync('likedDreamPhotoIds', likedPhotoIds);
+
+          wx.showToast({
+            title: '取消点赞成功',
+            icon: 'success'
+          });
+        } else {
+          wx.showToast({
+            title: res.result ? res.result.message : '取消点赞失败',
+            icon: 'none'
+          });
+        }
+      },
+      fail: err => {
+        console.error('取消点赞失败:', err);
+        wx.showToast({
+          title: '取消点赞失败',
           icon: 'none'
         });
       }
