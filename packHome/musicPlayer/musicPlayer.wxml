@@ -2,6 +2,8 @@
 <global-background>
   <custom-navbar title="ormkornnaphat" showBack="{{true}}" showHome="{{false}}"></custom-navbar>
   <view class="music-player-container" style="margin-top: {{navBarHeight}}px;height:calc(100vh - {{navBarHeight}}px);">
+    <image src="./1.jpg" mode="aspectFill" class="selected-work-image" lazy-load wx:if="{{currentMusicIndex==1}}"></image>
+    <image src="./2.jpg" mode="aspectFill" class="selected-work-image" lazy-load wx:else></image>
     <!-- 音乐列表轮播 -->
     <view class="music-list-carousel">
       <!-- <view class="music-player-header1"></view> -->
@@ -9,6 +11,7 @@
         <block wx:for="{{musicList}}" wx:key="id">
           <swiper-item class="carousel-item">
             <view class="music-info {{isRotating && index === currentMusicIndex ? 'rotating' : ''}}" bindtap="playMusic" data-index="{{index}}">
+              <view class="music-player-header1"></view>
               <view class="music-player-header"></view>
               <image class="album-cover" src="{{item.src}}" mode="aspectFill"></image>
             </view>
@@ -20,24 +23,17 @@
     <view class="music-content" wx:if="{{musicList.length > 0}}">
       <view class="music-title">{{musicList[currentMusicIndex].title}}</view>
       <view class="player-controls">
+        <!-- 控制按钮 -->
+        <view class="control-buttons">
+          <view class="control-btnL" bindtap="prevMusic">⇚⇠</view>
+          <view class="control-btnM play-btn" bindtap="togglePlay">{{isPlaying ? '∭' : '∰'}}</view>
+          <view class="control-btnR" bindtap="nextMusic">⇢⇛</view>
+        </view>
         <!-- 进度条 -->
         <view class="progress-container">
           <text class="time-text">{{formatTime(currentTime)}}</text>
           <slider class="progress-slider" min="0" max="{{duration}}" value="{{currentTime}}" bindchange="sliderChange" activeColor="#333333" backgroundColor="#dddddd" />
           <text class="time-text">{{formatTime(duration)}}</text>
-        </view>
-        <!-- 控制按钮 -->
-        <view class="control-buttons">
-          <button class="control-btn" bindtap="prevMusic">
-            <text class="iconfont">&#xe601;</text>
-          </button>
-          <button class="control-btn play-btn" bindtap="togglePlay">
-            <text class="iconfont" wx:if="{{isPlaying}}">&#xe602;</text>
-            <text class="iconfont" wx:else>&#xe603;</text>
-          </button>
-          <button class="control-btn" bindtap="nextMusic">
-            <text class="iconfont">&#xe604;</text>
-          </button>
         </view>
       </view>
     </view>
