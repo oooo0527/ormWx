@@ -1,6 +1,8 @@
 {
-  "navigationBarTitleText": "音乐播放器",
+  "component": true,
   "usingComponents": {
-    "global-background": "/components/globalBackground/globalBackground"
-  }
+    "global-background": "/components/globalBackground/globalBackground",
+    "custom-navbar": "/components/customNavbar/customNavbar"
+  },
+  "enablePullDownRefresh": true
 }

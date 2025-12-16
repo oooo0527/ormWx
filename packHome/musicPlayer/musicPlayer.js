@@ -109,10 +109,10 @@ Page({
     // 初始化音频上下文
     this.initAudioContext();
 
-    // 初始化第一首歌的歌词
-    if (defaultMusicList.length > 0 && defaultMusicList[0].lrc) {
-      this.parseLyric(defaultMusicList[0].lrc);
-    }
+    // // 初始化第一首歌的歌词
+    // if (defaultMusicList.length > 0 && defaultMusicList[0].lrc) {
+    //   this.parseLyric(defaultMusicList[0].lrc);
+    // }
   },
 
   // 初始化音频上下文
@@ -309,7 +309,7 @@ Page({
     // 解析并显示歌词
     if (music.lrc) {
       console.log('音乐包含歌词，开始解析');
-      this.parseLyric(music.lrc);
+      // this.parseLyric(music.lrc);
     } else {
       console.log('音乐不包含歌词');
     }
@@ -350,9 +350,9 @@ Page({
     }, 100);
 
     // 解析并显示歌词
-    if (music.lrc) {
-      this.parseLyric(music.lrc);
-    }
+    // if (music.lrc) {
+    //   this.parseLyric(music.lrc);
+    // }
   },
 
   // 下一首
@@ -390,9 +390,9 @@ Page({
     }, 100);
 
     // 解析并显示歌词
-    if (music.lrc) {
-      this.parseLyric(music.lrc);
-    }
+    // if (music.lrc) {
+    //   this.parseLyric(music.lrc);
+    // }
   },
 
   // 格式化时间
@@ -450,9 +450,9 @@ Page({
       }, 100);
 
       // 解析并显示歌词
-      if (music.lrc) {
-        this.parseLyric(music.lrc);
-      }
+      // if (music.lrc) {
+      //   this.parseLyric(music.lrc);
+      // }
     }
   }
 })

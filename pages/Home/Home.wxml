@@ -1,21 +1,13 @@
 <view class="container">
   <view class="banner">
     <swiper class="banner-swiper" autoplay="{{true}}" interval="5000" duration="1000">
-      <swiper-item>
+      <!-- <swiper-item>
         <image src="./Home.jpg" mode="widthFix" class="banner-image"></image>
-      </swiper-item>
+      </swiper-item> -->
       <swiper-item>
-        <image src="./Home2.jpg" mode="widthFix" class="banner-image"></image>
+        <image src="./Home3.jpg" mode="widthFix" class="banner-image"></image>
       </swiper-item>
     </swiper>
-    <scroll-view class="menu-scroll-view" scroll-x="{{true}}">
-      <view class="menu-container">
-        <view class="menu-item" wx:for="{{menuList}}" wx:key="index" bindtap="navigateToPage" data-url="{{item.url}}">
-          <image src="{{item.icon}}" mode="aspectFill" class="menu-icon"></image>
-          <view class="menu-text">{{item.name}}</view>
-        </view>
-      </view>
-    </scroll-view>
     <view class="spacer" wx:if="{{false}}">
       <movable-area class="movable-area">
         <movable-view direction="all" scale-area="true" class="movable-view" wx:for="{{nameList}}" wx:key="index" :x="{{index+20}}" y="0">
@@ -24,30 +16,40 @@
       </movable-area>
     </view>
   </view>
-  <!-- // 音乐 煎蛋卷 好人好事 -->
-  <view class="contentList">
-    <view class="ListBox">
-      <!-- 左   陈奥的缘 -->
-      <view class="list-item" bindtap="navigateToPage" data-url="/packHome/personal/personal">
-        <!-- <view class="list-item-text">我的陈奥</view> -->
-        <image src="./my.jpg" mode="widthFix" lazy-load class="list-image"></image>
-      </view>
-      <!-- 右   音乐，公益 等 -->
-      <view class="list-item1">
-        <view class="music-item" wx:for="{{musicList}}" wx:key="index" bindtap="navigateToPage" data-url="{{item.url}}">
-          <view class="music-title">{{item.title}}</view>
-          <view class="music-des">{{item.des}}</view>
+  <view class="conten-box-bg">
+    <view class="content" wx:if="{{false}}">
+      <view class="content-container">
+        <view class="content-container-item" wx:for="{{contentList}}" wx:key="index" bindtap="navigateToPage" data-url="{{item.url}}">
+          <image src="{{item.image}}" mode="aspectFill" class="content-image"></image>
+          <view class="content-text">{{item.name}}</view>
         </view>
       </view>
     </view>
-  </view>
-  <view class="content">
-    <view class="content-container">
-      <view class="content-container-item" wx:for="{{contentList}}" wx:key="index" bindtap="navigateToPage" data-url="{{item.url}}">
-        <image src="{{item.image}}" mode="aspectFill" class="content-image"></image>
-        <view class="content-text">{{item.name}}</view>
+    <!-- // 音乐 煎蛋卷 好人好事 -->
+    <view class="contentList">
+      <view class="ListBox">
+        <!-- 左   陈奥的缘 -->
+        <view class="list-item" bindtap="navigateToPage" data-url="/packHome/personal/personal">
+          <!-- <view class="list-item-text">我的陈奥</view> -->
+          <image src="./Home.jpg" mode="widthFix" lazy-load class="list-image"></image>
+        </view>
+        <!-- 右   音乐，公益 等 -->
+        <view class="list-item1">
+          <view class="music-item" wx:for="{{musicList}}" wx:key="index" bindtap="navigateToPage" data-url="{{item.url}}">
+            <view class="music-title">{{item.title}}</view>
+            <view class="music-des">{{item.des}}</view>
+          </view>
+        </view>
       </view>
     </view>
+    <scroll-view class="menu-scroll-view" scroll-x="{{true}}">
+      <view class="menu-container">
+        <view class="menu-item" wx:for="{{menuList}}" wx:key="index" bindtap="navigateToPage" data-url="{{item.url}}">
+          <image src="{{item.icon}}" mode="aspectFill" class="menu-icon"></image>
+          <view class="menu-text">{{item.name}}</view>
+        </view>
+      </view>
+    </scroll-view>
   </view>
   <!-- 行程日历表 -->
   <view class="calendar-section" wx:if="{{false}}">

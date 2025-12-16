@@ -4,7 +4,7 @@ Page({
     // 背景设置相关数据（已更新为白色背景方案）
     backgroundSettings: {
       type: 'color',
-      value: '#E9E8EF',
+      value: 'linear-gradient(0deg, #000000 0%, #f5f5f5 40%, #f5f5f5 100%)',
       customImage: ''
     },
     colorOptions: [

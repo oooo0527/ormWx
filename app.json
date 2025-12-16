@@ -1,10 +1,9 @@
 {
   "pages": [
-    "pages/index/index",
+    "pages/profile/profile",
     "pages/Home/Home",
     "pages/interaction/interaction",
-
-    "pages/profile/profile",
+    "pages/index/index",
     "pages/selfListDetail/selfListDetail",
     "pages/login/login",
     "pages/publish/publish",
@@ -22,25 +21,25 @@
     "color": "#0c1117",
     "selectedColor": "#f77030",
     "borderStyle": "black",
-    "backgroundColor": "#E9E8EF",
+    "backgroundColor": "#000000",
     "position": "bottom",
     "list": [
       {
         "pagePath": "pages/Home/Home",
-        "iconPath": "images/icon/1.png",
-        "selectedIconPath": "images/icon/11.png",
+        "iconPath": "images/icon/1.jpg",
+        "selectedIconPath": "images/icon/11.jpg",
         "text": "首页"
       },
       {
         "pagePath": "pages/interaction/interaction",
-        "iconPath": "images/icon/2.png",
-        "selectedIconPath": "images/icon/22.png",
+        "iconPath": "images/icon/2.jpg",
+        "selectedIconPath": "images/icon/22.jpg",
         "text": "互动"
       },
       {
         "pagePath": "pages/profile/profile",
-        "iconPath": "images/icon/3.png",
-        "selectedIconPath": "images/icon/33.png",
+        "iconPath": "images/icon/3.jpg",
+        "selectedIconPath": "images/icon/33.jpg",
         "text": "煎蛋卷"
       }
     ]

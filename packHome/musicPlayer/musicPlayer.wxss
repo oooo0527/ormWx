@@ -3,38 +3,23 @@
   display: flex;
   flex-direction: column;
   height: 100vh;
-  /* background: linear-gradient(135deg, #FF99CC, #FFCCFF); */
-  /* padding: 20rpx; */
+  background: #E9E8EF;
   box-sizing: border-box;
 }
 
 .music-player-header {
   height: 500rpx;
   width: 500rpx;
-  /* background: rgba(233, 221, 221, 0.8); */
-  border: 75rpx solid black;
+  border: 75rpx solid #333333;
   border-radius: 500rpx;
   position: absolute;
-  top: 50%;
+  top: 200rpx;
   left: 50%;
-  transform: translate(-50%, -50%);
-  opacity: 0.8;
+  transform: translateX(-50%);
+
 }
 
-.music-player-header1 {
-  flex: 2;
-  height: 515rpx;
-  width: 515rpx;
-  /* background: rgba(233, 221, 221, 0.8); */
-  border: 15rpx solid rgb(168, 137, 137);
-  border-radius: 515rpx;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -167rpx);
-  opacity: 0.8;
-  z-index: -1;
-}
+
 
 .music-player-bg {
   position: absolute;
@@ -85,10 +70,6 @@
   align-items: center;
   width: 100%;
   height: 100%;
-  /* padding: 20rpx; */
-  /* background: rgba(255, 255, 255, 0.8); */
-  /* border-radius: 20rpx; */
-  /* box-shadow: 0 8rpx 16rpx rgba(0, 0, 0, 0.1); */
   position: relative;
   justify-content: center;
 }
@@ -98,13 +79,18 @@
   width: 300rpx;
   height: 300rpx;
   border-radius: 300rpx;
-  top: 50%;
+  top: 290rpx;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
   z-index: 99;
   border: 10rpx solid #FFFFFF;
-  /* margin-bottom: 20rpx; */
-  /* border: 5rpx solid #FFFFFF; */
+}
+
+.music-content {
+  height: 50%;
+  background: red;
+  border-top-left-radius: 50rpx;
+  border-top-right-radius: 50rpx;
 }
 
 .music-text {
@@ -147,6 +133,7 @@
 .progress-slider {
   flex: 1;
   margin: 0 10rpx;
+  background-color: #dddddd;
 }
 
 .control-buttons {
@@ -160,7 +147,7 @@
   height: 80rpx;
   border-radius: 50%;
   background: #FFFFFF;
-  border: none;
+  border: 2rpx solid #dddddd;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -179,7 +166,7 @@
 
 .iconfont {
   font-size: 40rpx;
-  color: #FF6699;
+  color: #333333;
 }
 
 /* 歌词显示区域样式 */
@@ -190,7 +177,8 @@
   box-sizing: border-box;
   overflow-y: auto;
   z-index: 99;
-  /* box-shadow: 0 8rpx 16rpx rgba(0, 0, 0, 0.1); */
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.05);
 }
 
 .lyric-line {

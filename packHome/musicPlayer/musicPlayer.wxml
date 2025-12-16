@@ -1,91 +1,45 @@
-<!--packHome/musicPlayer/musicPlayer.wxml-->
+<!-- packHome/musicPlayer/musicPlayer.wxml -->
 <global-background>
-<view class="music-player-container">
-  <!-- 歌词显示区域 -->
-  <view class="lyric-container">
-    <!-- 调试信息 -->
-    <view wx:if="{{__debug__}}" style="color: red; margin-bottom: 10px;">
-      歌词数组长度: {{lyricArray.length}}
+  <custom-navbar title="ormkornnaphat" showBack="{{true}}" showHome="{{false}}"></custom-navbar>
+  <view class="music-player-container" style="margin-top: {{navBarHeight}}px;height:calc(100vh - {{navBarHeight}}px);">
+    <!-- 音乐列表轮播 -->
+    <view class="music-list-carousel">
+      <!-- <view class="music-player-header1"></view> -->
+      <swiper class="carousel-swiper" autoplay="{{false}}" interval="5000" duration="1000" vertical="{{false}}" layout-type="transformer" transformer-type="scale" bindchange="onSwiperChange" current="{{currentMusicIndex}}">
+        <block wx:for="{{musicList}}" wx:key="id">
+          <swiper-item class="carousel-item">
+            <view class="music-info {{isRotating && index === currentMusicIndex ? 'rotating' : ''}}" bindtap="playMusic" data-index="{{index}}">
+              <view class="music-player-header"></view>
+              <image class="album-cover" src="{{item.src}}" mode="aspectFill"></image>
+            </view>
+          </swiper-item>
+        </block>
+      </swiper>
     </view>
-    
-    <block wx:if="{{lyricArray.length > 0}}">
-      <block wx:for="{{lyricArray}}" wx:key="index">
-        <view 
-          id="lyric-{{index}}" 
-          class="lyric-line"
-        >
-          {{item}}
+    <!-- 音乐信息显示 -->
+    <view class="music-content" wx:if="{{musicList.length > 0}}">
+      <view class="music-title">{{musicList[currentMusicIndex].title}}</view>
+      <view class="player-controls">
+        <!-- 进度条 -->
+        <view class="progress-container">
+          <text class="time-text">{{formatTime(currentTime)}}</text>
+          <slider class="progress-slider" min="0" max="{{duration}}" value="{{currentTime}}" bindchange="sliderChange" activeColor="#333333" backgroundColor="#dddddd" />
+          <text class="time-text">{{formatTime(duration)}}</text>
         </view>
-      </block>
-    </block>
-    <block wx:else>
-      <view class="lyric-placeholder">
-        暂无歌词
+        <!-- 控制按钮 -->
+        <view class="control-buttons">
+          <button class="control-btn" bindtap="prevMusic">
+            <text class="iconfont">&#xe601;</text>
+          </button>
+          <button class="control-btn play-btn" bindtap="togglePlay">
+            <text class="iconfont" wx:if="{{isPlaying}}">&#xe602;</text>
+            <text class="iconfont" wx:else>&#xe603;</text>
+          </button>
+          <button class="control-btn" bindtap="nextMusic">
+            <text class="iconfont">&#xe604;</text>
+          </button>
+        </view>
       </view>
-    </block>
-  </view>
-  <!-- <image class="music-player-bg" src="cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/8a4a2aff10012ed22625321f6898bb84.jpg" mode="aspectFill"></image> -->
-
-  <!-- 音乐列表轮播 -->
-  <view class="music-list-carousel">
-    <view class="music-player-header1"></view>
-    <swiper 
-      class="carousel-swiper"
-      autoplay="{{false}}" 
-      interval="5000" 
-      duration="1000"
-      vertical="{{false}}"
-      layout-type="transformer"
-      transformer-type="scale"
-      bindchange="onSwiperChange"
-      current="{{currentMusicIndex}}"
-    >
-      <block wx:for="{{musicList}}" wx:key="id">
-        <swiper-item class="carousel-item">
-          <view class="music-info {{isRotating && index === currentMusicIndex ? 'rotating' : ''}}" bindtap="playMusic" data-index="{{index}}">
-            <view class="music-player-header"></view>
-            <image class="album-cover" src="{{item.src}}" mode="aspectFill"></image>
-          </view>
-        </swiper-item>
-      </block>
-    </swiper>
-  </view>
-
-  <!-- 音乐信息显示 -->
-  <view class="music-text" wx:if="{{musicList.length > 0}}">
-    <view class="music-title">{{musicList[currentMusicIndex].title}}</view>
-    <view class="music-singer">{{musicList[currentMusicIndex].singer}}</view>
-  </view>
-
-  <!-- 播放控制区域 -->
-  <view class="player-controls">
-    <!-- 进度条 -->
-    <view class="progress-container">
-      <text class="time-text">{{formatTime(currentTime)}}</text>
-      <slider 
-        class="progress-slider" 
-        min="0" 
-        max="{{duration}}" 
-        value="{{currentTime}}" 
-        bindchange="sliderChange"
-        activeColor="#FF6699"
-      />
-      <text class="time-text">{{formatTime(duration)}}</text>
-    </view>
-
-    <!-- 控制按钮 -->
-    <view class="control-buttons">
-      <button class="control-btn" bindtap="prevMusic">
-        <text class="iconfont">&#xe601;</text>
-      </button>
-      <button class="control-btn play-btn" bindtap="togglePlay">
-        <text class="iconfont" wx:if="{{isPlaying}}">&#xe602;</text>
-        <text class="iconfont" wx:else>&#xe603;</text>
-      </button>
-      <button class="control-btn" bindtap="nextMusic">
-        <text class="iconfont">&#xe604;</text>
-      </button>
     </view>
   </view>
-</view>
 </global-background>
