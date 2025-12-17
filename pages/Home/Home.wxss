@@ -7,13 +7,156 @@
   overflow-y: scroll;
 }
 
+/* 添加悬挂灯泡样式 */
+.hanging-lamp {
+  position: fixed;
+  top: 0;
+  right: 30rpx;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20rpx;
+}
+
+.lamp-rope {
+  width: 2rpx;
+  height: 120rpx;
+  background: gold;
+  box-shadow: 0 0 2rpx 1rpx rgba(255, 215, 0, 0.5);
+}
+
+.lamp-bulb {
+  width: 60rpx;
+  height: 60rpx;
+  /* background: #cccccc; */
+  /* border-radius: 50%; */
+  position: relative;
+  /* box-shadow: 0 0 10rpx rgba(0, 0, 0, 0.3); */
+  transition: all 0.3s ease;
+}
+
+
+
+
+/* 弹窗样式 */
+.lamp-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.lamp-popup.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.popup-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.popup-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 90%;
+  /* width: 100%; */
+  height: 70vh;
+  background: #ffffff;
+  border-radius: 20rpx;
+  box-shadow: 0 10rpx 30rpx rgba(0, 0, 0, 0.2);
+  /* transform: translateY(-20rpx); */
+  transition: transform 0.3s ease;
+  overflow: hidden;
+  overflow-y: scroll;
+  z-index: 999;
+}
+
+
+
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx 30rpx;
+  background: #000000;
+  border-bottom: 1rpx solid #e0e0e0;
+  color: #ffffff;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  /* color: #333333; */
+}
+
+.close-btn {
+  font-size: 40rpx;
+  color: #999999;
+  padding: 10rpx;
+  cursor: pointer;
+}
+
+.popup-body {
+  padding: 20rpx 30rpx;
+  max-height: 60vh;
+}
+
+.event-item {
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.event-item:last-child {
+  border-bottom: none;
+}
+
+.event-date {
+  font-size: 24rpx;
+  color: #999999;
+  margin-bottom: 10rpx;
+}
+
+.event-title {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #333333;
+  margin-bottom: 10rpx;
+}
+
+.event-desc {
+  font-size: 26rpx;
+  color: #666666;
+  line-height: 1.4;
+}
+
+.no-events {
+  text-align: center;
+  padding: 40rpx 0;
+  color: #999999;
+  font-size: 28rpx;
+}
+
 .conten-box-bg {
   background: linear-gradient(0deg, #000000 0%, #f5f5f5 40%, #f5f5f5 100%);
-  max-height: calc(100vh-800rpx);
+  max-height: calc(100vh - 800rpx);
   overflow: hidden;
   overflow-y: scroll;
 
-  z-index: 999;
+  z-index: 99;
   position: relative;
   width: 100%;
   border-top-left-radius: 50rpx;

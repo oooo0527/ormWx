@@ -64,17 +64,10 @@ Page({
       url: '/packHome/dream/dream',
       image: 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/9a58f9ad40d364eb6022ccd8b78cbb82.jpg'
     }],
-    // 日历相关数据
-    selectedDate: new Date().toISOString().slice(0, 7), // 当前年月
-    selectedYear: new Date().getFullYear(),
-    selectedMonth: new Date().getMonth() + 1,
-    calendarDays: [],
-    stars: [], // 星空背景星星
-    showEventDetailModal: false, // 活动详情弹窗显示状态
-    selectedEvent: {}, // 选中的活动
-
-    // 事件数据将从云函数获取
-    events: []
+    // 灯泡弹窗相关数据
+    showLampPopup: false,
+    isLampOn: false,
+    eventsData: []
   },
   onLoad: function (options) {
     // 获取用户信息
@@ -83,18 +76,8 @@ Page({
       wx.navigateTo({
         url: '/pages/index/index'
       });
-
     }
-
-    // 从云函数获取events数据
-    this.loadEventsFromCloud();
-
-    // 初始化日历和星空背景
-    this.initStars();
-    this.initCalendar();
   },
-
-
 
   onShow: function () {
 
@@ -106,8 +89,6 @@ Page({
     });
   },
 
-
-
   // 关闭公告
   closeAnnouncement: function () {
     this.setData({
@@ -115,207 +96,48 @@ Page({
     });
   },
 
-  // 初始化星空背景
-  initStars: function () {
-    const stars = [];
-    // 创建50个随机位置的星星
-    for (let i = 0; i < 50; i++) {
-      stars.push({
-        id: i,
-        x: Math.random() * 100, // 百分比位置
-        y: Math.random() * 100,
-        opacity: Math.random() * 0.8 + 0.2 // 0.2-1透明度
-      });
-    }
-    this.setData({
-      stars: stars
-    });
-  },
-
-  // 初始化日历
-  initCalendar: function () {
-    this.generateCalendar(this.data.selectedYear, this.data.selectedMonth);
-  },
-
-  // 生成日历数据
-  generateCalendar: function (year, month) {
-    const today = new Date();
-    const isCurrentMonth = year === today.getFullYear() && month === today.getMonth() + 1;
-
-    // 获取当月第一天是周几 (0-6, 0表示周日)
-    const firstDay = new Date(year, month - 1, 1).getDay();
-    // 获取当月总天数
-    const daysInMonth = new Date(year, month, 0).getDate();
-
-    // 创建日历数组
-    const calendarDays = [];
-
-    // 添加空白日期（上个月）
-    for (let i = 0; i < firstDay; i++) {
-      calendarDays.push({
-        day: '',
-        date: '',
-        isToday: false,
-        hasEvent: false,
-        isSelected: false,
-        event: null
-      });
-    }
-
-    // 添加当月日期
-    for (let i = 1; i <= daysInMonth; i++) {
-      const dateStr = `${year}-${month.toString().padStart(2, '0')}-${i.toString().padStart(2, '0')}`;
-      const isToday = isCurrentMonth && i === today.getDate();
-
-      // 查找当天是否有活动
-      const event = this.getEventOnDate(dateStr);
-      const hasEvent = !!event;
-
-      calendarDays.push({
-        day: i,
-        date: dateStr,
-        isToday: isToday,
-        hasEvent: hasEvent,
-        isSelected: false,
-        event: event
-      });
-    }
-
-    // 只添加足够的空日期以完成最后一周，避免多余的空行
-    const daysNeeded = (7 - (calendarDays.length % 7)) % 7;
-    for (let i = 0; i < daysNeeded; i++) {
-      calendarDays.push({
-        day: '',
-        date: '',
-        isToday: false,
-        hasEvent: false,
-        isSelected: false,
-        event: null
-      });
-    }
+  // 切换灯泡弹窗显示状态（下拉效果）
+  toggleLampPopup: function () {
+    const showPopup = !this.data.showLampPopup;
+    const lampOn = showPopup;
 
     this.setData({
-      calendarDays: calendarDays
-    });
-  },
-
-  // 获取指定日期的活动
-  getEventOnDate: function (date) {
-    return this.data.events.find(event => event.date === date) || null;
-  },
-
-  // 选择日期
-  selectDay: function (e) {
-    const selectedDate = e.currentTarget.dataset.date;
-    const event = e.currentTarget.dataset.event;
-    if (!selectedDate) return;
-
-    // 更新选中状态
-    const updatedDays = this.data.calendarDays.map(day => {
-      return {
-        ...day,
-        isSelected: day.date === selectedDate
-      };
+      showLampPopup: showPopup,
+      isLampOn: lampOn
     });
 
-    this.setData({
-      calendarDays: updatedDays
-    });
-
-    // 如果当天有活动，显示活动详情弹窗
-    if (event) {
-      this.setData({
-        showEventDetailModal: true,
-        selectedEvent: {
-          ...event,
-          date: selectedDate
-        }
-      });
+    // 如果是打开弹窗，则获取events数据
+    if (showPopup) {
+      this.getEventsData();
     }
-
-    console.log('Selected date:', selectedDate);
   },
 
-  // 日期选择器变化
-  bindDateChange: function (e) {
-    const selectedDate = e.detail.value; // 格式: YYYY-MM
-    const [year, month] = selectedDate.split('-').map(Number);
-
-    this.setData({
-      selectedDate: selectedDate,
-      selectedYear: year,
-      selectedMonth: month
-    });
-
-    // 重新生成日历
-    this.generateCalendar(year, month);
-  },
-
-  // 关闭活动详情弹窗
-  closeEventDetailModal: function () {
-    this.setData({
-      showEventDetailModal: false,
-      selectedEvent: {}
-    });
-  },
-
-  // 从云函数加载events数据
-  loadEventsFromCloud: function () {
+  // 获取events云函数数据
+  getEventsData: function () {
     wx.cloud.callFunction({
       name: 'events',
-      data: {},
-      success: res => {
-        if (res.result.success) {
-          console.log('获取events数据成功:', res.result.data);
-          this.setData({
-            events: res.result.data
-          });
-          // 重新生成日历以反映新的events数据
-          this.initCalendar();
-        } else {
-          console.error('获取events数据失败:', res.result.message);
-          // 使用默认数据
-          this.setDefaultEvents();
-        }
-      },
-      fail: err => {
-        console.error('调用云函数失败:', err);
-        // 使用默认数据
-        this.setDefaultEvents();
+      data: {
+        action: 'getEvents'
       }
-    });
-  },
-
-  // 设置默认events数据
-  setDefaultEvents: function () {
-    const defaultEvents = [
-      {
-        date: '2023-04-05',
-        title: '广告拍摄',
-        description: '参与某知名品牌广告拍摄，地点在曼谷市中心摄影棚。'
-      },
-      {
-        date: '2023-04-12',
-        title: '粉丝见面会',
-        description: '在Central World商场举办粉丝见面会，与粉丝互动交流。'
-      },
-      {
-        date: '2023-04-18',
-        title: '电视剧开机',
-        description: '新电视剧《星辰之恋》正式开机，担任女主角。'
-      },
-      {
-        date: '2023-04-26',
-        title: '杂志封面拍摄',
-        description: '为知名时尚杂志拍摄封面，造型师将打造全新形象。'
+    }).then(res => {
+      console.log('获取events数据成功', res);
+      if (res.result && res.result.success) {
+        this.setData({
+          eventsData: res.result.data || []
+        });
+      } else {
+        wx.showToast({
+          title: '获取活动数据失败',
+          icon: 'none'
+        });
       }
-    ];
-
-    this.setData({
-      events: defaultEvents
+    }).catch(err => {
+      console.error('获取events数据失败', err);
+      wx.showToast({
+        title: '获取活动数据失败',
+        icon: 'none'
+      });
     });
-
-    // 重新生成日历以反映默认events数据
-    this.initCalendar();
   }
+
 })

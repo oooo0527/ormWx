@@ -1,4 +1,28 @@
 <view class="container">
+  <!-- 添加悬挂灯泡 -->
+  <view class="hanging-lamp" bindtap="toggleLampPopup">
+    <view class="lamp-rope"></view>
+    <image src="{{!isLampOn?'./black.png':'./light.png'}}" mode="widthFix" class="lamp-bulb"></image>
+    <!-- <view class="lamp-bulb {{isLampOn ? 'lamp-on' : ''}}"></view> -->
+  </view>
+  <!-- 灯泡弹窗 -->
+  <view class="lamp-popup {{showLampPopup ? 'show' : ''}}" wx:if="{{showLampPopup}}">
+    <view class="popup-overlay" bindtap="toggleLampPopup"></view>
+    <view class="popup-content">
+      <view class="popup-header">
+        <text class="popup-title">最新活动</text>
+        <view class="close-btn" bindtap="toggleLampPopup">×</view>
+      </view>
+      <scroll-view class="popup-body" scroll-y="true">
+        <view class="event-item" wx:for="{{eventsData}}" wx:key="_id">
+          <view class="event-date">{{item.date}}</view>
+          <view class="event-title">{{item.title}}</view>
+          <view class="event-desc">{{item.description}}</view>
+        </view>
+        <view class="no-events" wx:if="{{eventsData.length === 0}}">暂无活动数据</view>
+      </scroll-view>
+    </view>
+  </view>
   <view class="banner">
     <swiper class="banner-swiper" autoplay="{{true}}" interval="5000" duration="1000">
       <!-- <swiper-item>
@@ -50,54 +74,5 @@
         </view>
       </view>
     </scroll-view>
-  </view>
-  <!-- 行程日历表 -->
-  <view class="calendar-section" wx:if="{{false}}">
-    <view class="calendar-content">
-      <!-- 星空背景 -->
-      <view class="star-background">
-        <block wx:for="{{stars}}" wx:key="id">
-          <view class="star" style="left: {{item.x}}%; top: {{item.y}}%; opacity: {{item.opacity}};"></view>
-        </block>
-      </view>
-      <view class="calendar-header">
-        <picker mode="date" fields="month" value="{{selectedDate}}" bindchange="bindDateChange">
-          <view class="date-selector">{{selectedYear}}年{{selectedMonth}}月</view>
-        </picker>
-      </view>
-      <view class="calendar-grid">
-        <view class="weekdays">
-          <text class="weekday">日</text>
-          <text class="weekday">一</text>
-          <text class="weekday">二</text>
-          <text class="weekday">三</text>
-          <text class="weekday">四</text>
-          <text class="weekday">五</text>
-          <text class="weekday">六</text>
-        </view>
-        <view class="days-grid">
-          <block wx:for="{{calendarDays}}" wx:key="index">
-            <view class="day-item {{item.isToday ? 'today' : ''}} {{item.hasEvent ? 'event-day' : ''}} {{item.isSelected ? 'selected' : ''}}" bindtap="selectDay" data-date="{{item.date}}" data-event="{{item.event}}">
-              <text class="day-number">{{item.day}}</text>
-              <!-- <view class="event-indicator" wx:if="{{item.hasEvent}}"></view> -->
-              <view class="event-summary" wx:if="{{item.hasEvent}}">{{item.event.title}}</view>
-            </view>
-          </block>
-        </view>
-      </view>
-    </view>
-  </view>
-  <!-- 活动详情弹窗 -->
-  <view class="event-detail-modal {{showEventDetailModal ? 'show' : ''}}">
-    <view class="event-detail-content">
-      <view class="event-detail-header">
-        <text class="event-detail-title">{{selectedEvent.title}}</text>
-        <view class="close-btn" bindtap="closeEventDetailModal">×</view>
-      </view>
-      <view class="event-detail-body">
-        <text class="event-detail-date">{{selectedEvent.date}}</text>
-        <text class="event-detail-description">{{selectedEvent.description}}</text>
-      </view>
-    </view>
   </view>
 </view>
