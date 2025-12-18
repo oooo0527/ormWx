@@ -1,0 +1,11 @@
+<view class="container">
+  <view class="header">
+    <text class="title">{{title}}</text>
+  </view>
+  <view class="image-gallery">
+    <view class="image-item" wx:for="{{images}}" wx:key="index" bindtap="onImageTap" data-index="{{index}}">
+      <image class="image" src="{{item.url}}" mode="aspectFill"></image>
+      <text class="image-desc">{{item.desc}}</text>
+    </view>
+  </view>
+</view>

@@ -1,188 +1,370 @@
-// packHome/behind/behind.js
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-    behindList: [
-      'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/behind/098bb43a246b28b40ea277fb4a820460.jpg',
-      "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/behind/50a564a77eb43dd2c90f8294b03c1f91.jpg",
-      "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/behind/6ca0533a7313c69c9e5a07cdeba38cd0.jpg",
-      "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/behind/7107bc357e6ac46e53f504384e17e397.jpg",
-      "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/behind/b8f60d5e2868949446ffc9cb92755af9.jpg",
-      'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/behind/098bb43a246b28b40ea277fb4a820460.jpg',
-      "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/behind/50a564a77eb43dd2c90f8294b03c1f91.jpg",
-      "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/behind/6ca0533a7313c69c9e5a07cdeba38cd0.jpg",
-      "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/behind/7107bc357e6ac46e53f504384e17e397.jpg",
-      "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/behind/b8f60d5e2868949446ffc9cb92755af9.jpg",
-      'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/behind/098bb43a246b28b40ea277fb4a820460.jpg',
-      "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/behind/50a564a77eb43dd2c90f8294b03c1f91.jpg",
-      "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/behind/6ca0533a7313c69c9e5a07cdeba38cd0.jpg",
-      "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/behind/7107bc357e6ac46e53f504384e17e397.jpg",
-      "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/behind/b8f60d5e2868949446ffc9cb92755af9.jpg",
-    ],
-    currentIndex: 0,
-    currentImage: '',
-    turning: false,
-    turningDirection: '', // 'forward' 或 'backward'
-    startX: 0,
-    startY: 0
-  },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad(options) {
-    console.log('behindList length:', this.data.behindList.length);
-
-    // 从本地存储中获取上次浏览的位置
-    const lastViewedIndex = wx.getStorageSync('behindLastViewedIndex') || 0;
-
-    // 确保索引在有效范围内
-    const validIndex = Math.min(lastViewedIndex, this.data.behindList.length - 1);
-
-    // 设置当前图片和索引
-    if (this.data.behindList.length > 0) {
-      this.setData({
-        currentIndex: validIndex,
-        currentImage: this.data.behindList[validIndex]
-      });
-    }
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide() {
-    // 页面隐藏时保存当前浏览位置
-    this.saveCurrentPosition();
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload() {
-    // 页面卸载时保存当前浏览位置
-    this.saveCurrentPosition();
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage() {
-
-  },
-
-  // 保存当前位置到本地存储
-  saveCurrentPosition: function () {
-    wx.setStorageSync('behindLastViewedIndex', this.data.currentIndex);
-  },
-
-  // 处理触摸开始
-  handleTouchStart: function (e) {
-    this.setData({
-      startX: e.touches[0].clientX,
-      startY: e.touches[0].clientY
-    });
-  },
-
-  // 处理触摸移动
-  handleTouchMove: function (e) {
-    // 阻止默认滚动行为
-    e.preventDefault();
-  },
-
-  // 处理触摸结束
-  handleTouchEnd: function (e) {
-    const endX = e.changedTouches[0].clientX;
-    const endY = e.changedTouches[0].clientY;
-    const deltaX = endX - this.data.startX;
-    const deltaY = endY - this.data.startY;
-
-    // 判断是否为水平滑动且滑动距离足够
-    if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
-      if (deltaX > 0) {
-        // 向右滑动，显示上一张图片
-        this.prevImage();
-      } else {
-        // 向左滑动，显示下一张图片
-        this.nextImage();
+    books: [
+      {
+        id: 1,
+        title: "童年回忆",
+        cover: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/behind/098bb43a246b28b40ea277fb4a820460.jpg",
+        imageList: [
+          "https://img-blog.csdnimg.cn/202305061523410.jpg",
+          "https://img-blog.csdnimg.cn/202305061523411.jpg",
+          "https://img-blog.csdnimg.cn/202305061523412.jpg"
+        ],
+        color: "#000000"
+      },
+      {
+        id: 2,
+        title: "青春时光",
+        cover: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/behind/50a564a77eb43dd2c90f8294b03c1f91.jpg",
+        imageList: [
+          "https://img-blog.csdnimg.cn/202305061523413.jpg",
+          "https://img-blog.csdnimg.cn/202305061523414.jpg",
+          "https://img-blog.csdnimg.cn/202305061523415.jpg"
+        ],
+        color: "red"
+      },
+      {
+        id: 3,
+        title: "成长足迹",
+        cover: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/behind/6ca0533a7313c69c9e5a07cdeba38cd0.jpg",
+        imageList: [
+          "https://img-blog.csdnimg.cn/202305061523416.jpg",
+          "https://img-blog.csdnimg.cn/202305061523417.jpg",
+          "https://img-blog.csdnimg.cn/202305061523418.jpg"
+        ],
+        color: "green"
+      },
+      {
+        id: 4,
+        title: "梦想启航",
+        cover: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/behind/7107bc357e6ac46e53f504384e17e397.jpg",
+        imageList: [
+          "https://img-blog.csdnimg.cn/202305061523419.jpg",
+          "https://img-blog.csdnimg.cn/202305061523420.jpg",
+          "https://img-blog.csdnimg.cn/202305061523421.jpg"
+        ],
+        color: "blue"
+      },
+      {
+        id: 5,
+        title: "美好未来",
+        cover: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/behind/7107bc357e6ac46e53f504384e17e397.jpg",
+        imageList: [
+          "https://img-blog.csdnimg.cn/202305061523422.jpg",
+          "https://img-blog.csdnimg.cn/202305061523423.jpg",
+          "https://img-blog.csdnimg.cn/202305061523424.jpg"
+        ],
+        color: "#42b983"
       }
-    }
+    ],
+    books1: [
+      {
+        id: 1,
+        title: "童年回忆",
+        cover: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/behind/098bb43a246b28b40ea277fb4a820460.jpg",
+        imageList: [
+          "https://img-blog.csdnimg.cn/202305061523410.jpg",
+          "https://img-blog.csdnimg.cn/202305061523411.jpg",
+          "https://img-blog.csdnimg.cn/202305061523412.jpg"
+        ],
+        color: "#000000"
+      },
+      {
+        id: 2,
+        title: "青春时光",
+        cover: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/behind/50a564a77eb43dd2c90f8294b03c1f91.jpg",
+        imageList: [
+          "https://img-blog.csdnimg.cn/202305061523413.jpg",
+          "https://img-blog.csdnimg.cn/202305061523414.jpg",
+          "https://img-blog.csdnimg.cn/202305061523415.jpg"
+        ],
+        color: "#d06a6a"
+      },
+      {
+        id: 3,
+        title: "成长足迹",
+        cover: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/behind/6ca0533a7313c69c9e5a07cdeba38cd0.jpg",
+        imageList: [
+          "https://img-blog.csdnimg.cn/202305061523416.jpg",
+          "https://img-blog.csdnimg.cn/202305061523417.jpg",
+          "https://img-blog.csdnimg.cn/202305061523418.jpg"
+        ],
+        color: "#a08cf1"
+      },
+      {
+        id: 4,
+        title: "梦想启航",
+        cover: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/behind/7107bc357e6ac46e53f504384e17e397.jpg",
+        imageList: [
+          "https://img-blog.csdnimg.cn/202305061523419.jpg",
+          "https://img-blog.csdnimg.cn/202305061523420.jpg",
+          "https://img-blog.csdnimg.cn/202305061523421.jpg"
+        ],
+        color: "#e2f18c"
+      },
+      {
+        id: 5,
+        title: "美好未来",
+        cover: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/behind/7107bc357e6ac46e53f504384e17e397.jpg",
+        imageList: [
+          "https://img-blog.csdnimg.cn/202305061523422.jpg",
+          "https://img-blog.csdnimg.cn/202305061523423.jpg",
+          "https://img-blog.csdnimg.cn/202305061523424.jpg"
+        ],
+        color: "#000000"
+      }
+    ],
+    animatedBookId: null,
+    animatedBookId1: null,
+    currentIndex: 0, // 当前显示的书籍索引
+    currentIndex1: 0 // 当前显示的书籍索引
   },
 
-  // 显示上一张图片
-  prevImage: function () {
-    if (this.data.currentIndex > 0) {
+  onLoad() {
+
+    // 初始化当前选中的书籍
+    this.updateCurrentBook();
+    this.updateCurrentBook1();
+  },
+
+  updateCurrentBook() {
+    const currentBook = this.data.books[this.data.currentIndex];
+    if (currentBook) {
       this.setData({
-        turning: true,
-        turningDirection: 'backward'
+        animatedBookId: currentBook.id
       });
 
+      // 动画结束后取消动画状态
       setTimeout(() => {
-        const newIndex = this.data.currentIndex - 1;
         this.setData({
-          currentIndex: newIndex,
-          currentImage: this.data.behindList[newIndex],
-          turning: false,
-          turningDirection: ''
+          animatedBookId: null
         });
-
-        // 保存当前位置
-        this.saveCurrentPosition();
       }, 400);
     }
   },
-
-  // 显示下一张图片
-  nextImage: function () {
-    if (this.data.currentIndex < this.data.behindList.length - 1) {
+  updateCurrentBook1() {
+    const currentBook = this.data.books1[this.data.currentIndex1];
+    if (currentBook) {
       this.setData({
-        turning: true,
-        turningDirection: 'forward'
+        animatedBookId1: currentBook.id
       });
 
+      // 动画结束后取消动画状态
       setTimeout(() => {
-        const newIndex = this.data.currentIndex + 1;
         this.setData({
-          currentIndex: newIndex,
-          currentImage: this.data.behindList[newIndex],
-          turning: false,
-          turningDirection: ''
+          animatedBookId1: null
         });
-
-        // 保存当前位置
-        this.saveCurrentPosition();
       }, 400);
     }
+  },
+  preventTap(e) {
+    console.log('#E9E8EF事件冒泡');
+  },
+
+  onBookTap(e) {
+    console.log("onBookTap triggered", e);
+    const bookId = e.currentTarget.dataset.id;
+    console.log("Book ID:", bookId);
+
+    // 触发动画效果
+    this.setData({
+      animatedBookId: bookId
+    });
+    console.log("Book tapped:", bookId);
+
+    // 延迟跳转到详情页
+    setTimeout(() => {
+      const book = this.data.books.find(item => item.id === bookId);
+      console.log("Found book:", book);
+      if (book) {
+        wx.navigateTo({
+          url: `/packHome/bookDetail/bookDetail?bookId=${bookId}&title=${encodeURIComponent(book.title)}`,
+        });
+      }
+    }, 400);
+  },
+
+  // 处理滑动事件
+  onTouchStart(e) {
+    this.startY = e.touches[0].clientY;
+    this.startX = e.touches[0].clientX; // 记录起始X坐标
+  },
+
+  onTouchMove(e) {
+    this.moveY = e.touches[0].clientY;
+    this.moveX = e.touches[0].clientX; // 记录移动X坐标
+  },
+
+  onTouchEnd(e) {
+    if (this.startY && this.moveY) {
+      const deltaY = this.startY - this.moveY;
+      const deltaX = Math.abs((this.moveX || e.changedTouches[0].clientX) - this.startX);
+
+      // 判断是否为点击操作（垂直和水平移动都很小）
+      if (Math.abs(deltaY) < 10 && deltaX < 10) {
+        // 可能是点击，不执行滑动逻辑
+        this.startY = 0;
+        this.moveY = 0;
+        this.startX = 0;
+        this.moveX = 0;
+        return;
+      }
+
+      // 向上滑动切换到下一本书
+      if (deltaY > 50) {
+        //把第一条数据插入到最后
+        this.data.books.push(this.data.books[0]);
+        this.data.books.shift();
+
+        this.switchToNextBook();
+      }
+      // 向下滑动切换到上一本书
+      else if (deltaY < -50) {
+        //把最后一本数据插入到最前面
+        this.data.books.unshift(this.data.books[this.data.books.length - 1]);
+        this.data.books.pop();
+        this.switchToPrevBook();
+      }
+      this.setData({
+        books: this.data.books
+      });
+    }
+
+    // 重置触摸位置
+    this.startY = 0;
+    this.moveY = 0;
+    this.startX = 0;
+    this.moveX = 0;
+  },
+
+  // 切换到下一本书
+  switchToNextBook() {
+    let newIndex = this.data.currentIndex + 1;
+    if (newIndex >= this.data.books.length) {
+      newIndex = 0; // 循环到第一本
+    }
+
+    this.setData({
+      currentIndex: newIndex
+    });
+
+    this.updateCurrentBook();
+  },
+
+  // 切换到上一本书
+  switchToPrevBook() {
+    let newIndex = this.data.currentIndex - 1;
+    if (newIndex < 0) {
+      newIndex = this.data.books.length - 1; // 循环到最后一本
+    }
+
+    this.setData({
+      currentIndex: newIndex
+    });
+
+    this.updateCurrentBook();
+  },
+
+  onBookTap1(e) {
+    console.log("onBookTap1 triggered", e);
+    const bookId = e.currentTarget.dataset.id;
+    console.log("Book ID:", bookId);
+
+    // 触发动画效果
+    this.setData({
+      animatedBookId1: bookId
+    });
+
+    // 延迟跳转到详情页
+    setTimeout(() => {
+      const book = this.data.books1.find(item => item.id === bookId);
+      console.log("Found book1:", book);
+      if (book) {
+        wx.navigateTo({
+          url: `/packHome/bookDetail/bookDetail?bookId=${bookId}&title=${encodeURIComponent(book.title)}`,
+        });
+      }
+    }, 400);
+  },
+
+  // 处理滑动事件
+  onTouchStart1(e) {
+    this.startY = e.touches[0].clientY;
+    this.startX = e.touches[0].clientX; // 记录起始X坐标
+  },
+
+  onTouchMove1(e) {
+    this.moveY = e.touches[0].clientY;
+    this.moveX = e.touches[0].clientX; // 记录移动X坐标
+  },
+
+  onTouchEnd1(e) {
+    if (this.startY && this.moveY) {
+      const deltaY = this.startY - this.moveY;
+      const deltaX = Math.abs((this.moveX || e.changedTouches[0].clientX) - this.startX);
+
+      // 判断是否为点击操作（垂直和水平移动都很小）
+      if (Math.abs(deltaY) < 10 && deltaX < 10) {
+        // 可能是点击，不执行滑动逻辑
+        this.startY = 0;
+        this.moveY = 0;
+        this.startX = 0;
+        this.moveX = 0;
+        return;
+      }
+
+      // 向上滑动切换到下一本书
+      if (deltaY > 50) {
+        //把第一条数据插入到最后
+        this.data.books1.push(this.data.books1[0]);
+        this.data.books1.shift();
+
+        this.switchToNextBook1();
+      }
+      // 向下滑动切换到上一本书
+      else if (deltaY < -50) {
+        //把最后一本数据插入到最前面
+        this.data.books1.unshift(this.data.books1[this.data.books1.length - 1]);
+        this.data.books1.pop();
+        this.switchToPrevBook1();
+      }
+      this.setData({
+        books1: this.data.books1
+      });
+    }
+
+    // 重置触摸位置
+    this.startY = 0;
+    this.moveY = 0;
+    this.startX = 0;
+    this.moveX = 0;
+  },
+
+  // 切换到下一本书
+  switchToNextBook1() {
+    let newIndex = this.data.currentIndex + 1;
+    if (newIndex >= this.data.books1.length) {
+      newIndex = 0; // 循环到第一本
+    }
+
+    this.setData({
+      currentIndex: newIndex
+    });
+
+    this.updateCurrentBook1();
+  },
+
+  // 切换到上一本书
+  switchToPrevBook1() {
+    let newIndex = this.data.currentIndex - 1;
+    if (newIndex < 0) {
+      newIndex = this.data.books1.length - 1; // 循环到最后一本
+    }
+
+    this.setData({
+      currentIndex1: newIndex
+    });
+
+    this.updateCurrentBook1();
   }
-})
+});

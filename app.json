@@ -71,7 +71,8 @@
         "fanClub/fanClub",
         "photoDetail/photoDetail",
         "rambling/rambling",
-        "behind/behind"
+        "behind/behind",
+        "bookDetail/bookDetail"
       ]
     }
   ],
