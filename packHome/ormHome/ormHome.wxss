@@ -1,0 +1,361 @@
+/* 容器样式 */
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: linear-gradient(180deg, #790202 0%, #470101 100%);
+  padding: 20rpx;
+  box-sizing: border-box;
+  /* 添加微妙的纹理背景 */
+  /* background-image: radial-gradient(circle at 10% 50%, rgba(129, 3, 3, 0.3) 0%, transparent 10%),
+    radial-gradient(circle at 90% 50%, rgba(226, 3, 3, 0.3) 0%, transparent 10%); */
+}
+
+/* 顶部菜单容器 */
+.top-menus {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 40rpx;
+  /* 悬挂效果 */
+  position: relative;
+  top: 20rpx;
+  z-index: 10;
+}
+
+/* 底部菜单容器 */
+.bottom-menus {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 40rpx;
+  /* 生长效果 */
+  position: relative;
+  z-index: 10;
+  align-items: flex-end;
+}
+
+/* 菜单项基础样式 */
+.menu-item {
+  width: 140rpx;
+  border-radius: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  box-shadow: 0 8rpx 20rpx rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  position: relative;
+  flex-direction: column;
+  padding: 20rpx 0;
+  box-sizing: border-box;
+  /* 添加内阴影增强立体感 */
+  border: 2rpx solid rgba(255, 255, 255, 0.2);
+  /* 添加光泽效果 */
+  background-clip: padding-box;
+  /* 添加微妙的内发光效果 */
+  background-origin: border-box;
+  /* 添加3D透视效果 */
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  /* 设置最小和最大高度 */
+  min-height: 450rpx;
+  max-height: 500rpx;
+}
+
+/* 菜单项悬停效果 */
+.menu-item:active {
+  transform: scale(0.95) translateZ(10px);
+  /* 增强按下效果 */
+  box-shadow: 0 4rpx 10rpx rgba(0, 0, 0, 0.2);
+}
+
+/* 菜单文字样式 */
+.menu-text {
+  color: white;
+  font-size: 28rpx;
+  font-weight: bold;
+  text-align: center;
+  text-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.3);
+  /* 添加文字描边效果 */
+  text-stroke: 1rpx rgba(0, 0, 0, 0.2);
+  -webkit-text-stroke: 1rpx rgba(0, 0, 0, 0.2);
+  /* 添加轻微的发光效果 */
+  letter-spacing: 1rpx;
+  /* 垂直居中对齐 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  width: 100%;
+  /* 添加换行处理 */
+  word-break: break-word;
+  line-height: 1.2;
+}
+
+.menu-text1 {
+  color: #ffffff;
+  height: 30%;
+  text-align: center;
+  width: 100%;
+  /* line-height: 30%; */
+}
+
+
+
+/* 悬挂菜单样式 */
+.hanging-menu {
+  /* 模拟悬挂效果 */
+  transform: translateY(20rpx);
+  animation: hangAnimation 2s cubic-bezier(0.5, 0.05, 0.5, 0.95) infinite;
+  /* 增强悬挂效果 */
+  box-shadow: 0 12rpx 25rpx rgba(0, 0, 0, 0.2);
+}
+
+/* 为不同悬挂菜单设置不同动画速度 */
+.hanging-menu:nth-child(1) {
+  animation-duration: 2.2s;
+  animation-timing-function: cubic-bezier(0.6, 0.1, 0.4, 0.9);
+}
+
+.hanging-menu:nth-child(2) {
+  animation-duration: 1.8s;
+  animation-timing-function: cubic-bezier(0.4, 0.2, 0.6, 0.8);
+}
+
+.hanging-menu:nth-child(3) {
+  animation-duration: 2.5s;
+  animation-timing-function: cubic-bezier(0.5, 0.0, 0.5, 1.0);
+}
+
+.hanging-menu:nth-child(4) {
+  animation-duration: 2.0s;
+  animation-timing-function: cubic-bezier(0.7, 0.1, 0.3, 0.9);
+}
+
+/* 悬挂动画 - 上下移动效果 */
+@keyframes hangAnimation {
+  0% {
+    transform: translateY(0);
+  }
+
+  10% {
+    transform: translateY(-5rpx);
+  }
+
+  20% {
+    transform: translateY(-10rpx);
+  }
+
+  30% {
+    transform: translateY(-12rpx);
+  }
+
+  40% {
+    transform: translateY(-14rpx);
+  }
+
+  50% {
+    transform: translateY(-15rpx);
+  }
+
+  60% {
+    transform: translateY(-14rpx);
+  }
+
+  70% {
+    transform: translateY(-12rpx);
+  }
+
+  80% {
+    transform: translateY(-10rpx);
+  }
+
+  90% {
+    transform: translateY(-5rpx);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* 触摸时的悬挂效果 */
+.hanging-menu:active {
+  animation: none;
+  transform: translateY(5rpx) rotate(0deg) translateZ(5px);
+}
+
+/* 生长菜单样式 */
+.growing-menu {
+  /* 模拟生长效果 */
+  transform: translateY(0);
+  animation: growAnimation 2s cubic-bezier(0.5, 0.05, 0.5, 0.95) infinite;
+  /* 增强生长效果 */
+  box-shadow: 0 12rpx 25rpx rgba(0, 0, 0, 0.2);
+}
+
+/* 为不同生长菜单设置不同动画速度 */
+.growing-menu:nth-child(1) {
+  animation-duration: 2.3s;
+  animation-timing-function: cubic-bezier(0.6, 0.1, 0.4, 0.9);
+}
+
+.growing-menu:nth-child(2) {
+  animation-duration: 1.9s;
+  animation-timing-function: cubic-bezier(0.4, 0.2, 0.6, 0.8);
+}
+
+.growing-menu:nth-child(3) {
+  animation-duration: 2.6s;
+  animation-timing-function: cubic-bezier(0.5, 0.0, 0.5, 1.0);
+}
+
+.growing-menu:nth-child(4) {
+  animation-duration: 2.1s;
+  animation-timing-function: cubic-bezier(0.7, 0.1, 0.3, 0.9);
+}
+
+/* 生长动画 - 上下移动效果 */
+@keyframes growAnimation {
+  0% {
+    transform: translateY(0);
+  }
+
+  10% {
+    transform: translateY(5rpx);
+  }
+
+  20% {
+    transform: translateY(10rpx);
+  }
+
+  30% {
+    transform: translateY(12rpx);
+  }
+
+  40% {
+    transform: translateY(14rpx);
+  }
+
+  50% {
+    transform: translateY(15rpx);
+  }
+
+  60% {
+    transform: translateY(14rpx);
+  }
+
+  70% {
+    transform: translateY(12rpx);
+  }
+
+  80% {
+    transform: translateY(10rpx);
+  }
+
+  90% {
+    transform: translateY(5rpx);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* 触摸时的生长效果 */
+.growing-menu:active {
+  animation: none;
+  transform: translateY(0) scale(0.95) translateZ(5px);
+}
+
+/* 各种颜色定义 */
+.red {
+  background-image: linear-gradient(to bottom, #f43b47 0%, #453a94 100%);
+}
+
+.yellow {
+  background: linear-gradient(135deg, #ffe156, #ffc400, #616e02);
+}
+
+.black {
+  background-image: linear-gradient(to bottom, #a8caba 0%, #080808 100%);
+}
+
+.pink {
+  background-image: linear-gradient(to top, #d299c2 0%, #fef9d7 100%);
+}
+
+.orange {
+  background-image: linear-gradient(to right, #f83600 0%, #f9d423 100%);
+}
+
+.blue {
+  background-image: linear-gradient(to right, #0acffe 0%, #495aff 100%);
+}
+
+.green {
+  background-image: linear-gradient(to top, #30cfd0 0%, #330867 100%);
+}
+
+.purple {
+  background-image: linear-gradient(to top, #cc208e 0%, #6713d2 100%);
+}
+
+/* 中间内容区域 */
+.middle-content {
+  flex: 1;
+  display: flex;
+  /* align-items: center; */
+  justify-content: center;
+  flex-direction: column;
+}
+
+.page-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #ffffff;
+  text-align: center;
+  text-shadow: 0 0 15rpx rgba(255, 255, 255, 0.7), 0 0 30rpx rgba(255, 255, 255, 0.5);
+  letter-spacing: 4rpx;
+  margin-bottom: 20rpx;
+  position: relative;
+  /* animation: titleGlow 2s ease-in-out infinite alternate; */
+  font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  opacity: 0.95;
+}
+
+.page-des {
+  font-size: 60rpx;
+  font-weight: bold;
+  color: #ffffff;
+  text-align: center;
+  text-shadow: 0 0 20rpx rgba(255, 255, 255, 0.9), 0 0 40rpx rgba(255, 255, 255, 0.7), 0 0 60rpx rgba(255, 255, 255, 0.5);
+  letter-spacing: 6rpx;
+  position: relative;
+  font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  opacity: 0.98;
+  /* 添加立体感 */
+  transform-style: preserve-3d;
+  /* transform: translateZ(20rpx); */
+}
+
+/* 标题发光动画 */
+@keyframes titleGlow {
+  0% {
+    text-shadow: 0 0 5rpx rgba(255, 255, 255, 0.5), 0 0 15rpx rgba(255, 255, 255, 0.3);
+  }
+
+  100% {
+    text-shadow: 0 0 20rpx rgba(255, 255, 255, 0.9), 0 0 30rpx rgba(255, 255, 255, 0.7), 0 0 40rpx rgba(255, 255, 255, 0.5);
+  }
+}
+
+/* 文字浮动动画 */
+@keyframes textFloat {
+  0% {
+    transform: translateY(0) translateZ(20rpx);
+  }
+
+  100% {
+    transform: translateY(-10rpx) translateZ(20rpx);
+  }
+}

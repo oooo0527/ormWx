@@ -2,7 +2,7 @@
   <!-- 添加悬挂灯泡 -->
   <view class="hanging-lamp" bindtap="toggleLampPopup">
     <view class="lamp-rope"></view>
-    <image src="{{!isLampOn?'./black.png':'./light.png'}}" mode="widthFix" class="lamp-bulb"></image>
+    <image src="{{!isLampOn?'./black.jpg':'./light.jpg'}}" mode="widthFix" class="lamp-bulb"></image>
     <!-- <view class="lamp-bulb {{isLampOn ? 'lamp-on' : ''}}"></view> -->
   </view>
   <!-- 灯泡弹窗 -->
