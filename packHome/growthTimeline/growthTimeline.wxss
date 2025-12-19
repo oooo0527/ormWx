@@ -1,25 +1,26 @@
 /* packHome/growthTimeline/growthTimeline.wxss */
-
-.star-background-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  z-index: -1;
+.container {
+  position: relative;
 }
 
-.star-background {
+.star-background-image {
+  /* position: absolute; */
+
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 1;
+  /* object-fit: cover; */
+  /* object-position: center; */
+  /* z-index: -1; */
 }
+
+
 
 .star {
   position: absolute;
-  background-color: white;
+  /* background-color: white; */
   border-radius: 50%;
   animation: twinkle 3s infinite alternate;
 }
@@ -99,7 +100,7 @@
   width: 16rpx;
   height: 16rpx;
 
-  border-radius: 50%;
+  border-radius: 20%;
   top: 20rpx;
   z-index: 3;
   animation: starTwinkle 1.5s infinite alternate;
@@ -107,7 +108,7 @@
 }
 
 .timeline-marker:nth-of-type(2n+1) {
-  background-color: #f81313;
+  background-color: #0a0a0a;
 }
 
 .timeline-marker:nth-of-type(2n) {
@@ -126,7 +127,7 @@
 }
 
 .timeline-content {
-  /* background: rgba(255, 255, 255, 0.1); */
+  background: rgba(244, 243, 243, 0.4);
   border-radius: 15rpx;
   padding: 15rpx;
   backdrop-filter: blur(10rpx);

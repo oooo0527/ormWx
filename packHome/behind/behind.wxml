@@ -1,38 +1,41 @@
 <global-background>
   <custom-navbar title="ormkornnaphat" showBack="{{true}}" showHome="{{false}}"></custom-navbar>
-  <view class="container" style="margin-top: {{navBarHeight}}px;min-height:calc(100vh - {{navBarHeight}}px);">
-    <view class="bookshelf-container" bindtouchstart="onTouchStart" bindtouchmove="onTouchMove" bindtouchend="onTouchEnd">
-      <view class="bookshelf">
-        <!-- 从底部开始叠放的书籍，按正确顺序显示 -->
-        <view class="book-stack drawer-animation drawer-open" style="z-index: {{index}};left: {{index * 100+70}}rpx;top: {{index * 5}}%;" wx:for="{{books}}" wx:key="id" data-id="{{item.id}}" bindtap="onBookTap">
-          <!-- <image class="book-cover" src="{{item.cover}}" mode="aspectFill"></image>
+  <view class="container" style="margin-top: {{navBarHeight}}px;height:calc(100vh - {{navBarHeight}}px);">
+    <view class="bookshelf-container-box">
+      <!-- <image class="bookshelf-background" src="cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/relat/red.png" mode="aspectFill"></image> -->
+      <view class="bookshelf-container" bindtouchstart="onTouchStart" bindtouchmove="onTouchMove" bindtouchend="onTouchEnd">
+        <view class="bookshelf">
+          <!-- 从底部开始叠放的书籍，按正确顺序显示 -->
+          <view class="book-stack drawer-animation drawer-open" style="z-index: {{index}};left: {{index * 100+70}}rpx;top: {{index * 5}}%;" wx:for="{{books}}" wx:key="id" data-id="{{item.id}}" bindtap="onBookTap">
+            <!-- <image class="book-cover" src="{{item.cover}}" mode="aspectFill"></image>
       <text class="book-title">{{item.title}}</text> -->
-          <view class="book-container">
-            <view class="book">
-              <view class="spine" style="background: {{item.color}};">
-                <view class="spine-title">{{item.title}}</view>
-              </view>
-              <view class="cover">
-                <image class="book-cover" src="{{item.cover}}" mode="aspectFill"></image>
+            <view class="book-container">
+              <view class="book">
+                <view class="spine" style="background: {{item.color}};">
+                  <view class="spine-title">{{item.title}}</view>
+                </view>
+                <view class="cover">
+                  <image class="book-cover" src="{{item.cover}}" mode="aspectFill"></image>
+                </view>
               </view>
             </view>
           </view>
         </view>
       </view>
-    </view>
-    <view class="bookshelf-container" bindtouchstart="onTouchStart1" bindtouchmove="onTouchMove1" bindtouchend="onTouchEnd1">
-      <view class="bookshelf1">
-        <!-- 从底部开始叠放的书籍，按正确顺序显示 -->
-        <view class="book-stack drawer-animation drawer-open" style="z-index: {{index}};left: {{index * 100+70}}rpx;top: {{index * 5+20}}%;" wx:for="{{books1}}" wx:key="id" data-id="{{item.id}}" bindtap="onBookTap1">
-          <!-- <image class="book-cover" src="{{item.cover}}" mode="aspectFill"></image>
+      <view class="bookshelf-container" bindtouchstart="onTouchStart1" bindtouchmove="onTouchMove1" bindtouchend="onTouchEnd1">
+        <view class="bookshelf1">
+          <!-- 从底部开始叠放的书籍，按正确顺序显示 -->
+          <view class="book-stack drawer-animation drawer-open" style="z-index: {{index}};left: {{index * 100+70}}rpx;top: {{index * 5}}%;" wx:for="{{books1}}" wx:key="id" data-id="{{item.id}}" bindtap="onBookTap1">
+            <!-- <image class="book-cover" src="{{item.cover}}" mode="aspectFill"></image>
       <text class="book-title">{{item.title}}</text> -->
-          <view class="book-container">
-            <view class="book">
-              <view class="spine" style="background: {{item.color}};">
-                <view class="spine-title">{{item.title}}</view>
-              </view>
-              <view class="cover">
-                <image class="book-cover" src="{{item.cover}}" mode="aspectFill"></image>
+            <view class="book-container">
+              <view class="book">
+                <view class="spine" style="background: {{item.color}};">
+                  <view class="spine-title">{{item.title}}</view>
+                </view>
+                <view class="cover">
+                  <image class="book-cover" src="{{item.cover}}" mode="aspectFill"></image>
+                </view>
               </view>
             </view>
           </view>

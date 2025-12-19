@@ -10,7 +10,7 @@ Page({
           "https://img-blog.csdnimg.cn/202305061523411.jpg",
           "https://img-blog.csdnimg.cn/202305061523412.jpg"
         ],
-        color: "#000000"
+        color: "#333"
       },
       {
         id: 2,
@@ -21,7 +21,7 @@ Page({
           "https://img-blog.csdnimg.cn/202305061523414.jpg",
           "https://img-blog.csdnimg.cn/202305061523415.jpg"
         ],
-        color: "red"
+        color: "#3f3232"
       },
       {
         id: 3,
@@ -32,7 +32,7 @@ Page({
           "https://img-blog.csdnimg.cn/202305061523417.jpg",
           "https://img-blog.csdnimg.cn/202305061523418.jpg"
         ],
-        color: "green"
+        color: "#694141"
       },
       {
         id: 4,
@@ -43,7 +43,7 @@ Page({
           "https://img-blog.csdnimg.cn/202305061523420.jpg",
           "https://img-blog.csdnimg.cn/202305061523421.jpg"
         ],
-        color: "blue"
+        color: "#ad4d4d"
       },
       {
         id: 5,
@@ -54,7 +54,7 @@ Page({
           "https://img-blog.csdnimg.cn/202305061523423.jpg",
           "https://img-blog.csdnimg.cn/202305061523424.jpg"
         ],
-        color: "#42b983"
+        color: "#681919"
       }
     ],
     books1: [
@@ -67,7 +67,7 @@ Page({
           "https://img-blog.csdnimg.cn/202305061523411.jpg",
           "https://img-blog.csdnimg.cn/202305061523412.jpg"
         ],
-        color: "#000000"
+        color: "#3d1357"
       },
       {
         id: 2,
@@ -78,7 +78,7 @@ Page({
           "https://img-blog.csdnimg.cn/202305061523414.jpg",
           "https://img-blog.csdnimg.cn/202305061523415.jpg"
         ],
-        color: "#d06a6a"
+        color: "#642f85"
       },
       {
         id: 3,
@@ -89,7 +89,7 @@ Page({
           "https://img-blog.csdnimg.cn/202305061523417.jpg",
           "https://img-blog.csdnimg.cn/202305061523418.jpg"
         ],
-        color: "#a08cf1"
+        color: "#66427c"
       },
       {
         id: 4,
@@ -100,7 +100,7 @@ Page({
           "https://img-blog.csdnimg.cn/202305061523420.jpg",
           "https://img-blog.csdnimg.cn/202305061523421.jpg"
         ],
-        color: "#e2f18c"
+        color: "#46384f"
       },
       {
         id: 5,
@@ -111,7 +111,7 @@ Page({
           "https://img-blog.csdnimg.cn/202305061523423.jpg",
           "https://img-blog.csdnimg.cn/202305061523424.jpg"
         ],
-        color: "#000000"
+        color: "#433c47"
       }
     ],
     animatedBookId: null,

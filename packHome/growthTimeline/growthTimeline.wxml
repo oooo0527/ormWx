@@ -1,13 +1,7 @@
 <global-background>
   <custom-navbar title="ormkornnaphat" showBack="{{true}}" showHome="{{false}}"></custom-navbar>
   <view class="container" style="margin-top: {{navBarHeight}}px;height:calc(100vh - {{navBarHeight}}px);">
-    <!-- 星空背景 -->
-    <view class="star-background">
-      <image src="../../pages/Home/1.jpg" class="star-background-image" lazy-load mode="widthFix"></image>
-      <block wx:for="{{stars}}" wx:key="id">
-        <view class="star" style="left: {{item.x}}%; top: {{item.y}}%; width: {{item.size}}px; height: {{item.size}}px; opacity: {{item.opacity}};"></view>
-      </block>
-    </view>
+    <image src="cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/ormmm/陈奥/e1dd18471861da1311f9643a7f85e3f1.jpg" lazy-load mode="widthFix" class="star-background-image"></image>
     <!-- 时间线容器 -->
     <scroll-view class="timeline-container" scroll-y="true" bindscrolltolower="onScrollToLower" wx-if="{{showBg}}">
       <!-- 垂直时间线 -->
