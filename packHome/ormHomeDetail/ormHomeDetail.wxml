@@ -1,17 +1,17 @@
 <!-- packHome/ormHomeDetail/ormHomeDetail.wxml -->
 <global-background>
-  <custom-navbar title="详情页面" showBack="{{true}}" showHome="{{false}}"></custom-navbar>
+  <custom-navbar title="越看越有" showBack="{{true}}" showHome="{{false}}"></custom-navbar>
   <view class="content" style="margin-top: {{navBarHeight}}px;min-height:calc(100vh - {{navBarHeight}}px);">
     <view class="header">
-      <image class="avatar1" src="cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/缘.jpg" mode="widthFix"></image>
+      <image class="avatar1" src="../../pages/Home/Home3.jpg" mode="widthFix"></image>
       <view class="title" style="margin-top: 50rpx;font-size: 48rpx;">{{pageDetail.auth}}</view>
       <view class="title1">{{pageDetail.title}}</view>
       <view class="desc">{{pageDetail.des}}</view>
-      <image class="avatar" src="cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/缘.jpg" mode="fill"></image>
+      <image class="avatar" src="../../pages/Home/Home3.jpg" mode="fill"></image>
     </view>
     <image class="image" src="./gina.jpg" mode="widthFix" wx:if="{{pageDetail.imgUrl}}"></image>
     <view class="body" wx:else>
-      <view class="content" wx:for="{{pageDetail.text}}">{{item}}</view>
+      <view class="content" wx:for="{{pageDetail.text}}" wx:key="index">{{item}}</view>
     </view>
   </view>
 </global-background>

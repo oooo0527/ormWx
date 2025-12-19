@@ -5,55 +5,32 @@ Page({
         id: 1,
         title: "童年回忆",
         cover: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/behind/098bb43a246b28b40ea277fb4a820460.jpg",
-        imageList: [
-          "https://img-blog.csdnimg.cn/202305061523410.jpg",
-          "https://img-blog.csdnimg.cn/202305061523411.jpg",
-          "https://img-blog.csdnimg.cn/202305061523412.jpg"
-        ],
         color: "#333"
       },
       {
         id: 2,
         title: "青春时光",
         cover: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/behind/50a564a77eb43dd2c90f8294b03c1f91.jpg",
-        imageList: [
-          "https://img-blog.csdnimg.cn/202305061523413.jpg",
-          "https://img-blog.csdnimg.cn/202305061523414.jpg",
-          "https://img-blog.csdnimg.cn/202305061523415.jpg"
-        ],
         color: "#3f3232"
       },
       {
         id: 3,
         title: "成长足迹",
         cover: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/behind/6ca0533a7313c69c9e5a07cdeba38cd0.jpg",
-        imageList: [
-          "https://img-blog.csdnimg.cn/202305061523416.jpg",
-          "https://img-blog.csdnimg.cn/202305061523417.jpg",
-          "https://img-blog.csdnimg.cn/202305061523418.jpg"
-        ],
+
         color: "#694141"
       },
       {
         id: 4,
         title: "梦想启航",
         cover: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/behind/7107bc357e6ac46e53f504384e17e397.jpg",
-        imageList: [
-          "https://img-blog.csdnimg.cn/202305061523419.jpg",
-          "https://img-blog.csdnimg.cn/202305061523420.jpg",
-          "https://img-blog.csdnimg.cn/202305061523421.jpg"
-        ],
+
         color: "#ad4d4d"
       },
       {
         id: 5,
         title: "美好未来",
         cover: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/behind/7107bc357e6ac46e53f504384e17e397.jpg",
-        imageList: [
-          "https://img-blog.csdnimg.cn/202305061523422.jpg",
-          "https://img-blog.csdnimg.cn/202305061523423.jpg",
-          "https://img-blog.csdnimg.cn/202305061523424.jpg"
-        ],
         color: "#681919"
       }
     ],
@@ -62,55 +39,34 @@ Page({
         id: 1,
         title: "童年回忆",
         cover: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/behind/098bb43a246b28b40ea277fb4a820460.jpg",
-        imageList: [
-          "https://img-blog.csdnimg.cn/202305061523410.jpg",
-          "https://img-blog.csdnimg.cn/202305061523411.jpg",
-          "https://img-blog.csdnimg.cn/202305061523412.jpg"
-        ],
+
         color: "#3d1357"
       },
       {
         id: 2,
         title: "青春时光",
         cover: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/behind/50a564a77eb43dd2c90f8294b03c1f91.jpg",
-        imageList: [
-          "https://img-blog.csdnimg.cn/202305061523413.jpg",
-          "https://img-blog.csdnimg.cn/202305061523414.jpg",
-          "https://img-blog.csdnimg.cn/202305061523415.jpg"
-        ],
+
         color: "#642f85"
       },
       {
         id: 3,
         title: "成长足迹",
         cover: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/behind/6ca0533a7313c69c9e5a07cdeba38cd0.jpg",
-        imageList: [
-          "https://img-blog.csdnimg.cn/202305061523416.jpg",
-          "https://img-blog.csdnimg.cn/202305061523417.jpg",
-          "https://img-blog.csdnimg.cn/202305061523418.jpg"
-        ],
+
         color: "#66427c"
       },
       {
         id: 4,
         title: "梦想启航",
         cover: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/behind/7107bc357e6ac46e53f504384e17e397.jpg",
-        imageList: [
-          "https://img-blog.csdnimg.cn/202305061523419.jpg",
-          "https://img-blog.csdnimg.cn/202305061523420.jpg",
-          "https://img-blog.csdnimg.cn/202305061523421.jpg"
-        ],
+
         color: "#46384f"
       },
       {
         id: 5,
         title: "美好未来",
         cover: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/behind/7107bc357e6ac46e53f504384e17e397.jpg",
-        imageList: [
-          "https://img-blog.csdnimg.cn/202305061523422.jpg",
-          "https://img-blog.csdnimg.cn/202305061523423.jpg",
-          "https://img-blog.csdnimg.cn/202305061523424.jpg"
-        ],
         color: "#433c47"
       }
     ],

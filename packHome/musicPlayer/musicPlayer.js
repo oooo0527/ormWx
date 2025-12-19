@@ -1,4 +1,3 @@
-// packHome/musicPlayer/musicPlayer.js
 Page({
   data: {
     // 音乐列表数据
@@ -20,7 +19,8 @@ Page({
     // 旋转动画状态
     isRotating: false,
     // 调试模式
-    __debug__: true
+    __debug__: true,
+    playMoreAn: false
   },
 
   onLoad: function () {
@@ -262,57 +262,51 @@ Page({
     if (this.data.isPlaying) {
       audioCtx.pause();
     } else {
+      // 强制重置动画状态后再触发动画
+      this.setData({
+        playMoreAn: false
+      });
+
+      // 使用微小延迟确保重置生效
+      setTimeout(() => {
+        this.setData({
+          playMoreAn: true
+        });
+
+        // 重置动画状态以便下次触发
+        setTimeout(() => {
+          this.setData({
+            playMoreAn: false
+          });
+        }, 1200);
+      }, 50);
+
       audioCtx.play();
     }
   },
 
-  // 播放指定音乐
-  playMusic: function (e) {
-    const index = e.currentTarget.dataset.index;
 
-    // 如果点击的是当前正在播放的音乐，则切换播放状态
-    if (index === this.data.currentMusicIndex) {
-      this.togglePlay();
-      return;
-    }
 
-    const music = this.data.musicList[index];
+  // 点击播放更多动画
+  playMoreL: function () {
+    // 强制重置动画状态后再触发动画
+    this.setData({
+      playMoreAn: false
+    });
 
-    // 更新当前音乐索引
-    this.setData({ currentMusicIndex: index });
-
-    // 验证音频源
-    if (!music || !music.url) {
-      wx.showToast({
-        title: '音乐资源无效',
-        icon: 'none'
-      });
-      return;
-    }
-
-    // 重新设置音频源
-    const audioCtx = this.data.audioCtx;
-    audioCtx.src = music.url;
-
-    // 添加一个小延迟确保音频源设置完成
+    // 使用微小延迟确保重置生效
     setTimeout(() => {
-      audioCtx.play().catch(err => {
-        console.error('播放失败:', err);
-        wx.showToast({
-          title: '播放失败: ' + err.message,
-          icon: 'none'
-        });
+      this.setData({
+        playMoreAn: true
       });
-    }, 100);
 
-    console.log('当前播放的音乐:', music);
-    // 解析并显示歌词
-    if (music.lrc) {
-      console.log('音乐包含歌词，开始解析');
-      // this.parseLyric(music.lrc);
-    } else {
-      console.log('音乐不包含歌词');
-    }
+      // 重置动画状态以便下次触发
+      setTimeout(() => {
+        this.setData({
+          playMoreAn: false
+        });
+      }, 1200);
+    }, 50);
   },
 
   // 上一首

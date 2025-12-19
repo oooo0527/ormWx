@@ -61,7 +61,7 @@ Page({
     {
       title: "NAPAT",
       des: 'NAPAT',
-      url: '/packHome/dream/dream',
+      url: '/packHome/rambling/rambling',
       image: 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/9a58f9ad40d364eb6022ccd8b78cbb82.jpg'
     }],
     // 灯泡弹窗相关数据
