@@ -78,13 +78,16 @@
   /* 添加文字描边效果 */
   text-stroke: 1rpx rgba(0, 0, 0, 0.2);
   -webkit-text-stroke: 1rpx rgba(0, 0, 0, 0.2);
+  background: #ffffff;
+  height: 50rpx;
+  padding: 10rpx;
   /* 添加轻微的发光效果 */
   letter-spacing: 1rpx;
   /* 垂直居中对齐 */
   display: flex;
   align-items: center;
   justify-content: center;
-  flex: 1;
+  /* flex: 1; */
   width: 100%;
   /* 添加换行处理 */
   word-break: break-word;
@@ -93,13 +96,11 @@
 
 .menu-text1 {
   color: #ffffff;
-  height: 30%;
+  flex: 1;
   text-align: center;
   width: 100%;
   /* line-height: 30%; */
 }
-
-
 
 /* 悬挂菜单样式 */
 .hanging-menu {
@@ -358,4 +359,168 @@
   100% {
     transform: translateY(-10rpx) translateZ(20rpx);
   }
+}
+
+/* 弹窗遮罩层 */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* background: rgba(0, 0, 0, 0.7); */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  opacity: 0;
+  animation: fadeIn 0.3s ease forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    /* 半透明背景 */
+    backdrop-filter: blur(2px);
+    /* 背景模糊 */
+    -webkit-backdrop-filter: blur(2px);
+  }
+}
+
+/* 弹窗容器 */
+.popup-container {
+  width: 90%;
+  /* max-width: 500rpx; */
+  border-radius: 20rpx;
+  /* padding: 30rpx; */
+  box-shadow: 0 10rpx 30rpx rgba(0, 0, 0, 0.3);
+  /* transform: scale(1.3); */
+  animation: popupScale 0.3s ease forwards;
+}
+
+@keyframes popupScale {
+  to {
+    transform: scale(1);
+  }
+}
+
+/* 弹窗选项 */
+.popup-options {
+  display: flex;
+  flex-direction: row;
+  /* gap: 20rpx; */
+  width: 100%;
+  overflow-x: hidden;
+  /* border: 2px solid red; */
+  height: 400rpx;
+  overflow-x: scroll;
+  align-items: center;
+
+
+}
+
+.option-scroll-view {
+  /* white-space: nowrap; */
+  width: 200vw;
+  height: 400rpx;
+  overflow-x: scroll;
+}
+
+.popup-option {
+  /* padding: 20rpx; */
+
+  /* background: rgba(255, 255, 255, 0.2); */
+  /* text-align: center; */
+  /* transition: all 0.3s ease; */
+  padding: 20rpx;
+  /* border: 2rpx solid rgba(68, 67, 67, 0.3); */
+  width: 300rpx;
+  height: 220rpx;
+  border-radius: 20rpx;
+  /* overflow: hidden; */
+  margin-right: 40rpx;
+  box-shadow: 0 10rpx 30rpx rgb(235, 233, 233);
+
+  /* margin: 0 auto; */
+}
+
+.option-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  /* background: #ffffff; */
+  padding: 20rpx;
+  box-shadow: 0 10rpx 30rpx rgba(235, 233, 233, 0.3);
+  /* align-items: center; */
+}
+
+.popup-option:active {
+  transform: scale(0.95);
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.option-auth {
+  font-size: 38rpx;
+  color: #ffffff;
+  text-align: center;
+  /* text-align: center; */
+}
+
+.option-text {
+
+  width: 100%;
+  font-size: 28rpx;
+  /* height: 20%; */
+  color: #050505;
+  font-weight: 500;
+  height: 30rpx;
+  line-height: 30rpx;
+  word-wrap: break-word;
+  overflow: hidden;
+
+}
+
+.option-des {
+  font-size: 24rpx;
+  color: #ffffff;
+  word-wrap: break-word;
+
+  line-height: 24rpx;
+  text-align: center;
+}
+
+
+/* 不同颜色的弹窗样式 */
+.popup-container.red {
+  background: linear-gradient(to bottom, #f43b47 0%, #453a94 100%);
+}
+
+.popup-container.yellow {
+  background: linear-gradient(135deg, #ffe156, #ffc400, #616e02);
+}
+
+.popup-container.black {
+  background: linear-gradient(to bottom, #a8caba 0%, #080808 100%);
+}
+
+.popup-container.pink {
+  background: linear-gradient(to top, #d299c2 0%, #fef9d7 100%);
+}
+
+.popup-container.orange {
+  background: linear-gradient(to right, #f83600 0%, #f9d423 100%);
+}
+
+.popup-container.blue {
+  background: linear-gradient(to right, #0acffe 0%, #495aff 100%);
+}
+
+.popup-container.green {
+  background: linear-gradient(to top, #30cfd0 0%, #330867 100%);
+}
+
+.popup-container.purple {
+  background: linear-gradient(to top, #cc208e 0%, #6713d2 100%);
 }

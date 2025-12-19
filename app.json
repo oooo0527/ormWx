@@ -1,9 +1,9 @@
 {
   "pages": [
-    "pages/profile/profile",
     "pages/Home/Home",
-    "pages/interaction/interaction",
     "pages/index/index",
+    "pages/profile/profile",
+    "pages/interaction/interaction",
     "pages/selfListDetail/selfListDetail",
     "pages/login/login",
     "pages/publish/publish",
@@ -74,7 +74,6 @@
         "rambling/rambling",
         "behind/behind",
         "bookDetail/bookDetail"
-
       ]
     }
   ],

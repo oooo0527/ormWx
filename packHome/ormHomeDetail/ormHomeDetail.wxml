@@ -1,2 +1,16 @@
-<!--packHome/ormHomeDetail/ormHomeDetail.wxml-->
-<text>packHome/ormHomeDetail/ormHomeDetail.wxml</text>
+<!-- packHome/ormHomeDetail/ormHomeDetail.wxml -->
+<global-background>
+  <custom-navbar title="详情页面" showBack="{{true}}" showHome="{{false}}"></custom-navbar>
+  <view class="content" style="margin-top: {{navBarHeight}}px;min-height:calc(100vh - {{navBarHeight}}px);">
+    <view class="header">
+      <image class="avatar1" src="cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/缘.jpg" mode="widthFix"></image>
+      <view class="title" style="margin-top: 50rpx;font-size: 48rpx;">gina</view>
+      <view class="title">我的闺蜜小姐姐</view>
+      <view class="desc">这是一段夸夸文字,总结概括</view>
+      <image class="avatar" src="cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/缘.jpg" mode="fill"></image>
+    </view>
+    <image class="image" src="./gina.jpg" mode="widthFix" wx:if="{{true}}"></image>
+    <view class="body" wx:else></view>
+    cdnsjnckdsnvnds
+  </view>
+</global-background>

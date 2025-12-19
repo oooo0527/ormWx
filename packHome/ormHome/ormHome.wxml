@@ -1,19 +1,19 @@
 <view class="container">
   <!-- 顶部4个菜单，像挂上去的效果 -->
   <view class="top-menus">
-    <view class="menu-item hanging-menu purple" bindtap="navigateToPage" data-url="/packHome/page1/page1" bindtouchstart="onTouchStart" bindtouchend="onTouchEnd" data-index="1" style="height: 460rpx;">
+    <view class="menu-item hanging-menu purple" bindtap="navigateToPage" data-url="/packHome/page1/page1" data-color="purple" bindtouchstart="onTouchStart" bindtouchend="onTouchEnd" data-index="1" style="height: 460rpx;">
       <view class="menu-text1">💜</view>
       <view class="menu-text">家庭篇</view>
     </view>
-    <view class="menu-item hanging-menu blue" bindtap="navigateToPage" data-url="/packHome/page2/page2" bindtouchstart="onTouchStart" bindtouchend="onTouchEnd" data-index="2" style="height: 480rpx;">
+    <view class="menu-item hanging-menu blue" bindtap="navigateToPage" data-url="/packHome/page2/page2" data-color="blue" bindtouchstart="onTouchStart" bindtouchend="onTouchEnd" data-index="2" style="height: 480rpx;">
       <view class="menu-text1">💙</view>
       <view class="menu-text">友谊篇</view>
     </view>
-    <view class="menu-item hanging-menu pink" bindtap="navigateToPage" data-url="/packHome/page3/page3" bindtouchstart="onTouchStart" bindtouchend="onTouchEnd" data-index="3" style="height: 450rpx;">
+    <view class="menu-item hanging-menu pink" bindtap="navigateToPage" data-url="/packHome/page3/page3" data-color="pink" bindtouchstart="onTouchStart" bindtouchend="onTouchEnd" data-index="3" style="height: 450rpx;">
       <view class="menu-text1">💫</view>
       <view class="menu-text">媒体篇</view>
     </view>
-    <view class="menu-item hanging-menu orange" bindtap="navigateToPage" data-url="/packHome/page4/page4" bindtouchstart="onTouchStart" bindtouchend="onTouchEnd" data-index="4" style="height: 500rpx;">
+    <view class="menu-item hanging-menu orange" bindtap="navigateToPage" data-url="/packHome/page4/page4" data-color="orange" bindtouchstart="onTouchStart" bindtouchend="onTouchEnd" data-index="4" style="height: 500rpx;">
       <view class="menu-text1">💛</view>
       <view class="menu-text">粉丝篇</view>
     </view>
@@ -25,21 +25,38 @@
   </view>
   <!-- 底部4个菜单，像长出来的效果 -->
   <view class="bottom-menus">
-    <view class="menu-item growing-menu red" bindtap="navigateToPage" data-url="/packHome/page5/page5" bindtouchstart="onTouchStart" bindtouchend="onTouchEnd" data-index="5" style="height: 490rpx;">
+    <view class="menu-item growing-menu red" bindtap="navigateToPage" data-url="/packHome/page5/page5" data-color="red" bindtouchstart="onTouchStart" bindtouchend="onTouchEnd" data-index="5" style="height: 490rpx;">
       <view class="menu-text">入门篇</view>
       <view class="menu-text1">(❁´◡`❁)</view>
     </view>
-    <view class="menu-item growing-menu black" bindtap="navigateToPage" data-url="/packHome/page6/page6" bindtouchstart="onTouchStart" bindtouchend="onTouchEnd" data-index="6" style="height: 470rpx;">
+    <view class="menu-item growing-menu black" bindtap="navigateToPage" data-url="/packHome/page6/page6" data-color="black" bindtouchstart="onTouchStart" bindtouchend="onTouchEnd" data-index="6" style="height: 470rpx;">
       <view class="menu-text">三观篇</view>
       <view class="menu-text1">╰(*°▽°*)╯</view>
     </view>
-    <view class="menu-item growing-menu yellow" bindtap="navigateToPage" data-url="/packHome/page7/page7" bindtouchstart="onTouchStart" bindtouchend="onTouchEnd" data-index="7" style="height: 500rpx;">
+    <view class="menu-item growing-menu yellow" bindtap="navigateToPage" data-url="/packHome/page7/page7" data-color="yellow" bindtouchstart="onTouchStart" bindtouchend="onTouchEnd" data-index="7" style="height: 500rpx;">
       <view class="menu-text">演技篇</view>
       <view class="menu-text1">(*/ω＼*)</view>
     </view>
-    <view class="menu-item growing-menu green" bindtap="navigateToPage" data-url="/packHome/page8/page8" bindtouchstart="onTouchStart" bindtouchend="onTouchEnd" data-index="8" style="height: 460rpx;">
+    <view class="menu-item growing-menu green" bindtap="navigateToPage" data-url="/packHome/page8/page8" data-color="green" bindtouchstart="onTouchStart" bindtouchend="onTouchEnd" data-index="8" style="height: 460rpx;">
       <view class="menu-text">事业篇</view>
       <view class="menu-text1">(╯▽╰)</view>
+    </view>
+  </view>
+  <!-- 弹窗遮罩层 -->
+  <view class="popup-overlay" wx:if="{{showPopup}}" bindtap="closePopup">
+    <!-- 弹窗内容 -->
+    <view class="popup-container " catchtap="preventTap">
+      <scroll-view class="option-scroll-view" scroll-x="{{true}}">
+        <view class="popup-options">
+          <view class="popup-option {{popupColor}}" wx:for="{{popupOptions}}" wx:key="index" bindtap="selectPopupOption" data-index="{{index}}">
+            <view class="option-content">
+              <view class="option-text">{{item.text}}</view>
+              <view class="option-auth">{{item.auth}}</view>
+              <view class="option-des">{{item.des}}</view>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
     </view>
   </view>
 </view>
