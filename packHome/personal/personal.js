@@ -95,5 +95,9 @@ Page({
 
   onShow: function () {
     // 页面显示时的逻辑
-  }
+  },
+  onPageScroll: function (e) {
+    // 空实现，但必须保留以便自定义导航栏组件可以绑定滚动事件
+    // 实际的滚动处理由custom-navbar组件完成
+  },
 })

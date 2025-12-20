@@ -26,8 +26,23 @@ exports.main = async (event, context) => {
 // 获取所有事件
 async function getEvents(event) {
   try {
+    let query = db.collection('events');
+
+    // 如果指定了月份，则查询该月份的事件
+    if (event.month) {
+      // 构造月份查询条件，例如 '2025-12'
+      const monthStart = new Date(`${event.month}-01`);
+      const nextMonth = new Date(monthStart);
+      nextMonth.setMonth(nextMonth.getMonth() + 1);
+
+      query = query.where({
+        date: db.command.gte(monthStart.toISOString().slice(0, 10))
+          .and(db.command.lt(nextMonth.toISOString().slice(0, 10)))
+      });
+    }
+
     // 从数据库获取events数据
-    const result = await db.collection('events').get()
+    const result = await query.get();
 
     return {
       success: true,

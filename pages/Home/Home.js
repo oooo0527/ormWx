@@ -114,16 +114,33 @@ Page({
 
   // 获取events云函数数据
   getEventsData: function () {
+    // 获取当前月份
+    const now = new Date();
+    const currentMonth = `${now.getFullYear()}-${(now.getMonth() + 1).toString().padStart(2, '0')}`;
+
     wx.cloud.callFunction({
       name: 'events',
       data: {
-        action: 'getEvents'
+        action: 'getEvents',
+        month: currentMonth
       }
     }).then(res => {
       console.log('获取events数据成功', res);
       if (res.result && res.result.success) {
+        // 预处理事件数据，添加day和month字段
+        const processedEvents = (res.result.data || []).map(event => {
+          if (event.date) {
+            const dateParts = event.date.split('-');
+            if (dateParts.length === 3) {
+              event.day = dateParts[2];
+              event.month = this.getMonthName(dateParts[1]);
+            }
+          }
+          return event;
+        });
+
         this.setData({
-          eventsData: res.result.data || []
+          eventsData: processedEvents
         });
       } else {
         wx.showToast({
@@ -137,6 +154,27 @@ Page({
         title: '获取活动数据失败',
         icon: 'none'
       });
+    });
+  },
+
+  // 获取月份名称
+  getMonthName: function (month) {
+    const monthNames = {
+      '01': 'JAN', '02': 'FEB', '03': 'MAR', '04': 'APR',
+      '05': 'MAY', '06': 'JUN', '07': 'JUL', '08': 'AUG',
+      '09': 'SEP', '10': 'OCT', '11': 'NOV', '12': 'DEC'
+    };
+    return monthNames[month] || month || '';
+  },
+
+  // 事件点击处理
+  onEventTap: function (e) {
+    const event = e.currentTarget.dataset.event;
+    wx.showModal({
+      title: event.title,
+      content: event.description,
+      showCancel: false,
+      confirmText: '知道了'
     });
   }
 
