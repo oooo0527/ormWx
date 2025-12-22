@@ -1,0 +1,20 @@
+<!-- components/privacyDialog/privacyDialog.wxml -->
+<view class="privacy-dialog" wx:if="{{show}}">
+  <view class="dialog-mask" bindtap="onDisagree"></view>
+  <view class="dialog-container">
+    <view class="dialog-header">
+      <text class="dialog-title">{{title}}</text>
+    </view>
+    <view class="dialog-content">
+      <text class="content-text">{{content}}</text>
+    </view>
+    <view class="dialog-footer">
+      <button class="btn-disagree" bindtap="onDisagree">不同意</button>
+      <button class="btn-agree" bindtap="onAgree">同意</button>
+    </view>
+    <view class="learn-more" bindtap="onLearnMore">
+      <text class="learn-more-text">了解更多</text>
+      <image class="arrow-icon" src="/images/icon/right-arrow.txt"></image>
+    </view>
+  </view>
+</view>

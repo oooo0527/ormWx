@@ -1,13 +1,31 @@
 <view class="container">
   <view class="login-card">
-    <text class="title">登录</text>
-  <button class="avatar-wrapper" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
-  <image class="avatar" src="{{avatar}}"></image>
-</button> 
-  <view class="input-section">
-    <input type="nickname" class="weui-input" placeholder="请输入昵称" maxlength="10" required oninput="onNicknameInput" />
-
+    <view class="header">
+      <text class="title">欢迎登录</text>
+      <text class="subtitle">ORM 微信小程序</text>
+      <text class="nickname-preview" wx:if="{{nickname}}">Hi, {{nickname}}</text>
+    </view>
+    <view class="avatar-section">
+      <button class="avatar-wrapper" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
+        <image class="avatar" src="{{avatar}}" mode="aspectFill"></image>
+        <view class="avatar-overlay">
+          <text class="camera-icon">📷</text>
+        </view>
+      </button>
+      <text class="avatar-tip">点击上传头像</text>
+    </view>
+    <view class="input-section">
+      <view class="input-wrapper">
+        <input type="nickname" class="nickname-input" placeholder="请输入您的昵称" maxlength="10" value="{{nickname}}" bindinput="onNicknameInput" />
+      </view>
+    </view>
+    <button class="login-btn" bindtap="saveUserInfo">登录</button>
+    <!-- 加载指示器 -->
+    <view class="loading-mask" wx:if="{{isLoading}}">
+      <view class="loading-spinner"></view>
+      <text class="loading-text">登录中...</text>
+    </view>
   </view>
-  <button class="save-btn" bindtap="saveUserInfo">保存并登录</button>
-  </view>
+  <!-- 隐私协议弹窗 -->
+  <privacy-dialog show="{{showPrivacyDialog}}" title="用户隐私保护指引" content="请你务必审慎阅读、充分理解“隐私政策”各条款，包括但不限于：为了向你提供即时通讯、分享等服务，我们需要收集你的设备信息、操作日志等信息。你可阅读《隐私政策》了解详细信息。如你同意，请点击“同意”开始接受我们的服务。" bind:agree="onPrivacyAgree" bind:disagree="onPrivacyDisagree" bind:learnmore="onPrivacyLearnMore"></privacy-dialog>
 </view>

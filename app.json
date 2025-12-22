@@ -1,11 +1,13 @@
 {
   "pages": [
     "pages/Home/Home",
+    "pages/login/login",
+    "pages/privacyPolicy/privacyPolicy",
+ 
     "pages/index/index",
     "pages/profile/profile",
     "pages/interaction/interaction",
     "pages/selfListDetail/selfListDetail",
-    "pages/login/login",
     "pages/publish/publish",
     "pages/interactionDetail/interactionDetail"
   ],
