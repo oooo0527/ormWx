@@ -13,11 +13,6 @@ createPage({
         isManager: '1'
       },
       {
-        title: '待我审核',
-        path: '/packageA/waitProve/waitProve',
-        isManager: '1'
-      },
-      {
         title: '我得留言版',
         path: '/pages/selfListDetail/selfListDetail',
         isManager: '0'

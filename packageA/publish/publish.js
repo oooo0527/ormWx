@@ -73,7 +73,7 @@ Page({
     });
   },
 
-  // 提交发布
+  // 提交 投稿
   submitPublish: function () {
     const that = this;
     const id = this.data.id;
@@ -100,7 +100,7 @@ Page({
 
     // 显示加载提示
     wx.showLoading({
-      title: id ? '更新中...' : '发布中...'
+      title: id ? '更新中...' : ' 投稿中...'
     });
 
     // 如果有图片，先上传图片
@@ -214,7 +214,7 @@ Page({
         console.log('云函数调用成功：', res);
         if (res.result && res.result.success) {
           wx.showToast({
-            title: this.data.id ? '更新成功' : '发布成功',
+            title: this.data.id ? '更新成功' : ' 投稿成功，请等待管理员审核',
             icon: 'success'
           });
 

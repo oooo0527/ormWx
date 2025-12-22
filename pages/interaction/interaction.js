@@ -590,12 +590,6 @@ Page({
   },
 
 
-  // 导航到发布页面
-  navigateToPublish: function () {
-    wx.navigateTo({
-      url: '/pages/publish/publish'
-    });
-  },
 
   // 下拉刷新
   onPullDownRefresh: function () {

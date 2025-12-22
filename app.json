@@ -3,12 +3,9 @@
     "pages/Home/Home",
     "pages/login/login",
     "pages/privacyPolicy/privacyPolicy",
- 
     "pages/index/index",
     "pages/profile/profile",
     "pages/interaction/interaction",
-    "pages/selfListDetail/selfListDetail",
-    "pages/publish/publish",
     "pages/interactionDetail/interactionDetail"
   ],
   "window": {
@@ -54,7 +51,8 @@
         "waitProve/waitProve",
         "noteList/noteList",
         "hot/hot",
-        "manager/manager"
+        "manager/manager",
+        "publish/publish"
       ]
     },
     {

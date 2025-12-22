@@ -64,9 +64,5 @@
       <view wx:if="{{loadMore}}" class="load-more">你也太爱了...</view>
       <view wx:if="{{loadAll}}" class="load-all">人美心善得陈奥根本不够看</view>
     </view>
-    <!-- 悬浮按钮 -->
-    <view class="float-button" bindtap="navigateToPublish" wx:if="{{!showShawBg}}">
-      <text class="float-button-text">+</text>
-    </view>
   </view>
 </global-background>

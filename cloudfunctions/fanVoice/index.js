@@ -13,17 +13,7 @@ exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext()
 
   switch (event.action) {
-    case 'getVoices':
-      return await getVoices(event)
-    case 'postVoice':
-      return await postVoice(wxContext.OPENID, event)
-    case 'likeVoice':
-      return await likeVoice(wxContext.OPENID, event)
-    case 'deleteVoice':
-      return await deleteVoice(wxContext.OPENID, event)
-    case 'getSupportImages':
-      return await getSupportImages(event)
-    // 新增互动留言相关操作
+    // 新增投稿留言相关操作
     case 'add':
       return await addInteraction(wxContext.OPENID, event)
     case 'update':
@@ -34,30 +24,7 @@ exports.main = async (event, context) => {
       return await getInteractionById(event)
     case 'delete':
       return await deleteInteraction(wxContext.OPENID, event)
-    case 'addComment':
-      return await addComment(wxContext.OPENID, event)
-    case 'deleteComment':
-      return await deleteComment(wxContext.OPENID, event)
-    case 'addCommentReply':
-      return await addCommentReply(wxContext.OPENID, event)
-    case 'favorite':
-      return await favoriteInteraction(wxContext.OPENID, event)
-    case 'unfavorite':
-      return await unfavoriteInteraction(wxContext.OPENID, event)
-    case 'getFavoriteList':
-      return await getFavoriteInteractionList(wxContext.OPENID, event)
-    case 'getUserInteractions':
-      return await getUserInteractions(wxContext.OPENID, event)
-    case 'getUserReplies':
-      return await getUserReplies(wxContext.OPENID, event)
-    case 'getUserComments':
-      return await getUserComments(wxContext.OPENID, event)
-    case 'getUserReplyNotifications':
-      return await getUserReplyNotifications(wxContext.OPENID, event)
-    case 'markCommentAsRead':
-      return await markCommentAsRead(wxContext.OPENID, event)
-    case 'markReplyAsRead':
-      return await markReplyAsRead(wxContext.OPENID, event)
+
     default:
       return {
         success: false,
@@ -66,174 +33,6 @@ exports.main = async (event, context) => {
   }
 }
 
-// 获取声音列表
-async function getVoices(event) {
-  try {
-    let query = db.collection('voices')
-
-    // 如果有日期参数，则按日期筛选
-    if (event.date) {
-      query = query.where({
-        date: event.date
-      })
-    }
-
-    // 分页查询
-    const result = await query
-      .orderBy('createTime', 'desc')
-      .skip(event.skip || 0)
-      .limit(event.limit || 20)
-      .get()
-
-    return {
-      success: true,
-      data: result.data
-    }
-  } catch (err) {
-    return {
-      success: false,
-      message: err.message
-    }
-  }
-}
-
-// 发布声音
-async function postVoice(openid, event) {
-  try {
-    // 检查必要参数
-    if (!event.data || !event.data.content) {
-      return {
-        success: false,
-        message: '内容不能为空'
-      };
-    }
-
-    const voice = {
-      content: event.data.content,
-      userId: openid,
-      userInfo: event.data.userInfo || {}, // 添加用户信息
-      likes: 0,
-      likedBy: [],
-      createTime: event.data.createTime,
-      date: event.data.date || new Date().toISOString().slice(0, 10)
-    };
-
-    const result = await db.collection('voices').add({
-      data: voice
-    });
-
-    return {
-      success: true,
-      data: result
-    };
-  } catch (err) {
-    return {
-      success: false,
-      message: err.message
-    };
-  }
-}
-
-// 点赞声音
-async function likeVoice(openid, event) {
-  try {
-    const voiceId = event.id;
-
-    // 先获取声音文档
-    const voiceResult = await db.collection('voices').doc(voiceId).get();
-    if (!voiceResult.data) {
-      return {
-        success: false,
-        message: '声音不存在'
-      };
-    }
-
-    const voice = voiceResult.data;
-    let updateData = {};
-
-    // 检查用户是否已经点赞
-    if (voice.likedBy && voice.likedBy.includes(openid)) {
-      // 取消点赞
-      updateData = {
-        likes: _.inc(-1),
-        likedBy: _.pull(openid)
-      };
-    } else {
-      // 点赞
-      updateData = {
-        likes: _.inc(1),
-        likedBy: _.push(openid)
-      };
-    }
-
-    const result = await db.collection('voices').doc(voiceId).update({
-      data: updateData
-    });
-
-    return {
-      success: true,
-      data: result
-    };
-  } catch (err) {
-    return {
-      success: false,
-      message: err.message
-    };
-  }
-}
-
-// 删除声音
-async function deleteVoice(openid, event) {
-  try {
-    // 只能删除自己发布的声音
-    const result = await db.collection('voices').where({
-      _id: event.id,
-      userId: openid
-    }).remove()
-
-    if (result.stats.removed === 0) {
-      return {
-        success: false,
-        message: '删除失败，可能是声音不存在或不是您的声音'
-      }
-    }
-
-    return {
-      success: true,
-      data: result
-    }
-  } catch (err) {
-    return {
-      success: false,
-      message: err.message
-    }
-  }
-}
-
-// 获取中国应援图片数据
-async function getSupportImages(event) {
-  try {
-
-    let query = db.collection('CNLIST')
-
-    // 分页查询
-    const result = await query
-      .orderBy('createTime', 'desc')
-      .skip(event.skip || 0)
-      .limit(event.limit || 20)
-      .get()
-
-    return {
-      success: true,
-      data: result.data
-    }
-  } catch (err) {
-    return {
-      success: false,
-      message: err.message
-    }
-  }
-}
 function convertUTCToBeijing(utcString) {
   // 1. 解析UTC时间字符串
   const utcDate = new Date(utcString); // 假设utcString是 "2025-12-08T05:51:31Z"
@@ -253,7 +52,7 @@ function convertUTCToBeijing(utcString) {
 }
 
 
-// 新增互动留言
+// 新增投稿留言
 async function addInteraction(openid, event) {
   try {
     // 检查必要参数
@@ -270,7 +69,6 @@ async function addInteraction(openid, event) {
       images: event.data.images || [],
       userId: openid,
       userInfo: event.data.userInfo || {}, // 添加用户信息
-      comments: [],
       createDate: event.data.createDate,
       createTime: event.data.createTime,
       updateTime: event.data.updateTime,
@@ -290,15 +88,15 @@ async function addInteraction(openid, event) {
       }
     };
   } catch (err) {
-    console.error('新增互动留言失败：', err);
+    console.error('新增投稿留言失败：', err);
     return {
       success: false,
-      message: err.message || '新增互动留言失败'
+      message: err.message || '新增投稿留言失败'
     };
   }
 }
 
-// 更新互动留言
+// 更新投稿留言
 async function updateInteraction(openid, event) {
   try {
     // 检查必要参数
@@ -309,12 +107,12 @@ async function updateInteraction(openid, event) {
       };
     }
 
-    // 只能更新自己发布的互动留言
+    // 只能更新自己发布的投稿留言
     const interactionResult = await db.collection('interactions').doc(event.data.id).get();
     if (!interactionResult.data) {
       return {
         success: false,
-        message: '互动留言不存在'
+        message: '投稿留言不存在'
       };
     }
 
@@ -344,15 +142,15 @@ async function updateInteraction(openid, event) {
       data: result
     };
   } catch (err) {
-    console.error('更新互动留言失败：', err);
+    console.error('更新投稿留言失败：', err);
     return {
       success: false,
-      message: err.message || '更新互动留言失败'
+      message: err.message || '更新投稿留言失败'
     };
   }
 }
 
-// 获取互动留言列表
+// 获取投稿留言列表
 async function getInteractionList(event) {
   try {
     let query = db.collection('interactions')
@@ -399,7 +197,7 @@ async function getInteractionList(event) {
   }
 }
 
-// 根据ID获取单个互动留言
+// 根据ID获取单个投稿留言
 async function getInteractionById(event) {
   try {
     const result = await db.collection('interactions').doc(event.id).get()
@@ -412,7 +210,7 @@ async function getInteractionById(event) {
     } else {
       return {
         success: false,
-        message: '互动留言不存在'
+        message: '投稿留言不存在'
       }
     }
   } catch (err) {
@@ -423,10 +221,10 @@ async function getInteractionById(event) {
   }
 }
 
-// 删除互动留言
+// 删除投稿留言
 async function deleteInteraction(openid, event) {
   try {
-    // 只能删除自己发布的互动留言
+    // 只能删除自己发布的投稿留言
     const result = await db.collection('interactions').where({
       _id: event.id,
       userId: openid
@@ -455,126 +253,18 @@ function randomCommentId() {
   return Math.random().toString(36).substring(2, 9);
 }
 
-// 添加评论
-async function addComment(openid, event) {
-  try {
-    const comment = {
-      content: event.content,
-      userId: openid,
-      userInfo: event.userInfo || {}, // 添加用户信息
-      createTime: event.createTime,
-      createDate: event.createDate,
-      interactionId: event.interactionId,
-      commentId: randomCommentId(),
-    }
 
-    // 向互动留言中添加评论
-    const result = await db.collection('interactions').doc(event.interactionId).update({
-      data: {
-        comments: _.push([comment]),
-        updateTime: new Date()
-      }
-    })
-
-    // 为返回的评论对象添加一个唯一标识符
-    comment._id = `${event.interactionId}_${Date.now()}_${Math.floor(Math.random() * 1000)}`;
-
-    // 获取被评论的互动留言信息（用于存储到comments集合）
-    const interactionResult = await db.collection('interactions').doc(event.interactionId).get();
-    if (interactionResult.data) {
-      const interaction = interactionResult.data;
-
-      // 将评论信息存储到comments集合中，用于通知功能
-      await db.collection('comments').add({
-        data: {
-          commentId: comment.commentId,
-          content: comment.content,
-          userId: comment.userId,         // 评论人ID
-          userInfo: comment.userInfo,     // 评论人信息
-          interactionId: event.interactionId,  // 被评论的帖子ID
-          interactionUserId: interaction.userId,  // 发帖人ID
-          interactionUserInfo: interaction.userInfo || {}, // 发帖人信息
-          interactionTitle: interaction.title || '',  // 帖子标题
-          createTime: comment.createTime,
-          createDate: comment.createDate,
-          read: false  // 是否已读，默认未读
-        }
-      });
-    }
-
-    return {
-      success: true,
-      data: comment
-    }
-  } catch (err) {
-    return {
-      success: false,
-      message: err.message
-    }
-  }
-}
-
-// 删除评论
-async function deleteComment(openid, event) {
-  try {
-    // 获取原始互动留言
-    const interactionResult = await db.collection('interactions').doc(event.interactionId).get()
-    if (!interactionResult.data) {
-      return {
-        success: false,
-        message: '互动留言不存在'
-      }
-    }
-
-    const interaction = interactionResult.data
-    const comments = interaction.comments || []
-
-    // 查找要删除的评论
-    const commentIndex = comments.findIndex(comment =>
-      comment._id === event.commentId && (comment.userId === openid || interaction.userId === openid)
-    )
-
-    if (commentIndex === -1) {
-      return {
-        success: false,
-        message: '评论不存在或无权限删除'
-      }
-    }
-
-    // 从数组中移除评论
-    comments.splice(commentIndex, 1)
-
-    // 更新互动留言中的评论列表
-    const result = await db.collection('interactions').doc(event.interactionId).update({
-      data: {
-        comments: comments,
-        updateTime: new Date()
-      }
-    })
-
-    return {
-      success: true,
-      data: result
-    }
-  } catch (err) {
-    return {
-      success: false,
-      message: err.message
-    }
-  }
-}
-
-// 收藏互动留言
+// 收藏投稿留言
 async function favoriteInteraction(openid, event) {
   try {
     const interactionId = event.interactionId;
 
-    // 检查互动留言是否存在
+    // 检查投稿留言是否存在
     const interactionResult = await db.collection('interactions').doc(interactionId).get();
     if (!interactionResult.data) {
       return {
         success: false,
-        message: '互动留言不存在'
+        message: '投稿留言不存在'
       };
     }
 
@@ -610,7 +300,7 @@ async function favoriteInteraction(openid, event) {
       }
     };
   } catch (err) {
-    console.error('收藏互动留言失败：', err);
+    console.error('收藏投稿留言失败：', err);
     return {
       success: false,
       message: err.message || '收藏失败'
@@ -618,7 +308,7 @@ async function favoriteInteraction(openid, event) {
   }
 }
 
-// 取消收藏互动留言
+// 取消收藏投稿留言
 async function unfavoriteInteraction(openid, event) {
   try {
     const interactionId = event.interactionId;
@@ -641,7 +331,7 @@ async function unfavoriteInteraction(openid, event) {
       data: result
     };
   } catch (err) {
-    console.error('取消收藏互动留言失败：', err);
+    console.error('取消收藏投稿留言失败：', err);
     return {
       success: false,
       message: err.message || '取消收藏失败'
@@ -649,10 +339,10 @@ async function unfavoriteInteraction(openid, event) {
   }
 }
 
-// 获取用户收藏的互动留言列表
+// 获取用户收藏的投稿留言列表
 async function getFavoriteInteractionList(openid, event) {
   try {
-    // 先获取用户收藏的互动留言ID列表
+    // 先获取用户收藏的投稿留言ID列表
     const favoriteResult = await db.collection('favorites')
       .where({
         userId: openid
@@ -669,7 +359,7 @@ async function getFavoriteInteractionList(openid, event) {
       };
     }
 
-    // 获取收藏的互动留言详细信息
+    // 获取收藏的投稿留言详细信息
     const interactionIds = favoriteResult.data.map(fav => fav.interactionId);
     const interactionsResult = await db.collection('interactions')
       .where({
@@ -699,7 +389,7 @@ async function getFavoriteInteractionList(openid, event) {
   }
 }
 
-// 获取用户自己发布的互动留言
+// 获取用户自己投稿留言
 async function getUserInteractions(openid, event) {
   try {
     const result = await db.collection('interactions')
@@ -716,326 +406,10 @@ async function getUserInteractions(openid, event) {
       data: result.data
     };
   } catch (err) {
-    console.error('获取用户互动留言失败：', err);
+    console.error('获取用户投稿留言失败：', err);
     return {
       success: false,
-      message: err.message || '获取用户互动留言失败'
-    };
-  }
-}
-
-// 获取用户收到的回复
-async function getUserReplies(openid, event) {
-  try {
-    // 计算一个月前的日期
-    const oneMonthAgo = new Date();
-    oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
-    const oneMonthAgoStr = oneMonthAgo.toISOString().slice(0, 10);
-
-    // 获取用户发布的所有互动留言（近一个月内的）
-    const interactionsResult = await db.collection('interactions')
-      .where({
-        userId: openid,
-        createDate: _.gte(oneMonthAgoStr)
-      })
-      .get();
-
-    if (!interactionsResult.data || interactionsResult.data.length === 0) {
-      return {
-        success: true,
-        data: []
-      };
-    }
-
-    // 获取所有互动留言的ID
-    const interactionIds = interactionsResult.data.map(item => item._id);
-
-    // 查询这些互动留言下的所有评论和回复
-    const commentsResult = await db.collection('interactions')
-      .where({
-        _id: _.in(interactionIds)
-      })
-      .get();
-
-    // 收集所有回复数据
-    let allReplies = [];
-
-    commentsResult.data.forEach(interaction => {
-      // 遍历每条评论
-      (interaction.comments || []).forEach(comment => {
-        // 如果评论有回复
-        if (comment.replies && comment.replies.length > 0) {
-          // 为每个回复添加互动留言ID和评论ID
-          comment.replies.forEach(reply => {
-            allReplies.push({
-              ...reply,
-              interactionId: interaction._id,  // 原始留言帖子的_id
-              interactionTitle: interaction.title,
-              commentId: comment.commentId,
-              parentId: comment._id || null
-            });
-          });
-        }
-      });
-    });
-
-    // 按时间倒序排列
-    // 修复iOS日期格式兼容性问题
-    allReplies.sort((a, b) => {
-      const dateB = new Date(b.createTime.replace(' ', 'T'));
-      const dateA = new Date(a.createTime.replace(' ', 'T'));
-      return dateB - dateA;
-    });
-
-    return {
-      success: true,
-      data: allReplies
-    };
-  } catch (err) {
-    console.error('获取用户回复失败：', err);
-    return {
-      success: false,
-      message: err.message || '获取用户回复失败'
-    };
-  }
-}
-
-// 获取用户收到的评论通知
-async function getUserComments(openid, event) {
-  try {
-    // 获取用户收到的评论通知（近一个月内的）
-    const oneMonthAgo = new Date();
-    oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
-    const oneMonthAgoStr = oneMonthAgo.toISOString().slice(0, 10);
-
-    // 查询未读评论数量
-    const unreadCommentsCount = await db.collection('comments')
-      .where({
-        interactionUserId: openid,  // 发帖人是当前用户
-        createDate: _.gte(oneMonthAgoStr),
-        read: false  // 未读
-      })
-      .count();
-
-    const commentsResult = await db.collection('comments')
-      .where({
-        interactionUserId: openid,  // 发帖人是当前用户
-        createDate: _.gte(oneMonthAgoStr)
-      })
-      .orderBy('createTime', 'desc')
-      .skip(event.skip || 0)
-      .limit(event.limit || 20)
-      .get();
-
-    return {
-      success: true,
-      data: commentsResult.data || [],
-      unreadCount: unreadCommentsCount.total || 0
-    };
-  } catch (err) {
-    console.error('获取用户评论通知失败：', err);
-    return {
-      success: false,
-      message: err.message || '获取用户评论通知失败'
-    };
-  }
-}
-
-// 获取用户收到的回复通知（从replies集合中获取）
-async function getUserReplyNotifications(openid, event) {
-  try {
-    // 获取用户收到的回复通知（近一个月内的）
-    const oneMonthAgo = new Date();
-    oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
-    const oneMonthAgoStr = oneMonthAgo.toISOString().slice(0, 10);
-
-    // 查询未读回复数量
-    const unreadRepliesCount = await db.collection('replies')
-      .where({
-        targetUserId: openid,  // 被回复的用户是当前用户
-        createDate: _.gte(oneMonthAgoStr),
-        read: false  // 未读
-      })
-      .count();
-
-    const repliesResult = await db.collection('replies')
-      .where({
-        targetUserId: openid,  // 被回复的用户是当前用户
-        createDate: _.gte(oneMonthAgoStr)
-      })
-      .orderBy('createTime', 'desc')
-      .skip(event.skip || 0)
-      .limit(event.limit || 20)
-      .get();
-
-    return {
-      success: true,
-      data: repliesResult.data || [],
-      unreadCount: unreadRepliesCount.total || 0
-    };
-  } catch (err) {
-    console.error('获取用户回复通知失败：', err);
-    return {
-      success: false,
-      message: err.message || '获取用户回复通知失败'
-    };
-  }
-}
-
-// 回复评论
-async function addCommentReply(openid, event) {
-  try {
-    // 生成唯一的回复ID
-    const replyId = `reply_${Date.now()}_${Math.floor(Math.random() * 1000)}`;
-
-    const reply = {
-      id: replyId, // 添加唯一的回复ID
-      content: event.content,
-      userId: openid,
-      userInfo: event.userInfo || {}, // 添加用户信息
-      createTime: event.createTime,
-      createDate: event.createDate,
-      commentId: event.commentId
-    }
-
-    // 首先获取当前互动留言的数据
-    const interactionResult = await db.collection('interactions').doc(event.interactionId).get();
-
-    if (!interactionResult.data) {
-      return {
-        success: false,
-        message: '互动留言不存在'
-      };
-    }
-
-    const interaction = interactionResult.data;
-
-    // 获取现有的评论数组
-    const comments = interaction.comments || [];
-
-    // 查找要回复的评论索引
-    const commentIndex = comments.findIndex(comment =>
-      comment.commentId === event.commentId ||
-      // 兼容旧数据，如果没有_id字段，则使用数组索引
-      (comment.commentId === undefined && comments.indexOf(comment).toString() === event.commentId)
-    );
-
-    if (commentIndex === -1) {
-      return {
-        success: false,
-        message: '评论不存在'
-      };
-    }
-
-    // 如果评论还没有 replies 字段，则初始化一个空数组
-    if (!comments[commentIndex].replies) {
-      comments[commentIndex].replies = [];
-    }
-
-    // 将回复添加到特定评论的 replies 数组中
-    comments[commentIndex].replies.push(reply);
-
-    // 更新数据库中的评论数据
-    const result = await db.collection('interactions').doc(event.interactionId).update({
-      data: {
-        comments: comments,
-        updateTime: new Date()
-      }
-    });
-
-    // 将回复信息存储到replies集合中，用于通知功能
-    // 首先需要找到被回复的用户ID（可能是评论的作者，也可能是其他回复的作者）
-    let targetUserId = comments[commentIndex].userId; // 默认是评论作者
-    let targetUserInfo = comments[commentIndex].userInfo || {}; // 默认是评论作者信息
-
-    // 检查是否是对其他回复的回复
-    if (event.replyToReplyId) {
-      // 查找被回复的具体回复
-      const targetReply = comments[commentIndex].replies.find(r => r.id === event.replyToReplyId);
-      if (targetReply) {
-        targetUserId = targetReply.userId;
-        targetUserInfo = targetReply.userInfo || {};
-      }
-    }
-
-    // 存储到replies集合中
-    await db.collection('replies').add({
-      data: {
-        replyId: replyId, // 回复ID
-        content: reply.content,
-        userId: reply.userId,         // 回复人ID
-        userInfo: reply.userInfo,     // 回复人信息
-        interactionId: event.interactionId,  // 被回复的帖子ID
-        interactionUserId: interaction.userId,  // 发帖人ID
-        interactionUserInfo: interaction.userInfo || {}, // 发帖人信息
-        interactionTitle: interaction.title || '',  // 帖子标题
-        commentId: event.commentId,  // 被回复的评论ID
-        targetUserId: targetUserId,  // 被回复的用户ID
-        targetUserInfo: targetUserInfo, // 被回复的用户信息
-        createTime: reply.createTime,
-        createDate: reply.createDate,
-        read: false  // 是否已读，默认未读
-      }
-    });
-
-    return {
-      success: true,
-      data: reply
-    }
-  } catch (err) {
-    return {
-      success: false,
-      message: err.message
-    }
-  }
-}
-
-// 标记评论为已读
-async function markCommentAsRead(openid, event) {
-  try {
-    const { commentId } = event;
-
-    // 更新comments集合中的read字段
-    const result = await db.collection('comments').doc(commentId).update({
-      data: {
-        read: true
-      }
-    });
-
-    return {
-      success: true,
-      data: result
-    };
-  } catch (err) {
-    console.error('标记评论为已读失败：', err);
-    return {
-      success: false,
-      message: err.message || '标记评论为已读失败'
-    };
-  }
-}
-
-// 标记回复为已读
-async function markReplyAsRead(openid, event) {
-  try {
-    const { replyId } = event;
-
-    // 更新replies集合中的read字段
-    const result = await db.collection('replies').doc(replyId).update({
-      data: {
-        read: true
-      }
-    });
-
-    return {
-      success: true,
-      data: result
-    };
-  } catch (err) {
-    console.error('标记回复为已读失败：', err);
-    return {
-      success: false,
-      message: err.message || '标记回复为已读失败'
+      message: err.message || '获取用户投稿留言失败'
     };
   }
 }
