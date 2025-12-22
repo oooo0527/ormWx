@@ -1,0 +1,36 @@
+<global-background>
+  <custom-navbar title="我要投稿" showBack="{{true}}" showHome="{{false}}"></custom-navbar>
+  <view class="container">
+    <view class="submit-form">
+      <view class="form-section">
+        <text class="section-title">选择风格</text>
+        <view class="style-options">
+          <block wx:for="{{styleOptions}}" wx:key="index">
+            <view class="style-option {{submissionForm.style === item ? 'selected' : ''}}" data-style="{{item}}" bindtap="selectStyle">
+              <text>{{item}}</text>
+            </view>
+          </block>
+        </view>
+      </view>
+      <view class="form-section">
+        <text class="section-title">上传照片</text>
+        <view class="upload-section" bindtap="chooseImage">
+          <view wx:if="{{!submissionForm.image}}" class="upload-placeholder">
+            <text>点击上传照片</text>
+          </view>
+          <image wx:if="{{submissionForm.image}}" class="uploaded-image" src="{{submissionForm.image}}" mode="aspectFill"></image>
+        </view>
+      </view>
+      <view class="form-section">
+        <text class="section-title">照片描述</text>
+        <textarea class="description-input" placeholder="请输入照片描述..." value="{{submissionForm.description}}" bindinput="inputDescription" maxlength="100"></textarea>
+      </view>
+      <view class="cooldown-info" wx:if="{{false}}">
+        <text>您今天已投稿，请明天再来</text>
+      </view>
+      <button class="submit-btn" bindtap="submitPhoto">
+        {{canSubmit && userInfo ? '提交投稿' : (userInfo ? '今日已投稿' : '请先登录')}}
+      </button>
+    </view>
+  </view>
+</global-background>

@@ -151,7 +151,7 @@ Page({
   bindchange: function (e) {
     console.log('checkbox change', e.detail);
     this.setData({
-      checked: e.detail.value.length > 0 ? '1' : '0'
+      checked: e.detail.value.length > 0 ? '2' : '0'
     });
   },
 
@@ -189,7 +189,7 @@ Page({
       content: content,
       images: imageUrls,
       checked: that.data.checked,
-      status: '0', // 重新提交设置为待审核状态
+      status: '1', // 重新提交设置为待审核状态
       userInfo: userInfo || {}, // 添加用户信息
       createDate: timeUtils.getCurrentDate(),
       createTime: timeUtils.getCurrentTime(),

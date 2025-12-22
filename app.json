@@ -52,7 +52,9 @@
         "noteList/noteList",
         "hot/hot",
         "manager/manager",
-        "publish/publish"
+        "publish/publish",
+        "submitDream/submitDream",
+        "addEvent/addEvent"
       ]
     },
     {

@@ -72,8 +72,8 @@ async function addInteraction(openid, event) {
       createDate: event.data.createDate,
       createTime: event.data.createTime,
       updateTime: event.data.updateTime,
-      status: event.data.status || '0',
-      checked: event.data.checked || '0',
+      status: event.data.status,
+      checked: event.data.checked
     };
 
     const result = await db.collection('interactions').add({
@@ -92,60 +92,6 @@ async function addInteraction(openid, event) {
     return {
       success: false,
       message: err.message || '新增投稿留言失败'
-    };
-  }
-}
-
-// 更新投稿留言
-async function updateInteraction(openid, event) {
-  try {
-    // 检查必要参数
-    if (!event.data || !event.data.id || !event.data.title || !event.data.content) {
-      return {
-        success: false,
-        message: '缺少必要参数'
-      };
-    }
-
-    // 只能更新自己发布的投稿留言
-    const interactionResult = await db.collection('interactions').doc(event.data.id).get();
-    if (!interactionResult.data) {
-      return {
-        success: false,
-        message: '投稿留言不存在'
-      };
-    }
-
-    if (interactionResult.data.userId !== openid) {
-      return {
-        success: false,
-        message: '无权限更新此留言'
-      };
-    }
-
-    // 更新数据，重新设置为待审核状态
-    const updateData = {
-      title: event.data.title,
-      content: event.data.content,
-      images: event.data.images || [],
-      updateTime: new Date().toISOString().slice(0, 10),
-      status: '0', // 重新提交设置为待审核状态
-      checked: event.data.checked || '0',
-    };
-
-    const result = await db.collection('interactions').doc(event.data.id).update({
-      data: updateData
-    });
-
-    return {
-      success: true,
-      data: result
-    };
-  } catch (err) {
-    console.error('更新投稿留言失败：', err);
-    return {
-      success: false,
-      message: err.message || '更新投稿留言失败'
     };
   }
 }

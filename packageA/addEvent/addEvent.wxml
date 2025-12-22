@@ -1,0 +1,22 @@
+<global-background>
+  <custom-navbar title="添加新行程" showBack="{{true}}" showHome="{{false}}"></custom-navbar>
+  <view class="container">
+    <view class="add-event-form">
+      <view class="form-item">
+        <text class="label">日期:</text>
+        <picker mode="date" value="{{newEvent.date}}" bindchange="bindDateChange">
+          <view class="picker">{{newEvent.date ? newEvent.date : '请选择日期'}}</view>
+        </picker>
+      </view>
+      <view class="form-item">
+        <text class="label">标题:</text>
+        <input class="input" placeholder="请输入行程标题" value="{{newEvent.title}}" data-field="title" bindinput="bindInput" />
+      </view>
+      <view class="form-item">
+        <text class="label">描述:</text>
+        <textarea class="textarea" placeholder="请输入行程描述" value="{{newEvent.description}}" data-field="description" bindinput="bindInput" />
+      </view>
+      <button class="add-btn" bindtap="addEvent">添加行程</button>
+    </view>
+  </view>
+</global-background>

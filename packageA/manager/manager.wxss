@@ -4,15 +4,7 @@
   min-height: 100vh;
 }
 
-.add-event-form {
-  background: white;
-  border-radius: 10rpx;
-  padding: 30rpx;
-  margin-bottom: 30rpx;
-  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
-}
-
-.form-title {
+.menu-title {
   font-size: 36rpx;
   font-weight: bold;
   margin-bottom: 30rpx;
@@ -20,52 +12,38 @@
   text-align: center;
 }
 
-.form-item {
+.menu-list {
+  background: white;
+  border-radius: 10rpx;
+  overflow: hidden;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
   margin-bottom: 30rpx;
 }
 
-.label {
-  display: block;
-  font-size: 28rpx;
-  margin-bottom: 15rpx;
-  color: #666;
+.menu-item {
+  padding: 30rpx;
+  border-bottom: 1rpx solid #eee;
 }
 
-.picker {
-  padding: 20rpx;
-  border: 1rpx solid #ddd;
-  border-radius: 8rpx;
-  background: #fafafa;
+.menu-item:last-child {
+  border-bottom: none;
 }
 
-.input {
-  padding: 20rpx;
-  border: 1rpx solid #ddd;
-  border-radius: 8rpx;
-  font-size: 28rpx;
+.menu-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.textarea {
-  padding: 20rpx;
-  border: 1rpx solid #ddd;
-  border-radius: 8rpx;
-  font-size: 28rpx;
-  min-height: 150rpx;
-  width: 100%;
+.menu-text {
+  font-size: 30rpx;
+  color: #333;
 }
 
-.add-btn {
-  background: #f48eb5;
-  color: white;
-  border: none;
-  border-radius: 8rpx;
-  padding: 20rpx;
-  font-size: 32rpx;
-  width: 100%;
-}
-
-.add-btn:active {
-  background: #e07da5;
+.arrow-icon {
+  color: #999;
+  font-size: 30rpx;
+  font-weight: bold;
 }
 
 .events-list {

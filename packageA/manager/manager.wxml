@@ -1,35 +1,24 @@
 <!-- packageA/manager/manager.wxml -->
 <view class="container">
-  <view class="add-event-form">
-    <view class="form-title">添加新行程</view>
-    <view class="form-item">
-      <text class="label">日期:</text>
-      <picker mode="date" value="{{newEvent.date}}" bindchange="bindDateChange">
-        <view class="picker">{{newEvent.date ? newEvent.date : '请选择日期'}}</view>
-      </picker>
-    </view>
-    <view class="form-item">
-      <text class="label">标题:</text>
-      <input class="input" placeholder="请输入行程标题" value="{{newEvent.title}}" data-field="title" bindinput="bindInput" />
-    </view>
-    <view class="form-item">
-      <text class="label">描述:</text>
-      <textarea class="textarea" placeholder="请输入行程描述" value="{{newEvent.description}}" data-field="description" bindinput="bindInput" />
-    </view>
-    <button class="add-btn" bindtap="addEvent">添加行程</button>
-  </view>
-  <view class="events-list">
-    <view class="list-title">现有行程</view>
-    <block wx:for="{{events}}" wx:key="_id">
-      <view class="event-item">
-        <view class="event-info">
-          <text class="event-date">{{item.date}}</text>
-          <text class="event-title">{{item.title}}</text>
-          <text class="event-desc">{{item.description}}</text>
-        </view>
-        <button class="delete-btn" bindtap="deleteEvent" data-id="{{item._id}}">删除</button>
+  <view class="menu-title">管理功能</view>
+  <view class="menu-list">
+    <navigator class="menu-item" url="../publish/publish">
+      <view class="menu-content">
+        <text class="menu-text">发布新留言</text>
+        <text class="arrow-icon">></text>
       </view>
-    </block>
-    <view wx:if="{{events.length === 0}}" class="empty-tip">暂无行程数据</view>
+    </navigator>
+    <navigator class="menu-item" url="../submitDream/submitDream">
+      <view class="menu-content">
+        <text class="menu-text">我要投稿</text>
+        <text class="arrow-icon">></text>
+      </view>
+    </navigator>
+    <navigator class="menu-item" url="../addEvent/addEvent">
+      <view class="menu-content">
+        <text class="menu-text">添加新行程</text>
+        <text class="arrow-icon">></text>
+      </view>
+    </navigator>
   </view>
 </view>

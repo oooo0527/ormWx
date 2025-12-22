@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "custom-navbar": "/components/customNavbar/customNavbar",
+    "global-background": "/components/globalBackground/globalBackground"
+  }
+}

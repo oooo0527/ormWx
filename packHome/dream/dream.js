@@ -4,12 +4,6 @@ Page({
   data: {
     activeTab: 'ranking', // 默认显示排行榜
     userInfo: null,
-    // 投稿相关数据
-    canSubmit: true,
-    submissionCooldown: false,
-    submissionTime: '',
-    userPhotos: [], // 用户投稿的照片列表
-
     // 不同风格的照片数据
     photoStyles: [],
     // 排行榜数据
@@ -17,14 +11,6 @@ Page({
     // 弹窗相关数据
     showModal: false,
     selectedItem: null,
-    // 投稿表单数据
-    submissionForm: {
-      style: '',
-      image: '',
-      description: ''
-    },
-    // 风格选项
-    styleOptions: ['韩系', '猫系', '狗系', '欧美', '性感', '可爱'],
     // 审核通过的照片
     approvedPhotos: [],
     // 按风格分组的照片
@@ -37,7 +23,7 @@ Page({
     // 实际的滚动处理由custom-navbar组件完成
   },
 
-  onLoad() {
+  onLoad(options) {
     // 检查用户登录状态
     const app = getApp();
     if (app.globalData.userInfo) {
@@ -45,9 +31,6 @@ Page({
         userInfo: app.globalData.userInfo
       });
     }
-
-    // 检查投稿冷却时间
-    this.checkSubmissionCooldown();
 
     // 加载审核通过的照片
     this.loadApprovedPhotos();
@@ -60,64 +43,20 @@ Page({
     this.setData({
       likedPhotoIds: likedPhotoIds
     });
+
+    // 检查是否有tab参数，如果有则切换到对应标签页
+    if (options.tab) {
+      this.setData({
+        activeTab: options.tab
+      });
+    }
   },
 
   onShow() {
-    // 页面显示时加载用户投稿记录
-    if (this.data.userInfo) {
-      this.loadUserPhotos();
-    }
+    // 页面显示时的操作
   },
 
-  // 检查投稿冷却时间
-  checkSubmissionCooldown() {
-    const lastSubmission = wx.getStorageSync('lastDreamSubmission');
-    if (lastSubmission) {
-      const now = new Date();
-      const last = new Date(lastSubmission);
-      const diffHours = (now - last) / (1000 * 60 * 60);
 
-      // 如果距离上次投稿不足24小时，则禁止投稿
-      if (diffHours < 24) {
-        this.setData({
-          canSubmit: false,
-          submissionTime: lastSubmission
-        });
-
-        // 设置定时器，在冷却期结束后启用投稿
-        const remainingHours = 24 - diffHours;
-        setTimeout(() => {
-          this.setData({
-            canSubmit: true
-          });
-        }, remainingHours * 60 * 60 * 1000);
-      }
-    }
-  },
-
-  // 加载用户投稿记录
-  loadUserPhotos() {
-    console.log('加载用户投稿记录', this.data.userInfo);
-    wx.cloud.callFunction({
-      name: 'submitDreamPhoto',
-      data: {
-        action: 'getUserPhotos',
-        userId: this.data.userInfo.openid
-      },
-      success: res => {
-        if (res.result && res.result.success) {
-          this.setData({
-            userPhotos: res.result.data
-          });
-        } else {
-          console.error('获取用户投稿记录失败:', res.result ? res.result.message : '未知错误');
-        }
-      },
-      fail: err => {
-        console.error('获取用户投稿记录失败:', err);
-      }
-    });
-  },
 
   // 加载审核通过的照片
   loadApprovedPhotos() {
@@ -216,161 +155,6 @@ Page({
     const tab = e.currentTarget.dataset.tab;
     this.setData({
       activeTab: tab
-    });
-
-    // 如果切换到"我的投稿"标签页，重新加载数据
-    if (tab === 'myphotos' && this.data.userInfo) {
-      this.loadUserPhotos();
-    }
-  },
-
-  // 选择投稿风格
-  selectStyle(e) {
-    const style = e.currentTarget.dataset.style;
-    this.setData({
-      'submissionForm.style': style
-    });
-  },
-
-  // 选择图片
-  chooseImage() {
-    if (!this.data.submissionForm.style) {
-      wx.showToast({
-        title: '请先选择风格',
-        icon: 'none'
-      });
-      return;
-    }
-
-    wx.chooseImage({
-      count: 1,
-      sizeType: ['compressed'],
-      sourceType: ['album', 'camera'],
-      success: (res) => {
-        const tempFilePath = res.tempFilePaths[0];
-        this.setData({
-          'submissionForm.image': tempFilePath
-        });
-      }
-    });
-  },
-
-  // 输入描述
-  inputDescription(e) {
-    this.setData({
-      'submissionForm.description': e.detail.value
-    });
-  },
-
-  // 提交投稿
-  submitPhoto() {
-    if (!this.data.userInfo) {
-      wx.showToast({
-        title: '请先登录',
-        icon: 'none'
-      });
-      return;
-    }
-
-    // if (!this.data.canSubmit) {
-    //   wx.showToast({
-    //     title: '每天只能投稿一次',
-    //     icon: 'none'
-    //   });
-    //   return;
-    // }
-
-    const { style, image, description } = this.data.submissionForm;
-
-    if (!style || !image || !description) {
-      wx.showToast({
-        title: '请填写完整信息',
-        icon: 'none'
-      });
-      return;
-    }
-
-    // 显示上传进度
-    wx.showLoading({
-      title: '上传中...'
-    });
-    console.log('提交投稿:', style, image, description, this.data.userInfo);
-    // 上传图片到云存储
-    const cloudPath = `dream/${this.data.userInfo.openid}_${Date.now()}.jpg`;
-    wx.cloud.uploadFile({
-      cloudPath: cloudPath,
-      filePath: image,
-      success: res => {
-        // 图片上传成功，保存到数据库
-        wx.cloud.callFunction({
-          name: 'submitDreamPhoto',
-          data: {
-            action: 'submitPhoto',
-            style: style,
-            imageUrl: res.fileID,
-            description: description,
-            userId: this.data.userInfo.openid,
-            userName: this.data.userInfo.nickname,
-            userAvatar: this.data.userInfo.avatar,
-            createDate: timeUtils.getCurrentDate(),
-            createTime: timeUtils.getCurrentTime(),
-          },
-          success: result => {
-            wx.hideLoading();
-
-            if (result.result.success) {
-              wx.showToast({
-                title: '投稿成功',
-                icon: 'success'
-              });
-
-              // 记录投稿时间
-              const now = new Date().toISOString();
-              wx.setStorageSync('lastDreamSubmission', now);
-
-              this.setData({
-                canSubmit: false,
-                submissionForm: {
-                  style: '',
-                  image: '',
-                  description: ''
-                }
-              });
-
-              // 24小时后重新启用投稿
-              setTimeout(() => {
-                this.setData({
-                  canSubmit: true
-                });
-              }, 24 * 60 * 60 * 1000);
-
-              // 重新加载用户投稿记录
-              this.loadUserPhotos();
-            } else {
-              wx.showToast({
-                title: '投稿失败: ' + result.result.message,
-                icon: 'none'
-              });
-            }
-          },
-          fail: err => {
-            wx.hideLoading();
-            wx.showToast({
-              title: '投稿失败',
-              icon: 'none'
-            });
-            console.error('投稿失败:', err);
-          }
-        });
-      },
-      fail: err => {
-        wx.hideLoading();
-        wx.showToast({
-          title: '图片上传失败',
-          icon: 'none'
-        });
-        console.error('图片上传失败:', err);
-      }
     });
   },
 
@@ -547,72 +331,7 @@ Page({
     });
   },
 
-  // 删除投稿照片
-  deletePhoto(e) {
-    const photoId = e.currentTarget.dataset.id;
 
-    // 确保用户已登录
-    if (!this.data.userInfo) {
-      wx.showToast({
-        title: '请先登录',
-        icon: 'none'
-      });
-      return;
-    }
-
-    wx.showModal({
-      title: '确认删除',
-      content: '确定要删除这张照片吗？删除后不可恢复',
-      confirmColor: '#e64340',
-      success: res => {
-        if (res.confirm) {
-          // 显示删除加载提示
-          wx.showLoading({
-            title: '删除中...'
-          });
-
-          // 调用云函数删除照片
-          wx.cloud.callFunction({
-            name: 'submitDreamPhoto',
-            data: {
-              action: 'deletePhoto',
-              photoId: photoId,
-              userId: this.data.userInfo.openid
-            },
-            success: res => {
-              wx.hideLoading();
-
-              if (res.result && res.result.success) {
-                wx.showToast({
-                  title: '删除成功',
-                  icon: 'success'
-                });
-
-                // 直接从列表中移除该项，而不需要重新加载
-                const userPhotos = this.data.userPhotos.filter(photo => photo._id !== photoId);
-                this.setData({
-                  userPhotos: userPhotos
-                });
-              } else {
-                wx.showToast({
-                  title: res.result ? res.result.message : '删除失败',
-                  icon: 'none'
-                });
-              }
-            },
-            fail: err => {
-              wx.hideLoading();
-              console.error('删除照片失败:', err);
-              wx.showToast({
-                title: '删除失败',
-                icon: 'none'
-              });
-            }
-          });
-        }
-      }
-    });
-  },
 
   // 显示弹窗
   showModal(e) {

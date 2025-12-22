@@ -9,12 +9,6 @@
       <view class="tab-item {{activeTab === 'photos' ? 'active' : ''}}" data-tab="photos" bindtap="switchTab">
         <text>风格照片</text>
       </view>
-      <view class="tab-item {{activeTab === 'submit' ? 'active' : ''}}" data-tab="submit" bindtap="switchTab">
-        <text>我要投稿</text>
-      </view>
-      <view class="tab-item {{activeTab === 'myphotos' ? 'active' : ''}}" data-tab="myphotos" bindtap="switchTab">
-        <text>我的投稿</text>
-      </view>
     </view>
     <!-- 排行榜内容 -->
     <view class="content" wx:if="{{activeTab === 'ranking'}}">
@@ -117,70 +111,6 @@
       <!-- 底部装饰 -->
       <view class="bottom-decoration">
         <text class="school-motto">知识改变命运，学习成就未来</text>
-      </view>
-    </view>
-    <!-- 投稿内容 -->
-    <view class="content" wx:if="{{activeTab === 'submit'}}">
-      <view class="submit-form">
-        <view class="form-section">
-          <text class="section-title">选择风格</text>
-          <view class="style-options">
-            <block wx:for="{{styleOptions}}" wx:key="index">
-              <view class="style-option {{submissionForm.style === item ? 'selected' : ''}}" data-style="{{item}}" bindtap="selectStyle">
-                <text>{{item}}</text>
-              </view>
-            </block>
-          </view>
-        </view>
-        <view class="form-section">
-          <text class="section-title">上传照片</text>
-          <view class="upload-section" bindtap="chooseImage">
-            <view wx:if="{{!submissionForm.image}}" class="upload-placeholder">
-              <text>点击上传照片</text>
-            </view>
-            <image wx:if="{{submissionForm.image}}" class="uploaded-image" src="{{submissionForm.image}}" mode="aspectFill" lazy-load="{{true}}"></image>
-          </view>
-        </view>
-        <view class="form-section">
-          <text class="section-title">照片描述</text>
-          <textarea class="description-input" placeholder="请输入照片描述..." value="{{submissionForm.description}}" bindinput="inputDescription" maxlength="10"></textarea>
-        </view>
-        <view class="cooldown-info" wx:if="{{false}}">
-          <text>您今天已投稿，请明天再来</text>
-        </view>
-        <button class="submit-btn" bindtap="submitPhoto">
-          {{canSubmit && userInfo ? '提交投稿' : (userInfo ? '今日已投稿' : '请先登录')}}
-        </button>
-      </view>
-    </view>
-    <!-- 我的投稿内容 -->
-    <view class="content" wx:if="{{activeTab === 'myphotos'}}">
-      <view class="my-photos-list">
-        <view wx:if="{{userPhotos.length === 0}}" class="empty-state">
-          <text>您还没有投稿任何照片</text>
-        </view>
-        <view class="waterfall-container">
-          <view class="waterfall-column">
-            <block wx:for="{{userPhotos}}" wx:key="item">
-              <view class="photo-card">
-                <image class="photo-img" src="{{item.imageUrl}}" mode="aspectFill" data-image="{{item.imageUrl}}" lazy-load="{{true}}"></image>
-                <view class="photo-details">
-                  <view class="photo-style">风格：{{item.style}}</view>
-                  <view class="photo-status {{item.status === 'approved' ? 'status-approved' : (item.status === 'pending' ? 'status-pending' : 'status-rejected')}}">
-                    {{item.status === 'approved' ? '已通过' : (item.status === 'pending' ? '审核中' : '已拒绝')}}
-                  </view>
-                  <text class="photo-desc">{{item.description}}</text>
-                  <text class="photo-time" wx:if="{{item.status != 'approved' && item.status != 'pending'}}">
-                    拒绝原因：{{item.rejectReason}}
-                  </text>
-                  <button class="action-btn delete-btn" bindtap="deletePhoto" data-id="{{item._id}}">
-                    删除
-                  </button>
-                </view>
-              </view>
-            </block>
-          </view>
-        </view>
       </view>
     </view>
   </view>
