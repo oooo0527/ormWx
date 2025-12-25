@@ -1,24 +1,26 @@
-<!-- packageA/manager/manager.wxml -->
-<view class="container">
-  <view class="menu-title">管理功能</view>
-  <view class="menu-list">
-    <navigator class="menu-item" url="../publish/publish">
-      <view class="menu-content">
-        <text class="menu-text">发布新留言</text>
-        <text class="arrow-icon">></text>
-      </view>
-    </navigator>
-    <navigator class="menu-item" url="../submitDream/submitDream">
-      <view class="menu-content">
-        <text class="menu-text">我要投稿</text>
-        <text class="arrow-icon">></text>
-      </view>
-    </navigator>
-    <navigator class="menu-item" url="../addEvent/addEvent">
-      <view class="menu-content">
-        <text class="menu-text">添加新行程</text>
-        <text class="arrow-icon">></text>
-      </view>
-    </navigator>
+<global-background>
+  <custom-navbar title="ormkornnaphat" showBack="{{true}}" showHome="{{false}}"></custom-navbar>
+  <view class="container" style="margin-top: {{navBarHeight}}px;min-height:calc(100vh - {{navBarHeight}}px);">
+    <view class="menu-title">管理功能</view>
+    <view class="menu-list">
+      <navigator class="menu-item" url="../publish/publish">
+        <view class="menu-content">
+          <text class="menu-text">发布新留言</text>
+          <text class="arrow-icon">></text>
+        </view>
+      </navigator>
+      <navigator class="menu-item" url="../submitDream/submitDream">
+        <view class="menu-content">
+          <text class="menu-text">我要投稿</text>
+          <text class="arrow-icon">></text>
+        </view>
+      </navigator>
+      <navigator class="menu-item" url="../addEvent/addEvent">
+        <view class="menu-content">
+          <text class="menu-text">添加新行程</text>
+          <text class="arrow-icon">></text>
+        </view>
+      </navigator>
+    </view>
   </view>
-</view>
+</global-background>

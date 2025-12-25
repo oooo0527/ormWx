@@ -1,6 +1,6 @@
 <global-background>
   <custom-navbar title="我要投稿" showBack="{{true}}" showHome="{{false}}"></custom-navbar>
-  <view class="container">
+  <view class="container" style="margin-top: {{navBarHeight}}px;min-height:calc(100vh - {{navBarHeight}}px);">
     <view class="submit-form">
       <view class="form-section">
         <text class="section-title">选择风格</text>

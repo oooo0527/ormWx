@@ -16,8 +16,9 @@
   align-items: center;
   justify-content: flex-start;
   width: 100%;
+  /* flex: 1; */
 
-  height: 100vh;
+  height: 80%;
   /* padding: 20px; */
   box-sizing: border-box;
   position: relative;
@@ -69,7 +70,7 @@
 
 .display-image-container-text {
   /* display: none; */
-  height: 100vh;
+  height: 100%;
   /* height: calc(100vh - 480rpx); */
   position: relative;
   /* position: absolute; */
@@ -218,6 +219,8 @@
   background: none;
   line-height: 128rpx;
   height: 128rpx;
+  width: 100%;
+  text-align: center;
 }
 
 .login-button::after {
@@ -337,7 +340,8 @@
   background-color: rgba(255, 255, 255, 0.9);
   padding: 10rpx 20rpx;
   border-radius: 20rpx;
-  margin-top: 100rpx;
+  /* margin-top: 100rpx; */
+  height: 20%;
   /* box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1); */
 }
 

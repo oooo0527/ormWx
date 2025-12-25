@@ -1,4 +1,7 @@
 {
-  "navigationBarTitleText": "登录",
-  "usingComponents": {}
+  "component": true,
+  "usingComponents": {
+    "global-background": "/components/globalBackground/globalBackground",
+    "custom-navbar": "/components/customNavbar/customNavbar"
+  }
 }
