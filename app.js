@@ -1,7 +1,5 @@
 App({
   globalData: {
-    userInfo: null,
-    isLogin: false,
     menuList: [],
     contentList: [],
     musicList: [],
@@ -26,76 +24,14 @@ App({
       });
     }
 
-    // 小程序启动时检查登录状态
-    this.checkLoginStatus();
-
-    // 从本地存储获取背景设置
-    const savedBackground = wx.getStorageSync('backgroundSettings');
-    if (savedBackground) {
-      this.globalData.backgroundSettings = savedBackground;
-    }
-
-    // 检查隐私协议同意状态
-    const privacyAgreed = wx.getStorageSync('privacyAgreed');
-    if (privacyAgreed) {
-      // 获取微信用户信息
-      this.getWechatUserInfo();
-    }
   },
 
-  // 获取微信用户信息
-  getWechatUserInfo: function () {
-    // 检查是否已同意隐私协议
-    const privacyAgreed = wx.getStorageSync('privacyAgreed');
-    if (!privacyAgreed) {
-      console.log('未同意隐私协议，无法获取用户信息');
-      return;
-    }
-
-    const that = this;
-    wx.getSetting({
-      success(res) {
-        if (res.authSetting['scope.userInfo']) {
-          // 已经授权，可以直接调用 getUserInfo 获取头像昵称
-          wx.getUserInfo({
-            success: function (res) {
-              console.log('微信用户信息:', res.userInfo);
-              that.globalData.userInfo = {
-                ...that.globalData.userInfo,
-                nickname: res.userInfo.nickName,
-                avatar: res.userInfo.avatarUrl
-              };
-              // 保存到本地存储
-              wx.setStorageSync('userInfo', that.globalData.userInfo);
-            },
-            fail: function (err) {
-              console.log('获取微信用户信息失败:', err);
-            }
-          });
-        }
-      }
-    });
-  },
 
   onShow: function () {
-    // 每次小程序启动或从后台进入前台时执行
-    this.checkLoginStatus();
+
   },
 
-  // 检查登录状态
-  checkLoginStatus: function () {
-    const userInfo = wx.getStorageSync('userInfo');
-    console.log('用户信息：', userInfo);
-    if (userInfo) {
-      this.globalData.userInfo = userInfo;
-      this.globalData.isLogin = true;
-      // // 跳转到首页
-      // wx.switchTab({
-      //   url: '/pages/Home/Home'
-      // });
 
-    }
-  },
 
 
 

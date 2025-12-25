@@ -34,7 +34,6 @@ Page({
     searchList: [],
     searchValue: '',
     searchFlag: false,
-    userInfo: {},
     isFixed: false,
     date: new Date().toISOString().slice(0, 10),
     endDate: new Date().toISOString().slice(0, 10),
@@ -43,9 +42,6 @@ Page({
   },
 
   onLoad: function () {
-    this.setData({
-      userInfo: wx.getStorageSync('userInfo')
-    });
     this.setData({
       works: [],
       displayWorks: [],
@@ -560,7 +556,6 @@ Page({
               id: item._id,
               title: item.title,
               content: item.content,
-              creator: item.userInfo && item.userInfo.nickname ? item.userInfo.nickname : (item.creator || '匿名用户'), // 使用用户信息中的昵称
               updateTime: item.updateTime || '',
               commentsCount: (item.comments || []).length,
               createDate: item.createDate || '',

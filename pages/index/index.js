@@ -56,6 +56,8 @@ Page({
 
 
   onLoad: function () {
+    // 1. 检查隐私协议（核心步骤）
+    this.checkPrivacySetting();
     // 页面加载时的逻辑
     // 获取当前时间并设置小时和分钟
     const now = new Date();
@@ -105,6 +107,43 @@ Page({
         })
         .exec();
     }, 500); // 延迟500ms确保渲染完成
+  },
+  checkPrivacySetting() {
+    console.log('检查隐私协议');
+    // 调用官方API获取隐私授权状态
+    wx.getPrivacySetting({
+      success: (res) => {
+        /* 
+          res 对象包含：
+          - needAuthorization: Boolean，是否需要弹窗授权
+          - privacyContractName: String，隐私协议名称
+        */
+        console.log('隐私协议状态:', res);
+        // 如果平台要求授权，则弹出官方协议
+        if (res.needAuthorization) {
+          // 这是微信官方弹窗，样式不可自定义
+          wx.requirePrivacyAuthorization({
+            success: () => {
+              console.log('用户同意了基础隐私协议');
+              // 用户同意后，可以正常使用小程序
+            },
+            fail: () => {
+              console.log('用户拒绝了基础隐私协议');
+              // 可考虑提示用户或限制部分功能
+              wx.showToast({
+                title: '需要同意协议才能使用完整功能',
+                icon: 'none'
+              });
+            }
+          });
+        } else {
+          console.log('无需额外隐私授权');
+        }
+      },
+      fail: (err) => {
+        console.error('获取隐私设置失败:', err);
+      }
+    });
   },
 
   // 计算时针和分针的角度
@@ -196,95 +235,11 @@ Page({
   },
   getUserProfile: function () {
     wx.showLoading({
-      title: '登录中...',
+      title: '进入中...',
     });
-
-    // 调用wx.login获取临时登录凭证code
-    wx.getUserProfile({
-      desc: '用于完善会员资料',
-      success: res => {
-        console.log('wx.login成功', res);
-        if (res.userInfo) {
-          console.log('wx.login成功', res.userInfo);
-          // 调用云函数进行登录验证
-          wx.cloud.callFunction({
-            name: 'user',
-            data: {
-              action: 'login',
-              userInfo: {
-                ...res.userInfo,
-              }
-            },
-            success: res => {
-              wx.hideLoading();
-              console.log('云函数调用成功', res);
-
-              if (res.result && res.result.success) {
-                // 登录成功，存储用户信息
-                const userInfo = { ...res.result.data.userData, openid: res.result.data.openid };
-                getApp().globalData.menuList = res.result.data.menuList;
-                getApp().globalData.contentList = res.result.data.contentList;
-                getApp().globalData.musicList = res.result.data.musicList;
-                getApp().globalData.isLogin = true;
-                console.log('用户信息', userInfo);
-
-                // 存储到本地
-                wx.setStorageSync('userInfo', userInfo);
-
-                // 检查用户是否已经设置了昵称，如果没有则跳转到登录页面完善信息
-                if (!userInfo.nickname || userInfo.nickname.trim() === '' || userInfo.nickname.trim() == '微信用户') {
-                  wx.navigateTo({
-                    url: '/pages/login/login'
-                  });
-                } else {
-                  // 跳转到首页
-                  wx.switchTab({
-                    url: '/pages/Home/Home'
-                  });
-                }
-              } else {
-                // 登录失败
-                wx.showToast({
-                  title: res.result ? res.result.message : '登录失败',
-                  icon: 'none',
-                  duration: 3000
-                });
-              }
-            },
-            fail: err => {
-              wx.hideLoading();
-              console.error('云函数调用失败', err);
-              // 显示更详细的错误信息
-              let errMsg = '登录失败，请检查网络';
-              if (err.errMsg) {
-                errMsg = err.errMsg;
-              } else if (err.message) {
-                errMsg = err.message;
-              }
-              wx.showToast({
-                title: errMsg,
-                icon: 'none',
-                duration: 3000
-              });
-            }
-          });
-        } else {
-          wx.hideLoading();
-          console.log('登录失败！' + res.errMsg);
-          wx.showToast({
-            title: '登录失败，请重试',
-            icon: 'none'
-          });
-        }
-      },
-      fail: err => {
-        wx.hideLoading();
-        console.error('wx.login调用失败', err);
-        wx.showToast({
-          title: '登录失败，请重试',
-          icon: 'none'
-        });
-      }
+    // 跳转到首页
+    wx.switchTab({
+      url: '/pages/Home/Home'
     });
   },
 

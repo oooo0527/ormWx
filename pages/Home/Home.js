@@ -70,13 +70,6 @@ Page({
     eventsData: []
   },
   onLoad: function (options) {
-    // 获取用户信息
-    const app = getApp();
-    if (!app.globalData.userInfo) {
-      wx.navigateTo({
-        url: '/pages/index/index'
-      });
-    }
   },
 
   onShow: function () {

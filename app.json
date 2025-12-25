@@ -1,9 +1,7 @@
 {
   "pages": [
-    "pages/Home/Home",
-    "pages/login/login",
-    "pages/privacyPolicy/privacyPolicy",
     "pages/index/index",
+    "pages/Home/Home",
     "pages/profile/profile",
     "pages/interaction/interaction",
     "pages/interactionDetail/interactionDetail"

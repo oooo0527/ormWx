@@ -37,7 +37,7 @@
       </view>
       <image class="display-image" src="{{displayImage}}" show-menu-by-longpress="false"></image>
       <image src="{{displayImage2}}" class="display-image1" show-menu-by-longpress="false" mode="aspectFill"></image>
-      <button open-type='getUserInfo' bindtap="getUserProfile" class="login-button">登录</button>
+      <button open-type='getUserInfo' bindtap="getUserProfile" class="login-button">开始</button>
     </view>
     <!-- 语音播放控制 -->
     <audio id="voicePlayer" />
