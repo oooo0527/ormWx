@@ -30,7 +30,7 @@
       <view class="form-item">
         <checkbox-group bindchange="bindchange">
           <checkbox value="checked" />
-          申请上热门
+          热门
         </checkbox-group>
       </view>
       <!-- 提交按钮 -->

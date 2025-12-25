@@ -3,7 +3,7 @@ const timeUtils = require('../../utils/timeUtils.js');
 
 Page({
   data: {
-    userInfo: null,
+
     // 投稿相关数据
     canSubmit: true,
     submissionCooldown: false,
@@ -20,46 +20,10 @@ Page({
   },
 
   onLoad() {
-    // 检查用户登录状态
-    const app = getApp();
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo
-      });
-    }
-
-    // 检查投稿冷却时间
-    this.checkSubmissionCooldown();
   },
 
   onShow() {
     // 页面显示时的操作
-  },
-
-  // 检查投稿冷却时间
-  checkSubmissionCooldown() {
-    const lastSubmission = wx.getStorageSync('lastDreamSubmission');
-    if (lastSubmission) {
-      const now = new Date();
-      const last = new Date(lastSubmission);
-      const diffHours = (now - last) / (1000 * 60 * 60);
-
-      // 如果距离上次投稿不足24小时，则禁止投稿
-      if (diffHours < 24) {
-        this.setData({
-          canSubmit: false,
-          submissionTime: lastSubmission
-        });
-
-        // 设置定时器，在冷却期结束后启用投稿
-        const remainingHours = 24 - diffHours;
-        setTimeout(() => {
-          this.setData({
-            canSubmit: true
-          });
-        }, remainingHours * 60 * 60 * 1000);
-      }
-    }
   },
 
   // 选择投稿风格
@@ -102,13 +66,6 @@ Page({
 
   // 提交投稿
   submitPhoto() {
-    if (!this.data.userInfo) {
-      wx.showToast({
-        title: '请先登录',
-        icon: 'none'
-      });
-      return;
-    }
 
     const { style, image, description } = this.data.submissionForm;
 
@@ -126,7 +83,7 @@ Page({
     });
 
     // 上传图片到云存储
-    const cloudPath = `dream/${this.data.userInfo.openid}_${Date.now()}.jpg`;
+    const cloudPath = `dream/dream_${Date.now()}.jpg`;
     wx.cloud.uploadFile({
       cloudPath: cloudPath,
       filePath: image,
@@ -139,9 +96,6 @@ Page({
             style: style,
             imageUrl: res.fileID,
             description: description,
-            userId: this.data.userInfo.openid,
-            userName: this.data.userInfo.nickname,
-            userAvatar: this.data.userInfo.avatar,
             createDate: timeUtils.getCurrentDate(),
             createTime: timeUtils.getCurrentTime(),
           },

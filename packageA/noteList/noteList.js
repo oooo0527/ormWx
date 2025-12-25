@@ -74,16 +74,7 @@ Page({
    * 加载消息数据 - 增强版本，支持缓存机制
    */
   loadNotifications(callback) {
-    // 获取用户信息
-    const userInfo = wx.getStorageSync('userInfo');
-    if (!userInfo) {
-      console.error('未获取到用户信息');
-      wx.showToast({
-        title: '请先登录',
-        icon: 'none'
-      });
-      return;
-    }
+
 
     // 检查是否有缓存数据且未过期（5分钟内）
     const cachedData = this.getCachedNotifications();
@@ -100,7 +91,7 @@ Page({
       }
 
       // 异步更新缓存数据（不影响当前显示）
-      this.fetchAndCacheNotifications(userInfo);
+      this.fetchAndCacheNotifications();
       return;
     }
 
@@ -232,7 +223,7 @@ Page({
   /**
    * 异步获取并缓存最新的通知数据
    */
-  fetchAndCacheNotifications(userInfo) {
+  fetchAndCacheNotifications() {
     // 获取最新公告消息
     this.getAnnouncementNotifications().then(result => {
       // 更新缓存

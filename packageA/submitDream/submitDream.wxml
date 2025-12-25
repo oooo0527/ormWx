@@ -25,12 +25,7 @@
         <text class="section-title">照片描述</text>
         <textarea class="description-input" placeholder="请输入照片描述..." value="{{submissionForm.description}}" bindinput="inputDescription" maxlength="100"></textarea>
       </view>
-      <view class="cooldown-info" wx:if="{{false}}">
-        <text>您今天已投稿，请明天再来</text>
-      </view>
-      <button class="submit-btn" bindtap="submitPhoto">
-        {{canSubmit && userInfo ? '提交投稿' : (userInfo ? '今日已投稿' : '请先登录')}}
-      </button>
+      <button class="submit-btn" bindtap="submitPhoto">增加</button>
     </view>
   </view>
 </global-background>

@@ -233,7 +233,7 @@ Page({
 
     this.voicePlayer.obeyMuteSwitch = false; // 不遵循静音开关
   },
-  getUserProfile: function () {
+  goHome: function () {
     wx.showLoading({
       title: '进入中...',
     });

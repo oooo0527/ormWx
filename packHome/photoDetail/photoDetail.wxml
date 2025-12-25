@@ -12,9 +12,7 @@
             <view class="photo-info">
               <view class="photo-description">{{item.description}}</view>
               <view class="photo-actions">
-                <view class="like-section {{item.isLiked ? 'liked' : ''}}" data-id="{{item._id}}" data-index="{{index}}" bindtap="likePhoto">
-                  {{item.likes || 0}}❤️
-                </view>
+                <view class="view-section">{{item.views || 0}}👁️</view>
                 <view class="user-info">
                   <image class="user-avatar" src="{{item.userAvatar}}" mode="aspectFill"></image>
                   <view class="user-details">
@@ -37,11 +35,9 @@
             <view class="photo-info">
               <view class="photo-description">{{item.description}}</view>
               <view class="photo-actions">
-                <view class="like-section {{item.isLiked ? 'liked' : ''}}" data-id="{{item._id}}" data-index="{{index}}" bindtap="likePhoto">
-                  {{item.likes || 0}}❤️
-                </view>
+                <view class="view-section">{{item.views || 0}}👁️</view>
                 <view class="user-info">
-                  <image class="user-avatar" src="{{item.userAvatar}}" mode="aspectFill"></image>
+                  <image class="user-avatar" src="../../pages/Home/Home.jpg" mode="aspectFill"></image>
                   <view class="user-details">
                     <text class="user-name">{{item.userName}}</text>
                     <text class="post-time">{{item.createDate}}{{item.createTime}}</text>

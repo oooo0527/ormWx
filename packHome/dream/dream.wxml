@@ -19,9 +19,9 @@
           <view class="top-item" wx:if="{{rankingList.length > 0}}" bindtap="showModal" data-index="0">
             <image wx:if="{{rankingList[0].imageUrl}}" class="top-avatar" src="{{rankingList[0].imageUrl}}" mode="widthFix" lazy-load="{{true}}"></image>
             <view class="top-info">
-              <image wx:if="{{rankingList[0].userAvatar}}" class="first-avatar" src="{{rankingList[0].userAvatar}}" mode="widthFix" lazy-load="{{true}}"></image>
+              <image class="first-avatar" src="../../pages/Home/Home.jpg" mode="widthFix" lazy-load="{{true}}"></image>
               <view class="top-name">{{rankingList[0].style}}</view>
-              <view class="top-likes">{{rankingList[0].likes}} 点赞</view>
+              <view class="top-likes">{{rankingList[0].views || 0}} 浏览</view>
             </view>
           </view>
         </view>
@@ -30,7 +30,7 @@
         <view class="list-header">
           <text class="header-rank">排名</text>
           <text class="header-user">用户</text>
-          <text class="header-score">点赞</text>
+          <text class="header-score">浏览</text>
           <text class="header-photos">照片</text>
         </view>
         <block wx:for="{{rankingList}}" wx:key="_id" wx:for-index="index" wx:for-item="item">
@@ -40,10 +40,10 @@
               <text>{{index + 1}}</text>
             </view>
             <view class="user-info">
-              <image class="user-avatar" src="{{item.userAvatar}}" mode="aspectFill" lazy-load="{{true}}"></image>
+              <image class="user-avatar" src="../../pages/Home/Home.jpg" mode="aspectFill" lazy-load="{{true}}"></image>
               <text class="user-name">{{item.userName}}</text>
             </view>
-            <text class="score">{{item.likes}}</text>
+            <text class="score">{{item.views || 0}}</text>
             <view class="photos-contens">
               <image class="photos-count" src="{{item.imageUrl}}" mode="aspectFill" lazy-load="{{true}}"></image>
             </view>
@@ -74,8 +74,8 @@
           </view>
           <view class="stats-section">
             <view class="stat-item">
-              <text class="stat-label">点赞数</text>
-              <text class="stat-value">{{selectedItem.likes || 0}}</text>
+              <text class="stat-label">浏览数</text>
+              <text class="stat-value">{{selectedItem.views || 0}}</text>
             </view>
             <view class="stat-item">
               <text class="stat-label">风格</text>
@@ -85,9 +85,6 @@
           <view class="description-section">
             <text class="description-label">描述:</text>
             <text class="description-text">{{selectedItem.description || '暂无描述'}}</text>
-          </view>
-          <view class="like-btn {{selectedItem.isLiked ? 'liked' : ''}}" catchtap="likePhotoInModal">
-            {{selectedItem.isLiked ? '已点赞' : '点赞'}}
           </view>
         </view>
       </view>

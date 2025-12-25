@@ -26,6 +26,8 @@ exports.main = async (event, context) => {
         return await getPhotosByStyle(event)
       case 'deletePhoto':
         return await deletePhoto(event)
+      case 'recordView':
+        return await recordView(event)
       default:
         return {
           success: false,
@@ -43,10 +45,10 @@ exports.main = async (event, context) => {
 
 // 用户投稿
 async function submitPhoto(event) {
-  const { style, imageUrl, description, userId, userName, userAvatar } = event
+  const { style, imageUrl, description } = event
 
   // 参数验证
-  if (!style || !imageUrl || !description || !userId || !userName || !userAvatar) {
+  if (!style || !imageUrl || !description) {
     return {
       success: false,
       message: '参数不完整'
@@ -75,11 +77,9 @@ async function submitPhoto(event) {
       style: style,
       imageUrl: imageUrl,
       description: description,
-      userId: userId,
-      userName: userName,
-      userAvatar: userAvatar,
       status: 'approved', // 已审核状态
       likes: 0,
+      views: 0,
       createTime: event.createTime,
       createDate: event.createDate
     }
@@ -156,12 +156,12 @@ async function getPhotosByStyle(event) {
 // 获取排行榜数据
 async function getRankingList(event) {
   try {
-    // 获取排行榜数据，按积分降序排列
+    // 获取排行榜数据，按浏览次数降序排列
     const result = await db.collection('dream_photos')
       .where({
         status: 'approved'
       })
-      .orderBy('likes', 'desc')
+      .orderBy('views', 'desc')
       .limit(7) // 限制返回前7名
       .get()
 
@@ -308,6 +308,39 @@ async function updateUserScoreOnDelete(userId, scoreIncrement, photoIncrement) {
     }
   } catch (err) {
     console.error('更新用户积分失败:', err);
+  }
+}
+
+// 记录照片浏览
+async function recordView(event) {
+  const { photoId } = event;
+
+  // 参数验证
+  if (!photoId) {
+    return {
+      success: false,
+      message: '缺少照片ID'
+    };
+  }
+
+  try {
+    // 增加照片的浏览数
+    await db.collection('dream_photos').doc(photoId).update({
+      data: {
+        views: db.command.inc(1)
+      }
+    });
+
+    return {
+      success: true,
+      message: '浏览记录成功'
+    };
+  } catch (err) {
+    console.error('浏览记录失败:', err);
+    return {
+      success: false,
+      message: err.message
+    };
   }
 }
 

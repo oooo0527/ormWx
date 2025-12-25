@@ -171,17 +171,7 @@ Page({
       return;
     }
 
-    // 获取用户信息
-    const userInfo = wx.getStorageSync('userInfo');
-    console.log('用户信息：', userInfo);
-    if (!userInfo) {
-      wx.hideLoading();
-      wx.showToast({
-        title: '用户信息获取失败，请重新登录',
-        icon: 'none'
-      });
-      return;
-    }
+
 
     // 构造数据对象
     const data = {
@@ -189,8 +179,7 @@ Page({
       content: content,
       images: imageUrls,
       checked: that.data.checked,
-      status: '1', // 重新提交设置为待审核状态
-      userInfo: userInfo || {}, // 添加用户信息
+      status: '1',
       createDate: timeUtils.getCurrentDate(),
       createTime: timeUtils.getCurrentTime(),
       updateTime: timeUtils.getCurrentTime()
