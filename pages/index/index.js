@@ -52,9 +52,6 @@ Page({
 
   },
 
-
-
-
   onLoad: function () {
     // 1. 检查隐私协议（核心步骤）
     this.checkPrivacySetting();
@@ -286,7 +283,7 @@ Page({
       const fullText = this.data.fullText;
 
       // 如果已经显示完所有文字，则清除定时器
-      if (currentIndex >= fullText.length) {
+      if (currentIndex >= fullText.length - 1) {
         clearInterval(timer);
         this.setData({
           timer: null
@@ -324,13 +321,6 @@ Page({
     });
     this.startTextDisplay()
     this.voicePlayer.play();
-
-    // // 显示提示
-    // wx.showToast({
-    //   title: '图片已切换',
-    //   icon: 'success',
-    //   duration: 1000
-    // });
   },
 
   // 数字框点击增加事件

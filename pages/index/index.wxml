@@ -1,49 +1,47 @@
-<global-background>
-  <custom-navbar title="ormkornnaphat" showBack="{{false}}" showHome="{{false}}"></custom-navbar>
-  <view class="container" style="margin-top: {{navBarHeight}}px;height:calc(100vh - {{navBarHeight}}px);">
-    <!-- 时间显示 -->
-    <view class="time-display-overlay" wx:if="{{showHome}}">
-      <text class="time-text">{{hours}}:{{minutes < 10 ? '0' + minutes : minutes}}</text>
-      <view bindtap="goHome" class="login-button">直接进入</view>
-    </view>
-    <view wx:if="{{showHome}}" class="home-container">
-      <image src="{{displayImage1}}" class="background-image" mode="widthfill"></image>
-      <!-- 可拖动的小图标 -->
-      <view wx:if="{{showIcon}}" class="draggable-icon-container">
-        <view class="small-icon" bindlongpress="switchDisplayImage" show-menu-by-longpress="false">
-          <image class="icon" src="{{currentIcon}}"></image>
-        </view>
-      </view>
-      <!-- 表盘区域 -->
-      <view class="clock-container" wx:else>
-        <view class="clock-face" bindtouchstart="onTouchStart" bindtouchmove="onTouchMove" bindtouchend="onTouchEnd">
-          <!-- 主刻度标记 -->
-          <view class="major-mark hour-mark-12"></view>
-          <view class="major-mark hour-mark-3"></view>
-          <view class="major-mark hour-mark-6"></view>
-          <view class="major-mark hour-mark-9"></view>
-          <!-- 时针 -->
-          <view class="hour-hand" style="transform: rotate({{hourDeg}}deg)"></view>
-          <!-- 分针 -->
-          <view class="minute-hand" style="transform: rotate({{minuteDeg}}deg)"></view>
-          <!-- 中心圆点 -->
-          <view class="center-dot"></view>
-        </view>
+<custom-navbar title="ormkornnaphat" showBack="{{false}}" showHome="{{false}}"></custom-navbar>
+<view class="container" style="margin-top: {{navBarHeight}}px;height:calc(100vh - {{navBarHeight}}px);">
+  <!-- 时间显示 -->
+  <view class="time-display-overlay" wx:if="{{showHome}}">
+    <text class="time-text">{{hours}}:{{minutes < 10 ? '0' + minutes : minutes}}</text>
+  </view>
+  <view wx:if="{{showHome}}" class="home-container">
+    <image src="{{displayImage1}}?imageMogr2/thumbnail/!750x600r/format/webp" class="background-image" mode="widthfill" lazy-load="{{true}}"></image>
+    <!-- 可拖动的小图标 -->
+    <view wx:if="{{showIcon}}" class="draggable-icon-container">
+      <view class="small-icon" bindlongpress="switchDisplayImage" show-menu-by-longpress="false">
+        <image class="icon" src="{{currentIcon}}" lazy-load="{{true}}"></image>
       </view>
     </view>
-    <!-- 用于切换显示的图片 -->
-    <view class="display-image-container" wx:else>
-      <image src="{{displayImage1}}" class="background-image1" mode="aspectFill" show-menu-by-longpress="false" wx:if="{{false}}"></image>
-      <view class="display-image-container-text">
-        <view class="text-display">
-          <view wx:for="{{displayedText}}" wx:key="index" class="text-item">{{item}}</view>
-        </view>
-        <image class="display-image" src="{{displayImage}}" show-menu-by-longpress="false"></image>
-        <image src="{{displayImage2}}" class="display-image1" show-menu-by-longpress="false" mode="aspectFill"></image>
-        <view bindtap="goHome" class="login-button">开始</view>
+    <!-- 表盘区域 -->
+    <view class="clock-container" wx:else>
+      <view class="clock-face" bindtouchstart="onTouchStart" bindtouchmove="onTouchMove" bindtouchend="onTouchEnd">
+        <!-- 主刻度标记 -->
+        <view class="major-mark hour-mark-12"></view>
+        <view class="major-mark hour-mark-3"></view>
+        <view class="major-mark hour-mark-6"></view>
+        <view class="major-mark hour-mark-9"></view>
+        <!-- 时针 -->
+        <view class="hour-hand" style="transform: rotate({{hourDeg}}deg)"></view>
+        <!-- 分针 -->
+        <view class="minute-hand" style="transform: rotate({{minuteDeg}}deg)"></view>
+        <!-- 中心圆点 -->
+        <view class="center-dot"></view>
       </view>
-      <!-- 语音播放控制 -->
-      <audio id="voicePlayer" />
     </view>
   </view>
-</global-background>
+  <!-- 用于切换显示的图片 -->
+  <view class="display-image-container" wx:else>
+    <view class="display-image-container-text">
+      <!-- <image class="display-image2" src="{{displayImage}}" show-menu-by-longpress="false"></image> -->
+      <view class="text-display">
+        <view bindtap="goHome">I love U</view>
+        <view wx:for="{{displayedText}}" wx:key="index" class="text-item">{{item}}</view>
+      </view>
+      <image class="display-image" src="{{displayImage}}" show-menu-by-longpress="false" lazy-load="{{true}}"></image>
+      <image src="{{displayImage2}}" class="display-image1" show-menu-by-longpress="false" mode="aspectFill" lazy-load="{{true}}"></image>
+    </view>
+    <!-- 语音播放控制 -->
+    <audio id="voicePlayer" />
+  </view>
+  <view bindtap="goHome" class="login-foot">直接进入~</view>
+</view>

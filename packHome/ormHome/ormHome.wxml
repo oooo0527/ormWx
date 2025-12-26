@@ -6,7 +6,7 @@
       <view class="menu-item hanging-menu {{item.color}}" bindtap="navigateToPage" data-color="{{item.color}}" bindtouchstart="onTouchStart" bindtouchend="onTouchEnd" data-index="{{index}}" style="height: {{randomH[index]}}rpx;" wx:for="{{relationShipList}}" wx:key="index" wx:if="{{index<=3}}">
         <view class="menu-text1">{{item.desicon}}</view>
         <view class="menu-text">{{item.type}}</view>
-        <image class="menu-icon" src="{{item.imageUrl}}"></image>
+        <image class="menu-icon" src="{{item.imageUrl}}?imageMogr2/thumbnail/!750x600r/format/webp"></image>
       </view>
     </view>
     <!-- 中间内容区域 -->
@@ -17,7 +17,7 @@
     <!-- 底部4个菜单，像长出来的效果 -->
     <view class="bottom-menus">
       <view class="menu-item growing-menu {{item.color}}" bindtap="navigateToPage" data-color="{{item.color}}" bindtouchstart="onTouchStart" bindtouchend="onTouchEnd" data-index="{{index}}" style="height: {{randomH1[index]}}rpx;" wx:for="{{relationShipList}}" wx:key="index" wx:if="{{index>3}}">
-        <image class="menu-icon1" src="{{item.imageUrl}}"></image>
+        <image class="menu-icon1" src="{{item.imageUrl}}?imageMogr2/thumbnail/!750x600r/format/webp"></image>
         <view class="menu-text">{{item.type}}</view>
         <view class="menu-text1">{{item.desicon}}</view>
       </view>
