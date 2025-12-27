@@ -8,116 +8,116 @@
     </view>
     <!-- 个人档案区域 -->
     <view class="profile-section">
-      <view class="section-title">Personal Profile</view>
+      <view class="section-title">个人档案</view>
       <view class="info-item">
-        <text class="info-label">Full Name</text>
+        <text class="info-label">姓名</text>
         <text class="info-value">{{ormInfo.name.chinese}}</text>
       </view>
       <view class="info-item">
-        <text class="info-label">English Name</text>
+        <text class="info-label">英文名</text>
         <text class="info-value">{{ormInfo.name.english}}</text>
       </view>
       <view class="info-item">
-        <text class="info-label">Thai Name</text>
+        <text class="info-label">泰文名</text>
         <text class="info-value">{{ormInfo.name.thai}}</text>
       </view>
       <view class="info-item">
-        <text class="info-label">Nicknames</text>
+        <text class="info-label">昵称</text>
         <text class="info-value">{{ormInfo.nicknames.join(', ')}}</text>
       </view>
       <view class="info-item">
-        <text class="info-label">Nationality</text>
+        <text class="info-label">国籍</text>
         <text class="info-value">{{ormInfo.basicInfo.nationality}}</text>
       </view>
       <view class="info-item">
-        <text class="info-label">Birth Date</text>
+        <text class="info-label">出生日期</text>
         <text class="info-value">{{ormInfo.basicInfo.birthDate}}</text>
       </view>
       <view class="info-item">
-        <text class="info-label">Height</text>
+        <text class="info-label">身高</text>
         <text class="info-value">{{ormInfo.basicInfo.height}}</text>
       </view>
       <view class="info-item">
-        <text class="info-label">Weight</text>
+        <text class="info-label">体重</text>
         <text class="info-value">{{ormInfo.basicInfo.weight}}</text>
       </view>
       <view class="info-item">
-        <text class="info-label">Blood Type</text>
+        <text class="info-label">血型</text>
         <text class="info-value">{{ormInfo.basicInfo.bloodType}}</text>
       </view>
       <view class="info-item">
-        <text class="info-label">Zodiac</text>
+        <text class="info-label">生肖</text>
         <text class="info-value">{{ormInfo.basicInfo.zodiac}}</text>
       </view>
       <view class="info-item">
-        <text class="info-label">Constellation</text>
+        <text class="info-label">星座</text>
         <text class="info-value">
           {{ormInfo.basicInfo.constellations.thai}} / {{ormInfo.basicInfo.constellations.international}}
         </text>
       </view>
       <view class="info-item">
-        <text class="info-label">MBTI</text>
+        <text class="info-label">MBTI性格类型</text>
         <text class="info-value">{{ormInfo.basicInfo.mbti}}</text>
       </view>
       <view class="divider"></view>
       <!-- 职业信息 -->
-      <view class="section-title">Career</view>
+      <view class="section-title">职业信息</view>
       <view class="info-item">
-        <text class="info-label">Occupations</text>
+        <text class="info-label">职业</text>
         <text class="info-value">{{ormInfo.career.occupations.join(', ')}}</text>
       </view>
       <view class="info-item">
-        <text class="info-label">Agency</text>
+        <text class="info-label">经纪公司</text>
         <text class="info-value">{{ormInfo.career.agency}}</text>
       </view>
       <view class="info-item">
-        <text class="info-label">Debut Date</text>
+        <text class="info-label">出道日期</text>
         <text class="info-value">{{ormInfo.career.debutDate}}</text>
       </view>
       <view class="divider"></view>
       <!-- 喜好 -->
-      <view class="section-title">Preferences</view>
+      <view class="section-title">喜好</view>
       <view class="info-item">
-        <text class="info-label">Favorite Colors</text>
+        <text class="info-label">喜欢的颜色</text>
         <text class="info-value">{{ormInfo.preferences.favoriteColors.join(', ')}}</text>
       </view>
       <view class="info-item">
-        <text class="info-label">Favorite Foods</text>
+        <text class="info-label">喜欢的食物</text>
         <text class="info-value">{{ormInfo.preferences.favoriteFoods.join(', ')}}</text>
       </view>
       <view class="info-item">
-        <text class="info-label">Fan Color</text>
+        <text class="info-label">粉丝颜色</text>
         <text class="info-value">{{ormInfo.preferences.fanColor}}</text>
       </view>
       <view class="info-item">
-        <text class="info-label">Fan Name</text>
+        <text class="info-label">粉丝名称</text>
         <text class="info-value">{{ormInfo.preferences.fanName}}</text>
       </view>
       <view class="info-item">
-        <text class="info-label">Emoji</text>
+        <text class="info-label">代表表情</text>
         <text class="info-value">{{ormInfo.preferences.representativeEmoji}}</text>
       </view>
       <view class="divider"></view>
       <!-- 音乐作品 -->
-      <view class="section-title">Music Works</view>
+      <view class="section-title">音乐作品</view>
       <view class="info-item" wx:for="{{ormInfo.songs}}" wx:key="index">
         <text class="info-value">{{item}}</text>
       </view>
       <view class="divider"></view>
       <!-- 个人品牌 -->
-      <view class="section-title">Personal Brands</view>
+      <view class="section-title">个人品牌</view>
       <view class="info-item" wx:for="{{ormInfo.brands}}" wx:key="index">
         <text class="info-value">{{item.name}} ({{item.type}}. {{item.role}})</text>
       </view>
       <view class="divider"></view>
       <!-- 社交媒体 -->
-      <text class="section-title">Social Media</text>
+      <text class="section-title">社交媒体</text>
       <view class="info-item">
-        <text class="info-label">Weibo</text>
+        <text class="info-label">微博</text>
         <text class="info-value">{{ormInfo.socialMedia.weibo}}</text>
       </view>
       <view class="info-item">
-        <text class="info-label">X</text>
+        <text class="info-label">X（推特）</text>
         <text class="info-value">{{ormInfo.socialMedia.x}}</text>
       </view>
       <view class="info-item">
@@ -130,79 +130,79 @@
       </view>
       <view class="divider"></view>
       <!-- 教育经历 -->
-      <text class="section-title">Education</text>
+      <text class="section-title">教育经历</text>
       <view class="education-item">
-        <view class="education-title">Graduate Studies</view>
+        <view class="education-title">研究生</view>
         <view class="education-detail">
-          <text class="education-label">University</text>
+          <text class="education-label">大学</text>
           <text class="education-value">{{ormInfo.education.graduate.university}}</text>
         </view>
         <view class="education-detail">
-          <text class="education-label">College</text>
+          <text class="education-label">学院</text>
           <text class="education-value">{{ormInfo.education.graduate.college}}</text>
         </view>
         <view class="education-detail">
-          <text class="education-label">Major</text>
+          <text class="education-label">专业</text>
           <text class="education-value">{{ormInfo.education.graduate.major}}</text>
         </view>
       </view>
       <view class="education-item">
-        <view class="education-title">Undergraduate</view>
+        <view class="education-title">本科</view>
         <view class="education-detail">
-          <text class="education-label">University</text>
+          <text class="education-label">大学</text>
           <text class="education-value">{{ormInfo.education.undergraduate.university}}</text>
         </view>
         <view class="education-detail">
-          <text class="education-label">College</text>
+          <text class="education-label">学院</text>
           <text class="education-value">{{ormInfo.education.undergraduate.college}}</text>
         </view>
         <view class="education-detail">
-          <text class="education-label">Major</text>
+          <text class="education-label">专业</text>
           <text class="education-value">{{ormInfo.education.undergraduate.major}}</text>
         </view>
       </view>
       <view class="education-detail">
-        <text class="education-label">High School</text>
+        <text class="education-label">高中</text>
         <text class="education-value">{{ormInfo.education.highSchool}}</text>
       </view>
       <view class="education-detail">
-        <text class="education-label">Middle School</text>
+        <text class="education-label">初中</text>
         <text class="education-value">{{ormInfo.education.middleSchool}}</text>
       </view>
       <view class="education-detail">
-        <text class="education-label">Elementary School</text>
+        <text class="education-label">小学</text>
         <text class="education-value">{{ormInfo.education.elementarySchool}}</text>
       </view>
       <view class="divider"></view>
       <!-- 家庭成员 -->
-      <view class="section-title">Family</view>
+      <view class="section-title">家庭成员</view>
       <view class="info-item">
-        <text class="info-label">Mother</text>
+        <text class="info-label">母亲</text>
         <text class="info-value">{{ormInfo.family.mother}}</text>
       </view>
       <view class="info-item">
-        <text class="info-label">Father</text>
+        <text class="info-label">父亲</text>
         <text class="info-value">{{ormInfo.family.father}}</text>
       </view>
       <view class="info-item">
-        <text class="info-label">Brother</text>
+        <text class="info-label">兄弟</text>
         <text class="info-value">{{ormInfo.family.brother}}</text>
       </view>
       <view class="divider"></view>
       <!-- 家庭宠物 -->
-      <view class="section-title">Pets</view>
+      <view class="section-title">家庭宠物</view>
       <view class="pet-card" wx:for="{{ormInfo.pets}}" wx:key="index">
         <view class="pet-name">{{item.name}}</view>
         <view class="pet-detail">
-          <text class="pet-label">Type</text>
+          <text class="pet-label">类型</text>
           <text class="pet-value">{{item.type}}</text>
         </view>
         <view class="pet-detail" wx:if="{{item.gender}}">
-          <text class="pet-label">Gender</text>
+          <text class="pet-label">性别</text>
           <text class="pet-value">{{item.gender}}</text>
         </view>
         <view class="pet-detail" wx:if="{{item.birthday}}">
-          <text class="pet-label">Birthday</text>
+          <text class="pet-label">生日</text>
           <text class="pet-value">{{item.birthday}}</text>
         </view>
         <view class="pet-detail" wx:if="{{item.instagram}}">

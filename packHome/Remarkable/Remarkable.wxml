@@ -49,6 +49,28 @@
         </view>
       </view>
     </view>
+    <view class="awards-section">
+      <view class="section-header">
+        <text class="section-title">提名荣誉</text>
+        <text class="section-subtitle">提名</text>
+      </view>
+      <scroll-view class="awards-carousel" scroll-x="true">
+        <view class="awards-wrapper">
+          <view class="award-card" style="background:#333" wx:for="{{awardsData}}" wx:key="id" data-id="{{item.id}}">
+            <view class="award-trophy">
+              <image src="../../pages/Home/Home.jpg" class="trophy-icon" mode="aspectFit"></image>
+            </view>
+            <view class="award-content">
+              <text class="award-name">{{item.name}}</text>
+              <text class="award-category">{{item.year}}{{item.category}}</text>
+              <!-- <text class="award-year"></text> -->
+              <text class="award-description">{{item.description}}</text>
+            </view>
+            <!-- <view class="shine-effect"></view> -->
+          </view>
+        </view>
+      </scroll-view>
+    </view>
     <!-- 统计数据区 -->
     <view class="stats-section" animation="{{statsSectionAnimation}}">
       <view class="stat-item">

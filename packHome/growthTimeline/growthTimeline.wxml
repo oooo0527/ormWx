@@ -41,7 +41,7 @@
         </block>
       </view>
       <!-- 底部提示 -->
-      <view class="footer-tip">滚动到底部，给Orm送上你的祝福</view>
+      <!-- <view class="footer-tip">滚动到底部，给Orm送上你的祝福</view> -->
     </scroll-view>
     <!-- 祝福输入弹窗 -->
     <view class="blessing-modal {{showBlessingModal ? 'show' : ''}}">
@@ -51,19 +51,20 @@
           <view class="close-btn" bindtap="onCloseBlessingModal">×</view>
         </view>
         <view class="blessing-body">
-          <textarea class="blessing-input" placeholder="请输入你想对Orm说的话..." maxlength="10" value="{{blessingText}}" bindinput="onBlessingInput"></textarea>
           <button class="submit-btn" bindtap="onSubmitBlessing">谢谢你成为orm</button>
         </view>
       </view>
     </view>
-    <!-- 祝福展示弹窗（每个祝福一个弹窗） -->
-    <block wx:for="{{blessingItems}}" wx:key="id">
-      <view class="single-blessing-modal {{item.show ? 'show' : ''}}" style="z-index: {{200 + item.id}};">
-        <view class="single-blessing-content {{item.animationClass}} {{item.show ? 'animate' : ''}}" style="top: {{item.top}}px; left: {{item.left}}px;">
-          <text class="blessing-text1">我的大明星</text>
-          <text class="blessing-text">{{item.text}}</text>
-        </view>
+    <!-- 心脏爆炸特效 -->
+    <view class="heart-explosion-container {{showHeartExplosion ? 'show' : ''}}">
+      <view class="heart-center {{showHeartExplosion ? 'heart-animate' : ' '}}">
+        谢谢你那个夏天出现在我面前❤
       </view>
-    </block>
+      <block wx:for="{{heartParticles}}" wx:key="index">
+        <view class="heart-particle {{item.show ? 'particle-animate' : ''}}" style="--start-x: {{item.startX}}px; --start-y: {{item.startY}}px; --end-x: {{item.endX}}px; --end-y: {{item.endY}}px; --duration: {{item.duration}}ms; --delay: {{item.delay}}ms; background: {{item.gradient}};">
+          {{item.text}}
+        </view>
+      </block>
+    </view>
   </view>
 </global-background>
