@@ -143,7 +143,7 @@
 
 .timeline-date {
   font-size: 20rpx;
-  color: #e0e0e0;
+  color: #010101;
   margin-bottom: 8rpx;
   border-radius: 10rpx;
 }
@@ -151,13 +151,13 @@
 .timeline-title {
   font-size: 26rpx;
   font-weight: bold;
-  color: white;
+  color: #000000;
   margin-bottom: 10rpx;
 }
 
 .timeline-desc {
   font-size: 22rpx;
-  color: #EF9A9A;
+  color: #5e1602;
   line-height: 1.2;
 }
 
@@ -195,10 +195,10 @@
 .detail-content {
   width: 80%;
   max-width: 500rpx;
-  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  background: linear-gradient(135deg, #000000 0%, #3e3f3f 100%);
   border-radius: 20rpx;
   padding: 30rpx;
-  box-shadow: 0 10rpx 30rpx rgba(0, 0, 0, 0.3);
+  box-shadow: 0 10rpx 30rpx rgba(247, 245, 245);
   transform: translateY(50rpx);
   transition: transform 0.3s ease;
 }
@@ -219,7 +219,7 @@
 .detail-title {
   font-size: 32rpx;
   font-weight: bold;
-  color: white;
+  color: red;
 }
 
 .close-btn {
@@ -229,7 +229,7 @@
   align-items: center;
   justify-content: center;
   font-size: 36rpx;
-  color: rgb(8, 8, 8);
+  color: rgb(5, 5, 5);
   cursor: pointer;
 }
 
@@ -241,7 +241,7 @@
 
 .detail-time {
   font-size: 24rpx;
-  color: #e0e0e0;
+  color: #5f5f5f;
   font-weight: 500;
 }
 
@@ -274,7 +274,7 @@
 }
 
 .blessing-content {
-  width: 80%;
+  width: 60%;
   /* max-width: 500rpx; */
   /* background: linear-gradient(135deg, #f8f4fc 0%, #c8c9cb 100%); */
   border-radius: 20rpx;
@@ -282,7 +282,6 @@
   box-shadow: 0 10rpx 30rpx rgba(244, 243, 243, 0.3);
   transform: translateY(50rpx);
   transition: transform 0.3s ease;
-
   background: #ffffff;
   /* background: #000000; */
 }
@@ -327,9 +326,10 @@
 }
 
 .submit-btn {
+  margin: 20rpx 0;
   /* background: #ff4081; */
   /* background: #000000; */
-  background: #EF9A9A;
+  background: #ec5b27;
   color: white;
   border: none;
   border-radius: 10rpx;

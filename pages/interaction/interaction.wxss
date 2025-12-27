@@ -1,5 +1,5 @@
 .container {
-  background: #E9E8EF;
+  background: #ffffff;
   box-sizing: border-box;
   position: relative;
   min-height: 100vh;
@@ -11,9 +11,87 @@
 
 .hot-histories-section {
   height: 128rpx;
-  line-height: 128rpx;
+  /* line-height: 128rpx; */
   font-size: 32rpx;
-  color: #333333;
+  /* color: #f3efef; */
+  display: flex;
+  justify-content: space-between;
+  color: #000000;
+  position: fixed;
+  width: 100%;
+  padding: 0 40rpx;
+  background: #ffffff;
+  z-index: 99;
+  align-items: center;
+}
+
+.no-data {
+  text-align: center;
+  margin-top: 120px;
+  font-size: 28rpx;
+  color: #999999;
+}
+
+.hot-histories-title {
+  position: relative;
+  /* padding: 12px 32px; */
+  font-size: 16px;
+  /* height: 50%; */
+  /* line-height: 50%; */
+  color: #f3f1f1;
+  background-color: #0a0a0a;
+
+  /* 按钮内部填充色 */
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  outline: none;
+  text-align: center;
+  transition: color 0.3s, background-color 0.3s;
+  padding: 10rpx;
+  /* z-index: 1; */
+}
+
+.hot-histories-title::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  /* 对应边框宽度 */
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(90deg,
+      #ff0000, #ff7f00, #ffff00, #00ff00,
+      #00ffff, #4b0082, #8f00ff, #ff0000);
+  background-size: 400% 100%;
+  /* 背景拉宽，为动画留出移动空间 */
+  border-radius: 10px;
+  /* 比按钮圆角稍大，包容边框 */
+  z-index: -1;
+  /* 置于按钮主体下层 */
+  animation: flowing-border 3s linear infinite;
+}
+
+.hot-histories-title:hover {
+  color: #fff;
+  background-color: #333;
+
+
+}
+
+.hot-histories-title::before {
+  animation-duration: 1s;
+  /* 悬停时动画加速 */
+}
+
+@keyframes flowing-border {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  100% {
+    background-position: 100% 50%;
+  }
 }
 
 .shawBg {
@@ -145,11 +223,16 @@
 .list-container {
   /* padding: 20rpx; */
   /* margin: 20rpx; */
-  height: 620rpx;
+  height: 750rpx;
+  padding-top: 128rpx;
+  margin-bottom: 200rpx;
+
+  /* margin-top: 120rpx; */
 }
 
 /* 3D堆叠式轮播图 */
 .carousel-container {
+  /* margin-top: 120rpx; */
   position: relative;
   height: 620rpx;
   /* margin-bottom: 100rpx; */
@@ -157,7 +240,7 @@
   perspective: 1200rpx;
   /* margin-top: 50rpx; */
   width: 100%;
-  margin-top: 20rpx;
+  margin-top: 120rpx;
 }
 
 .carousel-3d {
@@ -165,6 +248,17 @@
   width: 100%;
   height: 100%;
   touch-action: pan-y;
+
+}
+
+.mohu-bg {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background: linear-gradient(180deg, #ffffff 0%, #090909 100%);
+  filter: blur(2px);
+  z-index: -1;
+  top: -128rpx;
 }
 
 .cards-container {
@@ -612,8 +706,9 @@
   /* padding: 20rpx;
   margin-top: 40rpx; */
   /* height: 100vh; */
-  margin-top: 100rpx;
+  /* margin-top: 100rpx; */
   width: 100%;
+
 }
 
 .date-picker {
@@ -635,16 +730,11 @@
 }
 
 .fixed {
-  position: fixed;
-  top: 130rpx;
-  /* 固定在顶部 */
-  left: 0;
-  width: 100%;
-  z-index: 3;
+
   /* background: #E9E8EF; */
   background: #1E2020;
   box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
-  color: #333333;
+  color: #f4f1f1;
   /* 确保在最上层 */
   /* background-color: #fff; */
   /* 避免透明看到下方内容 */

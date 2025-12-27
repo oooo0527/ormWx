@@ -1,5 +1,5 @@
 <global-background>
-  <custom-navbar title="" showBack="{{false}}" showHome="{{false}}"></custom-navbar>
+  <custom-navbar title="" showBack="{{false}}" showHome="{{false}}" background-color="#000000"></custom-navbar>
   <view class="shawBg" wx:if="{{showShawBg}}">
     <view class="shawBg-bg"></view>
     <image src="./shawBg.jpg" mode="widthFix" class="shawBg-image"></image>
@@ -7,12 +7,18 @@
   </view>
   <view class="container" style="margin-top: {{navBarHeight}}px;min-height:calc(100vh - {{navBarHeight}}px);">
     <!-- 热门历史 -->
-    <view class="hot-histories-section">
-      <view class="hot-histories-title" bindtap="showHistories">热门历史</view>
+    <view class="hot-histories-section {{isFixed?'fixed ':''}}">
+      <view class="hot-histories-title" bindtap="showHistories">HOT🔥</view>
+      <view class="date-picker">
+        <picker mode="date" value="{{date}}" start="2025-09-01" end="{{endDate}}" bindchange="bindDateChange">
+          <view class="picker">当前选择: {{date}}</view>
+        </picker>
+      </view>
     </view>
     <view class="list-container">
       <!-- 轮播图区域 -->
-      <view class="carousel-container" wx:if="{{works.length > 0}}">
+      <view class="carousel-container" wx:show="{{works.length > 0}}">
+        <view class="mohu-bg"></view>
         <!-- 3D堆叠式轮播图 -->
         <view class="carousel-3d" bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd">
           <!-- 卡片容器 -->
@@ -33,12 +39,7 @@
         </view>
       </view>
     </view>
-    <view class="hot-interactions-section">
-      <view class="date-picker  {{isFixed?'fixed':''}}">
-        <picker mode="date" value="{{date}}" start="2025-09-01" end="{{endDate}}" bindchange="bindDateChange">
-          <view class="picker">当前选择: {{date}}</view>
-        </picker>
-      </view>
+    <view class="hot-interactions-section" wx:if="{{hotInteractions.length>0}}">
       <view class="hot-interactions-list  {{isFixed?'backBg':''}}">
         <view class="hot-interaction-item" wx:for="{{hotInteractions}}" wx:key="id" data-index="{{index}}" bindtap="selectHotInteraction">
           <view class="hot-interaction-content">
@@ -63,6 +64,9 @@
       </view>
       <view wx:if="{{loadMore}}" class="load-more">你也太爱了...</view>
       <view wx:if="{{loadAll}}" class="load-all">人美心善得陈奥根本不够看</view>
+    </view>
+    <view class="hot-interactions-section" wx:else>
+      <view class="no-data">当前日期没有你想要了解的陈奥</view>
     </view>
   </view>
 </global-background>

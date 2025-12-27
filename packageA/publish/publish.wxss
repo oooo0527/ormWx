@@ -4,7 +4,7 @@
   /* height: calc(100vh - 128rpx); */
   box-sizing: border-box;
   position: relative;
-  background: #f48eb5;
+  /* background: #f48eb5; */
   min-height: 100vh;
 }
 
@@ -23,7 +23,7 @@
 .title-input {
   height: 80rpx;
   padding: 0 20rpx;
-  border: 2rpx solid #e0e0e0;
+  border: 2rpx solid #0a0a0a;
   border-radius: 10rpx;
   font-size: 28rpx;
 }
@@ -32,7 +32,7 @@
   width: 100%;
   height: 500rpx;
   padding: 20rpx;
-  border: 2rpx solid #e0e0e0;
+  border: 2rpx solid #070707;
   border-radius: 10rpx;
   font-size: 28rpx;
   resize: none;
@@ -79,7 +79,7 @@
 .add-image-button {
   width: 150rpx;
   height: 150rpx;
-  border: 2rpx dashed #e0e0e0;
+  border: 2rpx dashed #050505;
   border-radius: 10rpx;
   display: flex;
   flex-direction: column;
@@ -114,10 +114,10 @@
 .submit-button {
   width: 80%;
   height: 80rpx;
-  background-color: #f48eb5;
+  background-color: #080808;
   color: white;
   font-size: 32rpx;
-  border-radius: 40rpx;
+  border-radius: 10rpx;
   border: none;
 }
 
