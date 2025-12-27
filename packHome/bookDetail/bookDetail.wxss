@@ -1,9 +1,3 @@
-.container {
-  padding: 20rpx;
-  background-color: #f8f8f8;
-  min-height: 100vh;
-}
-
 .header {
   text-align: center;
   padding: 20rpx 0;
@@ -19,7 +13,176 @@
   color: #333;
 }
 
-.image-gallery {
+/* 图片容器样式 */
+.image-container {
+  width: 100%;
+  padding: 20rpx 0;
+  margin-bottom: 30rpx;
+}
+
+/* 滚动视图样式 */
+.image-scroll {
+  width: 100%;
+  white-space: nowrap;
+  height: 50vh;
+}
+
+/* 图片行样式 - 水平排列 */
+.image-row {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  width: auto;
+  padding: 20rpx;
+  height: 100%;
+}
+
+/* 图片项目样式 - 展开收起效果 */
+.image-item {
+  border-radius: 20rpx;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 15rpx 30rpx rgba(0, 0, 0, 0.3);
+  transition: all 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  display: inline-flex;
+  flex-direction: column;
+  margin-right: 20rpx;
+  flex-shrink: 0;
+  height: 100%;
+  /* 所有图片保持相同高度 */
+}
+
+.description {
+  font-size: 28rpx;
+  color: #666;
+  text-align: center;
+  margin-top: 20rpx;
+  padding: 40rpx;
+}
+
+/* 收起状态 - 左右移动的图片 */
+.image-item.collapsed {
+  transition: width 0.5s ease;
+  /* 关键：监听width变化，持续0.5秒，使用平滑的缓动函数 */
+  width: 120rpx;
+  opacity: 0.6;
+}
+
+/* 展开状态 - 居中的图片 */
+.image-item.expanded {
+  transition: width 0.5s ease;
+  /* 关键：监听width变化，持续0.5秒，使用平滑的缓动函数 */
+  width: 500rpx;
+  max-width: 500rpx;
+  opacity: 1;
+  z-index: 10;
+  /* box-shadow: 0 25rpx 50rpx rgba(0, 0, 0, 0.5); */
+}
+
+
+
+/* 图片卡片样式 */
+.image-card {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+/* 图片内容样式 */
+.image-content {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* 图片覆盖层 */
+.image-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+  padding: 30rpx 20rpx 20rpx;
+  color: #fff;
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  opacity: 0;
+  transform: translateY(20rpx);
+}
+
+/* 图片覆盖层显示 */
+.image-overlay.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 图片覆盖层隐藏 */
+.image-overlay.hide {
+  opacity: 0;
+  transform: translateY(20rpx);
+}
+
+/* 图片标题 */
+.image-title {
+  font-size: 26rpx;
+  color: #fff;
+  text-align: center;
+  text-shadow: 1rpx 1rpx 2rpx rgba(0, 0, 0, 0.8);
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 画廊项目悬停效果 */
+/* .gallery-item:hover {
+  transform: rotateY(0deg) scale(1.15) !important;
+  box-shadow: 0 20rpx 40rpx rgba(0, 0, 0, 0.4);
+  z-index: 10;
+} */
+
+/* 画廊卡片样式 */
+.gallery-card {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+/* 画廊图片样式 */
+.gallery-image {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* 画廊覆盖层 */
+/* .gallery-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+  padding: 50rpx 20rpx 20rpx;
+  color: #fff;
+  transition: all 0.3s ease;
+} */
+
+/* 画廊标题 */
+.gallery-title {
+  font-size: 26rpx;
+  color: #fff;
+  text-align: center;
+  text-shadow: 1rpx 1rpx 2rpx rgba(0, 0, 0, 0.8);
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-top: -50rpx;
+}
+
+/* 图片列表样式 */
+.image-list {
   display: flex;
   flex-direction: column;
   gap: 30rpx;
@@ -28,7 +191,7 @@
 .image-item {
   background-color: #fff;
   border-radius: 10rpx;
-  overflow: hidden;
+  /* overflow: hidden; */
   box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
 }
@@ -39,7 +202,7 @@
 
 .image {
   width: 100%;
-  height: 400rpx;
+  /* height: 400rpx; */
 }
 
 .image-desc {

@@ -1,326 +1,59 @@
 Page({
   data: {
-    books: [
-      {
-        id: 1,
-        title: "童年回忆",
-        cover: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/behind/098bb43a246b28b40ea277fb4a820460.jpg",
-        color: "#333"
-      },
-      {
-        id: 2,
-        title: "青春时光",
-        cover: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/behind/50a564a77eb43dd2c90f8294b03c1f91.jpg",
-        color: "#3f3232"
-      },
-      {
-        id: 3,
-        title: "成长足迹",
-        cover: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/behind/6ca0533a7313c69c9e5a07cdeba38cd0.jpg",
-
-        color: "#694141"
-      },
-      {
-        id: 4,
-        title: "梦想启航",
-        cover: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/behind/7107bc357e6ac46e53f504384e17e397.jpg",
-
-        color: "#ad4d4d"
-      },
-      {
-        id: 5,
-        title: "美好未来",
-        cover: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/behind/7107bc357e6ac46e53f504384e17e397.jpg",
-        color: "#681919"
-      }
+    timeOptions: [
+      { id: 1, title: "童年回忆", date: "2010-2015", content: "童年的美好时光，无忧无虑的日子，充满好奇的探索世界。" },
+      { id: 2, title: "青春岁月", date: "2015-2020", content: "青春的成长足迹，学习与成长的岁月，友谊与梦想交织。" },
+      { id: 3, title: "求学时光", date: "2020-2023", content: "大学的学习生活，知识的积累，人生观的塑造。" },
+      { id: 4, title: "初入职场", date: "2023-2024", content: "职场新人的体验，从学生到职场人的转变。" },
+      { id: 5, title: "追梦之旅", date: "2024-至今", content: "追寻梦想的历程，不断挑战自我，追求更高的目标。" },
+      { id: 6, title: "重要时刻", date: "2020-05-15", content: "毕业典礼，人生的重要节点，新阶段的开始。" },
+      { id: 7, title: "难忘经历", date: "2021-08-22", content: "第一次旅行，开阔视野，体验不同文化。" },
+      { id: 8, title: "成长足迹", date: "2022-03-10", content: "技能提升，专业能力的突破和成长。" },
+      { id: 9, title: "人生转折", date: "2023-06-30", content: "毕业求职，人生道路的重要选择。" },
+      { id: 10, title: "美好未来", date: "2024-01-01", content: "新年开始，对未来的憧憬和规划。" }
     ],
-    books1: [
-      {
-        id: 1,
-        title: "童年回忆",
-        cover: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/behind/098bb43a246b28b40ea277fb4a820460.jpg",
-
-        color: "#3d1357"
-      },
-      {
-        id: 2,
-        title: "青春时光",
-        cover: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/behind/50a564a77eb43dd2c90f8294b03c1f91.jpg",
-
-        color: "#642f85"
-      },
-      {
-        id: 3,
-        title: "成长足迹",
-        cover: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/behind/6ca0533a7313c69c9e5a07cdeba38cd0.jpg",
-
-        color: "#66427c"
-      },
-      {
-        id: 4,
-        title: "梦想启航",
-        cover: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/behind/7107bc357e6ac46e53f504384e17e397.jpg",
-
-        color: "#46384f"
-      },
-      {
-        id: 5,
-        title: "美好未来",
-        cover: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/behind/7107bc357e6ac46e53f504384e17e397.jpg",
-        color: "#433c47"
-      }
-    ],
-    animatedBookId: null,
-    animatedBookId1: null,
-    currentIndex: 0, // 当前显示的书籍索引
-    currentIndex1: 0 // 当前显示的书籍索引
+    selectedTime: null,
+    scrollTop: 100, // 初始滚动位置，跳过顶部占位符
+    itemHeight: 100, // 每个项目的高度（rpx）
+    animation: true,
+    currentIndex: 0,
+    visibleItems: 5 // 同时显示5个项目
   },
 
   onLoad() {
-
-    // 初始化当前选中的书籍
-    this.updateCurrentBook();
-    this.updateCurrentBook1();
-  },
-
-  updateCurrentBook() {
-    const currentBook = this.data.books[this.data.currentIndex];
-    if (currentBook) {
-      this.setData({
-        animatedBookId: currentBook.id
-      });
-
-      // 动画结束后取消动画状态
-      setTimeout(() => {
-        this.setData({
-          animatedBookId: null
-        });
-      }, 400);
-    }
-  },
-  updateCurrentBook1() {
-    const currentBook = this.data.books1[this.data.currentIndex1];
-    if (currentBook) {
-      this.setData({
-        animatedBookId1: currentBook.id
-      });
-
-      // 动画结束后取消动画状态
-      setTimeout(() => {
-        this.setData({
-          animatedBookId1: null
-        });
-      }, 400);
-    }
-  },
-  preventTap(e) {
-    console.log('#E9E8EF事件冒泡');
-  },
-
-  onBookTap(e) {
-    console.log("onBookTap triggered", e);
-    const bookId = e.currentTarget.dataset.id;
-    console.log("Book ID:", bookId);
-
-    // 触发动画效果
+    // 初始化选中第一个时间项
     this.setData({
-      animatedBookId: bookId
+      selectedTime: this.data.timeOptions[0],
+      scrollTop: 200 // 初始滚动位置，跳过顶部占位符
     });
-    console.log("Book tapped:", bookId);
-
-    // 延迟跳转到详情页
-    setTimeout(() => {
-      const book = this.data.books.find(item => item.id === bookId);
-      console.log("Found book:", book);
-      if (book) {
-        wx.navigateTo({
-          url: `/packHome/bookDetail/bookDetail?bookId=${bookId}&title=${encodeURIComponent(book.title)}`,
-        });
-      }
-    }, 400);
   },
 
-  // 处理滑动事件
-  onTouchStart(e) {
-    this.startY = e.touches[0].clientY;
-    this.startX = e.touches[0].clientX; // 记录起始X坐标
-  },
+  onScroll(e) {
+    // 计算当前滚动位置对应的时间项
+    const scrollTop = e.detail.scrollTop;
+    const itemHeight = this.data.itemHeight;
 
-  onTouchMove(e) {
-    this.moveY = e.touches[0].clientY;
-    this.moveX = e.touches[0].clientX; // 记录移动X坐标
-  },
+    // 计算当前选中的项目索引，减去顶部占位符高度的影响
+    const currentIndex = Math.round((scrollTop - 100) / itemHeight); // 减去顶部占位符的200px
 
-  onTouchEnd(e) {
-    if (this.startY && this.moveY) {
-      const deltaY = this.startY - this.moveY;
-      const deltaX = Math.abs((this.moveX || e.changedTouches[0].clientX) - this.startX);
+    // 确保索引在有效范围内
+    const maxIndex = this.data.timeOptions.length - 1;
+    const validIndex = Math.max(0, Math.min(currentIndex, maxIndex));
 
-      // 判断是否为点击操作（垂直和水平移动都很小）
-      if (Math.abs(deltaY) < 10 && deltaX < 10) {
-        // 可能是点击，不执行滑动逻辑
-        this.startY = 0;
-        this.moveY = 0;
-        this.startX = 0;
-        this.moveX = 0;
-        return;
-      }
-
-      // 向上滑动切换到下一本书
-      if (deltaY > 50) {
-        //把第一条数据插入到最后
-        this.data.books.push(this.data.books[0]);
-        this.data.books.shift();
-
-        this.switchToNextBook();
-      }
-      // 向下滑动切换到上一本书
-      else if (deltaY < -50) {
-        //把最后一本数据插入到最前面
-        this.data.books.unshift(this.data.books[this.data.books.length - 1]);
-        this.data.books.pop();
-        this.switchToPrevBook();
-      }
+    if (validIndex !== this.data.currentIndex) {
       this.setData({
-        books: this.data.books
+        currentIndex: validIndex,
+        selectedTime: this.data.timeOptions[validIndex]
       });
     }
-
-    // 重置触摸位置
-    this.startY = 0;
-    this.moveY = 0;
-    this.startX = 0;
-    this.moveX = 0;
   },
 
-  // 切换到下一本书
-  switchToNextBook() {
-    let newIndex = this.data.currentIndex + 1;
-    if (newIndex >= this.data.books.length) {
-      newIndex = 0; // 循环到第一本
-    }
-
-    this.setData({
-      currentIndex: newIndex
-    });
-
-    this.updateCurrentBook();
-  },
-
-  // 切换到上一本书
-  switchToPrevBook() {
-    let newIndex = this.data.currentIndex - 1;
-    if (newIndex < 0) {
-      newIndex = this.data.books.length - 1; // 循环到最后一本
-    }
-
-    this.setData({
-      currentIndex: newIndex
-    });
-
-    this.updateCurrentBook();
-  },
-
-  onBookTap1(e) {
-    console.log("onBookTap1 triggered", e);
-    const bookId = e.currentTarget.dataset.id;
-    console.log("Book ID:", bookId);
-
-    // 触发动画效果
-    this.setData({
-      animatedBookId1: bookId
-    });
-
-    // 延迟跳转到详情页
-    setTimeout(() => {
-      const book = this.data.books1.find(item => item.id === bookId);
-      console.log("Found book1:", book);
-      if (book) {
-        wx.navigateTo({
-          url: `/packHome/bookDetail/bookDetail?bookId=${bookId}&title=${encodeURIComponent(book.title)}`,
-        });
-      }
-    }, 400);
-  },
-
-  // 处理滑动事件
-  onTouchStart1(e) {
-    this.startY = e.touches[0].clientY;
-    this.startX = e.touches[0].clientX; // 记录起始X坐标
-  },
-
-  onTouchMove1(e) {
-    this.moveY = e.touches[0].clientY;
-    this.moveX = e.touches[0].clientX; // 记录移动X坐标
-  },
-
-  onTouchEnd1(e) {
-    if (this.startY && this.moveY) {
-      const deltaY = this.startY - this.moveY;
-      const deltaX = Math.abs((this.moveX || e.changedTouches[0].clientX) - this.startX);
-
-      // 判断是否为点击操作（垂直和水平移动都很小）
-      if (Math.abs(deltaY) < 10 && deltaX < 10) {
-        // 可能是点击，不执行滑动逻辑
-        this.startY = 0;
-        this.moveY = 0;
-        this.startX = 0;
-        this.moveX = 0;
-        return;
-      }
-
-      // 向上滑动切换到下一本书
-      if (deltaY > 50) {
-        //把第一条数据插入到最后
-        this.data.books1.push(this.data.books1[0]);
-        this.data.books1.shift();
-
-        this.switchToNextBook1();
-      }
-      // 向下滑动切换到上一本书
-      else if (deltaY < -50) {
-        //把最后一本数据插入到最前面
-        this.data.books1.unshift(this.data.books1[this.data.books1.length - 1]);
-        this.data.books1.pop();
-        this.switchToPrevBook1();
-      }
-      this.setData({
-        books1: this.data.books1
+  goToDetail() {
+    const selected = this.data.selectedTime;
+    if (selected) {
+      wx.navigateTo({
+        url: `/packHome/bookDetail/bookDetail?bookId=${selected.id}&title=${encodeURIComponent(selected.title)}&content=${encodeURIComponent(selected.content)}`,
       });
     }
-
-    // 重置触摸位置
-    this.startY = 0;
-    this.moveY = 0;
-    this.startX = 0;
-    this.moveX = 0;
-  },
-
-  // 切换到下一本书
-  switchToNextBook1() {
-    let newIndex = this.data.currentIndex + 1;
-    if (newIndex >= this.data.books1.length) {
-      newIndex = 0; // 循环到第一本
-    }
-
-    this.setData({
-      currentIndex: newIndex
-    });
-
-    this.updateCurrentBook1();
-  },
-
-  // 切换到上一本书
-  switchToPrevBook1() {
-    let newIndex = this.data.currentIndex - 1;
-    if (newIndex < 0) {
-      newIndex = this.data.books1.length - 1; // 循环到最后一本
-    }
-
-    this.setData({
-      currentIndex1: newIndex
-    });
-
-    this.updateCurrentBook1();
   }
-});
+})

@@ -1,11 +1,30 @@
-<view class="container">
-  <view class="header">
-    <text class="title">{{title}}</text>
-  </view>
-  <view class="image-gallery">
-    <view class="image-item" wx:for="{{images}}" wx:key="index" bindtap="onImageTap" data-index="{{index}}">
-      <image class="image" src="{{item.url}}" mode="aspectFill"></image>
-      <text class="image-desc">{{item.desc}}</text>
+<global-background>
+  <custom-navbar title="ormkornnaphat" showBack="{{true}}" showHome="{{false}}"></custom-navbar>
+  <view class="container" style="margin-top: {{navBarHeight}}px;min-height:calc(100vh - {{navBarHeight}}px);">
+    <view class="header">
+      <text class="title">主题简介</text>
+    </view>
+    <!-- 展开收起图片容器 -->
+    <view class="image-container">
+      <scroll-view class="image-scroll" scroll-x="true" show-scrollbar="{{false}}">
+        <view class="image-row">
+          <view class="image-item {{activeIndex === index ? 'expanded' : 'collapsed'}}" wx:for="{{images}}" wx:key="index" data-index="{{index}}" bindtap="onImageClick">
+            <view class="image-card">
+              <image class="image-content" src="{{item.url}}" mode="widthfill"></image>
+              <view class="image-overlay {{activeIndex === index ? 'show' : 'hide'}}">
+                <text class="image-title">{{item.desc}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+    <!-- //整个主题升华的描述 -->
+    <view class="description">
+      2023年8月27日，Orm的粉丝们有了专属名字，这一天是「煎蛋卷：Omelette」 的诞生日🍳 
+
+Omelette：包含Orm的名字发音，而且爸爸公司有卖蛋卷，所以orm敲定了这个名字。
+医爱之名播出后正式拥有了个人粉丝团名字
     </view>
   </view>
-</view>
+</global-background>
