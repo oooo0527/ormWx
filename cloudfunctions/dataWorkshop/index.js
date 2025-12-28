@@ -35,7 +35,6 @@ async function getMusicList(event) {
       .where({
         type: 'mis'  // 根据你提供的数据，音乐类型为'mis'
       })
-      .orderBy('createTime', 'desc')
       .get()
 
     return {

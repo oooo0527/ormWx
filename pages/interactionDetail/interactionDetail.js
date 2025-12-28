@@ -45,9 +45,4 @@ Page({
   onShow: function () {
     // 不需要做任何事情
   },
-
-
-
-
-
 })

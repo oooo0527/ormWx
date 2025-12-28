@@ -1,6 +1,6 @@
 <global-background>
   <custom-navbar title="ormkornnaphat" showBack="{{true}}" showHome="{{false}}"></custom-navbar>
-  <view class="container" style="margin-top: {{navBarHeight}}px;min-height:calc(100vh - {{navBarHeight}}px);">
+  <view class="container" style="margin-top: {{navBarHeight}}px;height:calc(100vh - {{navBarHeight}}px);">
     <view class="carousel-container1">
       <image src="{{works.images[0]}}" mode="aspectFill" class="selected-work-image" wx:show="{{works.images.length>0}}" lazy-load></image>
       <view class="selected-work-detail">

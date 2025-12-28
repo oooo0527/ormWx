@@ -21,7 +21,7 @@
   width: 100%;
   padding: 0 40rpx;
   background: #ffffff;
-  z-index: 99;
+  z-index: 2;
   align-items: center;
 }
 
@@ -98,7 +98,7 @@
   width: 100vw;
   height: 100vh;
   position: absolute;
-  z-index: 2;
+  z-index: 3;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -109,28 +109,47 @@
   width: 500rpx;
   height: 700rpx;
   z-index: 5;
-  box-shadow: 0 0 40rpx #dddddd;
+  box-shadow: 0 2px 10rpx #f6f8f6;
+  border: 2rpx sol #ffffff;
+  border-radius: 10rpx;
 }
 
 .shawBg-text {
-  margin-top: 20rpx;
-  width: 100rpx;
-  height: 100rpx;
-  background: rgba(101, 100, 100, 0.5);
-  color: #333333;
+  margin-top: 60rpx;
+  width: 60rpx;
+  height: 60rpx;
+  background: rgb(0, 0, 0);
+  color: #fcf9f9;
   z-index: 5;
   text-align: center;
-  line-height: 100rpx;
-  border-radius: 100rpx;
+  line-height: 60rpx;
+  border-radius: 60rpx;
 }
 
 .shawBg-bg {
   width: 100vw;
   height: 100vh;
-  background: #f5f5f5;
-  opacity: 0.6;
+  background: #f6f3f3;
+  background-size: 400% 400%;
   position: absolute;
+  opacity: 0.5;
   z-index: 3;
+  animation: gradientFlow 15s ease infinite;
+  filter: blur(3px);
+}
+
+@keyframes gradientFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .title-container {
@@ -306,17 +325,17 @@
 }
 
 .carousel-card:nth-of-type(3n+1) {
-  background: #060606;
+  background: #262626;
   /* 第一个颜色 */
 }
 
 .carousel-card:nth-of-type(3n+2) {
-  background: #4116f0;
+  background: #704ff7;
   /* 第二个颜色 */
 }
 
 .carousel-card:nth-of-type(3n+3) {
-  background: #07ed0f;
+  background: #528b54;
   /* 第三个颜色 */
 }
 
@@ -328,11 +347,13 @@
 .card-title {
   font-size: 32rpx;
   font-weight: bold;
-  color: #333333;
+  color: #ec0d0d;
   height: 100%;
   writing-mode: vertical-rl;
   width: 100rpx;
 }
+
+
 
 .card-more {
   height: 20%;
@@ -399,13 +420,6 @@
   z-index: 2;
 }
 
-.card-title {
-  font-size: 32rpx;
-  font-weight: bold;
-  display: block;
-  margin-bottom: 10rpx;
-  color: #333333;
-}
 
 .card-role {
   font-size: 24rpx;

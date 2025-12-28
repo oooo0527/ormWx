@@ -45,12 +45,6 @@ Page({
 
         // 初始化音频上下文
         this.initAudioContext();
-
-        // 初始化第一首歌的歌词（如果有的话）
-        // 修复：使用更新后的数据而不是旧的数据
-        if (res.result.data.length > 0 && res.result.data[0].lrc) {
-          this.parseLyric(res.result.data[0].lrc);
-        }
       } else {
         console.error('获取音乐列表失败:', res.result.message);
         wx.showToast({
@@ -67,52 +61,7 @@ Page({
         title: '网络错误',
         icon: 'none'
       });
-
-      // 使用默认数据
-      this.useDefaultMusicList();
     });
-  },
-
-  // 使用默认音乐列表
-  useDefaultMusicList: function () {
-    const defaultMusicList = [
-      {
-        id: 1,
-        title: "Orm问候语 - 你好",
-        singer: "Orm",
-        url: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/vedio/等左左买饼干 - 你好.mp3",
-        src: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/ormmm/陈奥/3916c9499882d66371bc6573597693bf.jpg",
-        lrc: "[00:01.00]你好\n[00:05.00]我是Orm\n[00:10.00]很高兴认识你"
-      },
-      {
-        id: 2,
-        title: "Orm问候语 - 再见",
-        singer: "Orm",
-        url: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/vedio/等左左买饼干 - 再见.mp3",
-        src: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/ormmm/陈奥/2246a8c4f6c263a32bfbb898a3992cc1.jpg",
-        lrc: "[00:01.00]再见\n[00:05.00]期待下次见面\n[00:10.00]祝你有美好的一天"
-      },
-      {
-        id: 3,
-        title: "Orm问候语 - 谢谢",
-        singer: "Orm",
-        url: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/vedio/等左左买饼干 - 谢谢.mp3",
-        src: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/ormmm/陈奥/2246a8c4f6c263a32bfbb898a3992cc1.jpg",
-        lrc: "[00:01.00]谢谢\n[00:05.00]感谢你的支持\n[00:10.00]我会继续努力的"
-      }
-    ];
-
-    this.setData({
-      musicList: defaultMusicList
-    });
-
-    // 初始化音频上下文
-    this.initAudioContext();
-
-    // // 初始化第一首歌的歌词
-    // if (defaultMusicList.length > 0 && defaultMusicList[0].lrc) {
-    //   this.parseLyric(defaultMusicList[0].lrc);
-    // }
   },
 
   // 初始化音频上下文
@@ -158,9 +107,6 @@ Page({
         currentTime: currentTime,
         duration: duration
       });
-
-      // 移除更新歌词高亮的调用，因为我们不需要高亮歌词
-      // this.updateLyric(currentTime);
     });
 
     // 监听音频播放结束事件
@@ -223,37 +169,6 @@ Page({
       console.log('设置音频源:', currentMusic.url);
       audioCtx.src = currentMusic.url;
     }
-  },
-
-  // 解析歌词
-  parseLyric: function (lrc) {
-    console.log('开始解析歌词:', lrc);
-    console.log('歌词类型:', typeof lrc);
-    console.log('歌词长度:', lrc.length);
-
-    // 检查是否包含换行符
-    console.log('是否包含换行符:', lrc.includes('\n'));
-
-    // 尝试不同的分割方式
-    let lines = [];
-    if (lrc.includes('\n')) {
-      lines = lrc.split('\n');
-    } else if (lrc.includes('\\n')) {
-      // 如果包含转义的换行符
-      lines = lrc.split('\\n');
-    } else {
-      // 如果没有换行符，可能是双语歌词或其他格式
-      lines = [lrc];
-    }
-
-    console.log('分割后的歌词数组:', lines);
-    console.log('歌词数组长度:', lines.length);
-
-    // 过滤掉空行
-    lines = lines.filter(line => line.trim() !== '');
-    console.log('过滤空行后的歌词数组:', lines);
-
-    this.setData({ lyricArray: lines });
   },
 
   // 播放/暂停
@@ -342,11 +257,6 @@ Page({
         });
       });
     }, 100);
-
-    // 解析并显示歌词
-    // if (music.lrc) {
-    //   this.parseLyric(music.lrc);
-    // }
   },
 
   // 下一首
@@ -382,11 +292,6 @@ Page({
         });
       });
     }, 100);
-
-    // 解析并显示歌词
-    // if (music.lrc) {
-    //   this.parseLyric(music.lrc);
-    // }
   },
 
   // 格式化时间
@@ -442,11 +347,6 @@ Page({
           });
         });
       }, 100);
-
-      // 解析并显示歌词
-      // if (music.lrc) {
-      //   this.parseLyric(music.lrc);
-      // }
     }
   }
 })
