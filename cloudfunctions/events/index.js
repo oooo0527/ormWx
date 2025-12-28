@@ -14,10 +14,6 @@ exports.main = async (event, context) => {
   switch (event.action) {
     case 'getEvents':
       return await getEvents(event)
-    case 'addEvent':
-      return await addEvent(event)
-    case 'deleteEvent':
-      return await deleteEvent(event)
     default:
       return await getEvents(event)
   }
@@ -57,67 +53,3 @@ async function getEvents(event) {
   }
 }
 
-// 添加事件
-async function addEvent(event) {
-  try {
-    const { date, title, description } = event.event
-
-    // 参数验证
-    if (!date || !title || !description) {
-      return {
-        success: false,
-        message: '参数不完整'
-      }
-    }
-
-    // 插入新事件
-    const result = await db.collection('events').add({
-      data: {
-        date: date,
-        title: title,
-        description: description,
-        createTime: new Date()
-      }
-    })
-
-    return {
-      success: true,
-      data: result._id,
-      message: '添加事件成功'
-    }
-  } catch (err) {
-    return {
-      success: false,
-      message: err.message
-    }
-  }
-}
-
-// 删除事件
-async function deleteEvent(event) {
-  try {
-    const { id } = event
-
-    // 参数验证
-    if (!id) {
-      return {
-        success: false,
-        message: '缺少事件ID'
-      }
-    }
-
-    // 删除事件
-    const result = await db.collection('events').doc(id).remove()
-
-    return {
-      success: true,
-      data: result,
-      message: '删除事件成功'
-    }
-  } catch (err) {
-    return {
-      success: false,
-      message: err.message
-    }
-  }
-}

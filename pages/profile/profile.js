@@ -6,11 +6,7 @@ createPage({
   data: {
 
     menueList: [
-      {
-        title: '后台管理',
-        path: '/packageA/manager/manager',
-        isManager: '1'
-      },
+
       {
         title: '我得留言版',
         path: '/pages/selfListDetail/selfListDetail',

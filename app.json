@@ -48,11 +48,7 @@
         "backgroundSetting/backgroundSetting",
         "waitProve/waitProve",
         "noteList/noteList",
-        "hot/hot",
-        "manager/manager",
-        "publish/publish",
-        "submitDream/submitDream",
-        "addEvent/addEvent"
+        "hot/hot"
       ]
     },
     {

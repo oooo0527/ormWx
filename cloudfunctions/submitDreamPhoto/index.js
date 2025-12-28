@@ -14,16 +14,13 @@ exports.main = async (event, context) => {
   try {
     // 根据action参数执行不同操作
     switch (event.action) {
-      case 'submitPhoto':
-        return await submitPhoto(event)
+
       case 'getApprovedPhotos':
         return await getApprovedPhotos(event)
       case 'getRankingList':
         return await getRankingList(event)
       case 'getPhotosByStyle':
         return await getPhotosByStyle(event)
-      case 'deletePhoto':
-        return await deletePhoto(event)
       case 'recordView':
         return await recordView(event)
       default:
@@ -41,47 +38,7 @@ exports.main = async (event, context) => {
   }
 }
 
-// 用户投稿
-async function submitPhoto(event) {
-  const { style, imageUrl, description } = event
 
-  // 参数验证
-  if (!style || !imageUrl || !description) {
-    return {
-      success: false,
-      message: '参数不完整'
-    }
-  }
-
-  // 检查用户今天是否已经投稿
-  const today = new Date()
-  today.setHours(0, 0, 0, 0)
-
-  const countResult = await db.collection('dream_photos').where({
-    createTime: db.command.gte(today)
-  }).count()
-
-
-  // 插入新照片到待审核状态
-  const result = await db.collection('dream_photos').add({
-    data: {
-      style: style,
-      imageUrl: imageUrl,
-      description: description,
-      status: 'approved', // 已审核状态
-      likes: 0,
-      views: 0,
-      createTime: event.createTime,
-      createDate: event.createDate
-    }
-  })
-
-  return {
-    success: true,
-    data: result._id,
-    message: '投稿成功，等待审核'
-  }
-}
 
 // 获取审核通过的照片
 async function getApprovedPhotos(event) {
@@ -179,44 +136,6 @@ async function getRankingList(event) {
 }
 
 
-// 删除照片功能
-async function deletePhoto(event) {
-  const { photoId } = event;
-
-  // 参数验证
-  if (!photoId) {
-    return {
-      success: false,
-      message: '缺少必要参数'
-    };
-  }
-
-  try {
-    // 先查询照片信息，确保是该用户上传的照片
-    const photoResult = await db.collection('dream_photos').doc(photoId).get();
-
-    if (!photoResult.data) {
-      return {
-        success: false,
-        message: '照片不存在'
-      };
-    }
-
-    // 删除照片记录
-    await db.collection('dream_photos').doc(photoId).remove();
-
-    return {
-      success: true,
-      message: '删除成功'
-    };
-  } catch (err) {
-    console.error('删除照片失败:', err);
-    return {
-      success: false,
-      message: err.message
-    };
-  }
-}
 
 // 记录照片浏览
 async function recordView(event) {
@@ -248,43 +167,5 @@ async function recordView(event) {
       success: false,
       message: err.message
     };
-  }
-}
-
-// 更新用户积分和照片数
-async function updateUserScore(userId, scoreIncrement, photoIncrement) {
-  try {
-    // 查找用户是否已经在排行榜中
-    const userResult = await db.collection('dream_ranking').where({
-      userId: userId
-    }).get()
-
-    if (userResult.data.length > 0) {
-      // 更新用户积分和照片数
-      await db.collection('dream_ranking').where({
-        userId: userId
-      }).update({
-        data: {
-          score: db.command.inc(scoreIncrement),
-          photos: db.command.inc(photoIncrement),
-          updateTime: new Date()
-        }
-      })
-    } else {
-      // 创建新用户记录
-      await db.collection('dream_ranking').add({
-        data: {
-          userId: userId,
-          userName: '', // 需要从前端传递
-          userAvatar: '', // 需要从前端传递
-          score: scoreIncrement,
-          photos: photoIncrement,
-          createTime: new Date(),
-          updateTime: new Date()
-        }
-      })
-    }
-  } catch (err) {
-    console.error('更新用户积分失败:', err)
   }
 }

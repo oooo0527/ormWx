@@ -13,17 +13,11 @@ exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext()
 
   switch (event.action) {
-    // 新增投稿留言相关操作
-    case 'add':
-      return await addInteraction(event)
-    case 'update':
-      return await updateInteraction(event)
+
     case 'getList':
       return await getInteractionList(event)
     case 'getInteractionById':
       return await getInteractionById(event)
-    case 'delete':
-      return await deleteInteraction(event)
 
     default:
       return {
@@ -49,49 +43,6 @@ function convertUTCToBeijing(utcString) {
   const second = String(beijingDate.getSeconds()).padStart(2, '0');
 
   return `${year}-${month}-${day} ${hour}:${minute}:${second}`;
-}
-
-
-// 新增投稿留言
-async function addInteraction(event) {
-  try {
-    // 检查必要参数
-    if (!event.data || !event.data.title || !event.data.content) {
-      return {
-        success: false,
-        message: '标题和内容不能为空'
-      };
-    }
-
-    const interaction = {
-      title: event.data.title,
-      content: event.data.content,
-      images: event.data.images || [],
-      createDate: event.data.createDate,
-      createTime: event.data.createTime,
-      updateTime: event.data.updateTime,
-      status: event.data.status,
-      checked: event.data.checked
-    };
-
-    const result = await db.collection('interactions').add({
-      data: interaction
-    });
-
-    return {
-      success: true,
-      data: {
-        _id: result._id,
-        ...interaction
-      }
-    };
-  } catch (err) {
-    console.error('新增投稿留言失败：', err);
-    return {
-      success: false,
-      message: err.message || '新增投稿留言失败'
-    };
-  }
 }
 
 // 获取投稿留言列表
@@ -165,55 +116,7 @@ async function getInteractionById(event) {
   }
 }
 
-// 删除投稿留言
-async function deleteInteraction(event) {
-  try {
-    // 只能删除自己发布的投稿留言
-    const result = await db.collection('interactions').where({
-      _id: event.id,
-    }).remove()
-
-    if (result.stats.removed === 0) {
-      return {
-        success: false,
-        message: '删除失败，可能是留言不存在或不是您的留言'
-      }
-    }
-
-    return {
-      success: true,
-      data: result
-    }
-  } catch (err) {
-    return {
-      success: false,
-      message: err.message
-    }
-  }
-}
-
 function randomCommentId() {
   return Math.random().toString(36).substring(2, 9);
 }
 
-// 获取用户自己投稿留言
-async function getUserInteractions(event) {
-  try {
-    const result = await db.collection('interactions')
-      .orderBy('createTime', 'desc')
-      .skip(event.skip || 0)
-      .limit(event.limit || 20)
-      .get();
-
-    return {
-      success: true,
-      data: result.data
-    };
-  } catch (err) {
-    console.error('获取用户投稿留言失败：', err);
-    return {
-      success: false,
-      message: err.message || '获取用户投稿留言失败'
-    };
-  }
-}
