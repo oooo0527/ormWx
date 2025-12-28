@@ -1,7 +1,17 @@
 <global-background>
   <custom-navbar showBack="{{true}}" showHome="{{false}}"></custom-navbar>
   <view class="container" style="margin-top: {{navBarHeight}}px;min-height:calc(100vh - {{navBarHeight}}px);">
-    <view class="publish-form">
+    <!-- Tab 切换 -->
+    <view class="tab-container">
+      <view class="tab-item {{activeTab === 'form' ? 'active' : ''}}" bindtap="switchTab" data-tab="form">
+        <text>投稿</text>
+      </view>
+      <view class="tab-item {{activeTab === 'list' ? 'active' : ''}}" bindtap="switchTab" data-tab="list">
+        <text>列表</text>
+      </view>
+    </view>
+    <!-- 表单区域 -->
+    <view wx:if="{{activeTab === 'form'}}" class="publish-form">
       <view class="form-item">
         <input class="title-input" placeholder="请输入标题" value="{{title}}" bindinput="onTitleInput" maxlength="20" />
       </view>
@@ -36,6 +46,39 @@
       <!-- 提交按钮 -->
       <view class="submit-button-container">
         <button class="submit-button" bindtap="submitPublish">投稿</button>
+      </view>
+    </view>
+    <!-- 列表区域 -->
+    <view wx:elif="{{activeTab === 'list'}}" class="list-container">
+      <view class="list-item" wx:for="{{publishList}}" wx:key="_id">
+        <view class="item-content">
+          <view class="item-header">
+            <text class="item-title">{{item.title}}</text>
+            <view class="item-actions">
+              <text class="delete-btn" bindtap="deletePublish" data-id="{{item._id}}" data-title="{{item.title}}">
+                删除
+              </text>
+            </view>
+          </view>
+          <view class="item-body">
+            <text class="item-content-text">{{item.content}}</text>
+            <!-- 显示图片 -->
+            <view class="item-images" wx:if="{{item.images && item.images.length > 0}}">
+              <image class="item-image" wx:for="{{item.images}}" wx:key="index" src="{{item}}" mode="aspectFill" bindtap="previewImage" data-image="{{item}}"></image>
+            </view>
+          </view>
+          <view class="item-footer">
+            <text class="item-date">{{item.createDate}} {{item.createTime}}</text>
+          </view>
+        </view>
+      </view>
+      <!-- 空状态 -->
+      <view class="empty-state" wx:if="{{publishList.length === 0 && !loading}}">
+        <text class="empty-text">暂无心得记录</text>
+      </view>
+      <!-- 加载状态 -->
+      <view class="loading" wx:if="{{loading}}">
+        <text>加载中...</text>
       </view>
     </view>
   </view>

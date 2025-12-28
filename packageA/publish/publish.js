@@ -10,7 +10,10 @@ Page({
     maxImageCount: 1, // 限制只能上传一张图片
     __isDebug: false, // 调试模式开关，默认关闭
     checked: false,
-    navBarHeight: 0 // 添加导航栏高度数据
+    navBarHeight: 0, // 添加导航栏高度数据
+    activeTab: 'form', // 'form' or 'list'
+    publishList: [],
+    loading: false
   },
 
   onLoad: function (options) {
@@ -184,18 +187,11 @@ Page({
       createTime: timeUtils.getCurrentTime(),
       updateTime: timeUtils.getCurrentTime()
     };
-
-    // 判断是新增还是更新
-    const action = this.data.id ? 'update' : 'add';
-    if (this.data.id) {
-      data.id = this.data.id; // 更新时需要提供ID
-    }
-
     // 调用云函数保存数据
     wx.cloud.callFunction({
       name: 'fanVoice',
       data: {
-        action: action,
+        action: 'add',
         data: data
       },
       success: res => {
@@ -246,5 +242,110 @@ Page({
         });
       }
     });
-  }
+  },
+
+  // 切换tab
+  switchTab: function (e) {
+    const tab = e.currentTarget.dataset.tab;
+    this.setData({
+      activeTab: tab
+    });
+
+    if (tab === 'list') {
+      this.loadPublishList();
+    }
+  },
+
+  // 加载陈奥心得列表
+  loadPublishList: function () {
+    this.setData({ loading: true });
+
+    wx.cloud.callFunction({
+      name: 'fanVoice',
+      data: {
+        action: 'getList',
+        checked: '0' // 获取所有状态的心得
+      },
+      success: res => {
+        if (res.result.success) {
+          this.setData({
+            publishList: res.result.data || [],
+            loading: false
+          });
+        } else {
+          console.error('获取陈奥心得列表失败：', res.result.message);
+          wx.showToast({
+            title: '获取数据失败',
+            icon: 'none'
+          });
+          this.setData({
+            loading: false
+          });
+        }
+      },
+      fail: err => {
+        console.error('获取陈奥心得列表失败：', err);
+        wx.showToast({
+          title: '网络错误',
+          icon: 'none'
+        });
+        this.setData({
+          loading: false
+        });
+      }
+    });
+  },
+
+  // 删除陈奥心得
+  deletePublish: function (e) {
+    const id = e.currentTarget.dataset.id;
+    const title = e.currentTarget.dataset.title;
+
+    wx.showModal({
+      title: '确认删除',
+      content: `确定要删除"${title}"吗？`,
+      success: (res) => {
+        if (res.confirm) {
+          wx.showLoading({
+            title: '删除中...',
+          });
+
+          // 调用云函数删除数据
+          wx.cloud.callFunction({
+            name: 'fanVoice',
+            data: {
+              action: 'delete',
+              id: id
+            },
+            success: res => {
+              wx.hideLoading();
+              if (res.result.success) {
+                wx.showToast({
+                  title: '删除成功',
+                  icon: 'success'
+                });
+
+                // 重新加载列表
+                this.loadPublishList();
+              } else {
+                console.error('删除陈奥心得失败：', res.result.message);
+                wx.showToast({
+                  title: '删除失败',
+                  icon: 'none'
+                });
+              }
+            },
+            fail: err => {
+              wx.hideLoading();
+              console.error('删除陈奥心得失败：', err);
+              wx.showToast({
+                title: '网络错误',
+                icon: 'none'
+              });
+            }
+          });
+        }
+      }
+    });
+  },
 });

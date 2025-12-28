@@ -5,19 +5,19 @@
     <view class="menu-list">
       <navigator class="menu-item" url="../publish/publish">
         <view class="menu-content">
-          <text class="menu-text">发布新留言</text>
+          <text class="menu-text">陈奥心得</text>
           <text class="arrow-icon">></text>
         </view>
       </navigator>
       <navigator class="menu-item" url="../submitDream/submitDream">
         <view class="menu-content">
-          <text class="menu-text">我要投稿</text>
+          <text class="menu-text">陈奥风格</text>
           <text class="arrow-icon">></text>
         </view>
       </navigator>
       <navigator class="menu-item" url="../addEvent/addEvent">
         <view class="menu-content">
-          <text class="menu-text">添加新行程</text>
+          <text class="menu-text">陈奥行程</text>
           <text class="arrow-icon">></text>
         </view>
       </navigator>

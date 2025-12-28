@@ -8,7 +8,12 @@ Page({
       date: '',
       title: '',
       description: ''
-    }
+    },
+
+    // Tab相关
+    activeTab: 'form', // 'form' or 'list'
+    eventList: [],
+    loading: false
   },
 
   /**
@@ -148,5 +153,127 @@ Page({
    */
   onShareAppMessage() {
 
+  },
+
+  // 切换tab
+  switchTab: function (e) {
+    const tab = e.currentTarget.dataset.tab;
+    this.setData({
+      activeTab: tab
+    });
+
+    if (tab === 'list') {
+      this.loadEventList();
+    }
+  },
+
+  // 加载陈奥行程列表
+  loadEventList: function () {
+    this.setData({ loading: true });
+
+    wx.cloud.callFunction({
+      name: 'events',
+      data: {
+        action: 'getEvents'
+      },
+      success: res => {
+        if (res.result.success) {
+          this.setData({
+            eventList: res.result.data || [],
+            loading: false
+          });
+        } else {
+          console.error('获取陈奥行程列表失败：', res.result.message);
+          wx.showToast({
+            title: '获取数据失败',
+            icon: 'none'
+          });
+          this.setData({
+            loading: false
+          });
+        }
+      },
+      fail: err => {
+        console.error('获取陈奥行程列表失败：', err);
+        wx.showToast({
+          title: '网络错误',
+          icon: 'none'
+        });
+        this.setData({
+          loading: false
+        });
+      }
+    });
+  },
+
+  // 删除陈奥行程
+  deleteEvent: function (e) {
+    const id = e.currentTarget.dataset.id;
+    const title = e.currentTarget.dataset.title;
+
+    wx.showModal({
+      title: '确认删除',
+      content: `确定要删除"${title}"吗？`,
+      success: (res) => {
+        if (res.confirm) {
+          wx.showLoading({
+            title: '删除中...',
+          });
+
+          // 调用云函数删除数据
+          wx.cloud.callFunction({
+            name: 'events',
+            data: {
+              action: 'deleteEvent',
+              id: id
+            },
+            success: res => {
+              wx.hideLoading();
+              if (res.result.success) {
+                wx.showToast({
+                  title: '删除成功',
+                  icon: 'success'
+                });
+
+                // 重新加载列表
+                this.loadEventList();
+              } else {
+                console.error('删除陈奥行程失败：', res.result.message);
+                wx.showToast({
+                  title: '删除失败',
+                  icon: 'none'
+                });
+              }
+            },
+            fail: err => {
+              wx.hideLoading();
+              console.error('删除陈奥行程失败：', err);
+              wx.showToast({
+                title: '网络错误',
+                icon: 'none'
+              });
+            }
+          });
+        }
+      }
+    });
+  },
+
+  // 编辑陈奥行程
+  editEvent: function (e) {
+    const item = e.currentTarget.dataset.item;
+
+    // 设置编辑状态
+    this.setData({
+      'newEvent.date': item.date || '',
+      'newEvent.title': item.title || '',
+      'newEvent.description': item.description || '',
+      activeTab: 'form'
+    });
+
+    wx.showToast({
+      title: '已切换到编辑模式',
+      icon: 'none'
+    });
   }
 })

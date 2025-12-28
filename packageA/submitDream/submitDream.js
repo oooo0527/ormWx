@@ -16,7 +16,12 @@ Page({
       description: ''
     },
     // 风格选项
-    styleOptions: ['韩系', '猫系', '狗系', '欧美', '性感', '可爱']
+    styleOptions: ['韩系', '猫系', '狗系', '欧美', '性感', '可爱'],
+
+    // Tab相关
+    activeTab: 'form', // 'form' or 'list'
+    dreamList: [],
+    loading: false
   },
 
   onLoad() {
@@ -157,6 +162,127 @@ Page({
         });
         console.error('图片上传失败:', err);
       }
+    });
+  },
+
+  // 切换tab
+  switchTab: function (e) {
+    const tab = e.currentTarget.dataset.tab;
+    this.setData({
+      activeTab: tab
+    });
+
+    if (tab === 'list') {
+      this.loadDreamList();
+    }
+  },
+
+  // 加载陈奥风格列表
+  loadDreamList: function () {
+    this.setData({ loading: true });
+
+    wx.cloud.callFunction({
+      name: 'submitDreamPhoto',
+      data: {
+        action: 'getApprovedPhotos'
+      },
+      success: res => {
+        if (res.result.success) {
+          this.setData({
+            dreamList: res.result.data || [],
+            loading: false
+          });
+        } else {
+          console.error('获取陈奥风格列表失败：', res.result.message);
+          wx.showToast({
+            title: '获取数据失败',
+            icon: 'none'
+          });
+          this.setData({
+            loading: false
+          });
+        }
+      },
+      fail: err => {
+        console.error('获取陈奥风格列表失败：', err);
+        wx.showToast({
+          title: '网络错误',
+          icon: 'none'
+        });
+        this.setData({
+          loading: false
+        });
+      }
+    });
+  },
+
+  // 删除陈奥风格
+  deleteDream: function (e) {
+    const id = e.currentTarget.dataset.id;
+
+    wx.showModal({
+      title: '确认删除',
+      content: '确定要删除这张风格照片吗？',
+      success: (res) => {
+        if (res.confirm) {
+          wx.showLoading({
+            title: '删除中...',
+          });
+
+          // 调用云函数删除数据
+          wx.cloud.callFunction({
+            name: 'submitDreamPhoto',
+            data: {
+              action: 'deletePhoto',
+              photoId: id
+            },
+            success: res => {
+              wx.hideLoading();
+              if (res.result.success) {
+                wx.showToast({
+                  title: '删除成功',
+                  icon: 'success'
+                });
+
+                // 重新加载列表
+                this.loadDreamList();
+              } else {
+                console.error('删除陈奥风格失败：', res.result.message);
+                wx.showToast({
+                  title: '删除失败',
+                  icon: 'none'
+                });
+              }
+            },
+            fail: err => {
+              wx.hideLoading();
+              console.error('删除陈奥风格失败：', err);
+              wx.showToast({
+                title: '网络错误',
+                icon: 'none'
+              });
+            }
+          });
+        }
+      }
+    });
+  },
+
+  // 编辑陈奥风格
+  editDream: function (e) {
+    const item = e.currentTarget.dataset.item;
+
+    // 设置编辑状态
+    this.setData({
+      'submissionForm.style': item.style || '',
+      'submissionForm.image': item.imageUrl || '',
+      'submissionForm.description': item.description || '',
+      activeTab: 'form'
+    });
+
+    wx.showToast({
+      title: '已切换到编辑模式',
+      icon: 'none'
     });
   }
 });
