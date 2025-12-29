@@ -6,94 +6,34 @@ Page({
    */
   data: {
     // 奖项数据
-    awardsData: [
-      {
-        id: 1,
-        name: '最佳男艺人奖',
-        category: '音乐类',
-        year: '2025',
-        description: '凭借专辑《星辰大海》获得年度最佳男艺人殊荣',
-        trophyIcon: '/images/trophy-gold.png'
-      },
-      {
-        id: 2,
-        name: '最受欢迎偶像奖',
-        category: '娱乐类',
-        year: '2024',
-        description: '在社交媒体上拥有超过千万粉丝，影响力巨大',
-        trophyIcon: '/images/trophy-silver.png'
-      },
-      {
-        id: 3,
-        name: '时尚先锋奖',
-        category: '时尚类',
-        year: '2024',
-        description: '引领亚洲时尚潮流，多次登上国际时装周',
-        trophyIcon: '/images/trophy-bronze.png'
-      },
-      {
-        id: 4,
-        name: '慈善贡献奖',
-        category: '公益类',
-        year: '2023',
-        description: '积极参与慈善事业，捐赠金额超过千万',
-        trophyIcon: '/images/trophy-diamond.png'
-      }
-    ],
+    awardsData: [],
 
     // 品牌代言数据
-    brandsData: [
-      {
-        id: 1,
-        name: 'Louis Vuitton',
-        category: '奢侈品',
-        logo: '/images/lv-logo.png'
-      },
-      {
-        id: 2,
-        name: 'Chanel',
-        category: '奢侈品',
-        logo: '/images/chanel-logo.png'
-      },
-      {
-        id: 3,
-        name: 'Gucci',
-        category: '奢侈品',
-        logo: '/images/gucci-logo.png'
-      },
-      {
-        id: 4,
-        name: 'Dior',
-        category: '奢侈品',
-        logo: '/images/dior-logo.png'
-      },
-      {
-        id: 5,
-        name: 'Rolex',
-        category: '腕表',
-        logo: '/images/rolex-logo.png'
-      },
-      {
-        id: 6,
-        name: 'BMW',
-        category: '汽车',
-        logo: '/images/bmw-logo.png'
-      }
-    ],
+    brandsData: [],
+
+    // 提名数据
+    nominationsData: [],
 
     // 统计数据
     statsData: {
-      awards: 25,
-      brands: 18,
-      years: 8
-    }
+      awards: 0,
+      brands: 0,
+      years: 0
+    },
+
+    // 加载状态
+    loading: true,
+
+    // 错误信息
+    error: null
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-
+    // 页面加载时获取所有数据并按type分类
+    this.loadAwardsData();
   },
 
   /**
@@ -101,7 +41,7 @@ Page({
    */
   onReady() {
     // 页面加载完成后的初始化动画
-    this.initPageAnimations();
+    // 数据加载逻辑已在loadAwardsData中处理
   },
 
   /**
@@ -130,7 +70,11 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh() {
+    // 下拉刷新时重新加载数据
+    this.loadAwardsData();
 
+    // 停止下拉刷新动画
+    wx.stopPullDownRefresh();
   },
 
   /**
@@ -275,5 +219,138 @@ Page({
         });
       }, index * 100 + 200);
     });
+
+    // 为提名卡片添加交错动画
+    const nominationsData = this.data.nominationsData;
+    nominationsData.forEach((_, index) => {
+      setTimeout(() => {
+        const animation = wx.createAnimation({
+          duration: 500,
+          timingFunction: 'ease'
+        });
+
+        animation.opacity(0).scale(0.8).step();
+        animation.opacity(1).scale(1).step();
+
+        this.setData({
+          [`nominationCardAnimation${index}`]: animation.export()
+        });
+      }, index * 100 + 400);
+    });
+  },
+
+  /**
+   * 从云函数获取所有数据并按type分类
+   */
+  loadAwardsData: function () {
+    this.setData({
+      loading: true,
+      error: null
+    });
+
+    wx.cloud.callFunction({
+      name: 'rewordList',
+      data: {
+        action: 'getList'
+      },
+      success: res => {
+        console.log('获取所有数据成功：', res.result);
+
+        if (res.result.success) {
+          // 将数据按type分类
+          const allData = res.result.data;
+
+          // type=1: 获奖
+          const awardsData = allData
+            .filter(item => item.type === '1')
+            .map(item => {
+              return {
+                id: item._id,
+                name: item.name,
+                type: item.type,
+                year: item.getTime || item.year,  // 兼容getTime和year字段
+                description: item.description,
+                trophyIcon: item.trophyIcon
+              };
+            });
+
+          // type=2: 品牌
+          const brandsData = allData
+            .filter(item => item.type === '2')
+            .map(item => {
+              return {
+                id: item._id,
+                name: item.name,
+                type: item.type,
+                logo: item.trophyIcon,  // 品牌使用trophyIcon作为logo
+                description: item.description
+              };
+            });
+
+          // type=3: 提名
+          const nominationsData = allData
+            .filter(item => item.type === '3')
+            .map(item => {
+              return {
+                id: item._id,
+                name: item.name,
+                type: item.type,
+                year: item.getTime || item.year,  // 兼容getTime和year字段
+                description: item.description,
+                trophyIcon: item.trophyIcon
+              };
+            });
+
+          // 统计数据
+          const statsData = {
+            awards: awardsData.length,
+            brands: brandsData.length,
+            years: this.calculateYears([...awardsData, ...nominationsData])  // 计算年份跨度
+          };
+
+          this.setData({
+            awardsData,
+            brandsData,
+            nominationsData,
+            statsData,
+            loading: false
+          });
+
+          // 数据加载完成后执行动画
+          this.initPageAnimations();
+        } else {
+          console.error('获取数据失败：', res.result.message);
+          this.setData({
+            error: res.result.message || '获取数据失败',
+            loading: false
+          });
+        }
+      },
+      fail: err => {
+        console.error('调用云函数失败：', err);
+        this.setData({
+          error: '网络错误，请稍后重试',
+          loading: false
+        });
+      }
+    });
+  },
+
+  /**
+   * 计算年份跨度
+   */
+  calculateYears: function (awardsData) {
+    if (!awardsData || awardsData.length === 0) {
+      return 0;
+    }
+
+    const years = awardsData.map(item => parseInt(item.year)).filter(year => !isNaN(year));
+    if (years.length === 0) {
+      return 0;
+    }
+
+    const minYear = Math.min(...years);
+    const maxYear = Math.max(...years);
+    return maxYear - minYear + 1;
   }
 })

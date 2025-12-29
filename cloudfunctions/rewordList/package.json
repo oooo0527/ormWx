@@ -1,0 +1,14 @@
+{
+  "name": "rewordList",
+  "version": "1.0.0",
+  "description": "处理Remarkable数据的云函数，包括获奖、品牌、提名等类型的数据管理",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "wx-server-sdk": "latest"
+  }
+}

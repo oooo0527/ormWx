@@ -1,5 +1,4 @@
 // packHome/dream/dream.js
-const timeUtils = require('../../utils/timeUtils.js');
 Page({
   data: {
     activeTab: 'ranking', // 默认显示排行榜

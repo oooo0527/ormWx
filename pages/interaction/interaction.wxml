@@ -2,7 +2,7 @@
   <custom-navbar title="" showBack="{{false}}" showHome="{{false}}" background-color="#000000"></custom-navbar>
   <view class="shawBg" wx:if="{{showShawBg}}">
     <view class="shawBg-bg"></view>
-    <image src="./shawBg.jpg" mode="widthFix" class="shawBg-image"></image>
+    <image src="cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/shawBg.jpg" mode="widthFix" class="shawBg-image"></image>
     <view class="shawBg-text" bindtap="hideShawBg">X</view>
   </view>
   <view class="container" style="margin-top: {{navBarHeight}}px;min-height:calc(100vh - {{navBarHeight}}px);">

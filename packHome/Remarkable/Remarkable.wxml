@@ -21,11 +21,11 @@
         <view class="awards-wrapper">
           <view class="award-card" wx:for="{{awardsData}}" wx:key="id" data-id="{{item.id}}">
             <view class="award-trophy">
-              <image src="../../pages/Home/Home.jpg" class="trophy-icon" mode="aspectFit"></image>
+              <image src="{{item.trophyIcon}}" class="trophy-icon" mode="aspectFit"></image>
             </view>
             <view class="award-content">
               <text class="award-name">{{item.name}}</text>
-              <text class="award-category">{{item.year}}{{item.category}}</text>
+              <!-- <text class="award-category">{{item.year}}{{item.category}}</text> -->
               <!-- <text class="award-year"></text> -->
               <text class="award-description">{{item.description}}</text>
             </view>
@@ -42,7 +42,7 @@
       </view>
       <view class="endorsements-grid">
         <view class="brand-card" wx:for="{{brandsData}}" wx:key="id" data-id="{{item.id}}">
-          <image src="../../pages/Home/Home3.jpg" class="brand-logo" mode="aspectFit"></image>
+          <image src="{{item.trophyIcon}}" class="brand-logo" mode="aspectFit"></image>
           <text class="brand-name">{{item.name}}</text>
           <!-- <text class="brand-category">{{item.category}}</text> -->
           <view class="luxury-badge">奢华</view>
@@ -56,13 +56,13 @@
       </view>
       <scroll-view class="awards-carousel" scroll-x="true">
         <view class="awards-wrapper">
-          <view class="award-card" style="background:#333" wx:for="{{awardsData}}" wx:key="id" data-id="{{item.id}}">
+          <view class="award-card" style="background:#333" wx:for="{{nominationsData}}" wx:key="id" data-id="{{item.id}}">
             <view class="award-trophy">
-              <image src="../../pages/Home/Home.jpg" class="trophy-icon" mode="aspectFit"></image>
+              <image src="{{item.trophyIcon}}" class="trophy-icon" mode="aspectFit"></image>
             </view>
             <view class="award-content">
               <text class="award-name">{{item.name}}</text>
-              <text class="award-category">{{item.year}}{{item.category}}</text>
+              <text class="award-category">{{item.year}}</text>
               <!-- <text class="award-year"></text> -->
               <text class="award-description">{{item.description}}</text>
             </view>

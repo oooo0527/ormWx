@@ -4,7 +4,7 @@
   <view class="music-player-container" style="margin-top: {{navBarHeight}}px;height:calc(100vh - {{navBarHeight}}px);">
     <!-- <image src="./1.jpg" mode="aspectFill" class="selected-work-image" lazy-load wx:if="{{currentMusicIndex==1}}"></image> -->
     <view class="selected-work-image1"></view>
-    <image src="./2.jpg" mode="aspectFill" class="selected-work-image" lazy-load></image>
+    <image src="cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/2.jpg" mode="aspectFill" class="selected-work-image" lazy-load></image>
     <view class="playMoreAn {{playMoreAn ? 'active' : ''}}">爱陈奥又多一秒 + 1</view>
     <!-- 音乐列表轮播 -->
     <view class="music-list-carousel">

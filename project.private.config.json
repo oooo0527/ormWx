@@ -17,7 +17,7 @@
     "showES6CompileOption": false,
     "checkInvalidKey": true,
     "ignoreDevUnusedFiles": true,
-    "bigPackageSizeSupport": true
+    "bigPackageSizeSupport": false
   },
   "condition": {
     "miniprogram": {
