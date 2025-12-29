@@ -49,18 +49,22 @@ function convertUTCToBeijing(utcString) {
 async function getInteractionList(event) {
   try {
     let query = db.collection('interactions')
+    if (event.createdAt) {
+      // 使用时间戳查询，处理传入的时间戳参数
+      // 将时间戳转换为当天的开始和结束时间
+      const targetDate = new Date(event.createdAt);
+      const startOfDay = new Date(targetDate);
+      startOfDay.setHours(0, 0, 0, 0);
 
-    if (event.date) {
-      // 分页查询
+      const endOfDay = new Date(targetDate);
+      endOfDay.setHours(23, 59, 59, 999);
+
       const result = await query
         .where({
-          createDate: db.RegExp({
-            regexp: event.date,
-            options: 'i'
-          }),
+          createdAt: _.and(_.gte(startOfDay.getTime()), _.lte(endOfDay.getTime())),
           status: event.status,
         })
-        .orderBy('createTime', 'desc')
+        .orderBy('createdAt', 'desc')
         .skip(event.skip || 0)
         .limit(event.limit || 20)
         .get()
@@ -75,7 +79,7 @@ async function getInteractionList(event) {
         .where({
           checked: event.checked
         })
-        .orderBy('createTime', 'desc')
+        .orderBy('createdAt', 'desc')
         .skip(event.skip || 0)
         .limit(event.limit || 20)
         .get()

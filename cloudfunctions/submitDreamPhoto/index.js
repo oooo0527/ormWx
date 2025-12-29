@@ -45,9 +45,6 @@ async function getApprovedPhotos(event) {
   try {
     // 获取审核通过的照片，按时间倒序排列
     const result = await db.collection('dream_photos')
-      .where({
-        status: 'approved'
-      })
       .orderBy('createTime', 'desc')
       .get()
 
@@ -82,7 +79,6 @@ async function getPhotosByStyle(event) {
     const result = await db.collection('dream_photos')
       .where({
         style: style,
-        status: 'approved'
       })
       .orderBy('createTime', 'desc')
       .get();
@@ -106,9 +102,6 @@ async function getRankingList(event) {
   try {
     // 获取排行榜数据，按浏览次数降序排列
     const result = await db.collection('dream_photos')
-      .where({
-        status: 'approved'
-      })
       .orderBy('views', 'desc')
       .limit(7) // 限制返回前7名
       .get()

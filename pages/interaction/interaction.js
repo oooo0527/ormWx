@@ -41,6 +41,47 @@ Page({
 
   },
 
+  getDateString: function (dateValue) {
+    // 如果 dateValue 是对象且包含 createdAt 属性，则使用该时间戳
+    if (dateValue && typeof dateValue === 'object' && dateValue.createdAt) {
+      const date = new Date(dateValue.createdAt);
+      return date.toISOString().slice(0, 10); // 返回 YYYY-MM-DD 格式
+    }
+    // 如果 dateValue 是时间戳数字
+    else if (typeof dateValue === 'number') {
+      const date = new Date(dateValue);
+      return date.toISOString().slice(0, 10); // 返回 YYYY-MM-DD 格式
+    }
+    // 如果 dateValue 是日期字符串，则直接返回
+    else if (typeof dateValue === 'string') {
+      return dateValue;
+    }
+    // 默认返回当前日期
+    else {
+      return new Date().toISOString().slice(0, 10);
+    }
+  },
+
+  formatDateTime: function (timestamp) {
+    // 如果时间戳不存在，返回空字符串
+    if (!timestamp) {
+      return '';
+    }
+
+    // 如果是时间戳数字，创建日期对象
+    const date = new Date(timestamp);
+
+    // 格式化为年月日时分秒
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  },
+
   onLoad: function () {
     this.setData({
       works: [],
@@ -141,7 +182,7 @@ Page({
         limit: pageSize, // 限制获取10条数据
         status: '1',
         skip: currentPage * pageSize,
-        date: this.data.date,
+        createdAt: this.getDateString(this.data.date),
       },
       success: res => {
         console.log('获取热门互动留言成功：', currentPage, pageSize, res.result.data);
@@ -163,8 +204,8 @@ Page({
           }
           const hotInteractions2 = [...res.result.data]
             .sort((a, b) =>
-              `${b.createDate} ${b.createTime}` -
-              `${a.createDate} ${a.createTime}`
+              `${b.createdAt}` -
+              `${a.createdAt}`
             );
           if (currentPage === 0) {
             this.setData({
@@ -558,8 +599,7 @@ Page({
               content: item.content,
               updateTime: item.updateTime || '',
               commentsCount: (item.comments || []).length,
-              createDate: item.createDate || '',
-              createTime: item.createTime || '',
+              createdAt: this.formatDateTime(item.createdAt) || '',
             }
           });
 

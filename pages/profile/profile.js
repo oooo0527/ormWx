@@ -6,16 +6,9 @@ createPage({
   data: {
 
     menueList: [
-
-      {
-        title: '我得留言版',
-        path: '/pages/selfListDetail/selfListDetail',
-        isManager: '0'
-      },
       {
         title: '消息通知',
         path: '/packageA/noteList/noteList',
-        isManager: '0'
       },
     ]
 

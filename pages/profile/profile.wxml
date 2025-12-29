@@ -13,7 +13,7 @@
         </button>
       </view>
       <view class="menueList-content">
-        <view wx:for="{{menueList}}" wx:key="index" bindtap="navigateToPage" data-url="{{item.path}}" class="menueList-list" wx-if="{{item.isManager<=1}}">
+        <view wx:for="{{menueList}}" wx:key="index" bindtap="navigateToPage" data-url="{{item.path}}" class="menueList-list">
           <view>{{item.title}}</view>
         </view>
       </view>

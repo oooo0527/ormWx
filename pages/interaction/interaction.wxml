@@ -51,8 +51,8 @@
                 <view class='hott-title'>{{item.title}}</view>
                 <view class="hott-des">{{item.content}}</view>
                 <view class="hott-text">
-                  <view>{{item.createTime}}</view>
-                  <view>{{item.comments.length}} 条评论</view>
+                  <view>{{item.createdAt}}</view>
+                  <view>527 条评论</view>
                 </view>
               </view>
             </view>
