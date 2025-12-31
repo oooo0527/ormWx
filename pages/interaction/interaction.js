@@ -4,6 +4,7 @@ Page({
   data: {
     currentSlide: 0,
     selectedWork: null,
+    ormkornnaphat: {},
 
     works: [], // 将原来硬编码的数据移除，改为从云端获取
 
@@ -83,6 +84,7 @@ Page({
   },
 
   onLoad: function () {
+
     this.setData({
       works: [],
       displayWorks: [],
@@ -135,6 +137,13 @@ Page({
     this.loadHotInteractions();
   },
   onShow: function () {
+    // 获取app实例
+    const app = getApp();
+    if (app.globalData.ormkornnaphat) {
+      this.setData({
+        ormkornnaphat: app.globalData.ormkornnaphat
+      });
+    }
     // this.onPullDownRefresh();
 
   },

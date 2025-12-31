@@ -4,6 +4,7 @@ const { createPage } = require('../../utils/basePage.js');
 // 使用 createPage 创建页面，自动包含导航栏高度处理功能
 createPage({
   data: {
+    ormkornnaphat: {},
 
     menueList: [
       {
@@ -15,10 +16,23 @@ createPage({
   },
 
   onLoad: function (options) {
+    // 获取app实例
+    const app = getApp();
+    if (app.globalData.ormkornnaphat) {
+      this.setData({
+        ormkornnaphat: app.globalData.ormkornnaphat
+      });
+    }
 
   },
 
   onShow: function () {
+    const app = getApp();
+    if (app.globalData.ormkornnaphat && !this.data.ormkornnaphat) {
+      this.setData({
+        ormkornnaphat: app.globalData.ormkornnaphat
+      });
+    }
 
   },
 

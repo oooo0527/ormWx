@@ -84,7 +84,7 @@
         <!-- 左   陈奥的缘 -->
         <view class="list-item" bindtap="navigateToPage" data-url="/packHome/personal/personal">
           <!-- <view class="list-item-text">我的陈奥</view> -->
-          <image src="./Home.jpg" mode="widthFix" lazy-load class="list-image"></image>
+          <image src="cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/时.jpg" mode="widthFix" lazy-load class="list-image"></image>
         </view>
         <!-- 右   音乐，公益 等 -->
         <view class="list-item1">
@@ -98,8 +98,8 @@
     <scroll-view class="menu-scroll-view" scroll-x="{{true}}">
       <view class="menu-container">
         <view class="menu-item" wx:for="{{menuList}}" wx:key="index" bindtap="navigateToPage" data-url="{{item.url}}">
-          <image src="{{item.icon}}" mode="aspectFill" class="menu-icon"></image>
-          <view class="menu-text">{{item.name}}</view>
+          <image src="{{item.image}}" mode="aspectFill" class="menu-icon"></image>
+          <view class="menu-text">{{item.title}}</view>
         </view>
       </view>
     </scroll-view>

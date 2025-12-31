@@ -30,8 +30,8 @@
                 <view class="card-title">{{item.title}}</view>
               </view>
               <view class="card-more">
-                <image src="../../pages/Home/Home.jpg" class="card-image" mode="widthFix" lazy-load></image>
-                <view class="card-creator">陈奥</view>
+                <image src="{{ormkornnaphat.image}}" class="card-image" mode="widthFix" lazy-load></image>
+                <view class="card-creator">{{ormkornnaphat.url}}</view>
                 <view class="card-date">{{item.createDate}}</view>
               </view>
             </view>
@@ -45,7 +45,7 @@
           <view class="hot-interaction-content">
             <view class="hot-interaction-info">
               <view class="img-box">
-                <image src="../../pages/Home/Home.jpg" class="user-image" mode="widthFix" lazy-load></image>
+                <image src="{{ormkornnaphat.image}}" class="user-image" mode="widthFix" lazy-load></image>
               </view>
               <view class="info-box">
                 <view class='hott-title'>{{item.title}}</view>

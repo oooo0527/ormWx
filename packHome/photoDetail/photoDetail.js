@@ -3,6 +3,7 @@ Page({
   data: {
     styleName: '',
     photos: [],
+    ormkornnaphat: {}
 
   },
 

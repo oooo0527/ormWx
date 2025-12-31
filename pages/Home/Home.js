@@ -2,78 +2,162 @@ Page({
   data: {
     selectedStar: null,
     nameList: ['ORM', 'KORN', 'NAPAT'],
-    // 菜单信息
-    menuList: [
-      {
-        name: '时间线',
-        url: '/packHome/growthTimeline/growthTimeline',
-        icon: 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/时.jpg'
-      },
-      {
-        name: '妈粉',
-        url: '/packHome/mami/mami',
-        icon: 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/妈.jpg'
-      },
-      {
-        name: '梦女',
-        url: '/packHome/dream/dream',
-        icon: 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/梦.jpg'
-      }, {
-        name: '人缘',
-        url: '/packHome/ormHome/ormHome',
-        icon: 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/缘.jpg'
-      }, {
-        name: 'behind',
-        url: '/packHome/behind/behind',
-        icon: 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/后.jpg'
-      }
-    ],
-    contentList: [{
-      name: '足',
-      url: '/packHome/footPrints/footPrints',
-      image: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/人缘1.jpg"
-    },
-    {
-      name: '语',
-      url: '/packHome/rambling/rambling',
-      image: 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/人缘1.jpgg'
-    }, {
-      name: '高',
-      url: '/packHome/highEmotion/highEmotion',
-      image: 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/人缘1.jpg'
-    },
-    {
-      name: 'gu',
-      image: 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/人缘1.jpgg'
-    }],
-    musicList: [{
-      title: "上班必听",
-      des: '你想象不到的音乐天才',
-      url: '/packHome/musicPlayer/musicPlayer',
-      image: 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/8a4a2aff10012ed22625321f6898bb84.jpg'
-    }, {
-      name: '争气',
-      title: "争气",
-      des: '从这里开始了解陈奥',
-      url: '/packHome/Remarkable/Remarkable',
-      image: 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/925db0f17c54d003a63bdfb90bfdd0c1.jpg'
-    },
-    {
-      title: "NAPAT",
-      des: 'NAPAT',
-      url: '/packHome/rambling/rambling',
-      image: 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/9a58f9ad40d364eb6022ccd8b78cbb82.jpg'
-    }],
+    // 菜单信息 - 将从后台获取
+    menuList: [],
+    contentList: [],
+    musicList: [],
     // 灯泡弹窗相关数据
     showLampPopup: false,
     isLampOn: false,
     eventsData: []
   },
   onLoad: function (options) {
+    this.loadImageConfig();
   },
 
   onShow: function () {
+    // 页面显示时也可以重新加载配置
+    // this.loadImageConfig();
+  },
 
+  // 加载图片配置
+  loadImageConfig: function () {
+    wx.showLoading({
+      title: '加载中...'
+    });
+
+    wx.cloud.callFunction({
+      name: 'imageConfig',
+      data: {
+        action: 'getImageConfig',
+        configType: 'home_menu',
+        configName: 'menuList'
+      }
+    }).then(res => {
+      console.log(res, 'getImageConfig')
+      if (res.result.success && res.result.data.length > 0) {
+        this.setData({
+          menuList: res.result.data || []
+        });
+      } else {
+        // 如果没有从后台获取到数据，使用默认配置
+        this.setData({
+          menuList: [
+            {
+              name: '时间线',
+              url: '/packHome/growthTimeline/growthTimeline',
+              icon: 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/时.jpg'
+            },
+            {
+              name: '妈粉',
+              url: '/packHome/mami/mami',
+              icon: 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/妈.jpg'
+            },
+            {
+              name: '梦女',
+              url: '/packHome/dream/dream',
+              icon: 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/梦.jpg'
+            }, {
+              name: '人缘',
+              url: '/packHome/ormHome/ormHome',
+              icon: 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/缘.jpg'
+            }, {
+              name: 'behind',
+              url: '/packHome/behind/behind',
+              icon: 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/后.jpg'
+            }
+          ]
+        });
+      }
+
+      // 获取内容列表配置
+      wx.cloud.callFunction({
+        name: 'imageConfig',
+        data: {
+          action: 'getImageConfig',
+          configType: 'home_content',
+          configName: 'contentList'
+        }
+      }).then(res => {
+        if (res.result.success && res.result.data.length > 0) {
+          this.setData({
+            contentList: res.result.data || []
+          });
+        } else {
+          // 默认内容列表
+          this.setData({
+            contentList: [{
+              name: '足',
+              url: '/packHome/footPrints/footPrints',
+              image: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/人缘1.jpg"
+            },
+            {
+              name: '语',
+              url: '/packHome/rambling/rambling',
+              image: 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/人缘1.jpgg'
+            }, {
+              name: '高',
+              url: '/packHome/highEmotion/highEmotion',
+              image: 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/人缘1.jpg'
+            },
+            {
+              name: 'gu',
+              image: 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/人缘1.jpgg'
+            }]
+          });
+        }
+
+        // 获取音乐列表配置
+        wx.cloud.callFunction({
+          name: 'imageConfig',
+          data: {
+            action: 'getImageConfig',
+            configType: 'home_music',
+            configName: 'musicList'
+          }
+        }).then(res => {
+          if (res.result.success && res.result.data.length > 0) {
+            this.setData({
+              musicList: res.result.data || []
+            });
+          } else {
+            // 默认音乐列表
+            this.setData({
+              musicList: [{
+                title: "上班必听",
+                des: '你想象不到的音乐天才',
+                url: '/packHome/musicPlayer/musicPlayer',
+                image: 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/8a4a2aff10012ed22625321f6898bb84.jpg'
+              }, {
+                name: '争气',
+                title: "争气",
+                des: '从这里开始了解陈奥',
+                url: '/packHome/Remarkable/Remarkable',
+                image: 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/925db0f17c54d003a63bdfb90bfdd0c1.jpg'
+              },
+              {
+                title: "NAPAT",
+                des: 'NAPAT',
+                url: '/packHome/rambling/rambling',
+                image: 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/9a58f9ad40d364eb6022ccd8b78cbb82.jpg'
+              }]
+            });
+          }
+
+          wx.hideLoading();
+        }).catch(err => {
+          console.error('获取音乐列表配置失败', err);
+          wx.hideLoading();
+        });
+
+      }).catch(err => {
+        console.error('获取内容列表配置失败', err);
+        wx.hideLoading();
+      });
+    }).catch(err => {
+      console.error('获取菜单配置失败', err);
+      wx.hideLoading();
+    });
   },
   //跳转
   navigateToPage: function (e) {

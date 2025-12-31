@@ -5,7 +5,7 @@
     <text class="time-text">{{hours}}:{{minutes < 10 ? '0' + minutes : minutes}}</text>
   </view>
   <view wx:if="{{showHome}}" class="home-container">
-    <image src="{{displayImage1}}?imageMogr2/thumbnail/!750x600r/format/webp" class="background-image" mode="widthfill" lazy-load="{{true}}"></image>
+    <image src="{{displayImage1}}" class="background-image" mode="widthfill" lazy-load="{{true}}"></image>
     <!-- 可拖动的小图标 -->
     <view wx:if="{{showIcon}}" class="draggable-icon-container">
       <view class="small-icon" bindlongpress="switchDisplayImage" show-menu-by-longpress="false">

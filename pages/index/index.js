@@ -231,14 +231,37 @@ Page({
     this.voicePlayer.obeyMuteSwitch = false; // 不遵循静音开关
   },
   goHome: function () {
+    // 获取app实例
+    const app = getApp();
     wx.showLoading({
       title: '进入中...',
+    });
+    wx.cloud.callFunction({
+      name: 'imageConfig',
+      data: {
+        action: 'getImageConfig',
+        configType: 'ormkornnaphat',
+        configName: 'ormkornnaphat'
+      }
+    }).then(res => {
+      console.log(res, 'getImageConfig')
+      if (res.result.success && res.result.data.length > 0) {
+        // 设置全局数据
+        app.globalData.ormkornnaphat = res.result.data[0];
+
+      } else {
+        wx.showToast({
+          title: '获取数据失败',
+          icon: 'none'
+        });
+      }
     });
     // 跳转到首页
     wx.switchTab({
       url: '/pages/Home/Home'
     });
   },
+
 
   switchZindex: function () {
 

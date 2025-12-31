@@ -14,9 +14,9 @@
               <view class="photo-actions">
                 <view class="view-section">{{item.views || 0}}👁️</view>
                 <view class="user-info">
-                  <image class="user-avatar" src="{{item.userAvatar}}" mode="aspectFill"></image>
+                  <image class="user-avatar" src="{{ormkornnaphat.image}}" mode="aspectFill"></image>
                   <view class="user-details">
-                    <text class="user-name">{{item.userName}}</text>
+                    <text class="user-name">{{ormkornnaphat.url}}</text>
                     <text class="post-time">{{item.createTime}}</text>
                   </view>
                 </view>

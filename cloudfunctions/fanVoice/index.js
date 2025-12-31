@@ -120,7 +120,5 @@ async function getInteractionById(event) {
   }
 }
 
-function randomCommentId() {
-  return Math.random().toString(36).substring(2, 9);
-}
+
 
