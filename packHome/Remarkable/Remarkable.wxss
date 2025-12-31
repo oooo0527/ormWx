@@ -144,18 +144,62 @@
 }
 
 .award-card {
-  width: 100vw;
-  height: 300rpx;
+  /* width: 100vw; */
+  min-width: 500rpx;
+  max-width: 600rpx;
+  height: 350rpx;
   background: #000000;
   border-radius: 16rpx;
   margin-right: 30rpx;
   padding: 20rpx;
-  display: inline-flex;
+  /* display: inline-flex; */
   position: relative;
-  overflow: hidden;
+  /* overflow: hidden; */
   box-shadow: 0 10rpx 20rpx rgb(0, 0, 0);
   border: 1rpx solid rgba(255, 255, 255, 0.05);
   transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.award-card1 {
+  width: 100%;
+  flex: 1;
+  display: flex;
+}
+
+.award-card2 {
+  width: 100%;
+  min-height: 40rpx;
+  color: rgb(248, 247, 247);
+  font-size: 36rpx;
+  line-height: 40rpx;
+  font-weight: 600;
+  word-wrap: break-word;
+  /* 长单词换行 */
+  overflow-wrap: break-word;
+  /* 现代属性 */
+  word-break: break-all;
+  /* 更激进的中英文换行 */
+  white-space: pre-line;
+
+}
+
+.award-card3 {
+  width: 100%;
+  min-height: 40rpx;
+  color: rgb(248, 247, 247);
+  font-size: 28rpx;
+  line-height: 40rpx;
+  /* font-weight: 600; */
+  word-wrap: break-word;
+  /* 长单词换行 */
+  overflow-wrap: break-word;
+  /* 现代属性 */
+  word-break: break-all;
+  /* 更激进的中英文换行 */
+  white-space: pre-line;
+
 }
 
 .award-card:hover {
@@ -164,7 +208,7 @@
 }
 
 .award-trophy {
-  width: 120rpx;
+  width: 180rpx;
   height: 100%;
   display: flex;
   align-items: center;
@@ -173,23 +217,45 @@
 }
 
 .trophy-icon {
-  width: 100rpx;
+  width: 150rpx;
   height: 100%;
   /* filter: drop-shadow(0 0 10rpx rgba(255, 215, 0, 0.5)); */
 }
 
 .award-content {
-  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  width: 300rpx;
+  word-wrap: break-word;
+  /* 长单词换行 */
+  overflow-wrap: break-word;
+  /* 现代属性 */
+  word-break: break-all;
+  /* 更激进的中英文换行 */
+  white-space: pre-line;
+  text-align: center;
+
 }
 
+
 .award-name {
-  font-size: 32rpx;
-  color: #ffd700;
-  font-weight: bold;
+  font-size: 38rpx;
+
   margin-bottom: 10rpx;
+  color: #ffd700;
+  font-weight: 600;
+
+  width: 100%;
+  word-wrap: break-word;
+  /* 长单词换行 */
+  overflow-wrap: break-word;
+  /* 现代属性 */
+  word-break: break-all;
+  /* 更激进的中英文换行 */
+  white-space: pre-line;
+  /* 保留换行符并换行 */
+  min-height: 40rpx;
 }
 
 .award-category {
@@ -200,14 +266,18 @@
 
 .award-year {
   font-size: 24rpx;
-  color: #999999;
-  margin-bottom: 15rpx;
+  /* color: #f7f5f5; */
+  /* margin-bottom: 15rpx; */
+  color: #f8e263;
+  /* font-weight: bold; */
 }
 
 .award-description {
-  font-size: 22rpx;
-  color: #aaaaaa;
+  font-size: 28rpx;
+  color: #cecccc;
   line-height: 1.4;
+  color: #ffd700;
+  font-weight: bold;
 }
 
 .shine-effect {
@@ -384,10 +454,6 @@
     font-size: 28rpx;
   }
 
-  .award-card {
-    width: 450rpx;
-    height: 280rpx;
-  }
 
   .endorsements-grid {
     grid-template-columns: 1fr;

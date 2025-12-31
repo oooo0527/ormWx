@@ -263,43 +263,14 @@ Page({
           // type=1: 获奖
           const awardsData = allData
             .filter(item => item.type === '1')
-            .map(item => {
-              return {
-                id: item._id,
-                name: item.name,
-                type: item.type,
-                year: item.getTime || item.year,  // 兼容getTime和year字段
-                description: item.description,
-                trophyIcon: item.trophyIcon
-              };
-            });
 
           // type=2: 品牌
           const brandsData = allData
             .filter(item => item.type === '2')
-            .map(item => {
-              return {
-                id: item._id,
-                name: item.name,
-                type: item.type,
-                logo: item.trophyIcon,  // 品牌使用trophyIcon作为logo
-                description: item.description
-              };
-            });
 
           // type=3: 提名
           const nominationsData = allData
             .filter(item => item.type === '3')
-            .map(item => {
-              return {
-                id: item._id,
-                name: item.name,
-                type: item.type,
-                year: item.getTime || item.year,  // 兼容getTime和year字段
-                description: item.description,
-                trophyIcon: item.trophyIcon
-              };
-            });
 
           // 统计数据
           const statsData = {

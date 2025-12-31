@@ -45,7 +45,7 @@
   transition: all 0.3s ease;
   position: relative;
   flex-direction: column;
-  padding: 20rpx 0;
+  /* padding: 20rpx 0; */
   box-sizing: border-box;
   /* 添加内阴影增强立体感 */
   border: 2rpx solid rgba(255, 255, 255, 0.2);
@@ -59,7 +59,7 @@
   /* 设置最小和最大高度 */
   min-height: 450rpx;
   max-height: 500rpx;
-  justify-content: space-around;
+  justify-content: flex-end;
 }
 
 /* 菜单项悬停效果 */
@@ -71,14 +71,14 @@
 
 .menu-icon {
   height: 200rpx;
-  width: 90%;
+  width: 100%;
   translate: 180deg;
   /* margin-top: -180rpx; */
 }
 
 .menu-icon1 {
   height: 200rpx;
-  width: 90%;
+  width: 100%;
   margin-top: -180rpx;
 }
 
@@ -90,7 +90,7 @@
   text-align: center;
   background: #ffffff;
   height: 60rpx;
-  padding: 20rpx 0;
+  /* padding: 20rpx 0; */
   /* 添加轻微的发光效果 */
   letter-spacing: 1rpx;
   /* 垂直居中对齐 */
@@ -106,6 +106,8 @@
   border: 2px solid black;
   box-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.8);
   border-radius: 10rpx;
+  margin: 50rpx 0;
+  /* flex: 1; */
 }
 
 .menu-text1 {

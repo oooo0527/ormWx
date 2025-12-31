@@ -13,7 +13,9 @@
   flex-direction: column;
   justify-content: center;
   text-indent: 32rpx;
-  line-height: 1.3;
+  line-height: 1.5;
+  text-align: justify;
+  margin-bottom: 20rpx;
 
   /* align-items: center; */
   /* padding: 40rpx; */
