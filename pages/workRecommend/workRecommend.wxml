@@ -1,0 +1,48 @@
+<global-background>
+  <custom-navbar title="ormkornnaphat" showBack="{{true}}" showHome="{{false}}"></custom-navbar>
+  <view class="container" style="margin-top: {{navBarHeight}}px;height:calc(100vh - {{navBarHeight}}px);">
+    <!-- 上部区域 -->
+    <view class="upper-section">
+      <!-- 海报区域 -->
+      <view class="poster-container">
+        <image class="main-poster" src="cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/ormmm/陈奥/2246a8c4f6c263a32bfbb898a3992cc1.jpg" mode="aspectFill"></image>
+        <view class="poster-overlay">
+          <text class="poster-title">Orm作品集</text>
+          <text class="poster-subtitle">探索她的精彩演艺之路</text>
+        </view>
+      </view>
+      <!-- 三搭入口 -->
+      <view class="entrance-container">三搭入口</view>
+    </view>
+    <!-- 斜着的横幅分割 -->
+    <view class="banner-divider">
+      <text class="divider-text">作品展示</text>
+    </view>
+    <!-- 下部区域 - 作品轮播图 -->
+    <view class="lower-section">
+      <!-- 多重叠加轮播图 -->
+      <view class="multi-carousel-container">
+        <swiper class="multi-carousel" indicator-dots="true" autoplay="true" circular="true" bindchange="onCarouselChange" current="{{currentCarousel}}" previous-margin="100rpx" next-margin="100rpx" display-multiple-items="3">
+          <block wx:for="{{works}}" wx:key="id">
+            <swiper-item class="carousel-item">
+              <view class="work-card {{index === currentCarousel ? 'active' : ''}}" data-index="{{index}}" bindtap="onCardTap">
+                <image class="work-cover" src="{{item.cover}}" mode="aspectFill"></image>
+                <view class="work-info">
+                  <text class="work-title">{{item.title}}</text>
+                  <text class="work-role">饰演: {{item.role}}</text>
+                  <text class="work-year">{{item.year}}</text>
+                </view>
+              </view>
+            </swiper-item>
+          </block>
+        </swiper>
+        <!-- 装饰性背景元素 -->
+        <view class="decorative-elements">
+          <view class="element circle"></view>
+          <view class="element triangle"></view>
+          <view class="element square"></view>
+        </view>
+      </view>
+    </view>
+  </view>
+</global-background>

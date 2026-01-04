@@ -1,0 +1,263 @@
+/* pages/workDetail/workDetail.wxss */
+.container {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  overflow-x: hidden;
+}
+
+/* 返回按钮 */
+.back-button {
+  position: fixed;
+  top: 40rpx;
+  left: 40rpx;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  padding: 20rpx 30rpx;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10rpx);
+  border-radius: 50rpx;
+  border: 1rpx solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.back-button:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2rpx);
+}
+
+.back-icon {
+  font-size: 32rpx;
+  color: white;
+  margin-right: 10rpx;
+}
+
+.back-text {
+  font-size: 28rpx;
+  color: white;
+  font-weight: 500;
+}
+
+/* 主要内容区域 */
+.content {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  padding: 150rpx 40rpx 200rpx;
+  box-sizing: border-box;
+}
+
+/* 作品封面容器 */
+.work-cover-container {
+  position: relative;
+  width: 100%;
+  height: 600rpx;
+  border-radius: 30rpx;
+  overflow: hidden;
+  margin-bottom: 40rpx;
+  box-shadow: 0 30rpx 60rpx rgba(0, 0, 0, 0.3);
+}
+
+.work-cover {
+  width: 100%;
+  height: 100%;
+  filter: brightness(0.7);
+  transition: transform 0.3s ease;
+}
+
+.work-cover-container:hover .work-cover {
+  transform: scale(1.02);
+}
+
+.cover-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.8) 100%);
+}
+
+/* 类型标签 */
+.work-type-badge {
+  position: absolute;
+  top: 40rpx;
+  right: 40rpx;
+  padding: 15rpx 30rpx;
+  border-radius: 50rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+  color: white;
+  z-index: 2;
+  backdrop-filter: blur(5rpx);
+  border: 1rpx solid rgba(255, 255, 255, 0.3);
+}
+
+.movie-badge {
+  background: linear-gradient(45deg, #ff6b6b, #ffa500);
+}
+
+.tv-badge {
+  background: linear-gradient(45deg, #4ecdc4, #44a08d);
+}
+
+.publicity-badge {
+  background: linear-gradient(45deg, #a8edea, #fed6e3);
+}
+
+/* 作品信息 */
+.work-info {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10rpx);
+  border-radius: 30rpx;
+  padding: 40rpx;
+  border: 1rpx solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 20rpx 40rpx rgba(0, 0, 0, 0.2);
+}
+
+.work-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 40rpx;
+}
+
+.work-title {
+  font-size: 42rpx;
+  font-weight: 700;
+  color: white;
+  flex: 1;
+  margin-right: 20rpx;
+  line-height: 1.2;
+}
+
+.work-year {
+  font-size: 32rpx;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 300;
+  align-self: flex-end;
+}
+
+/* 作品详情 */
+.work-details {
+  margin-bottom: 40rpx;
+}
+
+.detail-item {
+  display: flex;
+  margin-bottom: 25rpx;
+}
+
+.detail-item:last-child {
+  margin-bottom: 0;
+}
+
+.label {
+  font-size: 28rpx;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 500;
+  margin-right: 20rpx;
+  min-width: 140rpx;
+}
+
+.value {
+  font-size: 28rpx;
+  color: white;
+  font-weight: 500;
+}
+
+/* 作品描述 */
+.work-description {
+  margin-top: 30rpx;
+}
+
+.description-title {
+  display: block;
+  font-size: 32rpx;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 20rpx;
+}
+
+.description-text {
+  display: block;
+  font-size: 28rpx;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.6;
+  text-align: justify;
+  background: rgba(0, 0, 0, 0.15);
+  padding: 30rpx;
+  border-radius: 20rpx;
+  border-left: 5rpx solid rgba(255, 255, 255, 0.3);
+}
+
+/* 底部操作栏 */
+.action-bar {
+  position: fixed;
+  bottom: 40rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 40rpx;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10rpx);
+  border-radius: 50rpx;
+  padding: 20rpx 40rpx;
+  border: 1rpx solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 15rpx 35rpx rgba(0, 0, 0, 0.2);
+}
+
+.action-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20rpx;
+  border-radius: 25rpx;
+  transition: all 0.3s ease;
+}
+
+.action-item:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-3rpx);
+}
+
+.action-icon {
+  font-size: 40rpx;
+  margin-bottom: 10rpx;
+  transition: all 0.3s ease;
+}
+
+.action-icon.liked {
+  transform: scale(1.2);
+  color: #ff6b6b;
+}
+
+.action-text {
+  font-size: 24rpx;
+  color: white;
+  font-weight: 500;
+}
+
+/* 响应式适配 */
+@media (max-width: 768px) {
+  .content {
+    padding: 150rpx 30rpx 200rpx;
+  }
+
+  .work-cover-container {
+    height: 500rpx;
+  }
+
+  .work-title {
+    font-size: 36rpx;
+  }
+
+  .action-bar {
+    left: 30rpx;
+    right: 30rpx;
+    transform: none;
+    justify-content: center;
+  }
+}

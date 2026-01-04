@@ -7,7 +7,7 @@ App({
     // 全局背景设置
     backgroundSettings: {
       type: 'gradient', // 'color', 'gradient', 'image'
-      value: 'linear-gradient(135deg, #0c1117 0%, #f48eb5 100%)', // 高级黑到淡粉渐变
+      value: 'linear-gradient(135deg, #0c1117 0%,rgb(247, 243, 245) 100%)', // 高级黑到淡粉渐变
       customImage: '' // 自定义图片路径
     },
     backgroundChangeListener: null // 背景变化监听器

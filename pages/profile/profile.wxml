@@ -7,9 +7,9 @@
       </button>
       <text class="nickname">{{ormkornnaphat.title}}</text>
       <view class="action-buttons">
-        <button class="action-btn background-btn" bindtap="goToBackgroundSetting">
+        <button class="action-btn background-btn">
           <image class="action-icon" src="/images/profile/upload.svg" lazy-load></image>
-          <text>背景设置</text>
+          <text>DIY</text>
         </button>
       </view>
       <view class="menueList-content">

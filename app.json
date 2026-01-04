@@ -1,8 +1,10 @@
 {
   "pages": [
+    "pages/workRecommend/workRecommend",
+    "pages/workDetail/workDetail",
+    "pages/profile/profile",
     "pages/Home/Home",
     "pages/index/index",
-    "pages/profile/profile",
     "pages/interaction/interaction",
     "pages/interactionDetail/interactionDetail"
   ],
@@ -30,6 +32,10 @@
         "text": "互动"
       },
       {
+        "pagePath": "pages/workRecommend/workRecommend",
+        "text": "作品"
+      },
+      {
         "pagePath": "pages/profile/profile",
         "text": "煎蛋卷"
       }
@@ -39,7 +45,6 @@
     {
       "root": "packageA",
       "pages": [
-        "backgroundSetting/backgroundSetting",
         "waitProve/waitProve",
         "noteList/noteList",
         "hot/hot"

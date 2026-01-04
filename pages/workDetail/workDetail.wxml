@@ -1,0 +1,54 @@
+<!-- pages/workDetail/workDetail.wxml -->
+<view class="container">
+  <!-- 返回按钮 -->
+  <view class="back-button" bindtap="goBack">
+    <text class="back-icon">←</text>
+    <text class="back-text">返回</text>
+  </view>
+  <!-- 主要内容区域 -->
+  <view class="content">
+    <!-- 作品封面 -->
+    <view class="work-cover-container">
+      <image class="work-cover" src="{{work.cover}}" mode="aspectFill"></image>
+      <view class="cover-overlay"></view>
+      <!-- 类型标签 -->
+      <view class="work-type-badge {{work.type === '电影' ? 'movie-badge' : work.type === '电视剧' ? 'tv-badge' : 'publicity-badge'}}">
+        {{work.type}}
+      </view>
+    </view>
+    <!-- 作品信息 -->
+    <view class="work-info">
+      <view class="work-header">
+        <text class="work-title">{{work.title}}</text>
+        <text class="work-year">{{work.year}}</text>
+      </view>
+      <view class="work-details">
+        <view class="detail-item">
+          <text class="label">饰演角色:</text>
+          <text class="value">{{work.role}}</text>
+        </view>
+        <view class="detail-item">
+          <text class="label">作品类型:</text>
+          <text class="value">{{work.type}}</text>
+        </view>
+      </view>
+      <view class="work-description">
+        <text class="description-title">剧情简介</text>
+        <text class="description-text">{{work.description}}</text>
+      </view>
+    </view>
+    <!-- 底部操作栏 -->
+    <view class="action-bar">
+      <view class="action-item like" bindtap="toggleLike">
+        <text class="action-icon {{work.isLiked ? 'liked' : ''}}">
+          {{work.isLiked ? '❤️' : '🤍'}}
+        </text>
+        <text class="action-text">{{work.isLiked ? '已点赞' : '点赞'}}</text>
+      </view>
+      <view class="action-item share" bindtap="shareWork">
+        <text class="action-icon">📤</text>
+        <text class="action-text">分享</text>
+      </view>
+    </view>
+  </view>
+</view>
