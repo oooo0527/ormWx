@@ -38,40 +38,4 @@ Page({
     }
   },
 
-  // 返回上一页
-  goBack: function () {
-    wx.navigateBack({
-      delta: 1
-    });
-  },
-
-  // 切换点赞状态
-  toggleLike: function () {
-    const currentWork = this.data.work;
-    currentWork.isLiked = !currentWork.isLiked;
-    currentWork.likes = currentWork.isLiked ? currentWork.likes + 1 : Math.max(0, currentWork.likes - 1);
-
-    this.setData({
-      work: currentWork
-    });
-
-    wx.showToast({
-      title: currentWork.isLiked ? '已点赞' : '已取消点赞',
-      icon: currentWork.isLiked ? 'success' : 'none'
-    });
-  },
-
-  // 分享作品
-  shareWork: function () {
-    wx.showShareMenu({
-      withShareTicket: true,
-      menus: ['shareAppMessage', 'shareTimeline'],
-      success: () => {
-        wx.showToast({
-          title: '分享已打开',
-          icon: 'success'
-        });
-      }
-    });
-  }
 });

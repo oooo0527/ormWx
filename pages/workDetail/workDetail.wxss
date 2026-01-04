@@ -2,9 +2,6 @@
 .container {
   position: relative;
   width: 100%;
-  min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  overflow-x: hidden;
 }
 
 /* 返回按钮 */
@@ -44,8 +41,6 @@
 .content {
   position: relative;
   width: 100%;
-  min-height: 100vh;
-  padding: 150rpx 40rpx 200rpx;
   box-sizing: border-box;
 }
 
@@ -242,9 +237,6 @@
 
 /* 响应式适配 */
 @media (max-width: 768px) {
-  .content {
-    padding: 150rpx 30rpx 200rpx;
-  }
 
   .work-cover-container {
     height: 500rpx;

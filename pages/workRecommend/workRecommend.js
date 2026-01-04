@@ -121,6 +121,10 @@ Page({
     this.setData({
       currentCarousel: index
     });
+    const currentWork = this.data.works[this.data.currentCarousel];
+    wx.navigateTo({
+      url: `/pages/workDetail/workDetail?work=${encodeURIComponent(JSON.stringify(currentWork))}`
+    });
   },
 
   // 三搭入口点击事件
@@ -132,20 +136,4 @@ Page({
     });
     // 这里可以添加跳转到不同类型作品列表的逻辑
   },
-
-  // 点赞按钮点击事件
-  onLikeTap: function () {
-    wx.showToast({
-      title: '点赞成功',
-      icon: 'success'
-    });
-  },
-
-  // 分享按钮点击事件
-  onShareTap: function () {
-    wx.showToast({
-      title: '分享功能开发中',
-      icon: 'none'
-    });
-  }
 });

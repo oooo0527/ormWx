@@ -1,8 +1,7 @@
 {
-  "navigationBarTitleText": "作品详情",
-  "navigationBarBackgroundColor": "#667eea",
-  "navigationBarTextStyle": "white",
-  "backgroundColor": "#667eea",
-  "enablePullDownRefresh": false,
-  "backgroundTextStyle": "dark"
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "global-background": "/components/globalBackground/globalBackground",
+    "custom-navbar": "/components/customNavbar/customNavbar"
+  }
 }
