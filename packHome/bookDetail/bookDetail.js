@@ -1,32 +1,32 @@
 Page({
   data: {
-    bookId: null,
-    title: '',
-    images: [],
+    Box: {},
     showImageList: false,
     activeIndex: 0,  // 当前展开的图片索引
-    animationClassList: [],  // 动画类列表
+
+    loading: true // 数据加载状态
   },
 
   onLoad(options) {
-    const bookId = options.bookId;
-    const title = options.title;
+    // 获取从上一页传递过来的数据
+    const eventChannel = this.getOpenerEventChannel();
+    console.log('eventChannel', eventChannel)
+    eventChannel.on('acceptDataFromBookPage', (data) => {
+      this.setData({
+        Box: data.Box,
+        loading: false
+      });
 
-    // 根据bookId获取对应的图片数据
-    // 这里模拟从服务器或本地获取数据
-    const imageData = this.getImageData();
-
-    this.setData({
-      bookId: bookId,
-      title: title,
-      images: imageData
+      // 设置页面标题
+      wx.setNavigationBarTitle({
+        title: data.Box.title
+      });
     });
 
-    // 设置页面标题
-    wx.setNavigationBarTitle({
-      title: title
-    });
+
+
   },
+
 
   // 图片点击事件 - 实现展开收起效果
   onImageClick(e) {
@@ -55,22 +55,5 @@ Page({
       urls: urls
     });
   },
-
-  getImageData() {
-    // 示例数据 - 实际项目中应从服务器获取
-
-    return [
-      { url: 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/behind/098bb43a246b28b40ea277fb4a820460.jpg', desc: '这是图片1的描述' },
-      { url: 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/behind/098bb43a246b28b40ea277fb4a820460.jpg', desc: '这是图片1的描述' },
-      { url: 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/behind/098bb43a246b28b40ea277fb4a820460.jpg', desc: '这是图片1的描述' },
-      { url: 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/behind/098bb43a246b28b40ea277fb4a820460.jpg', desc: '这是图片1的描述' },
-      { url: 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/behind/098bb43a246b28b40ea277fb4a820460.jpg', desc: '这是图片1的描述' },
-      { url: 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/behind/098bb43a246b28b40ea277fb4a820460.jpg', desc: '这是图片1的描述' },
-      { url: 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/behind/098bb43a246b28b40ea277fb4a820460.jpg', desc: '这是图片1的描述' },
-      { url: 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/behind/098bb43a246b28b40ea277fb4a820460.jpg', desc: '这是图片1的描述' },
-      { url: 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/behind/098bb43a246b28b40ea277fb4a820460.jpg', desc: '这是图片1的描述' },
-    ];
-
-  }
 
 });

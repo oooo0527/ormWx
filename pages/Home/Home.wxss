@@ -709,6 +709,7 @@
   left: 50%;
   margin-top: -25rpx;
   margin-left: -25rpx;
+  color: #ffffff;
 
   /* border-radius: 100rpx; */
   /* background: #E9E8EF; */
