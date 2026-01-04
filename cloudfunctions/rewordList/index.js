@@ -17,6 +17,8 @@ exports.main = async (event, context) => {
       return await getRewordList(event)
     case 'getById':
       return await getRewordById(event)
+    case 'getNotifications':
+      return await getNotifications(event)
     default:
       return {
         success: false,
@@ -42,6 +44,25 @@ async function getRewordList(event) {
       .orderBy('createTime', 'desc')
       .skip(event.skip || 0)
       .limit(event.limit || 20)
+      .get()
+
+    return {
+      success: true,
+      data: result.data
+    }
+  } catch (err) {
+    return {
+      success: false,
+      message: err.message
+    }
+  }
+}
+
+// 获取通知消息列表
+async function getNotifications(event) {
+  try {
+    // 从notifications集合中获取通知消息
+    const result = await db.collection('notifications')
       .get()
 
     return {

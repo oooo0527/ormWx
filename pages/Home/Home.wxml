@@ -104,4 +104,28 @@
       </view>
     </scroll-view>
   </view>
+  <!-- 每日弹窗提醒 -->
+  <view class="daily-notification-popup" wx:if="{{showNotificationPopup}}">
+    <view class="popup-overlay" bindtap="hideNotificationPopup"></view>
+    <view class="popup-content">
+      <view class="popup-header">
+        <text class="popup-title">重要提醒</text>
+        <view class="close-btn" bindtap="hideNotificationPopup">×</view>
+      </view>
+      <view class="popup-body">
+        <view class="notification-item" wx:for="{{notificationList}}" wx:key="id" data-index="{{index}}">
+          <view class="notification-content">
+            <text class="notification-title">{{item.title}}</text>
+            <text class="notification-desc">{{item.content}}</text>
+          </view>
+          <view class="notification-meta">
+            <text class="notification-time">{{item.time}}</text>
+          </view>
+        </view>
+        <view class="no-notifications" wx:if="{{!notificationList.length}}">
+          <text>暂无重要提醒</text>
+        </view>
+      </view>
+    </view>
+  </view>
 </view>

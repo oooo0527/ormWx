@@ -9,15 +9,24 @@ Page({
     // 灯泡弹窗相关数据
     showLampPopup: false,
     isLampOn: false,
-    eventsData: []
+    eventsData: [],
+    // 弹窗提醒相关数据
+    showNotificationPopup: false,
+    notificationList: []
   },
   onLoad: function (options) {
     this.loadImageConfig();
+
+    // 检查是否需要显示每日弹窗提醒
+    this.checkDailyNotificationPopup();
   },
 
   onShow: function () {
     // 页面显示时也可以重新加载配置
     // this.loadImageConfig();
+
+    // 检查是否需要显示每日弹窗提醒
+    this.checkDailyNotificationPopup();
   },
 
   // 加载图片配置
@@ -252,6 +261,102 @@ Page({
       content: event.description,
       showCancel: false,
       confirmText: '知道了'
+    });
+  },
+
+  // 检查每日弹窗提醒
+  checkDailyNotificationPopup: function () {
+    // 获取当前日期
+    const today = new Date().toDateString();
+
+    // 从本地存储获取上次显示弹窗的日期
+    try {
+      const lastPopupDate = wx.getStorageSync('lastNotificationPopupDate');
+
+      // 如果今天已经显示过弹窗，则不再显示
+      if (lastPopupDate === today) {
+        console.log('今天已经显示过弹窗提醒');
+        return;
+      }
+
+      // 获取noteList页面的未读弹窗消息
+      // 由于无法直接访问其他页面的数据，我们需要调用云函数获取消息
+      this.fetchPopupNotifications();
+
+    } catch (e) {
+      console.error('获取本地存储失败：', e);
+      // 如果获取失败，仍然尝试获取弹窗消息
+      this.fetchPopupNotifications();
+    }
+  },
+
+  // 获取需要弹窗提醒的消息
+  fetchPopupNotifications: async function () {
+    // 首先尝试从云函数获取数据
+    let popupNotifications = await this.getPopupNotifications();
+    console.log(popupNotifications, 'popupNotifications')
+
+
+    if (popupNotifications && popupNotifications.length > 0) {
+      // 显示弹窗
+      this.setData({
+        showNotificationPopup: true,
+        notificationList: popupNotifications
+      });
+
+      // 记录今天已经显示过弹窗
+      try {
+        wx.setStorageSync('lastNotificationPopupDate', new Date().toDateString());
+      } catch (e) {
+        console.error('存储弹窗日期失败：', e);
+      }
+    }
+  },
+
+  // 获取弹窗消息
+  getPopupNotifications: async function () {
+    try {
+      // 调用云函数获取通知消息
+      const result = await wx.cloud.callFunction({
+        name: 'rewordList',
+        data: {
+          action: 'getNotifications'
+        }
+      });
+
+      if (result.result && result.result.success) {
+        // 返回未读的弹窗消息
+        const notifications = result.result.data || [];
+        return notifications.filter(item => item.type === 'popup' && !item.isRead);
+      } else {
+        console.error('获取通知消息失败：', result.result.message);
+        return [];
+      }
+    } catch (e) {
+      console.error('获取通知消息失败：', e);
+      return [];
+    }
+  },
+
+  // 从缓存获取弹窗消息（备选方案）
+  getPopupNotificationsFromCache: function () {
+    try {
+      const cacheData = wx.getStorageSync('notificationCache');
+      if (cacheData && cacheData.popupNotifications) {
+        // 返回未读的弹窗消息
+        return cacheData.popupNotifications.filter(item => !item.isRead);
+      }
+    } catch (e) {
+      console.error('获取缓存数据失败：', e);
+    }
+
+    return [];
+  },
+
+  // 隐藏弹窗提醒
+  hideNotificationPopup: function () {
+    this.setData({
+      showNotificationPopup: false
     });
   }
 

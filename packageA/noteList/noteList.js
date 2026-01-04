@@ -5,6 +5,13 @@ Page({
    */
   data: {
     announcementNotifications: [], // 公告消息列表
+    showNotificationPopup: false, // 是否显示消息详情弹窗
+    currentNotification: null, // 当前选中的消息
+    popupNotifications: [], // 需要弹窗提醒的消息列表
+    normalNotifications: [], // 普通通知列表
+    currentTab: 'all', // 当前选中的标签页
+    popupNotificationsUnreadCount: 0, // 弹窗提醒未读数量
+    normalNotificationsUnreadCount: 0, // 普通通知未读数量
   },
 
   /**
@@ -13,6 +20,11 @@ Page({
   onLoad(options) {
     // 页面加载时获取消息数据
     this.loadNotifications();
+
+    // 初始化标签页
+    this.setData({
+      currentTab: 'all'
+    });
   },
 
   /**
@@ -28,6 +40,9 @@ Page({
   onShow() {
     // 每次显示页面时重新加载消息数据
     this.loadNotifications();
+
+    // 更新未读数量
+    this.updateUnreadCounts();
   },
 
   /**
@@ -83,7 +98,12 @@ Page({
       // 使用缓存数据更新页面
       this.setData({
         announcementNotifications: cachedData.announcementNotifications,
+        popupNotifications: cachedData.popupNotifications || [],
+        normalNotifications: cachedData.normalNotifications || [],
       });
+
+      // 更新未读数量
+      this.updateUnreadCounts();
 
       // 执行回调函数（如果有）
       if (callback && typeof callback === 'function') {
@@ -105,12 +125,21 @@ Page({
       // 隐藏加载提示
       wx.hideLoading();
 
+      // 按类型分类消息
+      const popupNotifications = result.filter(item => item.type === 'popup');
+      const normalNotifications = result.filter(item => item.type !== 'popup');
+
       // 设置数据
       const newData = {
         announcementNotifications: result,
+        popupNotifications,
+        normalNotifications
       };
 
       this.setData(newData);
+
+      // 更新未读数量
+      this.updateUnreadCounts();
 
       // 缓存数据
       this.cacheNotifications(newData);
@@ -142,37 +171,112 @@ Page({
    */
   getAnnouncementNotifications() {
     return new Promise((resolve, reject) => {
-      // 这里需要一个专门的云函数来获取公告消息
-      // 由于当前云函数没有提供此功能，暂时模拟数据
-      // 在实际开发中，应该有一个云函数可以查询公告信息
-
-      // 模拟数据
-      const notifications = [
-        {
-          id: '1',
-          adminName: '系统管理员',
-          adminAvatar: '/images/admin-avatar.png',
-          title: '系统维护通知',
-          content: '系统将于今晚00:00-02:00进行维护，期间可能会出现服务不稳定的情况，请大家谅解。',
-          time: '2023-05-15'
+      // 调用云函数获取公告消息
+      wx.cloud.callFunction({
+        name: 'rewordList', // 使用现有的rewordList云函数或创建新的云函数
+        data: {
+          action: 'getNotifications'
         },
-        {
-          id: '2',
-          adminName: '运营团队',
-          adminAvatar: '/images/admin-avatar.png',
-          title: '新功能上线',
-          content: '我们上线了全新的消息中心功能，欢迎大家体验并提出宝贵意见！',
-          time: '2023-05-10'
+        success: res => {
+          console.log('获取消息成功', res);
+          if (res.result && res.result.success) {
+            // 确保每条消息都有必需的字段
+            const notifications = (res.result.data || []).map(item => {
+              // 如果没有type字段，默认为normal类型
+              if (!item.type) {
+                item.type = 'normal';
+              }
+              // 如果没有isRead字段，默认为false
+              if (item.isRead === undefined) {
+                item.isRead = false;
+              }
+              // 如果没有adminName字段，使用默认值
+              if (!item.adminName) {
+                item.adminName = '系统通知';
+              }
+              // 如果没有title字段，使用默认值
+              if (!item.title) {
+                item.title = '无标题';
+              }
+              // 如果没有content字段，使用默认值
+              if (!item.content) {
+                item.content = '无内容';
+              }
+              return item;
+            });
+            resolve(notifications);
+          } else {
+            console.error('获取消息失败', res);
+            // 如果云函数调用失败，返回空数组
+            resolve([]);
+          }
+        },
+        fail: err => {
+          console.error('调用云函数失败', err);
+          // 如果云函数调用失败，返回空数组
+          resolve([]);
         }
-      ];
-
-      resolve(notifications);
+      });
     });
   },
 
   /**
    * 跳转到公告详情
    */
+  // 显示消息详情弹窗
+  showNotificationDetail(e) {
+    const id = e.currentTarget.dataset.id;
+    const allNotifications = [...this.data.popupNotifications, ...this.data.normalNotifications];
+    const notification = allNotifications.find(item => item.id === id);
+
+    if (notification) {
+      this.setData({
+        showNotificationPopup: true,
+        currentNotification: notification
+      });
+
+      // 标记消息为已读
+      this.markNotificationAsRead(id);
+    }
+  },
+
+  // 隐藏消息详情弹窗
+  hideNotificationPopup() {
+    this.setData({
+      showNotificationPopup: false,
+      currentNotification: null
+    });
+  },
+
+  // 标记消息为已读
+  markNotificationAsRead(notificationId) {
+    const allNotifications = [...this.data.popupNotifications, ...this.data.normalNotifications];
+    const notificationIndex = allNotifications.findIndex(item => item.id === notificationId);
+
+    if (notificationIndex !== -1) {
+      allNotifications[notificationIndex].isRead = true;
+
+      // 分别更新popup和normal数组
+      const popupNotifications = allNotifications.filter(item => item.type === 'popup');
+      const normalNotifications = allNotifications.filter(item => item.type !== 'popup');
+
+      this.setData({
+        popupNotifications,
+        normalNotifications,
+        announcementNotifications: allNotifications
+      });
+
+      // 更新缓存
+      const cachedData = this.getCachedNotifications();
+      if (cachedData) {
+        cachedData.popupNotifications = popupNotifications;
+        cachedData.normalNotifications = normalNotifications;
+        cachedData.announcementNotifications = allNotifications;
+        this.cacheNotifications(cachedData);
+      }
+    }
+  },
+
   navigateToAnnouncement(e) {
     const id = e.currentTarget.dataset.id;
     console.log('查看公告详情，ID:', id);
@@ -180,6 +284,32 @@ Page({
     // wx.navigateTo({
     //   url: `/pages/announcementDetail/announcementDetail?id=${id}`
     // });
+  },
+
+  // 获取未读消息数量
+  getUnreadCount() {
+    const allNotifications = [...this.data.popupNotifications, ...this.data.normalNotifications];
+    const unreadCount = allNotifications.filter(item => !item.isRead).length;
+    return unreadCount;
+  },
+
+  // 更新未读消息数量
+  updateUnreadCounts() {
+    const popupUnreadCount = this.data.popupNotifications.filter(item => !item.isRead).length;
+    const normalUnreadCount = this.data.normalNotifications.filter(item => !item.isRead).length;
+
+    this.setData({
+      popupNotificationsUnreadCount: popupUnreadCount,
+      normalNotificationsUnreadCount: normalUnreadCount
+    });
+  },
+
+  // 切换标签页
+  switchTab(e) {
+    const tab = e.currentTarget.dataset.tab;
+    this.setData({
+      currentTab: tab
+    });
   },
 
   /**
@@ -196,6 +326,11 @@ Page({
     } catch (e) {
       console.error('缓存通知数据失败：', e);
     }
+  },
+
+  // 获取需要弹窗提醒的消息
+  getPopupNotifications() {
+    return this.data.popupNotifications.filter(item => !item.isRead);
   },
 
   /**
@@ -226,9 +361,15 @@ Page({
   fetchAndCacheNotifications() {
     // 获取最新公告消息
     this.getAnnouncementNotifications().then(result => {
+      // 按类型分类消息
+      const popupNotifications = result.filter(item => item.type === 'popup');
+      const normalNotifications = result.filter(item => item.type !== 'popup');
+
       // 更新缓存
       const newData = {
         announcementNotifications: result,
+        popupNotifications,
+        normalNotifications,
         timestamp: Date.now() // 更新时间戳
       };
 

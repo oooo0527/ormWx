@@ -1,30 +1,120 @@
 <!-- packageA/noteList/noteList.wxml -->
-<view class="notification-container">
-  <!-- 页面标题 -->
-  <view class="page-header">
-    <text class="page-title">消息通知</text>
-  </view>
-  <!-- 消息列表 -->
-  <scroll-view class="notification-list" scroll-y="true">
-    <block wx:for="{{announcementNotifications}}" wx:key="index">
-      <view class="notification-item announcement" bindtap="navigateToAnnouncement" data-id="{{item.id}}">
-        <view class="notification-header">
-          <image class="avatar" src="{{item.adminAvatar}}"></image>
-          <view class="user-info">
-            <text class="username">{{item.adminName}}</text>
-            <text class="action">发布了新公告</text>
-          </view>
-          <text class="time">{{item.time}}</text>
+<global-background>
+  <custom-navbar title="通知" showBack="{{true}}" showHome="{{false}}"></custom-navbar>
+  <view class="container" style="margin-top: {{navBarHeight}}px;height:calc(100vh - {{navBarHeight}}px);">
+    <view class="notification-container">
+      <!-- 消息分类标签 -->
+      <view class="notification-tabs">
+        <view class="tab-item {{currentTab == 'all' ? 'active' : ''}}" bindtap="switchTab" data-tab="all">
+          <text>全部</text>
+          <view class="tab-badge" wx:if="{{getUnreadCount() > 0}}">{{getUnreadCount()}}</view>
         </view>
-        <view class="notification-content">
-          <text class="content-text">{{item.title}}</text>
+        <view class="tab-item {{currentTab == 'popup' ? 'active' : ''}}" bindtap="switchTab" data-tab="popup">
+          <text>弹窗提醒</text>
+          <view class="tab-badge" wx:if="{{popupNotificationsUnreadCount > 0}}">
+            {{popupNotificationsUnreadCount}}
+          </view>
+        </view>
+        <view class="tab-item {{currentTab == 'normal' ? 'active' : ''}}" bindtap="switchTab" data-tab="normal">
+          <text>普通通知</text>
+          <view class="tab-badge" wx:if="{{normalNotificationsUnreadCount > 0}}">
+            {{normalNotificationsUnreadCount}}
+          </view>
         </view>
       </view>
-    </block>
-    <!-- 空状态 -->
-    <view class="empty-state" wx:if="{{!announcementNotifications.length}}">
-      <image class="empty-icon" src="/images/no-notification.png"></image>
-      <text class="empty-text">暂无消息通知</text>
+      <!-- 消息列表 -->
+      <scroll-view class="notification-list" scroll-y="true">
+        <!-- 全部消息 -->
+        <block wx:if="{{currentTab == 'all'}}">
+          <block wx:for="{{announcementNotifications}}" wx:key="id">
+            <view class="notification-item {{item.type == 'popup' ? 'popup' : 'normal'}}" bindtap="showNotificationDetail" data-id="{{item.id}}">
+              <view class="notification-header">
+                <view class="user-info">
+                  <text class="username">{{item.adminName}}</text>
+                  <text class="action">{{item.type == 'popup' ? '重要提醒' : '消息通知'}}</text>
+                  <view class="notification-type" wx:if="{{item.type == 'popup'}}">
+                    <text class="type-text">弹窗</text>
+                  </view>
+                </view>
+                <text class="time">{{item.time}}</text>
+              </view>
+              <view class="notification-content">
+                <text class="content-text">{{item.title}}</text>
+              </view>
+              <view class="notification-status" wx:if="{{!item.isRead}}">
+                <view class="unread-dot"></view>
+              </view>
+            </view>
+          </block>
+        </block>
+        <!-- 弹窗提醒消息 -->
+        <block wx:if="{{currentTab == 'popup'}}">
+          <block wx:for="{{popupNotifications}}" wx:key="id">
+            <view class="notification-item popup" bindtap="showNotificationDetail" data-id="{{item.id}}">
+              <view class="notification-header">
+                <view class="user-info">
+                  <text class="username">{{item.adminName}}</text>
+                  <text class="action">重要提醒</text>
+                  <view class="notification-type">
+                    <text class="type-text">弹窗</text>
+                  </view>
+                </view>
+                <text class="time">{{item.time}}</text>
+              </view>
+              <view class="notification-content">
+                <text class="content-text">{{item.title}}</text>
+              </view>
+              <view class="notification-status" wx:if="{{!item.isRead}}">
+                <view class="unread-dot"></view>
+              </view>
+            </view>
+          </block>
+        </block>
+        <!-- 普通通知消息 -->
+        <block wx:if="{{currentTab == 'normal'}}">
+          <block wx:for="{{normalNotifications}}" wx:key="id">
+            <view class="notification-item normal" bindtap="showNotificationDetail" data-id="{{item.id}}">
+              <view class="notification-header">
+                <view class="user-info">
+                  <text class="username">{{item.adminName}}</text>
+                  <text class="action">消息通知</text>
+                </view>
+                <text class="time">{{item.time}}</text>
+              </view>
+              <view class="notification-content">
+                <text class="content-text">{{item.title}}</text>
+              </view>
+              <view class="notification-status" wx:if="{{!item.isRead}}">
+                <view class="unread-dot"></view>
+              </view>
+            </view>
+          </block>
+        </block>
+        <!-- 空状态 -->
+        <view class="empty-state" wx:if="{{(currentTab == 'all' && !announcementNotifications.length) || (currentTab == 'popup' && !popupNotifications.length) || (currentTab == 'normal' && !normalNotifications.length)}}">
+          <image class="empty-icon" src="/images/no-notification.png"></image>
+          <text class="empty-text">暂无消息通知</text>
+        </view>
+      </scroll-view>
+      <!-- 消息详情弹窗 -->
+      <view class="notification-popup" wx:if="{{showNotificationPopup}}">
+        <view class="popup-overlay" bindtap="hideNotificationPopup"></view>
+        <view class="popup-content">
+          <view class="popup-header">
+            <text class="popup-title">{{currentNotification.title}}</text>
+          </view>
+          <view class="popup-body">
+            <view class="popup-sender">
+              <text class="sender-name">{{currentNotification.adminName}}</text>
+              <text class="send-time">{{currentNotification.time}}</text>
+            </view>
+            <view class="popup-content-text">{{currentNotification.content}}</view>
+          </view>
+          <view class="popup-footer">
+            <button class="popup-btn" bindtap="hideNotificationPopup">确定</button>
+          </view>
+        </view>
+      </view>
     </view>
-  </scroll-view>
-</view>
+  </view>
+</global-background>

@@ -68,14 +68,11 @@
 }
 
 .popup-content {
+  width: 90%;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-
-  width: 90%;
-  /* width: 100%; */
-  height: 70vh;
   background: #ffffff;
   border-radius: 20rpx;
   box-shadow: 0 10rpx 30rpx rgba(0, 0, 0, 0.2);
@@ -1073,4 +1070,127 @@
     font-size: 16rpx;
     bottom: -25px;
   }
+}
+
+/* 每日弹窗提醒样式 */
+.daily-notification-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.daily-notification-popup .popup-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.daily-notification-popup .popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30rpx;
+  border-bottom: 1rpx solid #eee;
+  background: #f8f8f8;
+}
+
+.daily-notification-popup .popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333333;
+}
+
+.daily-notification-popup .close-btn {
+  font-size: 40rpx;
+  color: #999999;
+  padding: 10rpx;
+  cursor: pointer;
+}
+
+.daily-notification-popup .popup-body {
+  padding: 30rpx;
+  max-height: 40vh;
+  overflow-y: auto;
+}
+
+.daily-notification-popup .notification-item {
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.daily-notification-popup .notification-item:last-child {
+  border-bottom: none;
+}
+
+.daily-notification-popup .notification-content {
+  margin-bottom: 10rpx;
+}
+
+.daily-notification-popup .notification-title {
+  display: block;
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333333;
+  margin-bottom: 8rpx;
+}
+
+.daily-notification-popup .notification-desc {
+  display: block;
+  font-size: 26rpx;
+  color: #666666;
+  line-height: 1.4;
+}
+
+.daily-notification-popup .notification-meta {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.daily-notification-popup .notification-time {
+  font-size: 22rpx;
+  color: #999999;
+}
+
+.daily-notification-popup .no-notifications {
+  text-align: center;
+  padding: 40rpx 0;
+  color: #999999;
+  font-size: 28rpx;
+}
+
+.daily-notification-popup .popup-footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 20rpx 30rpx 30rpx;
+  border-top: 1rpx solid #eee;
+}
+
+.daily-notification-popup .view-all-btn {
+  flex: 1;
+  margin: 0 10rpx;
+  padding: 20rpx;
+  border-radius: 10rpx;
+  font-size: 28rpx;
+  color: #333333;
+  background: #f0f0f0;
+  border: 1rpx solid #ddd;
+}
+
+.daily-notification-popup .view-all-btn.primary {
+  background: #333333;
+  color: #ffffff;
+  border: 1rpx solid #333333;
+}
+
+.daily-notification-popup .view-all-btn::after {
+  border: none;
 }
