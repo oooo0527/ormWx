@@ -277,6 +277,19 @@
   color: #333333;
 }
 
+.textarea {
+  width: 100%;
+  padding: 20rpx;
+  border: 2rpx solid rgba(0, 0, 0, 0.2);
+  border-radius: 15rpx;
+  font-size: 28rpx;
+  box-sizing: border-box;
+  background: rgba(255, 255, 255, 0.8);
+  color: #333333;
+  min-height: 200rpx;
+  line-height: 1.5;
+}
+
 .modal-footer {
   display: flex;
   padding: 30rpx;

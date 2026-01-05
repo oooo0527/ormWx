@@ -7,9 +7,13 @@
       </button>
       <text class="nickname">{{ormkornnaphat.title}}</text>
       <view class="action-buttons">
-        <button class="action-btn background-btn">
+        <button class="action-btn background-btn" bindtap="openEditModal">
           <image class="action-icon" src="/images/profile/upload.svg" lazy-load></image>
           <text>DIY</text>
+        </button>
+        <button class="action-btn edit-btn" bindtap="openNameListEditModal">
+          <image class="action-icon" src="/images/profile/edit.svg" lazy-load></image>
+          <text>编辑标签</text>
         </button>
       </view>
       <view class="menueList-content">
@@ -20,10 +24,29 @@
     </view>
     <view class="spacer">
       <movable-area class="movable-area">
-        <movable-view direction="all" scale-area="true" class="movable-view" wx:for="{{nameList}}" wx:key="index" :x="{{index+20}}" y="0">
+        <movable-view direction="all" scale-area="true" class="movable-view" wx:for="{{ customNameList}}" wx:key="index" :x="{{index+20}}" y="0">
           {{item}}
         </movable-view>
       </movable-area>
+    </view>
+    <!-- 编辑 nameList 弹窗 -->
+    <view class="modal" wx:if="{{showEditModal}}" bindtap="closeModal">
+      <view class="modal-content" catch:tap="stopPropagation">
+        <view class="modal-header">
+          <text class="modal-title">编辑标签列表</text>
+          <image class="close-btn" src="/images/profile/close.svg" bindtap="closeModal" lazy-load></image>
+        </view>
+        <view class="modal-body">
+          <view class="input-group">
+            <text class="input-label">输入自定义标签（用逗号分隔）</text>
+            <textarea class="textarea" placeholder="例如：ORM,KORN,NAPAT,❤️,💜,😍" value="{{currentList}}" bindinput="onNameListInput" auto-height="{{true}}"></textarea>
+          </view>
+        </view>
+        <view class="modal-footer">
+          <button class="cancel-btn" bindtap="closeModal">取消</button>
+          <button class="confirm-btn" bindtap="saveNameList">保存</button>
+        </view>
+      </view>
     </view>
   </view>
 </global-background>
