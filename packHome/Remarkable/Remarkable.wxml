@@ -1,5 +1,5 @@
 <global-background>
-  <custom-navbar title="为你骄傲" backgroundColor='#ffffff' showBack="{{true}}" showHome="{{false}}"></custom-navbar>
+  <custom-navbar title="为你骄傲" backgroundColor='black' showBack="{{true}}" showHome="{{false}}"></custom-navbar>
   <!-- 高端荣耀殿堂页面 -->
   <view class="remarkable-container" style="margin-top: {{navBarHeight}}px;min-height:calc(100vh - {{navBarHeight}}px);">
     <!-- 顶部豪华标题区 -->

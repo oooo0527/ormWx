@@ -73,6 +73,7 @@
   height: 200rpx;
   width: 100%;
   translate: 180deg;
+  border-radius: 20rpx;
   /* margin-top: -180rpx; */
 }
 
@@ -80,6 +81,7 @@
   height: 200rpx;
   width: 100%;
   margin-top: -180rpx;
+  border-radius: 20rpx;
 }
 
 /* 菜单文字样式 */
@@ -102,7 +104,7 @@
   /* 添加换行处理 */
   word-break: break-word;
   line-height: 1.2;
-  width: 80%;
+  width: 85%;
   border: 2px solid black;
   box-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.8);
   border-radius: 10rpx;
@@ -319,6 +321,40 @@
   background-image: linear-gradient(to top, #cc208e 0%, #6713d2 100%);
 }
 
+
+/* 不同颜色的弹窗样式 */
+.popup-container.red {
+  background: linear-gradient(to bottom, #f43b47 0%, #453a94 100%);
+}
+
+.popup-container.yellow {
+  background: linear-gradient(135deg, #ffe156, #ffc400, #616e02);
+}
+
+.popup-container.black {
+  background: linear-gradient(to bottom, #a8caba 0%, #080808 100%);
+}
+
+.popup-container.pink {
+  background: linear-gradient(to top, #d299c2 0%, #fef9d7 100%);
+}
+
+.popup-container.orange {
+  background: linear-gradient(to right, #f83600 0%, #f9d423 100%);
+}
+
+.popup-container.blue {
+  background: linear-gradient(to right, #0acffe 0%, #495aff 100%);
+}
+
+.popup-container.green {
+  background: linear-gradient(to top, #30cfd0 0%, #330867 100%);
+}
+
+.popup-container.purple {
+  background: linear-gradient(to top, #cc208e 0%, #6713d2 100%);
+}
+
 /* 中间内容区域 */
 .middle-content {
   flex: 1;
@@ -429,11 +465,12 @@
   flex-direction: row;
   /* gap: 20rpx; */
   width: 100%;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
   /* border: 2px solid red; */
   height: 400rpx;
   overflow-x: scroll;
   align-items: center;
+  /* width: 350rpx; */
 
 
 }
@@ -451,11 +488,11 @@
   /* background: rgba(255, 255, 255, 0.2); */
   /* text-align: center; */
   /* transition: all 0.3s ease; */
-  padding: 20rpx;
+  padding: 10rpx;
   /* border: 2rpx solid rgba(68, 67, 67, 0.3); */
-  width: 300rpx;
+  /* width: 400rpx !important; */
   height: 220rpx;
-  border-radius: 20rpx;
+  border-radius: 10rpx;
   /* overflow: hidden; */
   margin-right: 40rpx;
   box-shadow: 0 10rpx 30rpx rgb(235, 233, 233);
@@ -468,17 +505,13 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   /* background: #ffffff; */
   padding: 20rpx;
   box-shadow: 0 10rpx 30rpx rgba(235, 233, 233, 0.3);
   /* align-items: center; */
 }
 
-.popup-option:active {
-  transform: scale(0.95);
-  background: rgba(255, 255, 255, 0.3);
-}
 
 .option-auth {
   font-size: 38rpx;
@@ -489,57 +522,25 @@
 
 .option-text {
 
-  width: 100%;
-  font-size: 28rpx;
+  /* width: 200rpx; */
+  /* max-width: 300rpx; */
+  font-size: 30rpx;
   /* height: 20%; */
-  color: #050505;
+  color: #ffffff;
   font-weight: 500;
-  height: 30rpx;
+  /* height: 30rpx;  */
   line-height: 30rpx;
-  word-wrap: break-word;
-  overflow: hidden;
+  text-align: center;
+  margin-bottom: 20rpx;
 
 }
 
 .option-des {
+  width: 100%;
   font-size: 24rpx;
   color: #0f0c0c;
-  word-wrap: break-word;
+  /* word-wrap: break-word; */
 
   line-height: 24rpx;
-  text-align: center;
-}
-
-
-/* 不同颜色的弹窗样式 */
-.popup-container.red {
-  background: linear-gradient(to bottom, #f43b47 0%, #453a94 100%);
-}
-
-.popup-container.yellow {
-  background: linear-gradient(135deg, #ffe156, #ffc400, #616e02);
-}
-
-.popup-container.black {
-  background: linear-gradient(to bottom, #a8caba 0%, #080808 100%);
-}
-
-.popup-container.pink {
-  background: linear-gradient(to top, #d299c2 0%, #fef9d7 100%);
-}
-
-.popup-container.orange {
-  background: linear-gradient(to right, #f83600 0%, #f9d423 100%);
-}
-
-.popup-container.blue {
-  background: linear-gradient(to right, #0acffe 0%, #495aff 100%);
-}
-
-.popup-container.green {
-  background: linear-gradient(to top, #30cfd0 0%, #330867 100%);
-}
-
-.popup-container.purple {
-  background: linear-gradient(to top, #cc208e 0%, #6713d2 100%);
+  /* text-align: center; */
 }

@@ -1,10 +1,10 @@
 {
   "pages": [
+    "pages/index/index",
     "pages/workRecommend/workRecommend",
     "pages/workDetail/workDetail",
     "pages/profile/profile",
     "pages/Home/Home",
-    "pages/index/index",
     "pages/interaction/interaction",
     "pages/interactionDetail/interactionDetail"
   ],

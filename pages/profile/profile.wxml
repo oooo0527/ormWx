@@ -7,10 +7,6 @@
       </button>
       <text class="nickname">{{ormkornnaphat.title}}</text>
       <view class="action-buttons">
-        <button class="action-btn background-btn" bindtap="openEditModal">
-          <image class="action-icon" src="/images/profile/upload.svg" lazy-load></image>
-          <text>DIY</text>
-        </button>
         <button class="action-btn edit-btn" bindtap="openNameListEditModal">
           <image class="action-icon" src="/images/profile/edit.svg" lazy-load></image>
           <text>编辑标签</text>

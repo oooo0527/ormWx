@@ -11,7 +11,7 @@
     </view>
     <image class="image" src="./gina.jpg" mode="widthFix" wx:if="{{pageDetail.imgUrl}}"></image>
     <view class="body" wx:else>
-      <view class="content" wx:for="{{pageDetail.text}}" wx:key="index">{{item}}</view>
+      <view class="content1" wx:for="{{pageDetail.text}}" wx:key="index">{{item}}</view>
     </view>
   </view>
 </global-background>

@@ -101,10 +101,6 @@
   <view class="daily-notification-popup" wx:if="{{showNotificationPopup}}">
     <view class="popup-overlay" bindtap="hideNotificationPopup"></view>
     <view class="popup-content">
-      <view class="popup-header">
-        <text class="popup-title">重要提醒</text>
-        <view class="close-btn" bindtap="hideNotificationPopup">×</view>
-      </view>
       <view class="popup-body">
         <view class="notification-item" wx:for="{{notificationList}}" wx:key="id" data-index="{{index}}">
           <view class="notification-content">
