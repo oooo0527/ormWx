@@ -483,17 +483,7 @@
   }
 }
 
-.spacer {
-  width: 100%;
-  height: 100rpx;
-  color: #E9E8EF;
-  padding: 0 30rpx;
-}
 
-.movable-area {
-  width: 100%;
-  height: 100rpx;
-}
 
 
 .menu-icon {
@@ -551,6 +541,7 @@
   background: #2a2929;
   opacity: 0.7;
   padding: 10rpx;
+  color: #ffffff;
 }
 
 .list-item-text {

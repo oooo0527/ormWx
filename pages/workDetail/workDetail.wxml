@@ -5,7 +5,7 @@
     <view class="content">
       <!-- 作品封面 -->
       <view class="work-cover-container">
-        <image class="work-cover" src="{{work.cover}}" mode="aspectFill"></image>
+        <image class="work-cover" src="{{work.cover}}" mode="widthFix"></image>
         <view class="cover-overlay"></view>
         <!-- 类型标签 -->
         <view class="work-type-badge {{work.type === '电影' ? 'movie-badge' : work.type === '电视剧' ? 'tv-badge' : 'publicity-badge'}}">

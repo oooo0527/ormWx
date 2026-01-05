@@ -61,13 +61,6 @@
         <image src="cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/Home3.jpg" mode="widthFix" class="banner-image"></image>
       </swiper-item>
     </swiper>
-    <view class="spacer" wx:if="{{false}}">
-      <movable-area class="movable-area">
-        <movable-view direction="all" scale-area="true" class="movable-view" wx:for="{{nameList}}" wx:key="index" :x="{{index+20}}" y="0">
-          {{item}}
-        </movable-view>
-      </movable-area>
-    </view>
   </view>
   <view class="conten-box-bg">
     <view class="content" wx:if="{{false}}">

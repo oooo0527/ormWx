@@ -1,6 +1,6 @@
 <global-background>
   <custom-navbar title="煎蛋卷" showBack="{{false}}" showHome="{{false}}"></custom-navbar>
-  <view class="container" style="margin-top: {{navBarHeight}}px;min-height:calc(100vh - {{navBarHeight}}px);">
+  <view class="container" style="margin-top: {{navBarHeight}}px;height:calc(100vh - {{navBarHeight}}px);">
     <view class="profile-card">
       <button class="avatar-wrapper">
         <image class="avatar" src="{{ormkornnaphat.image}}" lazy-load></image>
@@ -17,6 +17,13 @@
           <view>{{item.title}}</view>
         </view>
       </view>
+    </view>
+    <view class="spacer">
+      <movable-area class="movable-area">
+        <movable-view direction="all" scale-area="true" class="movable-view" wx:for="{{nameList}}" wx:key="index" :x="{{index+20}}" y="0">
+          {{item}}
+        </movable-view>
+      </movable-area>
     </view>
   </view>
 </global-background>

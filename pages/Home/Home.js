@@ -1,7 +1,7 @@
 Page({
   data: {
     selectedStar: null,
-    nameList: ['ORM', 'KORN', 'NAPAT'],
+
     // 菜单信息 - 将从后台获取
     menuList: [],
     contentList: [],

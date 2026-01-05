@@ -5,6 +5,7 @@ const { createPage } = require('../../utils/basePage.js');
 createPage({
   data: {
     ormkornnaphat: {},
+    nameList: ['ORM', 'KORN', 'NAPAT', "❤️", "💜", "😍", "(❁´◡`❁)", "(●'◡'●)", "☆*", " o(≧▽≦)o", "(*/ω＼*)", "😘", "🥰", "😍", "🎈", "✨", "🍬", "🍼"],
 
     menueList: [
       {

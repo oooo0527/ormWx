@@ -15,12 +15,12 @@
       <view class="entrance-container">三搭入口</view>
     </view>
     <!-- 斜着的横幅分割 -->
-    <view class="banner-divider">ormkornnaphat</view>
+    <view class="banner-divider">ormkornnaphat               ormkornnaphat</view>
     <!-- 下部区域 - 作品轮播图 -->
     <view class="lower-section">
       <!-- 多重叠加轮播图 -->
       <view class="multi-carousel-container">
-        <swiper class="multi-carousel" indicator-dots="true" autoplay="true" circular="true" bindchange="onCarouselChange" current="{{currentCarousel}}" previous-margin="100rpx" next-margin="100rpx" display-multiple-items="3">
+        <swiper class="multi-carousel" indicator-dots="false" autoplay="false" circular="false" bindchange="onCarouselChange" current="{{currentCarousel}}" previous-margin="100rpx" next-margin="100rpx" display-multiple-items="3">
           <block wx:for="{{works}}" wx:key="id">
             <swiper-item class="carousel-item">
               <view class="work-card {{index === currentCarousel ? 'active' : ''}}" data-index="{{index}}" bindtap="onCardTap">
@@ -36,9 +36,8 @@
         </swiper>
         <!-- 装饰性背景元素 -->
         <view class="decorative-elements">
-          <view class="element circle"></view>
-          <view class="element triangle"></view>
-          <view class="element square"></view>
+          <view class="element-circle">Kornnaphat之前叫Norrawan</view>
+          <view class="element-triangle">不想仅当个明星，还想成为一名有优秀的演员，希望能有机会展示更多演技，还在寻找一个更具挑战性的角色。</view>
         </view>
       </view>
     </view>
