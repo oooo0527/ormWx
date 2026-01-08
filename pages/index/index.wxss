@@ -12,11 +12,14 @@
 }
 
 .login-foot {
+  position: relative;
   /* height: 5%; */
   width: 100%;
   text-align: right;
   padding-right: 80rpx;
   color: #a7c3f7;
+  z-index: 999;
+  padding-top: 20rpx;
   /* background: #f5f5f5; */
   /* line-height: 5%; */
 }
@@ -87,6 +90,10 @@
   height: 100%;
   /* height: calc(100vh - 480rpx); */
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
   /* position: absolute; */
   /* bottom: 0; */
   /* display: flex; */
@@ -141,30 +148,6 @@
   top: 50rpx;
 }
 
-/* 气泡尾部 */
-/* .display-image-container-text1::after {
-  content: '';
-  position: absolute;
-  bottom: -15px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0;
-  height: 0;
-  border-left: 12px solid transparent;
-  border-right: 12px solid transparent;
-  border-top: 15px solid #4CAF50;
-} */
-
-/* 气泡内文字样式 */
-.bubble-text {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  white-space: pre-line;
-  text-align: center;
-  font-size: 18rpx;
-}
 
 /* 脉动动画效果 */
 @keyframes pulse {
@@ -185,26 +168,110 @@
 }
 
 .display-image {
-  height: 100%;
-  /* width: 100vw; */
-  position: absolute;
-  left: 80rpx;
-
-  z-index: 99;
   width: 255rpx;
   height: 635rpx;
-  bottom: 150rpx;
+  position: absolute;
+  bottom: 480rpx;
+  /* position: relative; */
+  /* z-index: 1; */
+  scale: 0.7;
+}
+
+
+
+.image-display {
+
+  background: #e7e7e733;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20rpx;
+  width: 90%;
+  /* padding: 20rpx; */
+  box-sizing: border-box;
+  border-radius: 30rpx;
+  margin: 0 auto;
+  box-shadow: 0 8px 20px rgba(6, 6, 6, 0.856);
+  /* background: #fbe7eb; */
+  padding: 30rpx;
+  height: 600rpx;
+  /* border: 6rpx dashed black; */
 
 }
 
+.bubble-text {
+  width: 100%;
+  height: 100rpx;
+  line-height: 100rpx;
+  text-align: center;
+  /* font-weight: 600; */
+  font-size: 36rpx;
+  box-shadow: 0 4px 4px rgba(3, 3, 3, 0.945);
+  border-bottom-left-radius: 20rpx;
+  border-bottom-right-radius: 20rpx;
+  background: rgb(55, 24, 31);
+  color: #E9E8EF;
+  /* opacity: 1; */
+  z-index: 100;
+}
+
+.bubble-text1 {
+  padding-top: 100rpx;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  line-height: 100rpx;
+  color: #E9E8EF;
+  font-weight: 600;
+  /* opacity: 1; */
+  z-index: 100;
+}
+
+.image-display1 {
+  display: flex;
+  margin: 50rpx 0;
+  flex-wrap: wrap;
+}
+
+.text-item1 {
+  /* width: 100%; */
+  height: 120rpx;
+  width: 120rpx;
+  border-radius: 120rpx;
+  display: block;
+  margin: 0 auto;
+
+}
+
+/* 第10个元素（第四排的第1个）单独处理 */
+.text-item:nth-child(10) {
+  grid-column: span 3;
+  max-width: 100%;
+  justify-self: center;
+  /* 居中显示单个项目 */
+}
+
+
+.text-item {
+  /* width: 100%; */
+  height: 120rpx;
+  width: 120rpx;
+  border-radius: 120rpx;
+  display: block;
+  margin: 0 auto;
+  z-index: 100;
+}
+
 .display-image2 {
-  height: 100%;
+  height: 100vh;
   /* width: 100vw; */
   position: absolute;
-  left: 0;
+  /* left: 0; */
   /* z-index: 97; */
   width: 100%;
-  opacity: 0.7;
+  opacity: 0.8;
   /* bottom: 150rpx; */
 
 
@@ -233,15 +300,6 @@
 
 }
 
-.display-image1 {
-  width: 686rpx;
-  height: 310rpx;
-  /* width: 100vw; */
-  position: absolute;
-  bottom: 20rpx;
-  z-index: 98;
-
-}
 
 .title {
   font-size: 16px;
@@ -399,4 +457,23 @@
   height: 2rpx;
   background-color: #eee;
   margin: 20rpx 0;
+}
+
+/* 点击动画效果 */
+.click-animation {
+  animation: clickScale 0.5s ease-in-out;
+}
+
+@keyframes clickScale {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }

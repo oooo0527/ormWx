@@ -35,10 +35,15 @@ Page({
     // 四个数字框的值，初始为0
     numbers: [0, 0, 0, 0],
     Clickindex: 0,
-    fullText: ['萨瓦迪카', 'สวัสดี~', '人生只有三万天', 'ชีวิตมีเพียง 30,000 วัน', '希望所有不好的事情尽快过去', 'ขอให้เรื่องร้ายๆ ผ่านไปเร็วๆ', 'orm希望你能勇敢地做自己', 'orm หวังว่าคุณจะเป็นตัวของตัวเองได้อย่างกล้าหาญ', '祝大家每天都开心，幸福，平静，舒心', 'ขอให้ทุกคนมีความสุข ความยินดี ความสงบสุข และความสบายใจในทุกๆ วัน', '我爱你们~  i love you~'],
+    fullText: ['cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/FC/382d1b35bd8ace665ce707f7187e62cf.jpg', 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/FC/417858952cd59a30b0595a02af6b79a1.jpg', 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/FC/5226b16fd4d1fafeadd68195d1e67b4d.jpg', 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/FC/694a01d85f65060bcfe5b31c2fedcd43.jpg', 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/FC/78e2188c61934fa869136726110523b6.jpg', 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/FC/8a2083f70fd31b453710751e9de060da.jpg', 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/FC/adbdd025012274757d315130e0e05c08.jpg', 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/FC/b55eafaa6e5527a63fe9be0056fcb0d6.jpg', 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/FC/e292e8fa69e5eb10d19afbc18820ccab.jpg', 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/FC/e292e8fa69e5eb10d19afbc18820ccab.jpg', 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/FC/e292e8fa69e5eb10d19afbc18820ccab.jpg'],
     displayedText: [],
     textIndex: 0,
     timer: null,
+    // 用于跟踪图片点击顺序
+    clickSequence: [],
+    targetSequence: [9, 4, 1, 6], // 目标点击顺序
+    // 点击动画状态
+    clickAnimation: [],
     // 时间相关数据
     currentTime: new Date(),
     hours: 0, // 将在onLoad中初始化为当前小时
@@ -372,6 +377,95 @@ Page({
         });
       }
     }
+  },
 
+  // 图片点击事件处理函数
+  onTextImageClick: function (e) {
+    const clickedIndex = e.currentTarget.dataset.index;
+    console.log('点击了图片索引:', clickedIndex);
+
+    // 触发点击动画
+    this.triggerClickAnimation(clickedIndex);
+
+    // 将点击的索引添加到点击序列中
+    const newClickSequence = [...this.data.clickSequence, parseInt(clickedIndex)];
+
+    this.setData({
+      clickSequence: newClickSequence
+    });
+
+    console.log('当前点击序列:', newClickSequence);
+
+    // 检查是否与目标序列匹配
+    const targetSequence = this.data.targetSequence;
+
+    // 如果当前点击序列长度超过目标序列，重置
+    if (newClickSequence.length > targetSequence.length) {
+      this.setData({
+        clickSequence: [parseInt(clickedIndex)]
+      });
+      console.log('序列重置，当前点击:', clickedIndex);
+      return;
+    }
+
+    // 检查当前序列是否与目标序列的前几位匹配
+    let isMatch = true;
+    for (let i = 0; i < newClickSequence.length; i++) {
+      if (newClickSequence[i] !== targetSequence[i]) {
+        isMatch = false;
+        break;
+      }
+    }
+
+    if (isMatch) {
+      // 如果完全匹配目标序列，跳转到Home页面
+      if (newClickSequence.length === targetSequence.length) {
+        console.log('成功匹配目标序列，跳转到Home页面');
+        wx.switchTab({
+          url: '/pages/Home/Home'
+        });
+
+        // 重置点击序列
+        this.setData({
+          clickSequence: []
+        });
+      }
+    } else {
+      // 如果不匹配，重置点击序列并从当前点击开始
+      this.setData({
+        clickSequence: [parseInt(clickedIndex)]
+      });
+      console.log('序列不匹配，重置并从当前点击开始:', clickedIndex);
+    }
+  },
+
+  // 触发点击动画
+  triggerClickAnimation: function (index) {
+    // 创建动画数组副本
+    let newClickAnimation = [...this.data.clickAnimation];
+
+    // 确保数组长度足够
+    while (newClickAnimation.length <= index) {
+      newClickAnimation.push(false);
+    }
+
+    // 设置当前索引为true，触发动画
+    newClickAnimation[index] = true;
+
+    this.setData({
+      clickAnimation: newClickAnimation
+    });
+
+    // 500毫秒后移除动画类
+    setTimeout(() => {
+      let resetClickAnimation = [...this.data.clickAnimation];
+      if (resetClickAnimation.length > index) {
+        resetClickAnimation[index] = false;
+      }
+
+      this.setData({
+        clickAnimation: resetClickAnimation
+      });
+    }, 500);
   }
 });

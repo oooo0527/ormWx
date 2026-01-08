@@ -8,6 +8,7 @@
 }
 
 .spacer {
+  margin-top: 40rpx;
   width: 100%;
   height: 500rpx;
   color: #E9E8EF;
@@ -23,38 +24,31 @@
 
 .profile-card {
   background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(10rpx);
+  /* backdrop-filter: blur(10rpx); */
   border-radius: 30rpx;
   /* padding: 50rpx 40rpx; */
   width: 100%;
   box-shadow: 0 8rpx 30rpx rgba(0, 0, 0, 0.1);
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   align-items: center;
   margin-bottom: 30rpx;
   box-sizing: border-box;
   border: 2rpx solid rgba(0, 0, 0, 0.1);
   position: relative;
   overflow: hidden;
+  padding: 10rpx 30rpx;
+  justify-content: space-between;
 }
 
-.profile-card::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
-  z-index: -1;
-}
+
 
 .avatar-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 60rpx 0;
+  margin: 10rpx 0;
   width: 180rpx;
   height: 180rpx;
   border-radius: 50%;
@@ -88,58 +82,24 @@
 
 /* 操作按钮 */
 .action-buttons {
-  display: flex;
-  gap: 30rpx;
+  margin-top: 40rpx;
   width: 100%;
-  box-sizing: border-box;
-  margin: 40rpx 0;
-}
 
-.action-btn {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   padding: 25rpx;
   border-radius: 20rpx;
-  background: rgba(245, 245, 245, 0.9);
-  color: #333333;
+  background: rgba(2, 2, 2, 0.9);
+  color: #f8f7f7;
   font-size: 28rpx;
   box-sizing: border-box;
   border: 2rpx solid rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
 }
 
-.action-btn:active {
+
+.action-buttons:active {
   transform: scale(0.95);
   background: rgba(230, 230, 230, 0.9);
   box-shadow: 0 0 20rpx rgba(0, 0, 0, 0.1);
-}
-
-.action-icon {
-  width: 50rpx;
-  height: 50rpx;
-  margin-bottom: 15rpx;
-  filter: drop-shadow(0 2rpx 4rpx rgba(0, 0, 0, 0.1));
-}
-
-.edit-btn {
-  background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
-  color: #333333;
-  border: 2rpx solid rgba(0, 0, 0, 0.1);
-}
-
-.background-btn {
-  background: linear-gradient(135deg, #f0f0f0 0%, #d0d0d0 100%);
-  color: #333333;
-  border: 2rpx solid rgba(0, 0, 0, 0.1);
-}
-
-.logout-btn {
-  background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
-  color: #333333;
-  border: 2rpx solid rgba(0, 0, 0, 0.1);
 }
 
 /* 菜单列表 */
@@ -212,8 +172,8 @@
 
 .modal-content {
   background: rgba(255, 255, 255, 0.95);
-  border-radius: 30rpx;
-  width: 85%;
+  border-radius: 8rpx;
+  width: 90%;
   max-width: 650rpx;
   overflow: hidden;
   box-sizing: border-box;
@@ -245,7 +205,7 @@
 }
 
 .modal-body {
-  padding: 30rpx;
+  padding: 20rpx;
   box-sizing: border-box;
 }
 
@@ -292,7 +252,7 @@
 
 .modal-footer {
   display: flex;
-  padding: 30rpx;
+  padding: 20rpx;
   gap: 20rpx;
   box-sizing: border-box;
 }
@@ -300,8 +260,8 @@
 .cancel-btn,
 .confirm-btn {
   flex: 1;
-  padding: 25rpx;
-  border-radius: 50rpx;
+  padding: 10rpx;
+  border-radius: 8rpx;
   font-size: 28rpx;
   border: none;
   box-sizing: border-box;
@@ -373,10 +333,6 @@
 @media (max-width: 768px) {
   .container {
     padding: 15rpx;
-  }
-
-  .profile-card {
-    padding: 40rpx 30rpx;
   }
 
   .action-buttons {

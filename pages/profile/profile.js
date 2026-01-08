@@ -4,6 +4,7 @@ const { createPage } = require('../../utils/basePage.js');
 // 使用 createPage 创建页面，自动包含导航栏高度处理功能
 createPage({
   data: {
+    customNameListFlag: false,
     ormkornnaphat: {},
     customNameList: ['ORM', 'KORN', 'NAPAT', "❤️", "💜", "😍", "(❁´◡`❁)", "(●'◡'●)", "☆*", " o(≧▽≦)o", "(*/ω＼*)", "😘", "🥰", "😍", "🎈", "✨", "🍬", "🍼"],
     showEditModal: false, // 是否显示编辑弹窗
@@ -95,6 +96,11 @@ createPage({
   onNameListInput(e) {
     this.setData({
       currentList: e.detail.value
+    });
+  },
+  customNameListFlagFn() {
+    this.setData({
+      customNameListFlag: !this.data.customNameListFlag
     });
   },
 

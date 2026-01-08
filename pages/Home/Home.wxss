@@ -536,10 +536,11 @@
   bottom: 0;
   left: 0;
   right: 0;
-  height: 80rpx;
+  height: 50rpx;
   font-size: 24rpx;
+  line-height: 50rpx;
   background: #2a2929;
-  opacity: 0.7;
+  /* opacity: 0.7; */
   padding: 10rpx;
   color: #ffffff;
 }

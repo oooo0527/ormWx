@@ -6,19 +6,19 @@
         <image class="avatar" src="{{ormkornnaphat.image}}" lazy-load></image>
       </button>
       <text class="nickname">{{ormkornnaphat.title}}</text>
-      <view class="action-buttons">
-        <button class="action-btn edit-btn" bindtap="openNameListEditModal">
-          <image class="action-icon" src="/images/profile/edit.svg" lazy-load></image>
-          <text>编辑标签</text>
-        </button>
-      </view>
+    </view>
+    <view>
       <view class="menueList-content">
+        <view class="menueList-list" bindtap="customNameListFlagFn">
+          {{!customNameListFlag?'打开画板':'关闭画板'}}
+        </view>
+        <view class="menueList-list" bindtap="openNameListEditModal">编辑画板</view>
         <view wx:for="{{menueList}}" wx:key="index" bindtap="navigateToPage" data-url="{{item.path}}" class="menueList-list">
           <view>{{item.title}}</view>
         </view>
       </view>
     </view>
-    <view class="spacer">
+    <view class="spacer" wx:if="{{customNameListFlag}}">
       <movable-area class="movable-area">
         <movable-view direction="all" scale-area="true" class="movable-view" wx:for="{{ customNameList}}" wx:key="index" :x="{{index+20}}" y="0">
           {{item}}
