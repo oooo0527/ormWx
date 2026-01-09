@@ -10,7 +10,40 @@ App({
       value: 'linear-gradient(135deg, #0c1117 0%,rgb(247, 243, 245) 100%)', // 高级黑到淡粉渐变
       customImage: '' // 自定义图片路径
     },
-    backgroundChangeListener: null // 背景变化监听器
+    backgroundChangeListener: null, // 背景变化监听器
+
+    // 全局tabBar状态
+    tabBar: {
+      selected: 0, // 默认选中首页
+      color: "#7A7E83",
+      selectedColor: "#f77030",
+      list: [
+        {
+          pagePath: "/pages/Home/Home",
+          iconPath: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/light.png",
+          selectedIconPath: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/relat/orange.png",
+          text: "首页"
+        },
+        {
+          pagePath: "/pages/interaction/interaction",
+          iconPath: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/light.png",
+          selectedIconPath: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/relat/orange.png",
+          text: "互动"
+        },
+        {
+          pagePath: "/pages/workRecommend/workRecommend",
+          iconPath: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/light.png",
+          selectedIconPath: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/relat/orange.png",
+          text: "作品"
+        },
+        {
+          pagePath: "/pages/profile/profile",
+          iconPath: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/light.png",
+          selectedIconPath: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/relat/orange.png",
+          text: "煎蛋卷"
+        }
+      ]
+    }
   },
 
   onLaunch: function () {
@@ -50,5 +83,23 @@ App({
     } else {
       return `background: ${settings.value};`;
     }
+  },
+
+  // 更新tabBar选中状态
+  updateTabBarSelected: function (index) {
+    this.globalData.tabBar.selected = index;
+
+    // 通知自定义tabBar更新
+    const customTabBar = this.globalData.customTabBar;
+    if (customTabBar) {
+      customTabBar.setData({
+        selected: index
+      });
+    }
+  },
+
+  // 设置自定义tabBar实例
+  setCustomTabBar: function (tabBar) {
+    this.globalData.customTabBar = tabBar;
   }
 })

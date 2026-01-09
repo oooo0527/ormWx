@@ -1,10 +1,10 @@
 {
   "pages": [
+    "pages/Home/Home",
     "pages/index/index",
     "pages/workRecommend/workRecommend",
     "pages/workDetail/workDetail",
     "pages/profile/profile",
-    "pages/Home/Home",
     "pages/interaction/interaction",
     "pages/interactionDetail/interactionDetail"
   ],
@@ -17,11 +17,10 @@
   },
   "cloud": true,
   "tabBar": {
+    "custom": true,
     "color": "#ffffff",
     "selectedColor": "#f77030",
-    "borderStyle": "black",
     "backgroundColor": "#000000",
-    "position": "bottom",
     "list": [
       {
         "pagePath": "pages/Home/Home",

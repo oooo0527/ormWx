@@ -1,0 +1,108 @@
+/* custom-tab-bar/index.wxss */
+.tab-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 120rpx;
+  background: #000000;
+  backdrop-filter: blur(10px);
+  border-top: 1px solid rgb(234, 234, 234);
+  z-index: 9999;
+  box-sizing: border-box;
+  padding-bottom: env(safe-area-inset-bottom);
+  box-shadow: 0 -4rpx 20rpx rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  border-top-right-radius: 30rpx;
+  border-top-left-radius: 30rpx;
+  /* overflow: hidden; */
+}
+
+.tab-bar-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 25%;
+  height: 100%;
+  padding: 10rpx 0;
+  position: relative;
+  transition: all 0.3s ease;
+
+}
+
+.tab-bar-item-selected {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60%;
+  width: 60%;
+  background: linear-gradient(to top, #ffffff 60%, transparent 40%);
+  border-radius: 100%;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 1;
+  /* box-shadow: 0 10rpx 20rpx rgba(244, 240, 240); */
+  /* border: 5px solid rgb(234, 234, 234); */
+}
+
+.tab-bar-item-selected::after {
+  position: absolute;
+  content: '';
+  width: 110%;
+  height: 110%;
+  /* background: linear-gradient(to top, #c61010 60%, transparent 40%); */
+  border-bottom: 10rpx solid rgb(247, 245, 245);
+
+  border-radius: 100%;
+
+
+  /* box-shadow: 0 10rpx 20rpx rgba(244, 240, 240); */
+  /* border: 5px solid rgb(234, 234, 234); */
+}
+
+
+
+.tab-bar-item.active {
+  height: 220rpx;
+  transition: all 0.3s ease;
+}
+
+.tab-bar-icon {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  margin-bottom: 20rpx;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 99;
+  scale: 1.2;
+}
+
+.tab-bar-icon1 {
+  width: 44rpx;
+  height: 44rpx;
+  margin-bottom: 6rpx;
+  transition: all 0.3s ease;
+}
+
+.tab-bar-text {
+  text-align: center;
+  font-size: 22rpx;
+  color: #070707;
+  transition: all 0.3s ease;
+  line-height: 1;
+  padding: 8rpx;
+
+}
+
+.tab-bar-text.active {
+  color: #f77030;
+  font-weight: 500;
+  font-size: 24rpx;
+  transition: all 0.3s ease;
+
+}
