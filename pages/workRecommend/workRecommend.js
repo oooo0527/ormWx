@@ -110,11 +110,7 @@ Page({
   onLoad: function () {
     // 页面加载时的初始化操作
   },
-  onShow: function () {
-    // 更新tabBar选中状态
-    const app = getApp();
-    app.updateTabBarSelected(2); // 2 对应作品页面
-  },
+
 
   // 轮播图变化事件
   onCarouselChange: function (e) {

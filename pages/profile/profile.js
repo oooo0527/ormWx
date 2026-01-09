@@ -19,17 +19,6 @@ createPage({
 
   },
 
-  onLoad: function (options) {
-    // 获取app实例
-    const app = getApp();
-    if (app.globalData.ormkornnaphat) {
-      this.setData({
-        ormkornnaphat: app.globalData.ormkornnaphat
-      });
-    }
-
-  },
-
   onShow: function () {
     const app = getApp();
     if (app.globalData.ormkornnaphat && !this.data.ormkornnaphat) {
@@ -37,8 +26,7 @@ createPage({
         ormkornnaphat: app.globalData.ormkornnaphat
       });
     }
-    // 更新tabBar选中状态
-    app.updateTabBarSelected(3); // 3 对应煎蛋卷页面
+
 
     // 从本地存储加载自定义 nameList
     this.loadCustomNameList();
