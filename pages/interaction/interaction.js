@@ -142,7 +142,10 @@ Page({
         ormkornnaphat: app.globalData.ormkornnaphat
       });
     }
+    // this.onPullDownRefresh();
 
+    // 更新tabBar选中状态
+    app.updateTabBarSelected(1); // 1 对应互动页面
   },
 
   // 加载互动留言数据

@@ -22,7 +22,11 @@ Page({
   },
 
   onShow: function () {
-
+    // 页面显示时也可以重新加载配置
+    // this.loadImageConfig();
+    // 更新tabBar选中状态
+    const app = getApp();
+    app.updateTabBarSelected(0); // 0 对应首页
 
     // 检查是否需要显示每日弹窗提醒
     this.checkDailyNotificationPopup();

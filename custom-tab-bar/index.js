@@ -4,49 +4,66 @@ Component({
     selected: 0,
     color: "#7A7E83",
     selectedColor: "#f77030",
-    list: [
-      {
-        pagePath: "/pages/Home/Home",
-        iconPath: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/light.png",
-        selectedIconPath: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/relat/orange.png",
-        text: "首页"
-      },
-      {
-        pagePath: "/pages/interaction/interaction",
-        iconPath: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/light.png",
-        selectedIconPath: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/relat/orange.png",
-        text: "互动"
-      },
-      {
-        pagePath: "/pages/workRecommend/workRecommend",
-        iconPath: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/light.png",
-        selectedIconPath: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/relat/orange.png",
-        text: "作品"
-      },
-      {
-        pagePath: "/pages/profile/profile",
-        iconPath: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/light.png",
-        selectedIconPath: "cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/relat/orange.png",
-        text: "煎蛋卷"
-      }
-    ]
+    list: []
+  },
+
+  lifetimes: {
+    attached() {
+      this.initTabBar();
+    }
+  },
+  pageLifetimes: {
+    show() {
+      // 页面显示时更新选中状态
+      this.updateSelected();
+    }
   },
   methods: {
+    initTabBar() {
+      // 从全局数据获取tabBar配置
+      const app = getApp();
+      const tabBar = app.globalData.tabBar;
+
+      this.setData({
+        selected: tabBar.selected,
+        list: tabBar.list
+      });
+
+      // 将当前组件实例设置到全局
+      app.setCustomTabBar(this);
+    },
+
     switchTab(e) {
       const data = e.currentTarget.dataset;
       const url = data.path;
 
-      // 查找当前点击的tab项索引
-      const tabIndex = data.index;
 
-      // 更新选中状态
-      this.setData({
-        selected: tabIndex
-      });
       // 跳转页面
-      wx.switchTab({ url })
-
+      wx.switchTab({ url });
     },
+    updateSelected() {
+      // 获取当前页面路径
+      const pages = getCurrentPages();
+      const currentPage = pages[pages.length - 1];
+      const currentPath = currentPage ? currentPage.route : '';
 
+      if (currentPath) {
+        // 确保路径格式正确（以 / 开头）
+        const normalizedPath = currentPath.startsWith('/') ? currentPath : '/' + currentPath;
+        this.updateSelectedByPath(normalizedPath);
+      }
+    },
+    updateSelectedByPath(path) {
+      // 查找匹配的tab项
+      const tabIndex = this.data.list.findIndex(item => {
+        return item.pagePath === path;
+      });
+
+      if (tabIndex !== -1) {
+        this.setData({
+          selected: tabIndex
+        });
+      }
+    }
   }
 })

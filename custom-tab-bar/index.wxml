@@ -1,7 +1,7 @@
 <!-- custom-tab-bar/index.wxml -->
 <view class="tab-bar">
   <view class="tab-bar-item {{selected === index ? 'active' : ''}}" data-index="{{index}}" data-path="{{item.pagePath}}" bindtap="switchTab" wx:for="{{list}}" wx:key="index">
-    <view wx:if="{{selected === index && item.selectedIconPath}}" class="tab-bar-item-selected click-animation">
+    <view wx:if="{{selected === index && item.selectedIconPath}}" class="tab-bar-item-selected">
       <image class="tab-bar-icon" src="{{ item.selectedIconPath}}" mode="aspectFit"></image>
       <view class="tab-bar-text" wx-if="{{selected === index}}">{{item.text}}</view>
     </view>
