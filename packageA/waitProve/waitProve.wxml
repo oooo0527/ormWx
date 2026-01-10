@@ -24,7 +24,7 @@
       </view>
     </view>
     <!-- 内容区域 -->
-    <scroll-view class="content" style="height:calc(100vh - {{navBarHeight}}px - 120rpx); margin-top:120rpx" scroll-y="true">
+    <scroll-view class="content" style="height:calc(100vh - {{navBarHeight}}px - 120rpx); margin-top:120rpx" scroll-y="true" enable-back-to-top="{{true}}" show-scrollbar="{{true}}">
       <!-- 加载状态 -->
       <view class="loading" wx:if="{{isLoading}}">
         <view class="loading-spinner"></view>

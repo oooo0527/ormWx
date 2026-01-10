@@ -1,6 +1,6 @@
 <global-background>
   <custom-navbar title="Orm Kornnaphat" background-color="#000000" showBack="{{true}}" showHome="{{false}}"></custom-navbar>
-  <view class="container" style="margin-top: {{navBarHeight}}px;min-height:calc(100vh - {{navBarHeight}}px);">
+  <scroll-view class="container" scroll-y="true" style="margin-top: {{navBarHeight}}px; height: calc(100vh - {{navBarHeight}}px);">
     <!-- 头部个人信息展示区 -->
     <view class="header-section">
       <text class="page-title">Orm Kornnaphat</text>
@@ -23,7 +23,7 @@
       </view>
       <view class="info-item">
         <text class="info-label">昵称</text>
-        <text class="info-value">{{ormInfo.nicknames.join(', ')}}</text>
+        <text class="info-value">{{ormInfo.nicknames}}</text>
       </view>
       <view class="info-item">
         <text class="info-label">国籍</text>
@@ -64,7 +64,9 @@
       <view class="section-title">职业信息</view>
       <view class="info-item">
         <text class="info-label">职业</text>
-        <text class="info-value">{{ormInfo.career.occupations.join(', ')}}</text>
+        <text class="info-value">
+          <!-- {{ormInfo.career.occupations && ormInfo.career.occupations.length > 0 ? ormInfo.career.occupations. : ''}} -->
+        </text>
       </view>
       <view class="info-item">
         <text class="info-label">经纪公司</text>
@@ -79,11 +81,11 @@
       <view class="section-title">喜好</view>
       <view class="info-item">
         <text class="info-label">喜欢的颜色</text>
-        <text class="info-value">{{ormInfo.preferences.favoriteColors.join(', ')}}</text>
+        <text class="info-value">{{ormInfo.preferences.favoriteColors}}</text>
       </view>
       <view class="info-item">
         <text class="info-label">喜欢的食物</text>
-        <text class="info-value">{{ormInfo.preferences.favoriteFoods.join(', ')}}</text>
+        <text class="info-value">{{ormInfo.preferences.favoriteFoods}}</text>
       </view>
       <view class="info-item">
         <text class="info-label">粉丝颜色</text>
@@ -100,13 +102,13 @@
       <view class="divider"></view>
       <!-- 音乐作品 -->
       <view class="section-title">音乐作品</view>
-      <view class="info-item" wx:for="{{ormInfo.songs}}" wx:key="index">
+      <view class="info-item" wx:for="{{ormInfo.songs || []}}" wx:key="index">
         <text class="info-value">{{item}}</text>
       </view>
       <view class="divider"></view>
       <!-- 个人品牌 -->
       <view class="section-title">个人品牌</view>
-      <view class="info-item" wx:for="{{ormInfo.brands}}" wx:key="index">
+      <view class="info-item" wx:for="{{ormInfo.brands || []}}" wx:key="index">
         <text class="info-value">{{item.name}} ({{item.type}}. {{item.role}})</text>
       </view>
       <view class="divider"></view>
@@ -191,7 +193,7 @@
       <view class="divider"></view>
       <!-- 家庭宠物 -->
       <view class="section-title">家庭宠物</view>
-      <view class="pet-card" wx:for="{{ormInfo.pets}}" wx:key="index">
+      <view class="pet-card" wx:for="{{ormInfo.pets || []}}" wx:key="index">
         <view class="pet-name">{{item.name}}</view>
         <view class="pet-detail">
           <text class="pet-label">类型</text>
@@ -211,5 +213,5 @@
         </view>
       </view>
     </view>
-  </view>
+  </scroll-view>
 </global-background>

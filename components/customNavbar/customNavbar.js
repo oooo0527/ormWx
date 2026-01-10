@@ -129,8 +129,9 @@ Component({
           }
 
           // 判断滚动位置并更新导航栏样式
-          const isScrolled = e.scrollTop > 50;
-          // console.log('Scroll position:', e.scrollTop, 'isScrolled:', isScrolled);
+          const scrollTop = e && e.scrollTop !== undefined ? e.scrollTop : 0;
+          const isScrolled = scrollTop > 50;
+          // console.log('Scroll position:', scrollTop, 'isScrolled:', isScrolled);
           if (component.data.isScrolled !== isScrolled) {
             component.setData({
               isScrolled: isScrolled

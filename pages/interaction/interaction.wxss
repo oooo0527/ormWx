@@ -18,12 +18,15 @@
   display: flex;
   justify-content: space-between;
   color: #000000;
-  position: fixed;
+  position: sticky;
+  top: 0;
   width: 100%;
   padding: 0 40rpx;
   background: #ffffff;
   z-index: 2;
   align-items: center;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
 }
 
 .no-data {
@@ -39,8 +42,8 @@
   font-size: 16px;
   /* height: 50%; */
   /* line-height: 50%; */
-  color: #f3f1f1;
-  background-color: #0a0a0a;
+  color: #000000;
+  /* background-color: #0a0a0a; */
 
   /* 按钮内部填充色 */
   border: none;
@@ -48,7 +51,7 @@
   cursor: pointer;
   outline: none;
   text-align: center;
-  transition: color 0.3s, background-color 0.3s;
+  /* transition: color 0.3s, background-color 0.3s; */
   padding: 10rpx;
   /* z-index: 1; */
 }
@@ -64,7 +67,7 @@
   background: linear-gradient(90deg,
       #ff0000, #ff7f00, #ffff00, #00ff00,
       #00ffff, #4b0082, #8f00ff, #ff0000);
-  background-size: 400% 100%;
+  background-size: 100% 100%;
   /* 背景拉宽，为动画留出移动空间 */
   border-radius: 10px;
   /* 比按钮圆角稍大，包容边框 */
@@ -244,7 +247,7 @@
   /* padding: 20rpx; */
   /* margin: 20rpx; */
   height: 750rpx;
-  padding-top: 128rpx;
+  /* padding-top: 128rpx; */
   margin-bottom: 200rpx;
 
   /* margin-top: 120rpx; */
@@ -268,7 +271,9 @@
   width: 100%;
   height: 100%;
   touch-action: pan-y;
-
+  /* 确保触摸事件能正确传递 */
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .mohu-bg {
@@ -286,6 +291,8 @@
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
+  /* 确保容器支持3D变换 */
+  perspective: 1200rpx;
 }
 
 .carousel-card {
@@ -296,12 +303,15 @@
   height: 620rpx;
   margin-left: -200rpx;
   border-radius: 8rpx;
-  overflow: hidden;
+  overflow: visible;
+  /* 改为visible，避免旋转文本被裁剪 */
   box-shadow: 0 15rpx 35rpx rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease-in-out;
-  /* 缩短动画时间并使用ease-out缓动 */
+  /* 移除可能冲突的过渡效果 */
+  /* transition: all 0.3s ease-in-out; */
   box-sizing: border-box;
   backface-visibility: hidden;
+  /* 确保3D变换正确工作 */
+  transform-style: preserve-3d;
   transform-origin: center center;
   /* border: 2rpx solid #f48eb5; */
 }
@@ -323,19 +333,20 @@
   justify-content: center;
   flex: 1;
   height: 80%;
+  position: relative;
 }
 
-.carousel-card:nth-of-type(3n+1) {
+.carousel-card:nth-child(3n+1) {
   background: #262626;
   /* 第一个颜色 */
 }
 
-.carousel-card:nth-of-type(3n+2) {
+.carousel-card:nth-child(3n+2) {
   background: #704ff7;
   /* 第二个颜色 */
 }
 
-.carousel-card:nth-of-type(3n+3) {
+.carousel-card:nth-child(3n+3) {
   background: #528b54;
   /* 第三个颜色 */
 }
@@ -348,10 +359,12 @@
 .card-title {
   font-size: 32rpx;
   font-weight: bold;
-  color: #ec0d0d;
+  color: #faf9f9;
   height: 100%;
-  writing-mode: vertical-rl;
-  width: 100rpx;
+  width: 30rpx;
+  display: flex;
+  flex-direction: column;
+
 }
 
 
@@ -360,6 +373,12 @@
   height: 20%;
   background: #f5f5f5;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-direction: column;
+  padding: 0 20rpx;
+  box-sizing: border-box;
 }
 
 .card-image {
@@ -375,30 +394,32 @@
   font-size: 24rpx;
   color: #E9E8EF;
   height: 100%;
-  writing-mode: vertical-rl;
-  flex: 1;
-  overflow-y: hidden;
+  overflow: hidden;
   text-overflow: ellipsis;
-  /* overflow-x: hidden; */
-  /* white-space: nowrap; */
+  word-wrap: break-word;
+  text-align: right;
+  padding-right: 20rpx;
+  flex: 1;
+  /* border: 2rpx solid blanchedalmond; */
+
 }
 
 .card-creator {
-  font-size: 24rpx;
-  color: #edebeb;
+  font-size: 30rpx;
+  color: #080808;
   width: 100%;
-  text-align: center;
-  height: 50%;
-  line-height: 100%;
+  text-align: right;
+  margin-bottom: 20rpx;
+
 }
 
 .card-date {
   font-size: 24rpx;
   color: #333333;
   width: 100%;
-  text-align: center;
-  height: 50%;
-  line-height: 100%;
+  text-align: right;
+  margin-bottom: 5rpx;
+
 }
 
 .card-overlay {
@@ -745,7 +766,8 @@
 }
 
 .fixed {
-
+  position: sticky;
+  top: 0;
   /* background: #E9E8EF; */
   background: #1E2020;
   box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
@@ -755,6 +777,8 @@
   /* 避免透明看到下方内容 */
   /* box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1); */
   /* 添加阴影增强效果 */
+  transition: all 0.3s ease;
+  box-sizing: border-box;
 }
 
 .section-title {

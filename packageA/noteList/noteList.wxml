@@ -23,7 +23,7 @@
         </view>
       </view>
       <!-- 消息列表 -->
-      <scroll-view class="notification-list" scroll-y="true">
+      <scroll-view class="notification-list" scroll-y="true" enable-back-to-top="{{true}}" show-scrollbar="{{true}}">
         <!-- 全部消息 -->
         <block wx:if="{{currentTab == 'all'}}">
           <block wx:for="{{announcementNotifications}}" wx:key="id">

@@ -11,7 +11,7 @@
       </view>
       <!-- 图片展示区域 -->
       <view class="image-container" wx:if="{{Box.ormList.length > 0}}">
-        <scroll-view class="image-scroll" scroll-x="true" show-scrollbar="{{false}}">
+        <scroll-view class="image-scroll" scroll-x="true" show-scrollbar="{{false}}" enable-back-to-top="{{false}}">
           <view class="image-row">
             <view class="image-item {{activeIndex === index ? 'expanded' : 'collapsed'}}" wx:for="{{Box.ormList}}" wx:key="index" data-index="{{index}}" bindtap="onImageClick">
               <view class="image-card">

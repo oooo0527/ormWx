@@ -50,10 +50,10 @@
   animation: glitch 3s infinite;
 }
 
-/* 故障效果动画 */
+/* 故障效果动画 - Skyline兼容版本 */
 @keyframes glitch {
   0% {
-    transform: translate(0);
+    transform: translate(0rpx, 0rpx);
   }
 
   20% {
@@ -73,7 +73,7 @@
   }
 
   100% {
-    transform: translate(0);
+    transform: translate(0rpx, 0rpx);
   }
 }
 
@@ -134,13 +134,18 @@
 }
 
 .awards-carousel {
-  white-space: nowrap;
+  display: flex;
   width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  box-sizing: border-box;
 }
 
 .awards-wrapper {
-  display: inline-flex;
+  display: flex;
   padding: 20rpx 0;
+  flex: none;
+  box-sizing: border-box;
 }
 
 .award-card {

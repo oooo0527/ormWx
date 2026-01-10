@@ -197,8 +197,8 @@
 .item-content {
   font-size: 28rpx;
   color: rgba(0, 0, 0, 0.9);
-  line-height: 1.6;
-  margin-bottom: 30rpx;
+  /* line-height: 1.6; */
+  /* margin-bottom: 30rpx; */
   word-wrap: break-word;
 }
 
@@ -208,17 +208,33 @@
   margin-bottom: 15rpx;
 }
 
-/* 收起状态的样式 */
-.collapsed {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+.content-wrapper {
+  max-height: 300rpx;
   overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.content-wrapper.collapsed {
+  max-height: 150rpx;
+  overflow: hidden;
+}
+
+.content-wrapper.expanded {
+  max-height: none;
+}
+
+.content-text {
+  display: block;
+  font-size: 28rpx;
+  color: rgba(0, 0, 0, 0.9);
+  /* line-height: 1.6; */
+  word-wrap: break-word;
 }
 
 .expand-collapse {
   text-align: right;
   margin-top: 10rpx;
+  margin-bottom: 10rpx;
 }
 
 .expand-btn {

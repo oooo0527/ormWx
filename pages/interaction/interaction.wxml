@@ -26,13 +26,13 @@
             <!-- 只显示前3张卡片 -->
             <view class="carousel-card" wx:for="{{displayWorks}}" wx:key="id" style="transform: {{cardTransforms[index]}}; z-index: {{cardZIndexes[index]}}; opacity: {{cardOpacities[index]}};" data-index="{{index}}" bindtap="selectCard">
               <view class="card-content1">
-                <view class="card-description">{{item.content}}</view>
-                <view class="card-title">{{item.title}}</view>
+                <view class="card-description" wx:if="{{item.content}}">{{item.content}}</view>
+                <view class="card-title" wx:if="{{item.title}}">{{item.title}}</view>
               </view>
               <view class="card-more">
                 <image src="{{ormkornnaphat.image}}" class="card-image" mode="widthFix" lazy-load></image>
                 <view class="card-creator">{{ormkornnaphat.url}}</view>
-                <view class="card-date">{{item.createDate}}</view>
+                <view class="card-date">{{item.createdAt}}</view>
               </view>
             </view>
           </view>

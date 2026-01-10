@@ -108,7 +108,7 @@ Page({
     });
   },
   onPageScroll: function (e) {
-    const scrollTop = e.scrollTop; // 获取滚动距离
+    const scrollTop = e && e.scrollTop !== undefined ? e.scrollTop : 0; // 获取滚动距离
     // console.log('Scroll Top:', scrollTop, e);
 
     // 判断是否需要吸顶：滚动距离 > 轮播图高度
@@ -117,7 +117,9 @@ Page({
         this.setData({ isFixed: true });
       }
     } else {
-      this.setData({ isFixed: false });
+      if (this.data.isFixed) {
+        this.setData({ isFixed: false });
+      }
     }
   },
   bindDateChange: function (e) {
@@ -142,10 +144,6 @@ Page({
         ormkornnaphat: app.globalData.ormkornnaphat
       });
     }
-    // this.onPullDownRefresh();
-
-    // 更新tabBar选中状态
-    app.updateTabBarSelected(1); // 1 对应互动页面
   },
 
   // 加载互动留言数据
@@ -464,17 +462,18 @@ Page({
 
   // 触摸开始
   touchStart: function (e) {
-    if (this.data.isAnimating) return;
+    if (this.data.isAnimating || !e.touches || e.touches.length === 0) return;
 
     this.setData({
       touchStartX: e.touches[0].clientX,
-      isSwiping: true
+      isSwiping: true,
+      swipeDirection: 0
     });
   },
 
   // 触摸移动
   touchMove: function (e) {
-    if (!this.data.isSwiping || this.data.isAnimating) return;
+    if (!this.data.isSwiping || this.data.isAnimating || !e.touches || e.touches.length === 0) return;
 
     const touchStartX = this.data.touchStartX;
     const touchCurrentX = e.touches[0].clientX;
@@ -485,7 +484,7 @@ Page({
 
     // 只移动当前卡片
     if (transforms.length > 0) {
-      transforms[0] = `translateX(${deltaX * 2}rpx) translateY(0) translateZ(0) scale(1)`;
+      transforms[0] = `translateX(${deltaX}rpx) translateY(0) translateZ(0) scale(1)`;
     }
 
     this.setData({
@@ -502,7 +501,7 @@ Page({
 
   // 触摸结束
   touchEnd: function (e) {
-    if (!this.data.isSwiping || this.data.isAnimating) return;
+    if (!this.data.isSwiping || this.data.isAnimating || !e.changedTouches || e.changedTouches.length === 0) return;
 
     const touchStartX = this.data.touchStartX;
     const touchEndX = e.changedTouches[0].clientX;

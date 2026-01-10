@@ -18,6 +18,7 @@
   flex-direction: column;
   align-items: center;
   padding-top: 20rpx;
+  box-sizing: border-box;
 }
 
 .lamp-rope {
@@ -81,6 +82,8 @@
   overflow: hidden;
   overflow-y: scroll;
   z-index: 999;
+  box-sizing: border-box;
+  max-height: 80vh;
 }
 
 
@@ -367,17 +370,18 @@
 
 .conten-box-bg {
   background: linear-gradient(0deg, #000000 0%, #f5f5f5 40%, #f5f5f5 100%);
+  flex: 1;
   min-height: calc(100vh - 690rpx);
   overflow: hidden;
-  overflow-y: scroll;
-
+  overflow-y: auto;
   z-index: 99;
   position: relative;
   width: 100%;
   border-top-left-radius: 50rpx;
   border-top-right-radius: 50rpx;
   margin: 0 auto;
-  margin-top: -50px;
+  margin-top: -50rpx;
+  box-sizing: border-box;
 }
 
 
@@ -408,18 +412,19 @@
 .menu-scroll-view {
   position: relative;
   /* margin-top: -100rpx; */
-
-
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .menu-container {
   display: flex;
-
-  padding: 0 30rpx;
+  flex-direction: row;
   position: relative;
-  /* margin-top: -100rpx; */
+  padding: 0 30rpx;
+  justify-content: space-between;
+
   width: 100%;
-  /* margin-left: -10%; */
 }
 
 .menu-item {
@@ -434,9 +439,7 @@
   margin: 0 10rpx;
   border-radius: 16rpx;
   position: relative;
-  width: 180rpx;
-  overflow: hidden;
-
+  width: 16%;
 }
 
 .menu-item:nth-of-type(2n) {
@@ -453,10 +456,10 @@
   animation: floatDown 3s ease-in-out infinite;
 }
 
-/* 上下浮动动画 */
+/* 上下浮动动画 - Skyline兼容版本 */
 @keyframes floatUp {
   0% {
-    transform: translateY(0);
+    transform: translateY(0rpx);
   }
 
   50% {
@@ -464,14 +467,14 @@
   }
 
   100% {
-    transform: translateY(0);
+    transform: translateY(0rpx);
   }
 }
 
-/* 上下浮动动画 */
+/* 上下浮动动画 - Skyline兼容版本 */
 @keyframes floatDown {
   0% {
-    transform: translateY(0);
+    transform: translateY(0rpx);
   }
 
   50% {
@@ -479,7 +482,7 @@
   }
 
   100% {
-    transform: translateY(0);
+    transform: translateY(0rpx);
   }
 }
 
@@ -513,12 +516,14 @@
 
 .ListBox {
   display: flex;
-  height: 400rpx;
+  min-height: 400rpx;
   justify-content: space-between;
   color: #333333;
   text-align: left;
-
-
+  box-sizing: border-box;
+  flex-direction: row;
+  align-items: center;
+  padding: 20rpx;
 }
 
 .list-image {
@@ -555,7 +560,7 @@
 
 .list-item {
   position: relative;
-  width: 48%;
+  flex: 1;
   /* border: 4rpx solid black; */
   /* padding: 20rpx; */
   /* background: black; */
@@ -569,7 +574,8 @@
   box-shadow: 0 0 15rpx #333333;
   /* padding: 0 20rpx; */
   /* padding-bottom: 80rpx; */
-
+  box-sizing: border-box;
+  margin: 0 10rpx;
 }
 
 
@@ -577,19 +583,36 @@
 .list-item1 {
   margin-left: 20rpx;
   flex: 1;
-  height: 100%;
+
   display: flex;
+  min-height: 400rpx;
   flex-direction: column;
   justify-content: space-between;
+  box-sizing: border-box;
 }
 
 .music-item {
-  height: 30%;
+  flex: 1;
+  min-height: 80rpx;
   /* border: 4rpx solid #E9E8EF; */
   border-radius: 16rpx;
   text-align: left;
   padding-left: 40rpx;
   /* background: #f48eb5; */
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.empty-music-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  color: #999;
+  font-size: 28rpx;
 }
 
 .music-title {
@@ -606,20 +629,8 @@
 
 
 .music-item:nth-of-type(2n) {
-  background: #1E2020;
-
-  /* .music-title {
-    font-size: 28rpx;
-    color: #f9f6f6;
-    line-height: 50rpx;
-  }
-
-  .music-des {
-    font-size: 24rpx;
-    color: #f5f2f2;
-    line-height: 30rpx;
-  } */
-
+  background: #141616;
+  flex: 1;
 }
 
 .music-item:nth-of-type(2n) .music-title,
@@ -628,10 +639,13 @@
 }
 
 .music-item:nth-of-type(2n+1) {
-  background: linear-gradient(90deg, #eeeeee 0%, #f5f5f5 100%);
+  /* background: linear-gradient(90deg, #eeeeee 0%, #f5f5f5 100%); */
   /* box-shadow: 0 0 4rpx #333333; */
-  /* background: linear-gradient(90deg, #468fa9 0%, #f5f5f5 100%); */
+  background: linear-gradient(90deg, #468fa9 0%, #f5f5f5 100%);
+  flex: 1;
 }
+
+
 
 /* //品牌 */
 

@@ -1,8 +1,8 @@
 <global-background>
   <custom-navbar title="ormkornnaphat" showBack="{{true}}" showHome="{{false}}"></custom-navbar>
-  <view class="container" style="margin-top: {{navBarHeight}}px;height:calc(100vh - {{navBarHeight}}px);">
+  <view class="container" style="margin-top: {{navBarHeight}}px;height: calc(100vh - {{navBarHeight}}px);">
     <!-- 标签页切换 -->
-    <view class="tabs" style="top: {{navBarHeight}}px;">
+    <view class="tabs">
       <view class="tab-item {{activeTab === 'ranking' ? 'active' : ''}}" data-tab="ranking" bindtap="switchTab">
         <text>排行榜</text>
       </view>
@@ -11,7 +11,7 @@
       </view>
     </view>
     <!-- 排行榜内容 -->
-    <view class="content" wx:if="{{activeTab === 'ranking'}}">
+    <scroll-view class="content" style="height: calc(100vh - {{navBarHeight + 75}}px);" wx:if="{{activeTab === 'ranking'}}" scroll-y="true">
       <!-- 前三名展示区域 -->
       <view class="top-three-container" wx:if="{{rankingList.length > 0}}">
         <view class="top-three-content">
@@ -48,7 +48,7 @@
           <text>暂无排行榜数据</text>
         </view>
       </view>
-    </view>
+    </scroll-view>
     <!-- 排行榜详情弹窗 -->
     <view class="ranking-modal {{showModal ? 'show' : ''}}" bindtap="hideModal">
       <view class="modal-content">
@@ -58,11 +58,7 @@
         </view>
         <view class="modal-body">
           <view class="user-info-section">
-            <image class="modal-user-avatar" src="{{selectedItem.userAvatar || '/images/default-avatar.png'}}" mode="aspectFill" lazy-load="{{true}}"></image>
-            <view class="user-details">
-              <text class="modal-user-name">{{selectedItem.userName || '未知用户'}}</text>
-              <text class="modal-rank">排名: {{selectedItem.rank}}</text>
-            </view>
+            <text class="modal-rank">排名: {{selectedItem.rank}}</text>
           </view>
           <view class="photo-section">
             <image class="modal-photo" src="{{selectedItem.imageUrl}}" mode="widthFix" bindtap="viewPhotoInModal" lazy-load="{{true}}"></image>
@@ -85,7 +81,7 @@
       </view>
     </view>
     <!-- 风格照片内容 -->
-    <view class="content" wx:if="{{activeTab === 'photos'}}">
+    <scroll-view class="content" style="height: calc(100vh - {{navBarHeight + 150}}px);" wx:if="{{activeTab === 'photos'}}" scroll-y="true">
       <view class="style-groups">
         <block wx:for="{{groupedPhotos}}" wx:for-item="photos" wx:for-index="style" wx:key="style">
           <view class="style-group" bindtap="viewStyleDetail" data-style="{{style}}">
@@ -104,6 +100,6 @@
       <view class="bottom-decoration">
         <text class="school-motto">知识改变命运，学习成就未来</text>
       </view>
-    </view>
+    </scroll-view>
   </view>
 </global-background>

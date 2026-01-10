@@ -17,7 +17,7 @@
         <text class="section-title">至尊荣誉</text>
         <text class="section-subtitle">AWARDS & RECOGNITION</text>
       </view>
-      <scroll-view class="awards-carousel" scroll-x="true">
+      <scroll-view class="awards-carousel" scroll-x="true" show-scrollbar="{{false}}" enable-back-to-top="{{false}}">
         <view class="awards-wrapper">
           <view class="award-card" wx:for="{{awardsData}}" wx:key="index">
             <view class="award-card2">{{item.getTime}}</view>
@@ -56,7 +56,7 @@
         <text class="section-title">提名荣誉</text>
         <text class="section-subtitle">提名</text>
       </view>
-      <scroll-view class="awards-carousel" scroll-x="true">
+      <scroll-view class="awards-carousel" scroll-x="true" show-scrollbar="{{false}}" enable-back-to-top="{{false}}">
         <view class="awards-wrapper">
           <view class="award-card" style="background:#333" wx:for="{{nominationsData}}" wx:key="id" data-id="{{item.id}}">
             <view class="award-trophy">

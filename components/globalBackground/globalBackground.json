@@ -1,4 +1,5 @@
 {
   "component": true,
+  "renderer": "skyline",
   "usingComponents": {}
 }

@@ -3,7 +3,7 @@
   <view class="container" style="margin-top: {{navBarHeight}}px;height:calc(100vh - {{navBarHeight}}px);">
     <image src="cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/ormmm/陈奥/e1dd18471861da1311f9643a7f85e3f1.jpg" lazy-load mode="widthFix" class="star-background-image"></image>
     <!-- 时间线容器 -->
-    <scroll-view class="timeline-container" scroll-y="true" bindscrolltolower="onScrollToLower" wx-if="{{showBg}}">
+    <scroll-view class="timeline-container" scroll-y="true" enable-back-to-top="{{true}}" show-scrollbar="{{true}}" bindscrolltolower="onScrollToLower" wx-if="{{showBg}}">
       <!-- 垂直时间线 -->
       <view class="vertical-timeline">
         <block wx:for="{{timelineData}}" wx:key="id">
@@ -61,7 +61,7 @@
         谢谢你那个夏天出现在我面前❤
       </view>
       <block wx:for="{{heartParticles}}" wx:key="index">
-        <view class="heart-particle {{item.show ? 'particle-animate' : ''}}" style="--start-x: {{item.startX}}px; --start-y: {{item.startY}}px; --end-x: {{item.endX}}px; --end-y: {{item.endY}}px; --duration: {{item.duration}}ms; --delay: {{item.delay}}ms; background: {{item.gradient}};">
+        <view class="heart-particle-start" style="background: {{item.gradient}}; animation: particleFlyFromCenter {{item.duration}}ms ease-out {{item.delay}}ms forwards; opacity: {{item.show ? 1 : 0}}; --end-x: {{item.endX}}px; --end-y: {{item.endY}}px;" data-index="{{index}}">
           {{item.text}}
         </view>
       </block>

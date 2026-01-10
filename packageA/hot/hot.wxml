@@ -3,7 +3,7 @@
   <custom-navbar title="热门留言" showBack="{{true}}" showHome="{{false}}"></custom-navbar>
   <view class="container" style="margin-top: {{navBarHeight}}px;min-height:calc(100vh - {{navBarHeight}}px);">
     <!-- 热门留言列表 -->
-    <scroll-view class="hot-list" scroll-y="true" style="height:calc(100vh - {{navBarHeight}}px);">
+    <scroll-view class="hot-list" scroll-y="true" enable-back-to-top="{{true}}" show-scrollbar="{{true}}" style="height:calc(100vh - {{navBarHeight}}px);">
       <!-- 加载状态 -->
       <view class="loading" wx:if="{{loading}}">
         <view class="loading-spinner"></view>
@@ -17,12 +17,14 @@
         <view class="item" wx:for="{{hotList}}" wx:key="_id">
           <view class="item-header">
             <text class="item-title">{{item.title}}</text>
-            <text class="item-time">{{item.createTime}}</text>
+            <text class="item-time">{{item.createdAt}}</text>
           </view>
           <view class="item-content">
-            <image class="item-image" wx:if="{{item.images && item.images.length>0}}" src="{{item.images[0]}}" lazy-load mode="widthFix"></image>
+            <image class="item-image" wx:if="{{item.tupianzuimages && item.tupianzuimages.length>0}}" src="{{item.tupianzuimages[0]}}" lazy-load="{{true}}" mode="widthFix"></image>
             <!-- 收起/展开内容 -->
-            <text class="{{item.isExpanded ? '' : 'collapsed'}}">{{item.content}}</text>
+            <view class="content-wrapper {{item.isExpanded ? 'expanded' : 'collapsed'}}">
+              <text class="content-text">{{item.content}}</text>
+            </view>
             <view class="expand-collapse" wx:if="{{item.content && item.content.length > 50}}">
               <text class="expand-btn" bindtap="toggleContent" data-index="{{index}}">
                 {{item.isExpanded ? '收起' : '展开'}}

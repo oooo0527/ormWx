@@ -2,8 +2,9 @@
   box-sizing: border-box;
   padding: 0;
   background: #000000;
-  min-height: 100vh;
-  padding-top: 128rpx;
+  /* height is controlled by inline style in WXML */
+  padding-top: 0;
+  /* padding is now applied to content */
   font-family: 'Helvetica Neue', Arial, sans-serif;
 }
 
@@ -12,7 +13,8 @@
   padding: 80rpx 40rpx 60rpx;
   text-align: center;
   background: #000000;
-  margin-top: -128rpx;
+  /* margin-top: -128rpx; */
+  /* 移除负边距，避免在 scroll-view 中出现问题 */
   border-bottom: 1rpx solid #222222;
 }
 
@@ -52,6 +54,8 @@
   background: #000000;
   margin: 0;
   box-sizing: border-box;
+  min-height: 100%;
+  /* 确保内容至少占满容器高度 */
 }
 
 .section-title {

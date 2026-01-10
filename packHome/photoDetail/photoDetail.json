@@ -1,5 +1,6 @@
 {
   "component": true,
+  "renderer": "skyline",
   "usingComponents": {
     "global-background": "/components/globalBackground/globalBackground",
     "custom-navbar": "/components/customNavbar/customNavbar"

@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/Home/Home",
     "pages/index/index",
+    "pages/Home/Home",
     "pages/workRecommend/workRecommend",
     "pages/workDetail/workDetail",
     "pages/profile/profile",
@@ -16,11 +16,22 @@
     "navigationBarTextStyle": "white"
   },
   "cloud": true,
+  "renderer": "skyline",
+  "rendererOptions": {
+    "skyline": {
+      "defaultDisplayBlock": true,
+      "disableABTest": true,
+      "sdkVersionBegin": "3.0.1",
+      "sdkTimeBegin": 0
+    }
+  },
+  "componentFramework": "glass-easel",
   "tabBar": {
-    "custom": true,
     "color": "#ffffff",
     "selectedColor": "#f77030",
+    "borderStyle": "black",
     "backgroundColor": "#000000",
+    "position": "bottom",
     "list": [
       {
         "pagePath": "pages/Home/Home",

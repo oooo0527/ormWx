@@ -1,7 +1,10 @@
 .container {
   position: relative;
-  height: 100vh;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 .container image {
@@ -143,12 +146,11 @@
   border-radius: 10rpx;
   box-shadow: 0 10rpx 40rpx rgba(0, 0, 0, 0.08);
   backdrop-filter: blur(4px);
-  position: absolute;
-  bottom: 30rpx;
-  left: 30rpx;
-  right: 30rpx;
+  position: static;
   max-height: 30vh;
   overflow-y: auto;
+  flex-shrink: 0;
+  box-sizing: border-box;
 }
 
 .content-header {

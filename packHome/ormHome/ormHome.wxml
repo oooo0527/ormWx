@@ -1,6 +1,6 @@
 <global-background>
   <custom-navbar title="ormkornnaphat" showBack="{{true}}" background-color="#790202" showHome="{{false}}"></custom-navbar>
-  <view class="container" style="margin-top: {{navBarHeight}}px;min-height:calc(100vh - {{navBarHeight}}px);">
+  <view class="container" style="margin-top: {{navBarHeight}}px;height:calc(100vh - {{navBarHeight}}px);">
     <!-- 顶部4个菜单，像挂上去的效果 -->
     <view class="top-menus">
       <view class="menu-item hanging-menu {{item.color}}" bindtap="navigateToPage" data-color="{{item.color}}" bindtouchstart="onTouchStart" bindtouchend="onTouchEnd" data-index="{{index}}" style="height: {{randomH[index]}}rpx;" wx:for="{{relationShipList}}" wx:key="index" wx:if="{{index<=3}}">
@@ -26,7 +26,7 @@
     <view class="popup-overlay" wx:if="{{showPopup}}" bindtap="closePopup">
       <!-- 弹窗内容 -->
       <view class="popup-container " catchtap="preventTap">
-        <scroll-view class="option-scroll-view" scroll-x="{{true}}">
+        <scroll-view class="option-scroll-view" type="custom" scroll-x>
           <view class="popup-options" wx:for="{{popupOptions}}" wx:key="index" bindtap="selectPopupOption" data-item="{{item}}">
             <view class="popup-option {{popupColor}}">
               <view class="option-content">

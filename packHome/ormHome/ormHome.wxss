@@ -6,6 +6,7 @@
   background: linear-gradient(180deg, #790202 0%, #470101 100%);
   padding: 20rpx;
   box-sizing: border-box;
+  justify-content: space-between;
   /* 添加微妙的纹理背景 */
   /* background-image: radial-gradient(circle at 10% 50%, rgba(129, 3, 3, 0.3) 0%, transparent 10%),
     radial-gradient(circle at 90% 50%, rgba(226, 3, 3, 0.3) 0%, transparent 10%); */
@@ -15,10 +16,10 @@
 .top-menus {
   display: flex;
   justify-content: space-around;
-  margin-bottom: 40rpx;
+  /* margin-bottom: 40rpx; */
   /* 悬挂效果 */
   position: relative;
-  top: 20rpx;
+  /* top: 20rpx; */
   z-index: 10;
 }
 
@@ -26,7 +27,7 @@
 .bottom-menus {
   display: flex;
   justify-content: space-around;
-  margin-top: 40rpx;
+  /* margin-top: 40rpx; */
   /* 生长效果 */
   position: relative;
   z-index: 10;
@@ -451,6 +452,12 @@
   /* transform: scale(1.3); */
   animation: popupScale 0.3s ease forwards;
   overflow-x: scroll;
+  display: flex;
+  align-items: flex-start;
+  /* 从顶部对齐，让内容向下偏移 */
+  justify-content: center;
+  margin-top: 100rpx;
+  /* 添加顶部内边距，让内容往下一点 */
 }
 
 @keyframes popupScale {
@@ -464,22 +471,31 @@
   display: flex;
   flex-direction: row;
   /* gap: 20rpx; */
-  width: 100%;
+  /* width: 100%; */
   /* overflow-x: hidden; */
   /* border: 2px solid red; */
   height: 400rpx;
-  overflow-x: scroll;
   align-items: center;
-  /* width: 350rpx; */
-
-
+  min-width: 350rpx;
+  flex-wrap: nowrap;
+  box-sizing: border-box;
+  justify-content: center;
 }
 
 .option-scroll-view {
   /* white-space: nowrap; */
-  width: 200vw;
+  width: 100%;
   height: 400rpx;
-  overflow-x: scroll;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
+  box-sizing: border-box;
+  justify-content: center;
+  align-items: center;
+  padding: 20rpx 0;
 }
 
 .popup-option {
@@ -490,12 +506,19 @@
   /* transition: all 0.3s ease; */
   padding: 10rpx;
   /* border: 2rpx solid rgba(68, 67, 67, 0.3); */
-  /* width: 400rpx !important; */
+  min-width: 300rpx;
+  width: 300rpx;
   height: 220rpx;
   border-radius: 10rpx;
   /* overflow: hidden; */
   margin-right: 40rpx;
   box-shadow: 0 10rpx 30rpx rgb(235, 233, 233);
+  flex-shrink: 0;
+  scroll-snap-align: start;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   /* margin: 0 auto; */
 }
@@ -505,11 +528,11 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  /* justify-content: space-between; */
+  justify-content: center;
   /* background: #ffffff; */
   padding: 20rpx;
   box-shadow: 0 10rpx 30rpx rgba(235, 233, 233, 0.3);
-  /* align-items: center; */
+  align-items: center;
 }
 
 

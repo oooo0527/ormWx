@@ -413,10 +413,11 @@ Page({
         startY: 0,
         endX: endX,
         endY: endY,
-        duration: 3000 + Math.random() * 3000, // 1.5-3秒
-        delay: Math.random() * 2000, // 最多延迟0.5秒
+        duration: 3000, // 固定3秒
+        delay: Math.random() * 2000, // 最多延迟2秒
         gradient: gradientThemes[Math.floor(Math.random() * gradientThemes.length)],
         show: true,
+        animated: true, // 添加动画类标识
         text: this.data.allBlessings[i]
       });
     }
