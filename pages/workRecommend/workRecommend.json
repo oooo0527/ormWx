@@ -1,5 +1,5 @@
 {
-  "navigationStyle": "custom",
+  "component": true,
   "renderer": "skyline",
   "usingComponents": {
     "global-background": "/components/globalBackground/globalBackground",

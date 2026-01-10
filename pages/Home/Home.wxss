@@ -368,20 +368,111 @@
   left: 15%;
 }
 
-.conten-box-bg {
-  background: linear-gradient(0deg, #000000 0%, #f5f5f5 40%, #f5f5f5 100%);
+.content-container-wrapper {
   flex: 1;
   min-height: calc(100vh - 690rpx);
   overflow: hidden;
+  transition: all 0.4s ease;
+}
+
+.content-container-wrapper.expanded {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  min-height: 100vh;
+  border-radius: 0;
+  margin: 0;
+  z-index: 9999;
   overflow-y: auto;
-  z-index: 99;
+  animation: expandUp 0.4s ease forwards;
+}
+
+.content-container-wrapper:not(.expanded) {
+  animation: collapseDown 0.4s ease forwards;
+}
+
+@keyframes expandUp {
+  0% {
+    min-height: calc(100vh - 690rpx);
+    opacity: 0.8;
+    transform: scale(0.98);
+  }
+
+  100% {
+    height: 100vh;
+    min-height: 100vh;
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes collapseDown {
+  0% {
+    height: 100vh;
+    min-height: 100vh;
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  100% {
+    min-height: calc(100vh - 690rpx);
+    opacity: 0.8;
+    transform: scale(0.98);
+  }
+}
+
+.swipe-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20rpx 0;
   position: relative;
-  width: 100%;
-  border-top-left-radius: 50rpx;
-  border-top-right-radius: 50rpx;
-  margin: 0 auto;
-  margin-top: -50rpx;
-  box-sizing: border-box;
+}
+
+.swipe-arrow {
+  width: 0;
+  height: 0;
+  border-left: 15rpx solid transparent;
+  border-right: 15rpx solid transparent;
+  border-bottom: 20rpx solid #999;
+  margin-bottom: 10rpx;
+  transition: transform 0.3s ease;
+  transform-origin: center;
+}
+
+.swipe-arrow.expanded {
+  transform: rotate(180deg);
+  border-top: 20rpx solid #999;
+  border-bottom: none;
+  transition: transform 0.3s ease;
+  transform-origin: center;
+}
+
+.swipe-text {
+  font-size: 24rpx;
+  color: #999;
+  text-align: center;
+}
+
+.demo-button {
+  width: 80%;
+  height: 80rpx;
+  line-height: 80rpx;
+  background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 40rpx;
+  font-size: 28rpx;
+  margin: 20rpx auto;
+  display: block;
+  text-align: center;
+}
+
+.demo-button::after {
+  border: none;
 }
 
 
@@ -510,7 +601,7 @@
 .contentList {
   /* padding: 10rpx 30rpx; */
   width: 100%;
-  padding: 40rpx;
+  /* padding: 40rpx; */
 }
 
 

@@ -15,7 +15,7 @@ exports.main = async (event, context) => {
   try {
     switch (action) {
       case 'getImageConfig':
-        return await getImageConfig(configType, configName);
+        return await getImageConfig();
       case 'getGlobalConfig':
         return await getGlobalConfig();
       default:
@@ -34,17 +34,9 @@ exports.main = async (event, context) => {
 };
 
 // 获取图片配置
-async function getImageConfig(configType, configName) {
+async function getImageConfig() {
   try {
-    let query = {};
-    if (configType) {
-      query.configType = configType;
-    }
-    if (configName) {
-      query.configName = configName;
-    }
-
-    const result = await db.collection('imageConfig').where(query).get();
+    const result = await db.collection('imageConfig').get();
     return {
       success: true,
       data: result.data

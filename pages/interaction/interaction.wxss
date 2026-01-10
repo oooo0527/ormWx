@@ -244,6 +244,7 @@
 }
 
 .list-container {
+  width: 100%;
   /* padding: 20rpx; */
   /* margin: 20rpx; */
   height: 750rpx;
@@ -253,11 +254,20 @@
   /* margin-top: 120rpx; */
 }
 
+.display-content {
+  background: #000000;
+  width: 100%;
+  height: 100%;
+  border: 4rpx solid #ffffff;
+  padding: 10rpx;
+  border-radius: 20rpx;
+}
+
 /* 3D堆叠式轮播图 */
 .carousel-container {
   /* margin-top: 120rpx; */
   position: relative;
-  height: 620rpx;
+  height: 420rpx;
   /* margin-bottom: 100rpx; */
   box-sizing: border-box;
   perspective: 1200rpx;
@@ -266,112 +276,18 @@
   margin-top: 120rpx;
 }
 
-.carousel-3d {
-  position: relative;
+.swiper-container {
   width: 100%;
   height: 100%;
-  touch-action: pan-y;
-  /* 确保触摸事件能正确传递 */
-  user-select: none;
-  -webkit-user-select: none;
 }
 
-.mohu-bg {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  background: linear-gradient(180deg, #ffffff 0%, #090909 100%);
-  filter: blur(2px);
-  z-index: -1;
-  top: -128rpx;
-}
-
-.cards-container {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  transform-style: preserve-3d;
-  /* 确保容器支持3D变换 */
-  perspective: 1200rpx;
-}
-
-.carousel-card {
-  position: absolute;
-  top: 20rpx;
-  left: 50%;
-  width: 400rpx;
-  height: 620rpx;
-  margin-left: -200rpx;
-  border-radius: 8rpx;
-  overflow: visible;
-  /* 改为visible，避免旋转文本被裁剪 */
-  box-shadow: 0 15rpx 35rpx rgba(0, 0, 0, 0.1);
-  /* 移除可能冲突的过渡效果 */
-  /* transition: all 0.3s ease-in-out; */
-  box-sizing: border-box;
-  backface-visibility: hidden;
-  /* 确保3D变换正确工作 */
-  transform-style: preserve-3d;
-  transform-origin: center center;
-  /* border: 2rpx solid #f48eb5; */
-}
-
-.card-bg {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  background: #E9E8EF;
-}
-
-.card-content1 {
-  padding: 10rpx;
-  box-sizing: border-box;
-  /* background: #0c1117; */
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  flex: 1;
+.card-content {
   height: 80%;
-  position: relative;
 }
-
-.carousel-card:nth-child(3n+1) {
-  background: #262626;
-  /* 第一个颜色 */
-}
-
-.carousel-card:nth-child(3n+2) {
-  background: #704ff7;
-  /* 第二个颜色 */
-}
-
-.carousel-card:nth-child(3n+3) {
-  background: #528b54;
-  /* 第三个颜色 */
-}
-
-.carousel-card {
-  padding: 10rpx;
-  box-shadow: 0 0 15rpx #dddddd;
-}
-
-.card-title {
-  font-size: 32rpx;
-  font-weight: bold;
-  color: #faf9f9;
-  height: 100%;
-  width: 30rpx;
-  display: flex;
-  flex-direction: column;
-
-}
-
-
 
 .card-more {
   height: 20%;
-  background: #f5f5f5;
+  background: #5b2222;
   position: relative;
   display: flex;
   align-items: center;
@@ -379,6 +295,7 @@
   flex-direction: column;
   padding: 0 20rpx;
   box-sizing: border-box;
+  border: 2rpx solid black;
 }
 
 .card-image {
@@ -390,17 +307,31 @@
   object-fit: cover;
 }
 
+.card-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #faf9f9;
+  height: 80rpx;
+  line-height: 80rpx;
+  width: 100%;
+
+}
+
 .card-description {
   font-size: 24rpx;
   color: #E9E8EF;
-  height: 100%;
+  /* height: 100%; */
+  display: -webkit-box;
+  /* 1. 使用旧式弹性盒模型 (关键) */
+  -webkit-box-orient: vertical;
+  /* 2. 设置为垂直方向 */
+  -webkit-line-clamp: 5;
   overflow: hidden;
-  text-overflow: ellipsis;
-  word-wrap: break-word;
-  text-align: right;
-  padding-right: 20rpx;
+  /* 4. 隐藏溢出 */
+  line-height: 1.5;
+  /* (建议) 设置行高，视觉更好 */
+  max-height: calc(1.5em * 5);
   flex: 1;
-  /* border: 2rpx solid blanchedalmond; */
 
 }
 
@@ -414,8 +345,8 @@
 }
 
 .card-date {
-  font-size: 24rpx;
-  color: #333333;
+  font-size: 28rpx;
+  color: #f9f4f4;
   width: 100%;
   text-align: right;
   margin-bottom: 5rpx;
@@ -431,16 +362,6 @@
   background: linear-gradient(to top, rgba(0, 0, 0, 0.1) 0%, transparent 50%);
 }
 
-.card-content {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  padding: 30rpx;
-  box-sizing: border-box;
-  color: #333333;
-  z-index: 2;
-}
 
 
 .card-role {
@@ -546,7 +467,7 @@
   overflow: hidden;
   box-shadow: 0 10rpx 30rpx rgba(0, 0, 0, 0.1);
   width: 400rpx;
-  height: 620rpx;
+  height: 420rpx;
 }
 
 .swiper-image {

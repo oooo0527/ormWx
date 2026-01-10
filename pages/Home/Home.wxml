@@ -62,42 +62,41 @@
       </swiper-item>
     </swiper>
   </view>
-  <view class="conten-box-bg">
-    <view class="content" wx:if="{{false}}">
-      <view class="content-container">
-        <view class="content-container-item" wx:for="{{contentList}}" wx:key="index" bindtap="navigateToPage" data-url="{{item.url}}">
-          <image src="{{item.image}}" mode="aspectFill" class="content-image"></image>
-          <view class="content-text">{{item.name}}</view>
-        </view>
-      </view>
-    </view>
-    <!-- // 音乐 煎蛋卷 好人好事 -->
-    <view class="contentList">
-      <view class="ListBox">
-        <!-- 左   陈奥的缘 -->
-        <view class="list-item" bindtap="navigateToPage" data-url="/packHome/personal/personal">
-          <!-- <view class="list-item-text">我的陈奥</view> -->
-          <image src="cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/时.jpg" mode="widthFix" lazy-load class="list-image"></image>
-        </view>
-        <!-- 右   音乐，公益 等 -->
-        <view class="list-item1">
-          <view class="music-item" wx:for="{{musicList}}" wx:key="index" bindtap="navigateToPage" data-url="{{item.url}}">
-            <view class="music-title">{{item.title}}</view>
-            <view class="music-des">{{item.des}}</view>
-          </view>
-          <view class="empty-music-placeholder" wx:if="{{!musicList || musicList.length === 0}}">
-            <text>正在加载...</text>
+  <scrollable-node scroll-y="{{true}}" style="height: 100vh;" enable-back-to-top="true" show-scrollbar="{{true}}">
+    <view class="conten-box-bg">
+      <view class="content" wx:if="{{false}}">
+        <view class="content-container">
+          <view class="content-container-item" wx:for="{{contentList}}" wx:key="index" bindtap="navigateToPage" data-url="{{item.url}}">
+            <image src="{{item.image}}" mode="aspectFill" class="content-image"></image>
+            <view class="content-text">{{item.name}}</view>
           </view>
         </view>
       </view>
-    </view>
-    <view class="menu-container">
-      <view class="menu-item" wx:for="{{menuList}}" wx:key="index" bindtap="navigateToPage" data-url="{{item.url}}">
-        <image src="{{item.image}}" mode="aspectFill" class="menu-icon"></image>
-        <view class="menu-text">{{item.title}}</view>
+      <!-- // 音乐 煎蛋卷 好人好事 -->
+      <view class="contentList">
+        <view class="ListBox">
+          <!-- 左   陈奥的缘 -->
+          <view class="list-item" bindtap="navigateToPage" data-url="/packHome/personal/personal">
+            <!-- <view class="list-item-text">我的陈奥</view> -->
+            <image src="cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/时.jpg" mode="widthFix" lazy-load class="list-image"></image>
+          </view>
+          <!-- 右   音乐，公益 等 -->
+          <view class="list-item1">
+            <view class="music-item" wx:for="{{musicList}}" wx:key="index" bindtap="navigateToPage" data-url="{{item.url}}">
+              <view class="music-title">{{item.title}}</view>
+              <view class="music-des">{{item.des}}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="menu-container">
+        <view class="menu-item" wx:for="{{menuList}}" wx:key="index" bindtap="navigateToPage" data-url="{{item.url}}">
+          <image src="{{item.image}}" mode="aspectFill" class="menu-icon"></image>
+          <view class="menu-text">{{item.title}}</view>
+        </view>
       </view>
     </view>
-  </view>
+  </scrollable-node>
   <!-- 每日弹窗提醒 -->
   <view class="daily-notification-popup" wx:if="{{showNotificationPopup}}">
     <view class="popup-overlay" bindtap="hideNotificationPopup"></view>
@@ -118,4 +117,6 @@
       </view>
     </view>
   </view>
+  <!-- 自定义Loading组件 -->
+  <custom-loading show="{{showCustomLoading}}" full-screen="{{true}}"></custom-loading>
 </view>

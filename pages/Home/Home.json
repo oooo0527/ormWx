@@ -1,5 +1,7 @@
 {
   "navigationStyle": "custom",
   "renderer": "skyline",
-  "usingComponents": {}
+  "usingComponents": {
+    "custom-loading": "../../components/customLoading/customLoading"
+  }
 }
