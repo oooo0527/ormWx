@@ -62,8 +62,8 @@
       </swiper-item>
     </swiper>
   </view>
-  <scrollable-node scroll-y="{{true}}" style="height: 100vh;" enable-back-to-top="true" show-scrollbar="{{true}}">
-    <view class="conten-box-bg">
+  <scroll-view scroll-y="true" style="height:calc(100vh - 740rpx);" class="ListBox">
+    <view class="content-box-bg">
       <view class="content" wx:if="{{false}}">
         <view class="content-container">
           <view class="content-container-item" wx:for="{{contentList}}" wx:key="index" bindtap="navigateToPage" data-url="{{item.url}}">
@@ -96,7 +96,7 @@
         </view>
       </view>
     </view>
-  </scrollable-node>
+  </scroll-view>
   <!-- 每日弹窗提醒 -->
   <view class="daily-notification-popup" wx:if="{{showNotificationPopup}}">
     <view class="popup-overlay" bindtap="hideNotificationPopup"></view>

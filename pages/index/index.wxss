@@ -167,36 +167,58 @@
   }
 }
 
+.display-area {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  /* 确保子元素正确定位 */
+}
+
 .display-image {
   width: 255rpx;
   height: 635rpx;
   position: absolute;
   bottom: 480rpx;
+  left: 12%;
+  transform: translateX(-50%) scale(0.7);
   /* position: relative; */
   /* z-index: 1; */
-  scale: 0.7;
+  z-index: 10;
 }
 
 
 
 .image-display {
-
   background: #e7e7e733;
-
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20rpx;
+  position: absolute;
+  bottom: 0;
   width: 90%;
-  /* padding: 20rpx; */
-  box-sizing: border-box;
-  border-radius: 30rpx;
-  margin: 0 auto;
-  box-shadow: 0 8px 20px rgba(6, 6, 6, 0.856);
-  /* background: #fbe7eb; */
-  padding: 30rpx;
   height: 600rpx;
-  /* border: 6rpx dashed black; */
+  border-radius: 30rpx;
+  padding: 30rpx;
+  box-sizing: border-box;
+  box-shadow: 0 8px 20px rgba(6, 6, 6, 0.856);
+  overflow: hidden;
+  /* 使用 flexbox 替代 grid 以提高 Skyline 兼容性 */
+  display: flex;
+  z-index: 20;
+}
 
+.text-grid-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-content: flex-start;
+  width: 100%;
+  height: 100%;
+  padding: 10rpx;
+  z-index: 25;
+  position: relative;
 }
 
 .bubble-text {
@@ -245,11 +267,30 @@
 
 }
 
-/* 第10个元素（第四排的第1个）单独处理 */
+/* 每行最多三个元素，每行最后一个元素右边距清零 */
+.text-item:nth-child(3n) {
+  margin-right: 0;
+}
+
+/* 每行第一个元素左边距清零 */
+.text-item:nth-child(3n+1) {
+  margin-left: 0;
+}
+
+/* 最后一个元素的特殊处理：如果该行只有一个或两个元素，使其居中 */
+.text-item:last-child {
+  /* 如果最后一行只有一个元素，则居中 */
+  margin-left: auto;
+  margin-right: auto;
+  width: 33.333%;
+}
+
+/* 针对特定位置的元素进行额外处理 */
 .text-item:nth-child(10) {
-  grid-column: span 3;
-  max-width: 100%;
-  justify-self: center;
+  width: 33.333%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
   /* 居中显示单个项目 */
 }
 
@@ -257,11 +298,15 @@
 .text-item {
   /* width: 100%; */
   height: 120rpx;
-  width: 120rpx;
+  min-width: 120rpx;
   border-radius: 120rpx;
   display: block;
   margin: 0 auto;
-  z-index: 100;
+  z-index: 30;
+  flex: 0 0 calc(33.333% - 20rpx);
+  /* 适配三列布局 */
+  margin: 10rpx;
+  position: relative;
 }
 
 .display-image2 {

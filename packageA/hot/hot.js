@@ -10,6 +10,12 @@ Page({
     hasMore: true, // 是否还有更多数据
     page: 0, // 当前页码
     pageSize: 20, // 每页数据条数
+    type: 'fade',
+    duration: 300,
+    closedElevation: 1,
+    closedBorderRadius: 4,
+    openElevation: 4,
+    openBorderRadius: 0,
   },
 
   /**
@@ -18,6 +24,20 @@ Page({
   onLoad(options) {
     // 页面加载时获取热门留言数据
     this.getHotList();
+  },
+  // 显示作品详情
+  selectHotInteraction: function (e) {
+    const index = e.currentTarget.dataset.index;
+    console.log('index:', index);
+    wx.navigateTo({
+      url: '/pages/interactionDetail/interactionDetail',
+      success: (res) => {
+        // 通过事件通道向被打开页面传送数据
+        res.eventChannel.emit('acceptDataFromOpenerPage', {
+          works: this.data.hotList[index],
+        });
+      }
+    });
   },
 
   /**

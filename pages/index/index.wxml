@@ -39,11 +39,15 @@
         <view>AS LONG AS GUYS U CAN</view>
         <view>OK? OK</view>
       </view>
-      <image class="display-image" src="{{displayImage}}" show-menu-by-longpress="false" lazy-load="{{true}}"></image>
-      <!-- <image src="{{displayImage2}}" class="display-image1" show-menu-by-longpress="false" mode="aspectFill" lazy-load="{{true}}"></image> -->
-      <view class="image-display">
-        <!-- <view bindtap="goHome">I love U</view> -->
-        <image wx:for="{{displayedText}}" wx:key="index" src="{{item}}" class="text-item {{clickAnimation[index] ? 'click-animation' : ''}}" mode="aspectFit" lazy-load="{{true}}" bindtap="onTextImageClick" data-index="{{index}}"></image>
+      <view class="display-area">
+        <image class="display-image" src="{{displayImage}}" show-menu-by-longpress="false" lazy-load="{{true}}"></image>
+        <!-- <image src="{{displayImage2}}" class="display-image1" show-menu-by-longpress="false" mode="aspectFill" lazy-load="{{true}}"></image> -->
+        <view class="image-display">
+          <!-- <view bindtap="goHome">I love U</view> -->
+          <view class="text-grid-container">
+            <image wx:for="{{displayedText}}" wx:key="index" src="{{item}}" class="text-item {{clickAnimation[index] ? 'click-animation' : ''}}" mode="aspectFit" lazy-load="{{true}}" bindtap="onTextImageClick" data-index="{{index}}"></image>
+          </view>
+        </view>
       </view>
     </view>
     <!-- 语音播放控制 -->

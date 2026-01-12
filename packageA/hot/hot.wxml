@@ -3,36 +3,25 @@
   <custom-navbar title="热门留言" showBack="{{true}}" showHome="{{false}}"></custom-navbar>
   <view class="container" style="margin-top: {{navBarHeight}}px;min-height:calc(100vh - {{navBarHeight}}px);">
     <!-- 热门留言列表 -->
-    <scroll-view class="hot-list" scroll-y="true" enable-back-to-top="{{true}}" show-scrollbar="{{true}}" style="height:calc(100vh - {{navBarHeight}}px);">
-      <!-- 加载状态 -->
-      <view class="loading" wx:if="{{loading}}">
-        <view class="loading-spinner"></view>
-        <text class="loading-text">加载中...</text>
-      </view>
-      <!-- 留言列表 -->
-      <view class="list" wx:else>
-        <view class="empty" wx:if="{{hotList.length === 0 && !loading}}">
-          <text class="empty-text">暂无热门留言</text>
+    <scroll-view class="hot-list" type="custom" scroll-y="true" enable-back-to-top="{{true}}" show-scrollbar="{{true}}" style="height:calc(100vh - {{navBarHeight}}px);">
+      <grid-view type="masonry" cross-axis-count="2" cross-axis-gap="10" main-axis-gap="10">
+        <!-- 留言列表 -->
+        <view class="list">
+          <block wx:for="{{hotList}}" wx:key="index">
+            <open-container closed-elevation="0" closed-border-radius="0" open-elevation="{{openElevation}}" open-border-radius="{{openBorderRadius}}" transition-type="{{type}}" transition-duration="{{duration}}" bind:tap="selectHotInteraction" data-index="{{index}}">
+              <view class="list-title">
+                <view class="list-item-leading">
+                  <image class="avatar" src="{{item.tupianzuimages[0]}}" mode="widthFix" />
+                </view>
+                <view class="list-item-content">
+                  <view class="item-title">{{item.title}}</view>
+                  <view class="comment-content">{{item.content}}</view>
+                </view>
+              </view>
+            </open-container>
+          </block>
         </view>
-        <view class="item" wx:for="{{hotList}}" wx:key="_id">
-          <view class="item-header">
-            <text class="item-title">{{item.title}}</text>
-            <text class="item-time">{{item.createdAt}}</text>
-          </view>
-          <view class="item-content">
-            <image class="item-image" wx:if="{{item.tupianzuimages && item.tupianzuimages.length>0}}" src="{{item.tupianzuimages[0]}}" lazy-load="{{true}}" mode="widthFix"></image>
-            <!-- 收起/展开内容 -->
-            <view class="content-wrapper {{item.isExpanded ? 'expanded' : 'collapsed'}}">
-              <text class="content-text">{{item.content}}</text>
-            </view>
-            <view class="expand-collapse" wx:if="{{item.content && item.content.length > 50}}">
-              <text class="expand-btn" bindtap="toggleContent" data-index="{{index}}">
-                {{item.isExpanded ? '收起' : '展开'}}
-              </text>
-            </view>
-          </view>
-        </view>
-      </view>
+      </grid-view>
       <!-- 加载更多提示 -->
       <view class="load-more" wx:if="{{loading && hotList.length > 0}}">
         <text>加载中...</text>

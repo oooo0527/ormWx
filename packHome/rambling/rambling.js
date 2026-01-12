@@ -4,6 +4,9 @@ Page({
    * 页面的初始数据
    */
   data: {
+    crossAxisCount: 6,
+    crossAxisGap: 8,
+    mainAxisGap: 20,
     mamiLIST: [
       "宝宝是七个月的早产儿，但经过妈妈无微不至的照顾，长成又白又高的173大美女",
       "拥有一双超级好看的琥珀色的眼睛",
@@ -104,36 +107,34 @@ Page({
       "对粉丝说的话：我很感激粉丝们为了我们做了这么多事情，这是一种我从未经历过的爱，粉丝甚至还不太了解我们，但大家会不遗余力地照顾我们，甚至送礼物。我不知道是否还能再次体验到这种爱，但她们为我创造了很多第一次，我真的觉得很幸福"
     ],
 
-    // 当前数字（对应mamiLIST的索引+1）
-    currentNumber: 1,
-
-    // 总数
-    totalCount: 97,
-
-    // 当前显示的内容
-    currentContent: "",
-
-    // 是否正在长按
-    isPressing: false,
-
-    // 定时器ID
-    timerId: null,
-
-    // 变化速度（毫秒）
-    changeSpeed: 100,
-
-    // 临时数字（用于长按过程中显示）
-    tempNumber: 1,
-
-    // 星空背景星星数据
-    stars: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    this.generateRandomizedData();
+  },
+  getRandomInt() {
+    return Math.floor(Math.random() * 4)
+  },
 
+  getRandomWidth() {
+    // 随机宽度范围 80px 到 150px
+    return Math.floor(Math.random() * 70) + 200;
+  },
+
+  generateRandomizedData() {
+    const originalData = this.data.mamiLIST;
+    const randomizedData = originalData.map(item => {
+      return {
+        text: item,
+        width: this.getRandomWidth()
+      };
+    });
+    this.setData({
+      mamiLIST: randomizedData
+    });
   },
 
   /**

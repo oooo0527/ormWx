@@ -21,6 +21,21 @@
   box-sizing: border-box;
 }
 
+.ListBox {
+  margin-top: -60rpx;
+  background: #ffffff;
+  border-top-right-radius: 50rpx;
+  border-top-left-radius: 50rpx;
+  overflow: hidden;
+
+}
+
+.content-box-bg {
+
+  height: 100%;
+
+}
+
 .lamp-rope {
   width: 2rpx;
   height: 180rpx;
