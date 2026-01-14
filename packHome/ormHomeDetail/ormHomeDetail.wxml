@@ -1,7 +1,7 @@
 <!-- packHome/ormHomeDetail/ormHomeDetail.wxml -->
 <global-background>
   <custom-navbar title="越看越有" showBack="{{true}}" showHome="{{false}}"></custom-navbar>
-  <scroll-view class="container" scroll-y="true" style="margin-top: {{navBarHeight}}px; height: calc(100vh - {{navBarHeight}}px);">
+  <scroll-view class="container" scroll-y="true" style="height:100vh;">
     <view class="content">
       <view class="header">
         <image class="avatar1" src="cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/Home3.jpg" mode="widthFix"></image>

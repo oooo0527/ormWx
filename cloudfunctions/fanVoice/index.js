@@ -61,7 +61,7 @@ async function getInteractionList(event) {
 
       const result = await query
         .where({
-          createdAt: _.and(_.gte(startOfDay.getTime()), _.lte(endOfDay.getTime())),
+          createdAt: _.lt(event.createdAt),
           status: event.status,
         })
         .orderBy('createdAt', 'desc')

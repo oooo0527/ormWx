@@ -64,27 +64,33 @@
   </view>
   <scroll-view scroll-y="true" style="height:calc(100vh - 740rpx);" class="ListBox">
     <view class="content-box-bg">
-      <view class="content" wx:if="{{false}}">
+      <!-- <view class="content" wx:if="{{false}}">
         <view class="content-container">
           <view class="content-container-item" wx:for="{{contentList}}" wx:key="index" bindtap="navigateToPage" data-url="{{item.url}}">
             <image src="{{item.image}}" mode="aspectFill" class="content-image"></image>
             <view class="content-text">{{item.name}}</view>
           </view>
         </view>
-      </view>
+      </view> -->
       <!-- // 音乐 煎蛋卷 好人好事 -->
       <view class="contentList">
-        <view class="ListBox">
-          <!-- 左   陈奥的缘 -->
-          <view class="list-item" bindtap="navigateToPage" data-url="/packHome/personal/personal">
-            <!-- <view class="list-item-text">我的陈奥</view> -->
-            <image src="cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/时.jpg" mode="widthFix" lazy-load class="list-image"></image>
+        <view class="content-flex-row">
+          <!-- 左侧：陈奥的缘 -->
+          <view class="main-card" bindtap="navigateToPage" data-url="/packHome/personal/personal">
+            <image src="cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/时.jpg" mode="aspectFill" class="main-card-image"></image>
+            <view class="main-card-content">
+              <text class="main-card-title">我的陈奥</text>
+              <text class="main-card-subtitle">专属时光轴</text>
+            </view>
           </view>
-          <!-- 右   音乐，公益 等 -->
-          <view class="list-item1">
-            <view class="music-item" wx:for="{{musicList}}" wx:key="index" bindtap="navigateToPage" data-url="{{item.url}}">
-              <view class="music-title">{{item.title}}</view>
-              <view class="music-des">{{item.des}}</view>
+          <!-- 右侧：音乐和其他内容 -->
+          <view class="sub-card-container">
+            <view class="sub-card" wx:for="{{musicList}}" wx:key="index" bindtap="navigateToPage" data-url="{{item.url}}">
+              <view class="sub-card-content">
+                <text class="sub-card-title">{{item.title}}</text>
+                <text class="sub-card-desc">{{item.des}}</text>
+                <view class="sub-card-arrow">▶</view>
+              </view>
             </view>
           </view>
         </view>

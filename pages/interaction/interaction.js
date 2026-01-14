@@ -46,20 +46,21 @@ Page({
     // 如果 dateValue 是对象且包含 createdAt 属性，则使用该时间戳
     if (dateValue && typeof dateValue === 'object' && dateValue.createdAt) {
       const date = new Date(dateValue.createdAt);
-      return date.toISOString().slice(0, 10); // 返回 YYYY-MM-DD 格式
+      return date.getTime(); // 返回时间戳
     }
     // 如果 dateValue 是时间戳数字
     else if (typeof dateValue === 'number') {
       const date = new Date(dateValue);
-      return date.toISOString().slice(0, 10); // 返回 YYYY-MM-DD 格式
+      return date.getTime(); // 返回时间戳
     }
-    // 如果 dateValue 是日期字符串，则直接返回
+    // 如果 dateValue 是日期字符串，则转换为时间戳
     else if (typeof dateValue === 'string') {
-      return dateValue;
+      const date = new Date(dateValue);
+      return date.getTime(); // 返回时间戳
     }
-    // 默认返回当前日期
+    // 默认返回当前时间戳
     else {
-      return new Date().toISOString().slice(0, 10);
+      return new Date().getTime();
     }
   },
 
@@ -160,21 +161,17 @@ Page({
         if (res.result && res.result.success && res.result.data.length > 0) {
 
           this.setData({
+            displayWorks: res.result.data,
             works: res.result.data
-          }, () => {
-            // 数据更新后重新初始化轮播图
-            this.init3DCarousel();
-          });
+          },);
         } else {
           console.error('获取互动留言失败：', res.result.message);
-          // 如果获取失败，仍然初始化轮播图
-          this.init3DCarousel();
+
         }
       },
       fail: err => {
         console.error('调用云函数失败：', err);
-        // 如果调用失败，仍然初始化轮播图
-        this.init3DCarousel();
+
       }
     });
   },
@@ -210,10 +207,6 @@ Page({
             });
           }
           const hotInteractions2 = [...res.result.data]
-            .sort((a, b) =>
-              `${b.createdAt}` -
-              `${a.createdAt}`
-            );
           if (currentPage === 0) {
             this.setData({
               hotInteractions: hotInteractions2
@@ -234,184 +227,11 @@ Page({
       }
     });
   },
-
-
-  // 初始化3D轮播图
-  init3DCarousel: function () {
-    this.updateDisplayWorks();
-    this.update3DCarousel();
-  },
-
-  // 更新显示的卡片（只显示前3张）
-  updateDisplayWorks: function () {
-    const works = this.data.works;
-    const currentSlide = this.data.currentSlide;
-    const total = works.length;
-
-    // 计算要显示的3张卡片索引
-    const displayIndices = [];
-    for (let i = 0; i < 3; i++) {
-      const index = (currentSlide + i) % total;
-      displayIndices.push(index);
-    }
-
-    // 构建显示的卡片数组
-    const displayWorks = displayIndices.map(index => works[index]);
-
-    this.setData({
-      displayWorks: displayWorks
-    });
-  },
-
-  // 更新3D轮播图显示 - 实现左右堆叠效果
-  update3DCarousel: function () {
-    const works = this.data.works;
-    const displayWorks = this.data.displayWorks;
-    const currentSlide = this.data.currentSlide;
-    const total = works.length;
-
-    // 初始化变换数组（只针对显示的3张卡片）
-    const transforms = new Array(3).fill('');
-    const zIndexes = new Array(3).fill(0);
-    const opacities = new Array(3).fill(0.5);
-
-    // 计算每张显示卡片的位置和变换，实现左右堆叠效果
-    for (let i = 0; i < 3; i++) {
-      // 计算相对位置 (0, 1, 2)
-      const relativeIndex = i;
-
-      // 根据相对位置设置变换效果
-      if (relativeIndex === 0) {
-        // 当前卡片 - 最前面，居中显示
-        transforms[i] = 'translateX(0) translateY(0) translateZ(0) scale(1)';
-        zIndexes[i] = 100;
-        opacities[i] = 1;
-      } else if (relativeIndex === 1) {
-        // 第二张卡片 - 左侧堆叠
-        transforms[i] = 'translateX(-180rpx) translateY(20rpx) translateZ(-100rpx) scale(0.9) rotate(-30deg)';
-        zIndexes[i] = 99;
-        opacities[i] = 0.9;
-      } else if (relativeIndex === 2) {
-        // 第三张卡片 - 右侧堆叠
-        transforms[i] = 'translateX(180rpx) translateY(20rpx) translateZ(-100rpx) scale(0.9) rotate(30deg)';
-        zIndexes[i] = 99;
-        opacities[i] = 0.9;
-      }
-    }
-
-    this.setData({
-      cardTransforms: transforms,
-      cardZIndexes: zIndexes,
-      cardOpacities: opacities,
-      selectedWork: works[currentSlide]
-    });
-  },
-
-  // 上一张 - 向右滑出
-  prevSlide: function () {
-    if (this.data.isAnimating) return;
-
-    const works = this.data.works;
-    const currentSlide = this.data.currentSlide;
-    const newSlide = (currentSlide + 1 + works.length) % works.length;
-
-    this.animateSlide(1); // 向右滑出
-
-    setTimeout(() => {
-      this.setData({
-        currentSlide: newSlide,
-        isAnimating: false
-      });
-
-      this.updateDisplayWorks();
-      this.update3DCarousel();
-    }, 200);
-  },
-
-  // 下一张 - 向左滑出
-  nextSlide: function () {
-    if (this.data.isAnimating) return;
-
-    const works = this.data.works;
-    const currentSlide = this.data.currentSlide;
-    const newSlide = (currentSlide + 1) % works.length;
-
-    this.animateSlide(-1); // 向左滑出
-
-    setTimeout(() => {
-      this.setData({
-        currentSlide: newSlide,
-        isAnimating: false
-      });
-
-      this.updateDisplayWorks();
-      this.update3DCarousel();
-    }, 200);
-  },
-
-  // 执行滑出动画 - 实现旋转补位效果
-  animateSlide: function (direction) {
-    this.setData({
-      isAnimating: true
-    });
-
-    const transforms = [...this.data.cardTransforms];
-
-    // 当前卡片滑出屏幕
-    if (direction > 0) {
-      // 向右滑出
-      transforms[0] = 'translateX(1000rpx) translateY(0) translateZ(0) scale(0.8)';
-    } else {
-      // 向左滑出
-      transforms[0] = 'translateX(-1000rpx) translateY(0) translateZ(0) scale(0.8)';
-    }
-
-    // 更新其他卡片位置，实现旋转补位效果
-    if (transforms.length > 1) {
-      // 第二张卡片移动到最前面
-      transforms[1] = 'translateX(0) translateY(0) translateZ(0) scale(1) rotateY(0deg)';
-    }
-    if (transforms.length > 2) {
-      // 第三张卡片根据滑动方向决定旋转方向
-      if (direction > 0) {
-        // 向右滑出，第三张卡片旋转到左侧堆叠位置
-        transforms[2] = 'translateX(-120rpx) translateY(20rpx) translateZ(-100rpx) scale(0.9) rotateY(-10deg)';
-      } else {
-        // 向左滑出，第三张卡片旋转到右侧堆叠位置
-        transforms[2] = 'translateX(120rpx) translateY(20rpx) translateZ(-100rpx) scale(0.9) rotateY(10deg)';
-      }
-    }
-
-    this.setData({
-      cardTransforms: transforms
-    });
-  },
-
-  // 选择指定幻灯片
-  selectSlide: function (e) {
-    if (this.data.isAnimating) return;
-
-    const index = e.currentTarget.dataset.index;
-
-    this.setData({
-      currentSlide: index
-    });
-
-    this.updateDisplayWorks();
-    this.update3DCarousel();
-  },
-
   // 选择卡片
   selectCard: function (e) {
-    if (this.data.isAnimating) return;
 
     const index = e.currentTarget.dataset.index;
 
-    // 如果点击的是第一张卡片（当前显示的卡片），则显示详情
-    if (index === 0) {
-      this.showWorkDetail();
-      return;
-    }
 
     // 将显示的卡片索引转换为实际的作品索引
     const displayWorks = this.data.displayWorks;
@@ -423,9 +243,8 @@ Page({
     this.setData({
       currentSlide: actualIndex
     });
+    this.showWorkDetail();
 
-    this.updateDisplayWorks();
-    this.update3DCarousel();
   },
 
   //fenye 
@@ -440,92 +259,12 @@ Page({
     }
   },
 
-  // 点赞功能
-  toggleLike: function (e) {
-    const works = this.data.works;
-    const currentSlide = this.data.currentSlide;
-    const work = works[currentSlide];
 
-    // 更新点赞状态
-    work.isLiked = !work.isLiked;
-    work.likes += work.isLiked ? 1 : -1;
-
-    // 更新数据
-    const newWorks = [...works];
-    newWorks[currentSlide] = work;
-
-    this.setData({
-      works: newWorks,
-      selectedWork: work
-    });
-  },
-
-  // 触摸开始
-  touchStart: function (e) {
-    if (this.data.isAnimating || !e.touches || e.touches.length === 0) return;
-
-    this.setData({
-      touchStartX: e.touches[0].clientX,
-      isSwiping: true,
-      swipeDirection: 0
-    });
-  },
-
-  // 触摸移动
-  touchMove: function (e) {
-    if (!this.data.isSwiping || this.data.isAnimating || !e.touches || e.touches.length === 0) return;
-
-    const touchStartX = this.data.touchStartX;
-    const touchCurrentX = e.touches[0].clientX;
-    const deltaX = touchCurrentX - touchStartX;
-
-    // 更新卡片的位置，提供滑动反馈
-    const transforms = [...this.data.cardTransforms];
-
-    // 只移动当前卡片
-    if (transforms.length > 0) {
-      transforms[0] = `translateX(${deltaX}rpx) translateY(0) translateZ(0) scale(1)`;
-    }
-
-    this.setData({
-      cardTransforms: transforms,
-      swipeDirection: deltaX > 0 ? 1 : -1
-    });
-  },
   //跳转热门留言
   showHistories: function () {
     wx.navigateTo({
       url: '/packageA/hot/hot',
     });
-  },
-
-  // 触摸结束
-  touchEnd: function (e) {
-    if (!this.data.isSwiping || this.data.isAnimating || !e.changedTouches || e.changedTouches.length === 0) return;
-
-    const touchStartX = this.data.touchStartX;
-    const touchEndX = e.changedTouches[0].clientX;
-    const deltaX = touchEndX - touchStartX;
-
-    this.setData({
-      touchStartX: 0,
-      touchEndX: touchEndX,
-      isSwiping: false
-    });
-
-    // 判断滑动方向并切换图片
-    if (Math.abs(deltaX) > 50) { // 滑动距离超过50px才触发切换
-      if (deltaX > 0) {
-        // 向右滑动，显示上一张
-        this.prevSlide();
-      } else {
-        // 向左滑动，显示下一张
-        this.nextSlide();
-      }
-    } else {
-      // 滑动距离不够，恢复原位
-      this.update3DCarousel();
-    }
   },
 
   // 显示作品详情

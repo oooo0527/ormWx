@@ -529,7 +529,6 @@
   position: relative;
   padding: 0 30rpx;
   justify-content: space-between;
-
   width: 100%;
 }
 
@@ -548,14 +547,14 @@
   width: 16%;
 }
 
-.menu-item:nth-of-type(2n) {
+.menu-item:nth-child(odd) {
   margin-top: 18rpx;
   box-shadow: 0 2rpx 4rpx #E9E8EF;
   animation-delay: 0.5s;
   animation: floatUp 3s ease-in-out infinite;
 }
 
-.menu-item:nth-of-type(2n+1) {
+.menu-item:nth-child(even) {
   margin-bottom: 18rpx;
   box-shadow: 0 4rpx 6rpx 2rpx #0c1117;
   animation-delay: 1s;
@@ -596,7 +595,6 @@
 
 
 .menu-icon {
-  border-radius: 16rpx;
   width: 100%;
   height: 250rpx;
   border-radius: 16rpx;
@@ -611,6 +609,8 @@
   /* border-radius: 8rpx; */
   width: 100%;
   text-align: center;
+  border-bottom-left-radius: 16rpx;
+  border-bottom-right-radius: 16rpx;
 }
 
 .contentList {
@@ -619,96 +619,131 @@
   /* padding: 40rpx; */
 }
 
-
-.ListBox {
+.content-flex-row {
   display: flex;
   min-height: 400rpx;
-  justify-content: space-between;
   color: #333333;
-  text-align: left;
   box-sizing: border-box;
-  flex-direction: row;
-  align-items: center;
   padding: 20rpx;
+  gap: 20rpx;
 }
 
-.list-image {
-  width: 90%;
-  /* height: 100%; */
-
-  border-radius: 16rpx;
+/* 主卡片 - 左侧 */
+.main-card {
+  flex: 1;
+  min-height: 400rpx;
+  border-radius: 24rpx;
+  overflow: hidden;
   position: relative;
-
+  box-shadow: 0 12rpx 24rpx rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  overflow: hidden;
 }
 
-.list-image::after {
-  content: '她不完美!                            但是是我的榜样';
+.main-card:active {
+  transform: scale(0.98);
+}
+
+.main-card:hover {
+  transform: translateY(-5rpx);
+  box-shadow: 0 16rpx 32rpx rgba(0, 0, 0, 0.2);
+}
+
+.main-card-image {
+  width: 100%;
+  height: 100%;
+  transition: all 0.3s ease;
+}
+
+.main-card-content {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 50rpx;
-  font-size: 24rpx;
-  line-height: 50rpx;
-  background: #2a2929;
-  /* opacity: 0.7; */
-  padding: 10rpx;
-  color: #ffffff;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+  padding: 50rpx 30rpx 30rpx;
+  color: white;
 }
 
-.list-item-text {
-  line-height: 60rpx;
-  position: absolute;
-  top: 30rpx;
-  color: #333333;
-  z-index: 2;
+.main-card-title {
+  display: block;
+  font-size: 36rpx;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 8rpx;
 }
 
-.list-item {
-  position: relative;
+.main-card-subtitle {
+  display: block;
+  font-size: 26rpx;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* 右侧卡片容器 */
+.sub-card-container {
   flex: 1;
-  /* border: 4rpx solid black; */
-  /* padding: 20rpx; */
-  /* background: black; */
-  /* border: 4rpx solid #E9E8EF; */
-  border-radius: 16rpx;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20rpx 0;
-  /* background: #E9E8EF; */
-  box-shadow: 0 0 15rpx #333333;
-  /* padding: 0 20rpx; */
-  /* padding-bottom: 80rpx; */
-  box-sizing: border-box;
-  margin: 0 10rpx;
-}
-
-
-
-.list-item1 {
-  margin-left: 20rpx;
-  flex: 1;
-
-  display: flex;
   min-height: 400rpx;
+  display: flex;
   flex-direction: column;
   justify-content: space-between;
-  box-sizing: border-box;
+  gap: 20rpx;
+  margin-left: 40rpx;
 }
 
-.music-item {
-  flex: 1;
-  min-height: 80rpx;
-  /* border: 4rpx solid #E9E8EF; */
-  border-radius: 16rpx;
-  text-align: left;
-  padding-left: 40rpx;
-  /* background: #f48eb5; */
-  box-sizing: border-box;
+/* 子卡片 */
+.sub-card {
+  /* flex: 1; */
+  height: 30%;
+  border-radius: 20rpx;
+  overflow: hidden;
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  box-shadow: 0 8rpx 16rpx rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.sub-card:active {
+  transform: scale(0.98);
+}
+
+
+.sub-card-content {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  height: 100%;
+  padding-left: 20rpx;
+  /* margin: 30rpx; */
+  position: relative;
+}
+
+.sub-card-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10rpx;
+}
+
+.sub-card-desc {
+  font-size: 26rpx;
+  color: #666;
+}
+
+.sub-card-arrow {
+  position: absolute;
+  right: 30rpx;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 32rpx;
+  color: #fff;
+  transition: all 0.3s ease;
+  opacity: 0.7;
+}
+
+.sub-card:hover .sub-card-arrow {
+  transform: translateY(-50%) translateX(5rpx);
+  opacity: 1;
+  color: #fff;
 }
 
 .empty-music-placeholder {
@@ -720,38 +755,6 @@
   color: #999;
   font-size: 28rpx;
 }
-
-.music-title {
-  font-size: 28rpx;
-  color: #666666;
-  line-height: 50rpx;
-}
-
-.music-des {
-  font-size: 24rpx;
-  color: #333333;
-  line-height: 30rpx;
-}
-
-
-.music-item:nth-of-type(2n) {
-  background: #141616;
-  flex: 1;
-}
-
-.music-item:nth-of-type(2n) .music-title,
-.music-item:nth-of-type(2n) .music-des {
-  color: #f9f6f6;
-}
-
-.music-item:nth-of-type(2n+1) {
-  /* background: linear-gradient(90deg, #eeeeee 0%, #f5f5f5 100%); */
-  /* box-shadow: 0 0 4rpx #333333; */
-  background: linear-gradient(90deg, #468fa9 0%, #f5f5f5 100%);
-  flex: 1;
-}
-
-
 
 /* //品牌 */
 

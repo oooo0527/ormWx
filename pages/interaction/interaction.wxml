@@ -33,34 +33,35 @@
         </swiper>
       </view>
     </view>
-    <view class="hot-interactions-section" wx:if="{{hotInteractions.length>0}}">
-      <view class="hot-interactions-list  {{isFixed?'backBg':''}}">
-        <view class="hot-interaction-item" wx:for="{{hotInteractions}}" wx:key="id" data-index="{{index}}" bindtap="selectHotInteraction">
-          <view class="hot-interaction-content">
-            <view class="hot-interaction-info">
-              <view class="img-box">
-                <image src="{{ormkornnaphat.image}}" class="user-image" mode="widthFix" lazy-load></image>
-              </view>
-              <view class="info-box">
-                <view class='hott-title'>{{item.title}}</view>
-                <view class="hott-des">{{item.content}}</view>
-                <view class="hott-text">
-                  <view>{{item.createdAt}}</view>
-                  <view>527 条评论</view>
+    <scroll-view class="hot-list" type="custom" scroll-y="true" enable-back-to-top="{{true}}" show-scrollbar="{{true}}" style="height:calc(100vh - {{navBarHeight}}px);">
+      <grid-view type="masonry" cross-axis-count="1" cross-axis-gap="10" main-axis-gap="10">
+        <view class="hot-interactions-section" wx:if="{{hotInteractions.length>0}}">
+          <view class="hot-interactions-list  {{isFixed?'backBg':''}}">
+            <view class="hot-interaction-item" wx:for="{{hotInteractions}}" wx:key="id" data-index="{{index}}" bindtap="selectHotInteraction">
+              <view class="hot-interaction-card">
+                <view class="card-header">
+                  <image src="{{ormkornnaphat.image}}" class="avatar" mode="aspectFill" lazy-load></image>
+                  <view class="header-info">
+                    <text class="title">{{item.title}}</text>
+                    <view class="meta-info">
+                      <text class="time">{{item.createdAt}}</text>
+                    </view>
+                  </view>
+                </view>
+                <view class="card-content-description">
+                  <view class="description">{{item.content}}</view>
+                  <image src="{{item.tupianzuimages[0]}}" class="card-image1" wx:if="{{item.tupianzuimages && item.tupianzuimages.length > 0}}" mode="aspectFill" lazy-load></image>
                 </view>
               </view>
             </view>
-            <view class="creator" wx:if="{{item.images.length>0}}">
-              <image src="{{item.images[0]}}" class="hot-image" mode="widthFix" lazy-load></image>
-            </view>
           </view>
+          <view wx:if="{{loadMore}}" class="load-more">你也太爱了...</view>
+          <view wx:if="{{loadAll}}" class="load-all">人美心善得陈奥根本不够看</view>
         </view>
-      </view>
-      <view wx:if="{{loadMore}}" class="load-more">你也太爱了...</view>
-      <view wx:if="{{loadAll}}" class="load-all">人美心善得陈奥根本不够看</view>
-    </view>
-    <view class="hot-interactions-section" wx:else>
-      <view class="no-data">当前日期没有你想要了解的陈奥</view>
-    </view>
+        <view class="hot-interactions-section" wx:else>
+          <view class="no-data">当前日期没有你想要了解的陈奥</view>
+        </view>
+      </grid-view>
+    </scroll-view>
   </view>
 </global-background>
