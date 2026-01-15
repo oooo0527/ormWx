@@ -1,5 +1,5 @@
 <global-background>
-  <custom-navbar title="ormkornnaphat" showBack="{{true}}" showHome="{{false}}"></custom-navbar>
+  <custom-navbar title="ormkornnaphat" showBack="{{false}}" showHome="{{false}}"></custom-navbar>
   <view class="container" style="margin-top: {{navBarHeight}}px;height:calc(100vh - {{navBarHeight}}px);">
     <!-- 上部：分割区域 -->
     <view class="middle-section">

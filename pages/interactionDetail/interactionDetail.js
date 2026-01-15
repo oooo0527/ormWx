@@ -30,6 +30,15 @@ Page({
       });
     }
   },
+  // 图片预览事件
+  onImageTap(e) {
+    console.log('onImageTap', e);
+    const itemUrl = e.currentTarget.dataset.item;
+    wx.previewImage({
+      current: itemUrl,
+      urls: this.data.works.tupianzuimages,
+    });
+  },
 
   // 页面卸载时不需要停止轮询
   onUnload: function () {

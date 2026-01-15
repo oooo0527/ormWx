@@ -53,10 +53,19 @@ Page({
       const date = new Date(dateValue);
       return date.getTime(); // 返回时间戳
     }
-    // 如果 dateValue 是日期字符串，则转换为时间戳
+    // 如果 dateValue 是日期字符串（如 "2025-01-14"），则转换为当天的23:59:59时间戳
     else if (typeof dateValue === 'string') {
+      // 尝试解析日期字符串
       const date = new Date(dateValue);
-      return date.getTime(); // 返回时间戳
+      if (!isNaN(date.getTime())) { // 检查是否为有效日期
+        // 设置为当天的23:59:59
+        date.setHours(23, 59, 59, 999);
+        return date.getTime();
+      } else {
+        // 如果不是有效的日期字符串，按原方式处理
+        const fallbackDate = new Date(dateValue);
+        return fallbackDate.getTime();
+      }
     }
     // 默认返回当前时间戳
     else {

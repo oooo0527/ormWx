@@ -50,18 +50,12 @@ async function getInteractionList(event) {
   try {
     let query = db.collection('interactions')
     if (event.createdAt) {
-      // 使用时间戳查询，处理传入的时间戳参数
-      // 将时间戳转换为当天的开始和结束时间
-      const targetDate = new Date(event.createdAt);
-      const startOfDay = new Date(targetDate);
-      startOfDay.setHours(0, 0, 0, 0);
-
-      const endOfDay = new Date(targetDate);
-      endOfDay.setHours(23, 59, 59, 999);
-
+      // 确保时间戳是数字类型
+      const timestamp = typeof event.createdAt === 'string' ? parseInt(event.createdAt) : event.createdAt;
+      console.log('timestamp:', timestamp);
       const result = await query
         .where({
-          createdAt: _.lt(event.createdAt),
+          createdAt: _.lt(timestamp),
           status: event.status,
         })
         .orderBy('createdAt', 'desc')
@@ -89,6 +83,7 @@ async function getInteractionList(event) {
       }
     }
   } catch (err) {
+    console.error('getInteractionList error:', err);
     return {
       success: false,
       message: err.message

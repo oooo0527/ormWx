@@ -23,8 +23,6 @@ Page({
       });
     });
 
-
-
   },
 
 
@@ -33,9 +31,6 @@ Page({
     const index = e.currentTarget.dataset.index;
     const currentIndex = this.data.activeIndex;
     const targetIndex = parseInt(index);
-
-
-
     // 设置动画类
     this.setData({
       activeIndex: targetIndex,

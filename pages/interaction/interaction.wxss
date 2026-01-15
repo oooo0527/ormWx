@@ -15,7 +15,23 @@
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 1;
   overflow: hidden;
-  margin-left: 16rpx;
+  /* margin-left: 16rpx; */
+}
+
+.card-Ids {
+  /* text-align: center; */
+  color: #f7f5f5;
+  font-weight: bold;
+  font-size: 28rpx;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+  word-wrap: none;
+  word-break: break-all;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+
 }
 
 .hot-histories-section {
@@ -164,6 +180,17 @@
   }
 }
 
+.nav-image {
+  width: 110rpx;
+  height: 120rpx;
+  position: absolute;
+  right: 10rpx;
+  transition: all 3s ease;
+  cursor: pointer;
+  top: -85rpx;
+
+}
+
 .title-container {
   width: 80rpx;
   height: 80rpx;
@@ -255,7 +282,8 @@
   width: 100%;
   /* padding: 20rpx; */
   /* margin: 20rpx; */
-  height: 650rpx;
+  height: 500rpx;
+  position: relative;
   /* padding-top: 128rpx; */
   /* margin-bottom: 200rpx; */
 
@@ -269,6 +297,7 @@
   border: 4rpx solid #ffffff;
   padding: 10rpx;
   border-radius: 20rpx;
+  position: relative;
 }
 
 /* 3D堆叠式轮播图 */
@@ -281,7 +310,7 @@
   perspective: 1200rpx;
   /* margin-top: 50rpx; */
   width: 100%;
-  margin-top: 120rpx;
+  margin-top: 80rpx;
 }
 
 .swiper-container {
@@ -290,15 +319,36 @@
 }
 
 .card-header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 12rpx;
+  width: 100%;
+  padding-bottom: 10rpx;
+  /* margin-bottom: 12rpx; */
+}
+
+.card-header {
+  width: 100%;
+  padding-bottom: 10rpx;
+  position: relative;
+}
+
+
+.hot-interaction-item::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 300rpx;
+  height: 10rpx;
+  /* border-radius: 50rpx; */
+  background: rgb(20, 20, 20);
+  border-bottom-left-radius: 30rpx;
+  z-index: -1;
 }
 
 .card-content {
   flex: 1;
   overflow: hidden;
-  margin-left: 96rpx;
+  padding: 10rpx;
+  /* margin-left: 96rpx; */
 }
 
 .card-content-description {
@@ -306,13 +356,14 @@
   display: flex;
   justify-content: space-between;
   overflow: hidden;
-  margin-left: 96rpx;
+  /* margin-left: 96rpx; */
   max-height: 90rpx;
 }
 
 .card-image1 {
   width: 120rpx;
   height: 100%;
+  border-radius: 8rpx;
 }
 
 .description {
@@ -337,7 +388,8 @@
   font-size: 20rpx;
   color: #999999;
   margin-top: 8rpx;
-  margin-left: 16rpx;
+  /* margin-left: 16rpx; */
+  width: 100%;
 }
 
 .time {
@@ -350,13 +402,13 @@
 
 .card-more {
   height: 20%;
-  background: #5b2222;
+  background: #3ef507;
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  flex-direction: column;
-  padding: 0 20rpx;
+  justify-content: space-between;
+  /* flex-direction: column; */
+  padding: 10rpx;
   box-sizing: border-box;
   border: 2rpx solid black;
 }
@@ -373,11 +425,28 @@
 .card-title {
   font-size: 32rpx;
   font-weight: bold;
-  color: #faf9f9;
+  color: #171616;
+
+
+}
+
+.header-Ids {
+  font-size: 24rpx;
+  color: #f74f07;
+  /* height: 100%; */
+  display: -webkit-box;
+  /* 1. 使用旧式弹性盒模型 (关键) */
+  -webkit-box-orient: vertical;
+  /* 2. 设置为垂直方向 */
+  -webkit-line-clamp: 1;
+  overflow: hidden;
   height: 80rpx;
   line-height: 80rpx;
-  width: 100%;
-
+  /* 4. 隐藏溢出 */
+  /* line-height: 1.5; */
+  /* (建议) 设置行高，视觉更好 */
+  /* max-height: calc(1.5em * 1); */
+  /* flex: 1; */
 }
 
 .card-description {
@@ -398,21 +467,10 @@
 
 }
 
-.card-creator {
-  font-size: 30rpx;
-  color: #080808;
-  width: 100%;
-  text-align: right;
-  margin-bottom: 20rpx;
-
-}
 
 .card-date {
   font-size: 28rpx;
-  color: #f9f4f4;
-  width: 100%;
-  text-align: right;
-  margin-bottom: 5rpx;
+  color: #535252;
 
 }
 
@@ -792,16 +850,20 @@
 
 .hot-interaction-item {
   padding: 10rpx 0;
-  border-bottom: 2rpx solid #e0e0e0;
+  /* border-bottom: 2rpx solid #e0e0e0; */
+  /* border-top: 2rpx solid #565555; */
   max-height: 150px;
   overflow: hidden;
   background: #f8f9fa;
-  border-radius: 16rpx;
+  border-radius: 8rpx;
   padding: 20rpx;
-  margin-bottom: 15rpx;
-  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.05);
+  margin-bottom: 20rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0);
   transition: all 0.3s ease;
+  position: relative;
 }
+
+
 
 .hot-interaction-item:active {
   transform: scale(0.98);

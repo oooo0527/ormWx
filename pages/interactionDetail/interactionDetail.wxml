@@ -4,7 +4,12 @@
     <view class="carousel-container1">
       <image src="{{works.tupianzuimages[0]}}" mode="aspectFill" class="selected-work-image" wx:show="{{works.tupianzuimages.length>0}}" lazy-load></image>
       <view class="selected-work-detail">
-        <image src="{{works.tupianzuimages[0]}}" class="swiper-image" mode="widthFix" wx:if="{{works.tupianzuimages.length>0}}" lazy-load bindtap="onSwiperImageTap"></image>
+        <swiper class="swiper-container" circular layout-type="tinder">
+          <swiper-item wx:for="{{works.tupianzuimages}}" wx:key="index" data-index="{{index}}" class="display-content" bindtap="onImageTap" data-item="{{item}}">
+            <image src="{{item}}" show-menu-by-longpress="{{true}}" class="swiper-image" mode="aspectFill" lazy-load></image>
+          </swiper-item>
+        </swiper>
+        <!-- <view class="no-images" wx:else>暂无图片</view> -->
         <view class="selected-work-title">{{works.title}}</view>
         <view class="selected-work-description">{{works.content}}</view>
       </view>
