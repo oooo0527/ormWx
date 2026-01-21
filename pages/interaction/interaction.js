@@ -118,11 +118,11 @@ Page({
     });
   },
   onScroll: function (e) {
-    const scrollTop = e && e.scrollTop !== undefined ? e.scrollTop : 0; // 获取滚动距离
+    const scrollTop = e && e.detail ? e.detail.scrollTop : 0; // 获取滚动距离，scroll-view需要通过detail获取
     console.log('Scroll Top:', scrollTop, e);
 
-    // 判断是否需要吸顶：滚动距离 > 轮播图高度
-    if (scrollTop > 20) {
+    // 判断是否需要吸顶：滚动距离 > 10px
+    if (scrollTop > 10) {
       if (!this.data.isFixed) {
         this.setData({ isFixed: true });
       }

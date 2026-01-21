@@ -3,7 +3,7 @@
   box-sizing: border-box;
   position: relative;
   min-height: 100vh;
-  background: linear-gradient(0deg, #000000 0%, #f5f5f5 20%, #f5f5f5 100%);
+  /* background: linear-gradient(0deg, #000000 0%, #f5f5f5 20%, #f5f5f5 100%); */
 }
 
 .title {
@@ -37,7 +37,7 @@
 .hot-histories-section {
   height: 128rpx;
   /* line-height: 128rpx; */
-  font-size: 32rpx;
+  font-size: 38rpx;
   /* color: #f3efef; */
   display: flex;
   justify-content: space-between;
@@ -51,16 +51,18 @@
   align-items: center;
   transition: all 0.3s ease;
   box-sizing: border-box;
+  font-weight: 600;
 }
 
 .fixed-hot-histories-section {
   height: 128rpx;
   /* line-height: 128rpx; */
-  font-size: 32rpx;
+  font-size: 38rpx;
+  font-weight: 600;
   /* color: #f3efef; */
   display: flex;
   justify-content: space-between;
-  color: #000000;
+  color: #f3f0f0 !important;
   position: sticky;
   top: 0;
   width: 100%;
