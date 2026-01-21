@@ -17,7 +17,7 @@
   width: 100rpx;
   height: 50rpx;
   position: absolute;
-  left: 10rpx;
+  left: 100rpx;
   transition: all 3s ease;
   cursor: pointer;
   animation: starmove 3s infinite ease-in-out;

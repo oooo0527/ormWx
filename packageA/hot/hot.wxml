@@ -3,7 +3,7 @@
   <custom-navbar title="热门留言" showBack="{{true}}" showHome="{{false}}"></custom-navbar>
   <view class="container" style="margin-top: {{navBarHeight}}px;min-height:calc(100vh - {{navBarHeight}}px);">
     <!-- 热门留言列表 -->
-    <scroll-view scroll-y style="flex: 1; width: 100%; height:calc(100vh - {{navBarHeight}}px); overflow: hidden;" type="custom" show-scrollbar="{{false}}">
+    <scroll-view scroll-y style="flex: 1; width: 100%; height:calc(100vh - {{navBarHeight}}px); overflow: hidden; padding: 10rpx 0;" type="custom" show-scrollbar="{{false}}">
       <grid-view type="masonry" cross-axis-count="2" cross-axis-gap="10" main-axis-gap="10">
         <!-- 留言列表 -->
         <block wx:for="{{hotList}}" wx:key="index">

@@ -1,0 +1,16 @@
+<global-background>
+  <custom-navbar title="详细信息" backgroundColor="#f1650a" showBack="{{true}}" showHome="{{false}}"></custom-navbar>
+  <view class="container" style="margin-top: {{navBarHeight}}px;height: calc(100vh - {{navBarHeight}}px);">
+    <view class="detail-card">
+      <view class="detail-header">
+        <text class="detail-number">#{{detailIndex + 1}}</text>
+        <view class="detail-icon">
+          <text>🦋</text>
+        </view>
+      </view>
+      <view class="detail-content">
+        <text class="detail-text">{{mamiLIST[detailIndex] || ''}}</text>
+      </view>
+    </view>
+  </view>
+</global-background>

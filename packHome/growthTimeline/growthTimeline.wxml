@@ -1,6 +1,6 @@
 <global-background>
-  <custom-navbar title="ormkornnaphat" showBack="{{true}}" showHome="{{false}}"></custom-navbar>
-  <view class="container" style="margin-top: {{navBarHeight}}px;height:calc(100vh - {{navBarHeight}}px);">
+  <custom-navbar title="ormkornnaphat" showBack="{{true}}" showHome="{{false}}" background-color="#000000"></custom-navbar>
+  <view class="container" style="margin-top: {{navBarHeight}}px;height:calc(100vh - {{navBarHeight}}px);" v-if="{{!showHeartExplosion}}">
     <image src="cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/ormmm/陈奥/e1dd18471861da1311f9643a7f85e3f1.jpg" lazy-load mode="widthFix" class="star-background-image"></image>
     <!-- 时间线容器 -->
     <scroll-view class="timeline-container" scroll-y="true" enable-back-to-top="{{true}}" show-scrollbar="{{true}}" bindscrolltolower="onScrollToLower" wx-if="{{showBg}}">
@@ -55,16 +55,14 @@
         </view>
       </view>
     </view>
-    <!-- 心脏爆炸特效 -->
-    <view class="heart-explosion-container {{showHeartExplosion ? 'show' : ''}}">
-      <view class="heart-center {{showHeartExplosion ? 'heart-animate' : ' '}}">
-        谢谢你那个夏天出现在我面前❤
+  </view>
+  <!-- 心脏爆炸特效 -->
+  <view class="heart-explosion-container {{showHeartExplosion ? 'show' : ''}}" style="margin-top: {{navBarHeight}}px;height:calc(100vh - {{navBarHeight}}px);">
+    <view class="heart-center {{showHeartExplosion ? 'heart-animate' : ' '}}">谢谢你那个夏天出现在我面前❤</view>
+    <block wx:for="{{heartParticles}}" wx:key="index">
+      <view class="heart-particle-start" style="background: {{item.gradient}}; animation: particleFlyFromCenter {{item.duration}}ms ease-out {{item.delay}}ms forwards; opacity: {{item.show ? 1 : 0}}; --end-x: {{item.endX}}px; --end-y: {{item.endY}}px;" data-index="{{index}}">
+        {{item.text}}
       </view>
-      <block wx:for="{{heartParticles}}" wx:key="index">
-        <view class="heart-particle-start" style="background: {{item.gradient}}; animation: particleFlyFromCenter {{item.duration}}ms ease-out {{item.delay}}ms forwards; opacity: {{item.show ? 1 : 0}}; --end-x: {{item.endX}}px; --end-y: {{item.endY}}px;" data-index="{{index}}">
-          {{item.text}}
-        </view>
-      </block>
-    </view>
+    </block>
   </view>
 </global-background>

@@ -1,7 +1,7 @@
 <global-background>
   <custom-navbar title="为你骄傲" backgroundColor='black' showBack="{{true}}" showHome="{{false}}"></custom-navbar>
   <!-- 高端荣耀殿堂页面 -->
-  <view class="remarkable-container" style="margin-top: {{navBarHeight}}px;min-height:calc(100vh - {{navBarHeight}}px);">
+  <view class="remarkable-container" style="margin-top: {{navBarHeight}}px;height:calc(100vh - {{navBarHeight}}px);">
     <!-- 顶部豪华标题区 -->
     <view class="hero-section" animation="{{heroSectionAnimation}}">
       <view class="glitch-wrapper">
@@ -23,9 +23,7 @@
             <view class="award-card2">{{item.getTime}}</view>
             <view class="award-card3">{{item.description}}</view>
             <view class="award-card1">
-              <view class="award-trophy">
-                <image src="{{item.trophyIcon}}" class="trophy-icon" mode="aspectFit"></image>
-              </view>
+              <image src="{{item.trophyIcon}}" class="trophy-icon" mode="aspectFit" lazy-load="{{true}}"></image>
               <view class="award-content">
                 <view class="award-name">{{item.name}}</view>
                 <view class="award-year">{{item.zhuban}}</view>

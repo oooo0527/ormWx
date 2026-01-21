@@ -1,0 +1,103 @@
+.container {
+  width: 100%;
+  background: #f1650a;
+}
+
+.detail-card {
+  /* background: #ffffff; */
+  border-radius: 24rpx;
+  padding: 48rpx;
+  box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.08);
+  border: 1rpx solid rgba(0, 0, 0, 0.05);
+  background: #000000;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30rpx);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40rpx;
+  padding-bottom: 20rpx;
+  border-bottom: 1rpx solid rgba(0, 0, 0, 0.08);
+}
+
+.detail-number {
+  font-size: 38rpx;
+  color: #f7f7f8;
+  font-weight: 600;
+  background: rgba(0, 0, 0, 0.05);
+  padding: 12rpx 24rpx;
+  border-radius: 32rpx;
+  letter-spacing: 1rpx;
+}
+
+.detail-icon {
+  font-size: 40rpx;
+  opacity: 0.7;
+}
+
+.detail-content {
+  margin-bottom: 60rpx;
+  min-height: 300rpx;
+  display: flex;
+  align-items: center;
+}
+
+.detail-text {
+  color: #f1f3f5;
+  font-size: 32rpx;
+  line-height: 1.8;
+  font-weight: 400;
+  text-align: justify;
+  word-break: break-all;
+  hyphens: auto;
+}
+
+.detail-actions {
+  display: flex;
+  gap: 24rpx;
+  justify-content: center;
+}
+
+.action-btn {
+  flex: 1;
+  max-width: 300rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  border-radius: 40rpx;
+  border: 1rpx solid rgba(0, 0, 0, 0.15);
+  background: transparent;
+  color: #f0f2f4;
+  font-size: 28rpx;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+/* 响应式适配 */
+@media screen and (max-width: 768px) {
+  .container {
+    padding: 24rpx;
+  }
+
+  .detail-card {
+    padding: 36rpx;
+    border-radius: 16rpx;
+  }
+
+  .detail-text {
+    font-size: 30rpx;
+  }
+}

@@ -6,9 +6,6 @@
       <text>加载中...</text>
     </view>
     <view wx:else>
-      <view class="header">
-        <text class="title">{{Box.title}}</text>
-      </view>
       <!-- 图片展示区域 -->
       <view class="image-container" wx:if="{{Box.ormList.length > 0}}">
         <scroll-view class="image-scroll" scroll-x="true" show-scrollbar="{{false}}" enable-back-to-top="{{false}}">
@@ -25,6 +22,9 @@
         </scroll-view>
       </view>
       <!-- 详情内容 -->
+      <view class="header">
+        <text class="title">{{Box.title}}</text>
+      </view>
       <view class="description">{{Box.des}}</view>
     </view>
   </view>

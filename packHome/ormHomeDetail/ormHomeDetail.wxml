@@ -4,13 +4,13 @@
   <scroll-view class="container" scroll-y="true" style="height:100vh;">
     <view class="content">
       <view class="header">
-        <image class="avatar1" src="cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/Home3.jpg" mode="widthFix"></image>
+        <image class="avatar1" src="cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/Home3.jpg" lazy-load="{{true}}" mode="top"></image>
         <view class="title1">{{pageDetail.title}}</view>
         <view class="desc">{{pageDetail.des}}</view>
-      </view>
-      <view class="avatar-wrapper">
-        <image class="avatar" src="cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/Home3.jpg" mode="fill"></image>
-        <view class="title" style="font-size: 48rpx;">{{pageDetail.auth}}</view>
+        <view class="avatar-wrapper">
+          <image class="avatar" src="cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/Home3.jpg" lazy-load="{{true}}"></image>
+          <view class="title" style="font-size: 48rpx;">{{pageDetail.auth}}</view>
+        </view>
       </view>
       <image class="image" src="./gina.jpg" mode="aspectFill" wx:if="{{pageDetail.imgUrl}}"></image>
       <view class="body" wx:else>

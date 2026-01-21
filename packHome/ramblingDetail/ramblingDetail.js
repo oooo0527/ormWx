@@ -1,12 +1,13 @@
-// packHome/rambling/rambling.js
+// packHome/ramblingDetail/ramblingDetail.js
 Page({
+
   /**
    * 页面的初始数据
    */
   data: {
-    crossAxisCount: 6,
-    crossAxisGap: 8,
-    mainAxisGap: 20,
+
+    detailIndex: 0,
+    navBarHeight: 0,
     mamiLIST: [
       "宝宝是七个月的早产儿，但经过妈妈无微不至的照顾，长成又白又高的173大美女",
       "拥有一双超级好看的琥珀色的眼睛",
@@ -106,45 +107,19 @@ Page({
       "毕业典礼上，作为诗大优秀毕业生、诗大荣誉青年校友而充当了领誓人",
       "对粉丝说的话：我很感激粉丝们为了我们做了这么多事情，这是一种我从未经历过的爱，粉丝甚至还不太了解我们，但大家会不遗余力地照顾我们，甚至送礼物。我不知道是否还能再次体验到这种爱，但她们为我创造了很多第一次，我真的觉得很幸福"
     ],
-
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    this.generateRandomizedData();
-  },
-  getRandomInt() {
-    return Math.floor(Math.random() * 4)
-  },
-
-  getRandomWidth() {
-    // 随机宽度范围 80px 到 150px
-    return Math.floor(Math.random() * 70) + 200;
-  },
-  // 显示作品详情
-  selectHotInteraction: function (e) {
-    const index = e.currentTarget.dataset.index;
-    console.log('index:', index);
-    wx.navigateTo({
-      url: '/packHome/ramblingDetail/ramblingDetail?index=' + index,
-      routeType: 'wx://cupertino-modal',
-
-    });
-  },
-
-  generateRandomizedData() {
-    const originalData = this.data.mamiLIST;
-    const randomizedData = originalData.map(item => {
-      return {
-        text: item,
-        width: this.getRandomWidth()
-      };
-    });
+    console.log(options);
     this.setData({
-      mamiLIST: randomizedData
+      // detailText: options.works,
+      detailIndex: options.index || 0
     });
+
+
   },
 
   /**
@@ -193,13 +168,39 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage() {
-
+    return {
+      title: this.data.detailText.substring(0, 30) + '...',
+      path: `/packHome/ramblingDetail/ramblingDetail`
+    };
   },
 
-  onPageScroll: function (e) {
-    // 空实现，但必须保留以便自定义导航栏组件可以绑定滚动事件
-    // 实际的滚动处理由custom-navbar组件完成
+  /**
+   * 复制内容到剪贴板
+   */
+  copyContent() {
+    wx.setClipboardData({
+      data: this.data.detailText,
+      success: () => {
+        wx.showToast({
+          title: '已复制到剪贴板',
+          icon: 'success'
+        });
+      }
+    });
   },
 
-
+  /**
+   * 分享内容
+   */
+  shareContent() {
+    wx.showShareMenu({
+      withShareTicket: true,
+      success: () => {
+        wx.showToast({
+          title: '可点击右上角分享',
+          icon: 'none'
+        });
+      }
+    });
+  }
 })

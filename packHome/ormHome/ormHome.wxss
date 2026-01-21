@@ -65,7 +65,7 @@
 
 /* 菜单项悬停效果 */
 .menu-item:active {
-  transform: scale(0.95) translateZ(10px);
+  /* transform: scale(0.95) translateZ(10px); */
   /* 增强按下效果 */
   box-shadow: 0 4rpx 10rpx rgba(0, 0, 0, 0.2);
 }
@@ -123,35 +123,7 @@
   /* line-height: 30%; */
 }
 
-/* 悬挂菜单样式 */
-.hanging-menu {
-  /* 模拟悬挂效果 */
-  transform: translateY(20rpx);
-  animation: hangAnimation 2s cubic-bezier(0.5, 0.05, 0.5, 0.95) infinite;
-  /* 增强悬挂效果 */
-  box-shadow: 0 12rpx 25rpx rgba(0, 0, 0, 0.2);
-}
 
-/* 为不同悬挂菜单设置不同动画速度 */
-.hanging-menu:nth-child(1) {
-  animation-duration: 2.2s;
-  animation-timing-function: cubic-bezier(0.6, 0.1, 0.4, 0.9);
-}
-
-.hanging-menu:nth-child(2) {
-  animation-duration: 1.8s;
-  animation-timing-function: cubic-bezier(0.4, 0.2, 0.6, 0.8);
-}
-
-.hanging-menu:nth-child(3) {
-  animation-duration: 2.5s;
-  animation-timing-function: cubic-bezier(0.5, 0.0, 0.5, 1.0);
-}
-
-.hanging-menu:nth-child(4) {
-  animation-duration: 2.0s;
-  animation-timing-function: cubic-bezier(0.7, 0.1, 0.3, 0.9);
-}
 
 /* 悬挂动画 - 上下移动效果 */
 @keyframes hangAnimation {
@@ -200,41 +172,7 @@
   }
 }
 
-/* 触摸时的悬挂效果 */
-.hanging-menu:active {
-  animation: none;
-  transform: translateY(5rpx) rotate(0deg) translateZ(5px);
-}
 
-/* 生长菜单样式 */
-.growing-menu {
-  /* 模拟生长效果 */
-  transform: translateY(0);
-  animation: growAnimation 2s cubic-bezier(0.5, 0.05, 0.5, 0.95) infinite;
-  /* 增强生长效果 */
-  box-shadow: 0 12rpx 25rpx rgba(0, 0, 0, 0.2);
-}
-
-/* 为不同生长菜单设置不同动画速度 */
-.growing-menu:nth-child(1) {
-  animation-duration: 2.3s;
-  animation-timing-function: cubic-bezier(0.6, 0.1, 0.4, 0.9);
-}
-
-.growing-menu:nth-child(2) {
-  animation-duration: 1.9s;
-  animation-timing-function: cubic-bezier(0.4, 0.2, 0.6, 0.8);
-}
-
-.growing-menu:nth-child(3) {
-  animation-duration: 2.6s;
-  animation-timing-function: cubic-bezier(0.5, 0.0, 0.5, 1.0);
-}
-
-.growing-menu:nth-child(4) {
-  animation-duration: 2.1s;
-  animation-timing-function: cubic-bezier(0.7, 0.1, 0.3, 0.9);
-}
 
 /* 生长动画 - 上下移动效果 */
 @keyframes growAnimation {

@@ -112,6 +112,7 @@ Component({
     // 绑定页面滚动事件
     bindPageScroll: function () {
       const pages = getCurrentPages();
+      console.log('getCurrentPages:', pages);
       if (pages.length > 0) {
         const currentPage = pages[pages.length - 1];
 

@@ -9,10 +9,10 @@
 
 .header {
   text-align: center;
-  padding: 20rpx 0;
+  padding: 30rpx 0;
   margin-bottom: 30rpx;
-  background-color: #fff;
-  border-radius: 10rpx;
+  /* background-color: #fff; */
+  /* border-radius: 10rpx; */
   box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
 }
 
@@ -116,6 +116,8 @@
   transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
   opacity: 0;
   transform: translateY(20rpx);
+  /* box-shadow: 0 10rpx 30rpx rgba(0, 0, 0, 0.3); */
+  backdrop-filter: blur(10rpx);
 }
 
 /* 图片覆盖层显示 */
