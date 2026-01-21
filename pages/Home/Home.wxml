@@ -91,7 +91,7 @@
               <view class="sub-card-content">
                 <text class="sub-card-title">{{item.title}}</text>
                 <text class="sub-card-desc">{{item.des}}</text>
-                <view class="sub-card-arrow">▶</view>
+                <view class="sub-card-arrow">🔜</view>
               </view>
             </view>
           </view>

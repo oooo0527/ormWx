@@ -1,96 +1,98 @@
 <global-background>
   <custom-navbar title="为你骄傲" backgroundColor='black' showBack="{{true}}" showHome="{{false}}"></custom-navbar>
-  <!-- 高端荣耀殿堂页面 -->
-  <view class="remarkable-container" style="margin-top: {{navBarHeight}}px;height:calc(100vh - {{navBarHeight}}px);">
-    <!-- 顶部豪华标题区 -->
-    <view class="hero-section" animation="{{heroSectionAnimation}}">
-      <view class="glitch-wrapper">
-        <text class="glitch-text">HALL OF FAME</text>
+  <scroll-view scroll-y="true" style="margin-top: {{navBarHeight}}px;height:calc(100vh - {{navBarHeight}}px);">
+    <!-- 高端荣耀殿堂页面 -->
+    <view class="remarkable-container" style="height:100%">
+      <!-- 顶部豪华标题区 -->
+      <view class="hero-section" animation="{{heroSectionAnimation}}">
+        <view class="glitch-wrapper">
+          <text class="glitch-text">HALL OF FAME</text>
+        </view>
+        <text class="subtitle">荣耀殿堂</text>
+        <view class="divider"></view>
+        <text class="tagline">见证非凡成就</text>
       </view>
-      <text class="subtitle">荣耀殿堂</text>
-      <view class="divider"></view>
-      <text class="tagline">见证非凡成就</text>
-    </view>
-    <!-- 奖项展示区 -->
-    <view class="awards-section">
-      <view class="section-header">
-        <text class="section-title">至尊荣誉</text>
-        <text class="section-subtitle">AWARDS & RECOGNITION</text>
-      </view>
-      <scroll-view class="awards-carousel" scroll-x="true" show-scrollbar="{{false}}" enable-back-to-top="{{false}}">
-        <view class="awards-wrapper">
-          <view class="award-card" wx:for="{{awardsData}}" wx:key="index">
-            <view class="award-card2">{{item.getTime}}</view>
-            <view class="award-card3">{{item.description}}</view>
-            <view class="award-card1">
-              <image src="{{item.trophyIcon}}" class="trophy-icon" mode="aspectFit" lazy-load="{{true}}"></image>
-              <view class="award-content">
-                <view class="award-name">{{item.name}}</view>
-                <view class="award-year">{{item.zhuban}}</view>
+      <!-- 奖项展示区 -->
+      <view class="awards-section">
+        <view class="section-header">
+          <text class="section-title">至尊荣誉</text>
+          <text class="section-subtitle">AWARDS & RECOGNITION</text>
+        </view>
+        <scroll-view class="awards-carousel" scroll-x="true" show-scrollbar="{{false}}" enable-back-to-top="{{false}}">
+          <view class="awards-wrapper">
+            <view class="award-card" wx:for="{{awardsData}}" wx:key="index">
+              <view class="award-card2">{{item.getTime}}</view>
+              <view class="award-card3">{{item.description}}</view>
+              <view class="award-card1">
+                <image src="{{item.trophyIcon}}" class="trophy-icon" mode="aspectFit" lazy-load="{{true}}"></image>
+                <view class="award-content">
+                  <view class="award-name">{{item.name}}</view>
+                  <view class="award-year">{{item.zhuban}}</view>
+                </view>
               </view>
+              <!-- <view class="shine-effect"></view> -->
             </view>
-            <!-- <view class="shine-effect"></view> -->
+          </view>
+        </scroll-view>
+      </view>
+      <!-- 品牌代言区 -->
+      <view class="endorsements-section">
+        <view class="section-header">
+          <text class="section-title">奢华代言</text>
+          <text class="section-subtitle">LUXURY ENDORSEMENTS</text>
+        </view>
+        <view class="endorsements-grid">
+          <view class="brand-card" wx:for="{{brandsData}}" wx:key="id" data-id="{{item.id}}">
+            <image src="{{item.trophyIcon}}" class="brand-logo" mode="aspectFit"></image>
+            <text class="brand-name">{{item.name}}</text>
+            <!-- <text class="brand-category">{{item.category}}</text> -->
+            <view class="luxury-badge">奢华</view>
           </view>
         </view>
-      </scroll-view>
-    </view>
-    <!-- 品牌代言区 -->
-    <view class="endorsements-section">
-      <view class="section-header">
-        <text class="section-title">奢华代言</text>
-        <text class="section-subtitle">LUXURY ENDORSEMENTS</text>
       </view>
-      <view class="endorsements-grid">
-        <view class="brand-card" wx:for="{{brandsData}}" wx:key="id" data-id="{{item.id}}">
-          <image src="{{item.trophyIcon}}" class="brand-logo" mode="aspectFit"></image>
-          <text class="brand-name">{{item.name}}</text>
-          <!-- <text class="brand-category">{{item.category}}</text> -->
-          <view class="luxury-badge">奢华</view>
+      <view class="awards-section">
+        <view class="section-header">
+          <text class="section-title">提名荣誉</text>
+          <text class="section-subtitle">提名</text>
         </view>
-      </view>
-    </view>
-    <view class="awards-section">
-      <view class="section-header">
-        <text class="section-title">提名荣誉</text>
-        <text class="section-subtitle">提名</text>
-      </view>
-      <scroll-view class="awards-carousel" scroll-x="true" show-scrollbar="{{false}}" enable-back-to-top="{{false}}">
-        <view class="awards-wrapper">
-          <view class="award-card" style="background:#333" wx:for="{{nominationsData}}" wx:key="id" data-id="{{item.id}}">
-            <view class="award-trophy">
-              <image src="{{item.trophyIcon}}" class="trophy-icon" mode="aspectFit"></image>
+        <scroll-view class="awards-carousel" scroll-x="true" show-scrollbar="{{false}}" enable-back-to-top="{{false}}">
+          <view class="awards-wrapper">
+            <view class="award-card" style="background:#333" wx:for="{{nominationsData}}" wx:key="id" data-id="{{item.id}}">
+              <view class="award-trophy">
+                <image src="{{item.trophyIcon}}" class="trophy-icon" mode="aspectFit"></image>
+              </view>
+              <view class="award-content">
+                <text class="award-name">{{item.name}}</text>
+                <text class="award-category">{{item.getTime}}</text>
+                <!-- <text class="award-year"></text> -->
+                <text class="award-description">{{item.description}}</text>
+              </view>
+              <!-- <view class="shine-effect"></view> -->
             </view>
-            <view class="award-content">
-              <text class="award-name">{{item.name}}</text>
-              <text class="award-category">{{item.getTime}}</text>
-              <!-- <text class="award-year"></text> -->
-              <text class="award-description">{{item.description}}</text>
-            </view>
-            <!-- <view class="shine-effect"></view> -->
           </view>
+        </scroll-view>
+      </view>
+      <!-- 统计数据区 -->
+      <view class="stats-section" animation="{{statsSectionAnimation}}">
+        <view class="stat-item">
+          <text class="stat-number">{{statsData.awards}}</text>
+          <text class="stat-label">荣誉奖项</text>
         </view>
-      </scroll-view>
-    </view>
-    <!-- 统计数据区 -->
-    <view class="stats-section" animation="{{statsSectionAnimation}}">
-      <view class="stat-item">
-        <text class="stat-number">{{statsData.awards}}</text>
-        <text class="stat-label">荣誉奖项</text>
+        <view class="stat-item">
+          <text class="stat-number">{{statsData.brands}}</text>
+          <text class="stat-label">奢侈品牌</text>
+        </view>
+        <view class="stat-item">
+          <text class="stat-number">{{statsData.years}}</text>
+          <text class="stat-label">辉煌岁月</text>
+        </view>
       </view>
-      <view class="stat-item">
-        <text class="stat-number">{{statsData.brands}}</text>
-        <text class="stat-label">奢侈品牌</text>
-      </view>
-      <view class="stat-item">
-        <text class="stat-number">{{statsData.years}}</text>
-        <text class="stat-label">辉煌岁月</text>
+      <!-- 底部签名区 -->
+      <view class="signature-section" animation="{{signatureSectionAnimation}}">
+        <text class="signature-text">ORMKORN NAPHAT</text>
+        <view class="signature-divider"></view>
+        <text class="signature-subtext">一直闪闪发光</text>
       </view>
     </view>
-    <!-- 底部签名区 -->
-    <view class="signature-section" animation="{{signatureSectionAnimation}}">
-      <text class="signature-text">ORMKORN NAPHAT</text>
-      <view class="signature-divider"></view>
-      <text class="signature-subtext">一直闪闪发光</text>
-    </view>
-  </view>
+  </scroll-view>
 </global-background>

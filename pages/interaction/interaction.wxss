@@ -78,7 +78,7 @@
   text-align: center;
   margin-top: 120px;
   font-size: 28rpx;
-  color: #999999;
+  color: #090909;
 }
 
 .hot-histories-title {

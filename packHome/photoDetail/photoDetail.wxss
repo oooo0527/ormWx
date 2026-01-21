@@ -45,7 +45,7 @@
   font-size: 26rpx;
   color: #666;
   line-height: 1.5;
-  margin-bottom: 20rpx;
+  /* margin-bottom: 20rpx; */
 }
 
 .photo-actions {

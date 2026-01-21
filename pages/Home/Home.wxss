@@ -635,7 +635,7 @@
   font-size: 18rpx;
   color: #ffffff;
   background-color: #000000;
-  bottom: 10rpx;
+  bottom: 0;
   /* border-radius: 8rpx; */
   width: 100%;
   text-align: center;
@@ -775,8 +775,8 @@
 .sub-card-arrow {
   position: absolute;
   right: 30rpx;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 30%;
+  transform: translateY(-30%);
   font-size: 32rpx;
   color: #fff;
   transition: all 0.3s ease;
