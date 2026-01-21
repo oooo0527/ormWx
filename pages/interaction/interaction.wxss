@@ -53,6 +53,25 @@
   box-sizing: border-box;
 }
 
+.fixed-hot-histories-section {
+  height: 128rpx;
+  /* line-height: 128rpx; */
+  font-size: 32rpx;
+  /* color: #f3efef; */
+  display: flex;
+  justify-content: space-between;
+  color: #000000;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  padding: 0 40rpx;
+  background: #080808;
+  z-index: 2;
+  align-items: center;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
 .no-data {
   text-align: center;
   margin-top: 120px;

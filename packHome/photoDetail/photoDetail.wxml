@@ -8,19 +8,13 @@
           <view class="photo-card">
             <view class="photo-wrapper" bindtap="viewPhoto" data-image="{{item.imageUrl}}">
               <image class="photo-image" src="{{item.imageUrl}}" mode="widthFix"></image>
+              <view class="photo-actions">
+                <view class="view-section">{{item.views || 0}}</view>
+                <view class="view-section">💅</view>
+              </view>
             </view>
             <view class="photo-info">
               <view class="photo-description">{{item.description}}</view>
-              <view class="photo-actions">
-                <view class="view-section">{{item.views || 0}}👁️</view>
-                <view class="user-info">
-                  <image class="user-avatar" src="{{ormkornnaphat.image}}" mode="aspectFill"></image>
-                  <view class="user-details">
-                    <text class="user-name">{{ormkornnaphat.url}}</text>
-                    <text class="post-time">{{item.createTime}}</text>
-                  </view>
-                </view>
-              </view>
             </view>
           </view>
         </view>

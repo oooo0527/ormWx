@@ -1,8 +1,8 @@
 <!-- packHome/ormHomeDetail/ormHomeDetail.wxml -->
 <global-background>
-  <custom-navbar title="越看越有" showBack="{{true}}" showHome="{{false}}"></custom-navbar>
-  <scroll-view class="container" scroll-y="true" style="height:100vh;">
-    <view class="content">
+  <custom-navbar id="custom-nav" title="越看越有" showBack="{{true}}" showHome="{{false}}"></custom-navbar>
+  <view class="container">
+    <scroll-view class="content" scroll-y="true" bindscroll="onScroll">
       <view class="header">
         <image class="avatar1" src="cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/Home3.jpg" lazy-load="{{true}}" mode="top"></image>
         <view class="title1">{{pageDetail.title}}</view>
@@ -13,9 +13,9 @@
         </view>
       </view>
       <image class="image" src="./gina.jpg" mode="aspectFill" wx:if="{{pageDetail.imgUrl}}"></image>
-      <view class="body" wx:else>
+      <view class="bottomContent" wx:else>
         <view class="content1" wx:for="{{pageDetail.text}}" wx:key="index">{{item}}</view>
       </view>
-    </view>
-  </scroll-view>
+    </scroll-view>
+  </view>
 </global-background>

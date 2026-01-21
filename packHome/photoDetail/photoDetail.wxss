@@ -29,6 +29,7 @@
 
 .photo-wrapper {
   width: 100%;
+  position: relative;
 }
 
 .photo-image {
@@ -48,9 +49,19 @@
 }
 
 .photo-actions {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 15rpx;
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   gap: 15rpx;
+  /* padding-top: 15rpx; */
+  border-top: 1rpx solid #f0f0f0;
+  justify-content: space-between;
+  filter: blur(2px);
+
 }
 
 .like-section {
@@ -64,9 +75,9 @@
   justify-content: flex-end;
 }
 
-.like-count {
-  font-size: 24rpx;
-  color: #666;
+.view-section {
+  font-size: 30rpx;
+  color: #f60404;
   /* margin-right: 10rpx; */
 }
 

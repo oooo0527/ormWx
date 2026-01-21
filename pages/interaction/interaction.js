@@ -117,12 +117,12 @@ Page({
       showShawBg: false
     });
   },
-  onPageScroll: function (e) {
+  onScroll: function (e) {
     const scrollTop = e && e.scrollTop !== undefined ? e.scrollTop : 0; // 获取滚动距离
-    // console.log('Scroll Top:', scrollTop, e);
+    console.log('Scroll Top:', scrollTop, e);
 
     // 判断是否需要吸顶：滚动距离 > 轮播图高度
-    if (scrollTop > 320) {
+    if (scrollTop > 20) {
       if (!this.data.isFixed) {
         this.setData({ isFixed: true });
       }

@@ -1,28 +1,13 @@
 .container {
-  display: flex;
-  flex-direction: column;
-  /* height is controlled by inline style in WXML */
-  /* background: linear-gradient(180deg, #790202 0%, #470101 100%); */
-  /* padding: 20rpx; */
-  /* box-sizing: border-box; */
   background: #ffffff;
+  min-height: 100vh;
+  height: auto;
 }
 
 .content {
-  display: flex;
-  flex-direction: column;
-  /* justify-content: center; */
-  text-indent: 32rpx;
-  line-height: 1.5;
-  text-align: justify;
-  /* padding-bottom: 100rpx; */
-  /* 添加底部内边距，确保内容不被遮挡 */
-  /* box-sizing: border-box; */
-  /* min-height: 100%; */
-  /* padding-top: 60rpx; */
-  /* 为上方的头像预留空间 */
-  /* align-items: center; */
-  /* padding: 40rpx; */
+  height: 100vh;
+  /* height: auto; */
+  width: 100%;
 }
 
 .content1 {
@@ -154,7 +139,7 @@
   display: block;
 }
 
-.body {
+.bottomContent {
   /* text-align: center; */
   padding: 120rpx 20rpx 0 20rpx;
   /* 增加上边距，避免内容与上方元素重叠 */

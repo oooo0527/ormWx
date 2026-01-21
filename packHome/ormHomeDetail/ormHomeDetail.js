@@ -9,8 +9,21 @@ Page({
   },
 
   onPageScroll: function (e) {
-    // 空实现，但必须保留以便自定义导航栏组件可以绑定滚动事件
-    // 实际的滚动处理由custom-navbar组件完成
+    // 页面级滚动事件处理
+    this.updateNavbarForScroll(e.scrollTop || 0);
+  },
+
+  onScroll: function (e) {
+    // scroll-view 滚动事件处理
+    this.updateNavbarForScroll(e.detail.scrollTop || 0);
+  },
+
+  updateNavbarForScroll: function (scrollTop) {
+    // 将滚动信息传递给自定义导航栏组件
+    const customNav = this.selectComponent('#custom-nav');
+    if (customNav) {
+      customNav.handleScroll({ scrollTop: scrollTop });
+    }
   },
 
   /**

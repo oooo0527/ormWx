@@ -109,6 +109,17 @@ Component({
   },
 
   methods: {
+    // 处理外部传入的滚动事件
+    handleScroll: function (e) {
+      const scrollTop = e && e.scrollTop !== undefined ? e.scrollTop : 0;
+      const isScrolled = scrollTop > 50;
+      if (this.data.isScrolled !== isScrolled) {
+        this.setData({
+          isScrolled: isScrolled
+        });
+      }
+    },
+
     // 绑定页面滚动事件
     bindPageScroll: function () {
       const pages = getCurrentPages();
