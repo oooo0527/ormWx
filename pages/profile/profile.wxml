@@ -20,7 +20,7 @@
     </view>
     <view class="spacer" wx:if="{{customNameListFlag}}">
       <movable-area class="movable-area">
-        <movable-view direction="all" scale-area="true" class="movable-view" wx:for="{{ customNameList}}" wx:key="index" :x="{{index+20}}" y="0">
+        <movable-view direction="all" scale-area="true" class="movable-view" wx:for="{{customNameList}}" wx:key="index" x="{{index+20}}" y="0">
           {{item}}
         </movable-view>
       </movable-area>

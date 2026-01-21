@@ -72,6 +72,8 @@
           </view>
         </view>
       </view> -->
+      <!-- //菜单组标题 -->
+      <view class="menu-group-title" style="margin-top: 20rpx;">菜单组标题</view>
       <!-- // 音乐 煎蛋卷 好人好事 -->
       <view class="contentList">
         <view class="content-flex-row">
@@ -95,6 +97,7 @@
           </view>
         </view>
       </view>
+      <view class="menu-group-title">菜单组标题</view>
       <view class="menu-container">
         <view class="menu-item" wx:for="{{menuList}}" wx:key="index" bindtap="navigateToPage" data-url="{{item.url}}">
           <image src="{{item.image}}" mode="aspectFill" class="menu-icon"></image>

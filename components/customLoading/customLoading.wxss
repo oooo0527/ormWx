@@ -34,7 +34,7 @@
   justify-content: center;
   background: rgba(255, 255, 255, 0.5);
   border-radius: 20rpx;
-  padding: 40rpx;
+  /* padding: 40rpx; */
   width: 400rpx;
   height: 400rpx;
   box-shadow: 0 10rpx 30rpx rgba(0, 0, 0, 0.2);
@@ -49,6 +49,9 @@
 .loading-image {
   width: 350rpx;
   height: 350rpx;
+  /* //以底部为中心旋转 */
+  transform-origin: bottom;
+  object-fit: cover;
   animation: swing 2s ease-in-out infinite;
 }
 
@@ -61,6 +64,7 @@
 
 @keyframes swing {
   0% {
+
     transform: rotate(-10deg);
   }
 

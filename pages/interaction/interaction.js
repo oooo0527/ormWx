@@ -5,6 +5,8 @@ Page({
     currentSlide: 0,
     selectedWork: null,
     ormkornnaphat: {},
+    // 自定义loading相关数据
+    showCustomLoading: false,
 
     works: [], // 将原来硬编码的数据移除，改为从云端获取
 
@@ -40,6 +42,21 @@ Page({
     endDate: new Date().toISOString().slice(0, 10),
     showShawBg: true
 
+  },
+  // 显示自定义loading
+  showCustomLoading: function () {
+
+    this.setData({
+      showCustomLoading: true,
+
+    });
+  },
+
+  // 隐藏自定义loading
+  hideCustomLoading: function () {
+    this.setData({
+      showCustomLoading: false
+    });
   },
 
   getDateString: function (dateValue) {
@@ -133,6 +150,7 @@ Page({
     }
   },
   bindDateChange: function (e) {
+    this.showCustomLoading();
     console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       date: e.detail.value,
@@ -158,6 +176,7 @@ Page({
 
   // 加载互动留言数据
   loadInteractions: function () {
+    // this.showCustomLoading();
     wx.cloud.callFunction({
       name: 'fanVoice',
       data: {
@@ -181,12 +200,16 @@ Page({
       fail: err => {
         console.error('调用云函数失败：', err);
 
+
       }
+
     });
+    // this.hideCustomLoading();
   },
 
   // 加载热门互动留言数据
   loadHotInteractions: function () {
+    // this.showCustomLoading();
     const { currentPage, pageSize, hotInteractions } = this.data;
     wx.cloud.callFunction({
       name: 'fanVoice',
@@ -235,6 +258,7 @@ Page({
         console.error('调用获取热门互动留言云函数失败：', err);
       }
     });
+    this.hideCustomLoading();
   },
   // 选择卡片
   selectCard: function (e) {

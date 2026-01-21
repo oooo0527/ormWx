@@ -250,14 +250,14 @@
   height: 120rpx;
   line-height: 120rpx;
   text-align: center;
-  color: #999999;
+  color: #353535;
 }
 
 .load-all {
   height: 120rpx;
   line-height: 120rpx;
   text-align: center;
-  color: #cccccc;
+  color: #101010;
 }
 
 .custom-search-bar {

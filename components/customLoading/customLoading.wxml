@@ -1,7 +1,7 @@
 <view class="custom-loading {{show ? 'show' : ''}} {{fullScreen ? 'fullscreen' : ''}}" wx:if="{{show}}">
   <view class="loading-content">
     <view class="loading-image-container">
-      <image class="loading-image" src="cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/relat/purple.png" mode="aspectFit"></image>
+      <image class="loading-image" src="cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/relat/purple.png" mode="aspectFit" lazy-load="{{true}}"></image>
       <!-- <view class="loading-spinner" wx:else>
         <view class="spinner-dot"></view>
         <view class="spinner-dot"></view>
@@ -13,6 +13,6 @@
         <view class="spinner-dot"></view>
       </view> -->
     </view>
-    <text class="loading-text">{{text}}</text>
+    <!-- <text class="loading-text">{{text}}</text> -->
   </view>
 </view>
