@@ -35,8 +35,7 @@ Page({
     // 四个数字框的值，初始为0
     numbers: [0, 0, 0, 0],
     Clickindex: 0,
-    fullText: ['cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/FC/382d1b35bd8ace665ce707f7187e62cf.jpg', 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/FC/417858952cd59a30b0595a02af6b79a1.jpg', 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/FC/5226b16fd4d1fafeadd68195d1e67b4d.jpg', 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/FC/694a01d85f65060bcfe5b31c2fedcd43.jpg', 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/FC/78e2188c61934fa869136726110523b6.jpg', 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/FC/8a2083f70fd31b453710751e9de060da.jpg', 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/FC/adbdd025012274757d315130e0e05c08.jpg', 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/FC/b55eafaa6e5527a63fe9be0056fcb0d6.jpg', 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/FC/e292e8fa69e5eb10d19afbc18820ccab.jpg', 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/FC/e292e8fa69e5eb10d19afbc18820ccab.jpg', 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/FC/e292e8fa69e5eb10d19afbc18820ccab.jpg'],
-    displayedText: [],
+    fullText: ['cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/FC/382d1b35bd8ace665ce707f7187e62cf.jpg', 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/FC/417858952cd59a30b0595a02af6b79a1.jpg', 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/FC/5226b16fd4d1fafeadd68195d1e67b4d.jpg', 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/FC/694a01d85f65060bcfe5b31c2fedcd43.jpg', 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/FC/78e2188c61934fa869136726110523b6.jpg', 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/FC/8a2083f70fd31b453710751e9de060da.jpg', 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/FC/adbdd025012274757d315130e0e05c08.jpg', 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/FC/b55eafaa6e5527a63fe9be0056fcb0d6.jpg', 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/FC/e292e8fa69e5eb10d19afbc18820ccab.jpg', 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/FC/e292e8fa69e5eb10d19afbc18820ccab.jpg'],
     textIndex: 0,
     timer: null,
     // 用于跟踪图片点击顺序
@@ -292,46 +291,6 @@ Page({
       clearInterval(this.data.timer);
     }
   },
-  // 开始文字逐字显示
-  startTextDisplay: function () {
-    // 清除之前的定时器
-    if (this.data.timer) {
-      clearInterval(this.data.timer);
-    }
-
-    // 重置文本显示状态
-    this.setData({
-      displayedText: "",
-      textIndex: 0
-    });
-
-    // 启动定时器，逐字显示文本
-    const timer = setInterval(() => {
-      const currentIndex = this.data.textIndex;
-      const fullText = this.data.fullText;
-
-      // 如果已经显示完所有文字，则清除定时器
-      if (currentIndex >= fullText.length - 1) {
-        clearInterval(timer);
-        this.setData({
-          timer: null
-        });
-        return;
-      }
-
-      // 更新显示的文本
-      const displayedText = fullText[currentIndex + 1];
-      this.setData({
-        displayedText: [...this.data.displayedText, displayedText],
-        textIndex: currentIndex + 1
-      });
-    }, 1200); // 每200毫秒显示一个字符
-
-    // 保存定时器引用
-    this.setData({
-      timer: timer
-    });
-  },
 
 
   // 长按切换显示图片
@@ -347,7 +306,6 @@ Page({
       showHome: false,
       displayImage1: 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/login/have-to.jpg',
     });
-    this.startTextDisplay()
     this.voicePlayer.play();
   },
 

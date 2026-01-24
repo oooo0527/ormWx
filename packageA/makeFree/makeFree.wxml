@@ -24,16 +24,16 @@
       </button>
     </view>
     <!-- 画布区域 -->
-    <view class="canvas-container">
+    <view class="canvas-container" bindtap="deselectElement">
       <view class="canvas" style="background-color: {{backgroundColor}}; width: {{canvasWidth}}rpx; height: {{canvasHeight}}rpx;">
         <!-- 可拖拽元素 -->
-        <view wx:for="{{elements}}" wx:key="id" class="draggable-element {{item.id === selectedElementId ? 'selected' : ''}}" style="left: {{item.x}}rpx; top: {{item.y}}rpx; z-index: {{item.zIndex}}; width: {{item.width}}rpx; height: {{item.height}}rpx;" data-id="{{item.id}}" bindtouchstart="startDrag" bindtouchmove="onDrag" bindtouchend="endDrag" bindtap="editTextInput">
+        <view wx:for="{{elements}}" wx:key="id" class="draggable-element {{item.id === selectedElementId ? 'selected' : ''}}" style="left: {{item.x}}rpx; top: {{item.y}}rpx; z-index: {{item.zIndex}}; width: {{item.width}}rpx; height: {{item.height}}rpx;" data-id="{{item.id}}" bindtouchstart="startDrag" bindtouchmove="onDrag" bindtouchend="endDrag" bindtap="selectElement">
           <!-- 文字元素 -->
-          <text wx:if="{{item.type === 'text'}}" class="element-text" style="font-size: {{item.fontSize}}rpx; color: {{item.color}}; background-color: {{item.backgroundColor}}; text-align: {{item.textAlign}}; line-height: {{item.height}}rpx;">
+          <text wx:if="{{item.type === 'text'}}" class="element-text" style="font-size: {{item.fontSize}}rpx; color: {{item.color}}; background-color: {{item.backgroundColor}}; text-align: {{item.textAlign}}; line-height: {{item.height}}rpx;" bindtap="editTextInput">
             {{item.content}}
           </text>
           <!-- 图片元素 -->
-          <image wx:elif="{{item.type === 'image'}}" class="element-image" src="{{item.src}}" mode="aspectFill" style="width: 100%; height: 100%;" />
+          <image wx:elif="{{item.type === 'image'}}" class="element-image" src="{{item.src}}" mode="aspectFill" style="width: 100%; height: 100%;" bindtouchstart="startDrag" bindtouchmove="onDrag" bindtouchend="endDrag" />
         </view>
       </view>
     </view>

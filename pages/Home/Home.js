@@ -340,7 +340,7 @@ Page({
       }
     }).then(res => {
       console.log('获取events数据成功', res);
-      if (res.result && res.result.success) {
+      if (res.result && res.result.success && res.result.data.length > 0) {
         // 预处理事件数据，添加day和month字段
         const processedEvents = (res.result.data || []).map(event => {
           if (event.date) {
@@ -357,15 +357,24 @@ Page({
           eventsData: processedEvents
         });
       } else {
+        this.setData({
+          showLampPopup: false,
+          isLampOn: !this.data.isLampOn
+        });
         wx.showToast({
-          title: '获取活动数据失败',
+          title: '暂无活动',
           icon: 'none'
         });
+
       }
     }).catch(err => {
       console.error('获取events数据失败', err);
+      this.setData({
+        showLampPopup: false,
+        isLampOn: !this.data.isLampOn
+      });
       wx.showToast({
-        title: '获取活动数据失败',
+        title: '暂无活动',
         icon: 'none'
       });
     });
@@ -409,7 +418,9 @@ Page({
 
       // 获取noteList页面的未读弹窗消息
       // 由于无法直接访问其他页面的数据，我们需要调用云函数获取消息
-      this.fetchPopupNotifications();
+      // 可以传递特定日期参数，例如获取今天之前的消息
+      this.fetchPopupNotifications(); // 默认获取今天之前的消息
+      // 或者传递特定日期: this.fetchPopupNotifications('2024-12-31') // 获取2024年12月31日之前的消息
 
     } catch (e) {
       console.error('获取本地存储失败：', e);
@@ -418,10 +429,10 @@ Page({
     }
   },
 
-  // 获取需要弹窗提醒的消息
-  fetchPopupNotifications: async function () {
+  // 获取需要弹窗提醒的消息·
+  fetchPopupNotifications: async function (beforeDate) {
     // 首先尝试从云函数获取数据
-    let popupNotifications = await this.getPopupNotifications();
+    let popupNotifications = await this.getPopupNotifications(beforeDate);
     console.log(popupNotifications, 'popupNotifications')
 
 
@@ -442,13 +453,18 @@ Page({
   },
 
   // 获取弹窗消息
-  getPopupNotifications: async function () {
+  getPopupNotifications: async function (beforeDate) {
     try {
+      // 设置默认日期为今天2026-01-01格式
+      const dateToUse = beforeDate || new Date().toISOString().split('T')[0];
+      console.log('Using date:', dateToUse);
+
       // 调用云函数获取通知消息
       const result = await wx.cloud.callFunction({
         name: 'rewordList',
         data: {
-          action: 'getNotifications'
+          action: 'getNotifications',
+          beforeDate: dateToUse  // 传入日期参数，获取该日期之前的通知
         }
       });
 
@@ -467,12 +483,27 @@ Page({
   },
 
   // 从缓存获取弹窗消息（备选方案）
-  getPopupNotificationsFromCache: function () {
+  getPopupNotificationsFromCache: function (beforeDate) {
     try {
       const cacheData = wx.getStorageSync('notificationCache');
       if (cacheData && cacheData.popupNotifications) {
         // 返回未读的弹窗消息
-        return cacheData.popupNotifications.filter(item => !item.isRead);
+        let filteredNotifications = cacheData.popupNotifications.filter(item => !item.isRead);
+
+        // 如果提供了日期参数，则进一步过滤
+        if (beforeDate) {
+          filteredNotifications = filteredNotifications.filter(item => {
+            // 假设缓存中的消息也有createTime字段
+            if (item.createTime) {
+              const itemDate = new Date(item.createTime);
+              const beforeDateObj = new Date(beforeDate);
+              return itemDate < beforeDateObj;
+            }
+            return true; // 如果没有createTime字段，默认包含
+          });
+        }
+
+        return filteredNotifications;
       }
     } catch (e) {
       console.error('获取缓存数据失败：', e);

@@ -14,7 +14,13 @@ Page({
     dragStartX: 0,
     dragStartY: 0,
     elementStartX: 0,
-    elementStartY: 0
+    elementStartY: 0,
+    // 缩放相关数据
+    scaleStartDistance: 0,
+    elementStartWidth: 0,
+    elementStartHeight: 0,
+    isScaling: false,
+
   },
 
 
@@ -92,67 +98,146 @@ Page({
     });
   },
 
-  // 开始拖拽
+  // 开始拖拽/缩放
   startDrag(e) {
     const elementId = e.currentTarget.dataset.id;
-    const touch = e.touches[0];
+    const touches = e.touches;
 
     // 找到对应的元素
     const element = this.data.elements.find(el => el.id === elementId);
     if (!element) return;
 
-    this.setData({
-      selectedElementId: elementId,
-      dragStartX: touch.clientX,
-      dragStartY: touch.clientY,
-      elementStartX: element.x,
-      elementStartY: element.y
-    });
+    // 双指触摸 - 开始缩放
+    if (touches.length === 2) {
+      const distance = this.getTouchDistance(touches[0], touches[1]);
+      this.setData({
+        selectedElementId: elementId,
+        isScaling: true,
+        scaleStartDistance: distance,
+        elementStartWidth: element.width,
+        elementStartHeight: element.height
+      });
+    }
+    // 单指触摸 - 开始拖拽
+    else if (touches.length === 1) {
+      const touch = touches[0];
+      this.setData({
+        selectedElementId: elementId,
+        isScaling: false,
+        dragStartX: touch.clientX,
+        dragStartY: touch.clientY,
+        elementStartX: element.x,
+        elementStartY: element.y
+      });
+    }
   },
 
-  // 拖拽中
+  // 拖拽/缩放中
   onDrag(e) {
     if (!this.data.selectedElementId) return;
 
-    const touch = e.touches[0];
-    const deltaX = touch.clientX - this.data.dragStartX;
-    const deltaY = touch.clientY - this.data.dragStartY;
+    const touches = e.touches;
 
-    const newX = this.data.elementStartX + deltaX;
-    const newY = this.data.elementStartY + deltaY;
+    // 双指缩放
+    if (this.data.isScaling && touches.length === 2) {
+      const currentDistance = this.getTouchDistance(touches[0], touches[1]);
+      const scale = currentDistance / this.data.scaleStartDistance;
 
-    // 更新元素位置
-    const updatedElements = this.data.elements.map(el =>
-      el.id === this.data.selectedElementId
-        ? { ...el, x: newX, y: newY }
-        : el
-    );
+      // 限制缩放范围
+      const minScale = 0.5;
+      const maxScale = 3.0;
+      const clampedScale = Math.min(Math.max(scale, minScale), maxScale);
 
-    this.setData({
-      elements: updatedElements
-    });
+      const newWidth = this.data.elementStartWidth * clampedScale;
+      const newHeight = this.data.elementStartHeight * clampedScale;
+
+      // 更新元素尺寸
+      const updatedElements = this.data.elements.map(el =>
+        el.id === this.data.selectedElementId
+          ? { ...el, width: newWidth, height: newHeight }
+          : el
+      );
+
+      this.setData({
+        elements: updatedElements
+      });
+    }
+    // 单指拖拽
+    else if (!this.data.isScaling && touches.length === 1) {
+      const touch = touches[0];
+      const deltaX = touch.clientX - this.data.dragStartX;
+      const deltaY = touch.clientY - this.data.dragStartY;
+
+      const newX = this.data.elementStartX + deltaX;
+      const newY = this.data.elementStartY + deltaY;
+
+      // 更新元素位置
+      const updatedElements = this.data.elements.map(el =>
+        el.id === this.data.selectedElementId
+          ? { ...el, x: newX, y: newY }
+          : el
+      );
+
+      this.setData({
+        elements: updatedElements
+      });
+    }
   },
 
-  // 结束拖拽
+  // 结束拖拽/缩放
   endDrag() {
     this.setData({
-      selectedElementId: null
+      selectedElementId: null,
+      isScaling: false,
+      scaleStartDistance: 0,
+      elementStartWidth: 0,
+      elementStartHeight: 0
     });
   },
 
   // 删除选中元素
   deleteElement() {
-    if (!this.data.selectedElementId) return;
+    if (!this.data.selectedElementId) {
+      wx.showToast({
+        title: '请先选择要删除的元素',
+        icon: 'none'
+      });
+      return;
+    }
 
-    const updatedElements = this.data.elements.filter(
-      el => el.id !== this.data.selectedElementId
-    );
+    wx.showModal({
+      title: '确认删除',
+      content: '确定要删除选中的元素吗？',
+      success: (res) => {
+        if (res.confirm) {
+          const updatedElements = this.data.elements.filter(
+            el => el.id !== this.data.selectedElementId
+          );
+
+          this.setData({
+            elements: updatedElements,
+            selectedElementId: null
+          });
+
+          wx.showToast({
+            title: '删除成功',
+            icon: 'success'
+          });
+        }
+      }
+    });
+  },
+
+  // 点击元素 - 用于选中元素
+  selectElement(e) {
+    const elementId = e.currentTarget.dataset.id;
+    // 阻止事件冒泡
+    if (e.stopPropagation) e.stopPropagation();
+    if (e.preventDefault) e.preventDefault();
 
     this.setData({
-      elements: updatedElements,
-      selectedElementId: null
+      selectedElementId: elementId
     });
-
   },
 
   // 双击编辑文字
@@ -211,9 +296,31 @@ Page({
   },
 
   // 取消选中
-  deselectElement() {
+  deselectElement(e) {
+    // 如果是来自元素的事件，则不处理
+    if (e && e.target && e.target.dataset && e.target.dataset.id) {
+      return;
+    }
+
     this.setData({
       selectedElementId: null
     });
-  }
+  },
+
+  // 计算两点间距离
+  getTouchDistance(touch1, touch2) {
+    const dx = touch1.clientX - touch2.clientX;
+    const dy = touch1.clientY - touch2.clientY;
+    return Math.sqrt(dx * dx + dy * dy);
+  },
+
+  // 获取元素中心点
+  getElementCenter(element) {
+    return {
+      x: element.x + element.width / 2,
+      y: element.y + element.height / 2
+    };
+  },
+
+
 })

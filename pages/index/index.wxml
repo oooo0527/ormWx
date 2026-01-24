@@ -45,7 +45,7 @@
         <view class="image-display">
           <!-- <view bindtap="goHome">I love U</view> -->
           <view class="text-grid-container">
-            <image wx:for="{{displayedText}}" wx:key="index" src="{{item}}" class="text-item {{clickAnimation[index] ? 'click-animation' : ''}}" mode="aspectFit" lazy-load="{{true}}" bindtap="onTextImageClick" data-index="{{index}}"></image>
+            <image wx:for="{{fullText}}" wx:key="index" src="{{item}}" class="text-item {{clickAnimation[index] ? 'click-animation' : ''}}" mode="aspectFit" lazy-load="{{true}}" bindtap="onTextImageClick" data-index="{{index}}"></image>
           </view>
         </view>
       </view>

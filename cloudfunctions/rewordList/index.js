@@ -61,19 +61,26 @@ async function getRewordList(event) {
 // 获取通知消息列表
 async function getNotifications(event) {
   try {
-    // 从notifications集合中获取通知消息
-    const result = await db.collection('notifications')
-      .get()
+    let query = db.collection('notifications');
+
+    // 添加日期过滤条件，只获取指定日期后的通知
+    if (event.beforeDate) {
+      query = query.where({
+        beforeDate: _.gt(new Date(event.beforeDate))
+      });
+    }
+
+    const result = await query.get();
 
     return {
       success: true,
       data: result.data
-    }
+    };
   } catch (err) {
     return {
       success: false,
       message: err.message
-    }
+    };
   }
 }
 
