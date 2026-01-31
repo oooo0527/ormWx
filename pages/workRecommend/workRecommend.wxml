@@ -1,57 +1,53 @@
-<global-background>
-  <custom-navbar title="ormkornnaphat" showBack="{{false}}" showHome="{{false}}" backgroundColor="#000000"></custom-navbar>
-  <view class="container" style="margin-top: {{navBarHeight}}px;height:calc(100vh - {{navBarHeight}}px);">
-    <!-- 上部：轮播图区域 -->
-    <view class="bottom-section">
-      <!-- 上部：分割区域 -->
-      <view class="middle-section">
-        <view class="divider-line"></view>
-        <view class="divider-text">作品精选</view>
-        <view class="divider-line"></view>
+<view class="container" style="height: 100vh;">
+  <!-- 下部：第三部电视剧上线预告 -->
+  <view class="top-section">
+    <image class="coming-soon-poster-zindex" src="cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/e95aa59912c04e5760fab36c3d5c8b5f.png" mode="aspectFill"></image>
+    <!-- 中部：分割区域 -->
+    <view class="middle-section"></view>
+    <view class="coming-soon-overlay">
+      <view class="coming-soon-badge">即将上线</view>
+      <text class="coming-soon-title">我们的秘密</text>
+      <text class="coming-soon-role">饰演：尔恩 (Earn)</text>
+      <view class="release-date">
+        <text class="release-date-text">2026年05月27日 上映</text>
       </view>
-      <swiper class="swiper-container" vertical="{{true}}" circular="{{true}}" acceleration="{{true}}" disable-programmatic-animation="{{false}}" bind:change="onCarouselChange" style="overflow: visible;">
-        <swiper-item wx:for="{{works}}" wx:key="index" data-index="{{index}}" bind:tap="onCardTap">
+      <view class="countdown-container">
+        <view class="countdown-item">
+          <text class="countdown-number">{{countdown.days}}</text>
+          <text class="countdown-label">天</text>
+        </view>
+        <view class="countdown-item">
+          <text class="countdown-number">{{countdown.hours}}</text>
+          <text class="countdown-label">时</text>
+        </view>
+        <view class="countdown-item">
+          <text class="countdown-number">{{countdown.minutes}}</text>
+          <text class="countdown-label">分</text>
+        </view>
+      </view>
+    </view>
+    <view class="coming-soon-container">
+      <image class="coming-soon-poster" src="cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/e95aa59912c04e5760fab36c3d5c8b5f.jpg" mode="aspectFill"></image>
+    </view>
+  </view>
+  <!-- 上部：轮播图区域 -->
+  <view class="bottom-section">
+    <!-- 上部：分割区域 -->
+    <view class="middle-section">
+      <view class="divider-line"></view>
+      <view class="divider-text">作品精选</view>
+      <view class="divider-line"></view>
+    </view>
+    <swiper class="swiper-container" circular layout-type="transformer" transformer-type="scaleAndFade" previous-margin="50px" next-margin="50px" bind:change="onCarouselChange">
+      <swiper-item wx:for="{{works}}" wx:key="index" data-index="{{index}}" bind:tap="onCardTap" class="swiper-item">
+        <view class="work-card">
           <image class="img" src="{{item.cover}}" mode="aspectFill" />
           <view class="work-info">
             <text class="work-title">{{item.title}}</text>
             <text class="work-role">{{item.role}}</text>
           </view>
-        </swiper-item>
-      </swiper>
-    </view>
-    <!-- 下部：第三部电视剧上线预告 -->
-    <view class="top-section">
-      <!-- 中部：分割区域 -->
-      <view class="middle-section">
-        <view class="divider-line"></view>
-        <view class="divider-text">即将开启</view>
-        <view class="divider-line"></view>
-      </view>
-      <view class="coming-soon-container">
-        <image class="coming-soon-poster" src="cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/ormmm/陈奥/329c3f47da4836e2c4ef41bf97540833.jpg" mode="aspectFill"></image>
-        <view class="coming-soon-overlay">
-          <view class="coming-soon-badge">即将上线</view>
-          <text class="coming-soon-title">我们的秘密</text>
-          <text class="coming-soon-role">饰演：尔恩 (Earn)</text>
-          <view class="release-date">
-            <text class="release-date-text">2026年05月27日 上映</text>
-          </view>
-          <view class="countdown-container">
-            <view class="countdown-item">
-              <text class="countdown-number">{{countdown.days}}</text>
-              <text class="countdown-label">天</text>
-            </view>
-            <view class="countdown-item">
-              <text class="countdown-number">{{countdown.hours}}</text>
-              <text class="countdown-label">时</text>
-            </view>
-            <view class="countdown-item">
-              <text class="countdown-number">{{countdown.minutes}}</text>
-              <text class="countdown-label">分</text>
-            </view>
-          </view>
         </view>
-      </view>
-    </view>
+      </swiper-item>
+    </swiper>
   </view>
-</global-background>
+</view>

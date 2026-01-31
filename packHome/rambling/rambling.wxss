@@ -28,7 +28,7 @@
   content: '📌';
   position: absolute;
   top: -6rpx;
-  right: 25rpx;
+  right: 10rpx;
   width: 50rpx;
   height: 50rpx;
 

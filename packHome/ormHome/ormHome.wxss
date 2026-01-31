@@ -296,7 +296,7 @@
 
 /* 中间内容区域 */
 .middle-content {
-  flex: 1;
+  /* flex: 1; */
   display: flex;
   /* align-items: center; */
   justify-content: center;

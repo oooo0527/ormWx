@@ -50,7 +50,7 @@
   width: 350rpx;
   height: 350rpx;
   /* //以底部为中心旋转 */
-  transform-origin: bottom;
+  transform-origin: bottom center;
   object-fit: cover;
   animation: swing 2s ease-in-out infinite;
 }
