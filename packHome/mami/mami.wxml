@@ -1,28 +1,29 @@
 <global-background>
   <custom-navbar title="ormkornnaphat" showBack="{{true}}" showHome="{{false}}"></custom-navbar>
-  <view class="container">
-    <!-- 视频容器 -->
-    <view class="video-container" bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd">
-      <!-- 当前视频 -->
-      <video id="videoPlayer" class="video-player" src="{{sadList[currentVideoIndex]}}" autoplay="{{true}}" loop="{{false}}" show-play-btn="{{true}}" show-center-play-btn="{{true}}" enable-progress-gesture="{{false}}" bindended="onVideoEnded" binderror="onVideoError" controls="{{true}}" lazy-load="{{true}}"></video>
-      <!-- 视频指示器 -->
-      <view class="video-indicator">
-        <block wx:for="{{sadList}}" wx:key="index">
-          <view class="indicator-dot {{index === currentVideoIndex ? 'active' : ''}}"></view>
+  <view class="container" style="margin-top: {{navBarHeight}}px;height:calc(100vh - {{navBarHeight}}px);" bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd">
+    <!-- Tab 标签页 -->
+    <scroll-view scroll-x="true" class="tab-scroll">
+      <view class="tab-list">
+        <block wx:for="{{tabs}}" wx:key="id">
+          <view class="tab-item {{activeTab == item.id ? 'active' : ''}}" data-tabid="{{item.id}}" bindtap="switchTab">
+            <text>{{item.name}}</text>
+          </view>
         </block>
       </view>
-      <!-- 上一个视频按钮 -->
-      <view class="nav-button prev-button" wx:if="{{currentVideoIndex > 0}}" bindtap="switchToPreviousVideo">
-        <text class="arrow-up">↑</text>
-      </view>
-      <!-- 下一个视频按钮 -->
-      <view class="nav-button next-button" wx:if="{{currentVideoIndex < sadList.length - 1}}" bindtap="switchToNextVideo">
-        <text class="arrow-down">↓</text>
-      </view>
-      <!-- 滑动提示 -->
-      <view class="swipe-hint" wx:if="{{sadList.length > 1}}">
-        <text class="hint-text">↑ ↓ 滑动切换视频</text>
-      </view>
+    </scroll-view>
+    <!-- 图片展示区域，支持左右滑动切换tab -->
+    <view class="image-container" bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd">
+      <!-- 当前tab的图片列表 -->
+      <scroll-view scroll-y style="flex: 1; width: 100%; height:calc(100vh - {{navBarHeight}}px - 100rpx); overflow: hidden; padding: 10rpx 0;" type="custom" show-scrollbar="{{false}}">
+        <grid-view type="masonry" cross-axis-count="3" cross-axis-gap="10" main-axis-gap="10">
+          <!-- 留言列表 -->
+          <view class="list-item" wx:for="{{tabContents[activeTab]}}" wx:key="index" bindtap="viewPhoto" data-image="{{item}}">
+            <image class="avatar" src="{{item}}" mode="aspectFill" lazy-load />
+          </view>
+        </grid-view>
+      </scroll-view>
     </view>
   </view>
+  <!-- 自定义Loading组件 -->
+  <custom-loading show="{{showCustomLoading}}" full-screen="{{true}}"></custom-loading>
 </global-background>

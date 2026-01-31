@@ -17,6 +17,9 @@ exports.main = async (event, context) => {
     case 'getMusicList':
       return await getMusicList(event)
 
+    case 'getMamiImages':
+      return await getMamiImages(event)
+
     default:
       return {
         success: false,
@@ -45,6 +48,45 @@ async function getMusicList(event) {
     return {
       success: false,
       message: err.message
+    }
+  }
+}
+
+// 获取mami图片数据
+async function getMamiImages(event) {
+  try {
+    // 从数据库获取mami图片数据，按照tabId和排序字段排序
+    const result = await db.collection('mami_images')
+      .orderBy('tabId', 'asc')
+      .get()
+
+    // 按照tabId分组数据
+    const groupedData = {}
+
+    result.data.forEach(item => {
+      if (!groupedData[item.tabId]) {
+        groupedData[item.tabId] = []
+      }
+      groupedData[item.tabId].push(item.imgUrl)
+    })
+
+    // 确保返回3个tab的数据，即使某些tab没有数据
+    const tabContents = []
+    for (let i = 0; i < 3; i++) {
+      tabContents.push(groupedData[i] || [])
+    }
+
+    return {
+      success: true,
+      data: tabContents,
+      message: '获取数据成功'
+    }
+  } catch (error) {
+    console.error('获取mami图片数据失败:', error)
+    return {
+      success: false,
+      data: null,
+      message: error.message
     }
   }
 }

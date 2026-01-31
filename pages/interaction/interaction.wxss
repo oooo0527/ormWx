@@ -861,7 +861,7 @@
   transition: background-color 3s ease;
   /* 添加过渡效果 */
   border-radius: 16rpx;
-  padding: 20rpx 80rpx;
+  padding: 20rpx 50rpx;
   color: #333333;
 }
 

@@ -1,12 +1,12 @@
 /* 容器样式 */
 .container {
-  display: flex;
-  flex-direction: column;
+  /* display: flex;
+  flex-direction: column; */
   /* height: 100vh; */
   background: linear-gradient(180deg, #790202 0%, #470101 100%);
   padding: 20rpx;
-  box-sizing: border-box;
-  justify-content: space-between;
+  /* box-sizing: border-box; */
+  /* justify-content: space-between; */
   /* 添加微妙的纹理背景 */
   /* background-image: radial-gradient(circle at 10% 50%, rgba(129, 3, 3, 0.3) 0%, transparent 10%),
     radial-gradient(circle at 90% 50%, rgba(226, 3, 3, 0.3) 0%, transparent 10%); */
@@ -21,7 +21,7 @@
   /* 悬挂效果 */
   position: relative;
   /* top: 20rpx; */
-  z-index: 10;
+  /* z-index: 10; */
 }
 
 /* 底部菜单容器 */
@@ -32,8 +32,9 @@
   /* margin-top: 40rpx; */
   /* 生长效果 */
   position: relative;
-  z-index: 10;
+  /* z-index: 10; */
   align-items: flex-end;
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 /* 菜单项基础样式 */
@@ -65,12 +66,7 @@
   justify-content: flex-end;
 }
 
-/* 菜单项悬停效果 */
-.menu-item:active {
-  /* transform: scale(0.95) translateZ(10px); */
-  /* 增强按下效果 */
-  box-shadow: 0 4rpx 10rpx rgba(0, 0, 0, 0.2);
-}
+
 
 .menu-icon {
   height: 200rpx;
@@ -127,107 +123,6 @@
 
 
 
-/* 悬挂动画 - 上下移动效果 */
-@keyframes hangAnimation {
-  0% {
-    transform: translateY(0);
-  }
-
-  10% {
-    transform: translateY(-5rpx);
-  }
-
-  20% {
-    transform: translateY(-10rpx);
-  }
-
-  30% {
-    transform: translateY(-12rpx);
-  }
-
-  40% {
-    transform: translateY(-14rpx);
-  }
-
-  50% {
-    transform: translateY(-15rpx);
-  }
-
-  60% {
-    transform: translateY(-14rpx);
-  }
-
-  70% {
-    transform: translateY(-12rpx);
-  }
-
-  80% {
-    transform: translateY(-10rpx);
-  }
-
-  90% {
-    transform: translateY(-5rpx);
-  }
-
-  100% {
-    transform: translateY(0);
-  }
-}
-
-
-
-/* 生长动画 - 上下移动效果 */
-@keyframes growAnimation {
-  0% {
-    transform: translateY(0);
-  }
-
-  10% {
-    transform: translateY(5rpx);
-  }
-
-  20% {
-    transform: translateY(10rpx);
-  }
-
-  30% {
-    transform: translateY(12rpx);
-  }
-
-  40% {
-    transform: translateY(14rpx);
-  }
-
-  50% {
-    transform: translateY(15rpx);
-  }
-
-  60% {
-    transform: translateY(14rpx);
-  }
-
-  70% {
-    transform: translateY(12rpx);
-  }
-
-  80% {
-    transform: translateY(10rpx);
-  }
-
-  90% {
-    transform: translateY(5rpx);
-  }
-
-  100% {
-    transform: translateY(0);
-  }
-}
-
-/* 触摸时的生长效果 */
-.growing-menu:active {
-  animation: none;
-  transform: translateY(0) scale(0.95) translateZ(5px);
-}
 
 /* 各种颜色定义 */
 .red {
@@ -298,7 +193,7 @@
 
 /* 中间内容区域 */
 .middle-content {
-  height: 20%;
+  height: 120rpx;
   /* flex: 1; */
   display: flex;
   /* align-items: center; */

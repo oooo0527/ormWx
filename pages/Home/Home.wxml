@@ -73,7 +73,7 @@
       <view class="contentList">
         <view class="content-flex-row">
           <!-- 左侧：陈奥的缘 -->
-          <view class="main-card" bindtap="navigateToPage" data-url="/packHome/personal/personal">
+          <view class="main-card" bindtap="handleMainCardTap" data-url="/packHome/personal/personal">
             <image src="cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/时.jpg" mode="aspectFill" class="main-card-image"></image>
             <view class="main-card-content">
               <text class="main-card-title">我的陈奥</text>
@@ -82,7 +82,7 @@
           </view>
           <!-- 右侧：音乐和其他内容 -->
           <view class="sub-card-container">
-            <view class="sub-card" wx:for="{{musicList}}" wx:key="index" bindtap="navigateToPage" data-url="{{item.url}}">
+            <view class="sub-card" wx:for="{{musicList}}" wx:key="index" bindtap="handleSubCardTap" data-url="{{item.url}}">
               <view class="sub-card-content">
                 <text class="sub-card-title">{{item.title}}</text>
                 <text class="sub-card-desc">{{item.des}}</text>
@@ -94,7 +94,7 @@
       </view>
       <view class="menu-group-title">菜单组标题</view>
       <view class="menu-container">
-        <view class="menu-item" wx:for="{{menuList}}" wx:key="index" bindtap="navigateToPage" data-url="{{item.url}}">
+        <view class="menu-item" wx:for="{{menuList}}" wx:key="index" catchtap="handleMenuTap" data-url="{{item.url}}">
           <image src="{{item.image}}" mode="aspectFill" class="menu-icon"></image>
           <view class="menu-text">{{item.title}}</view>
         </view>

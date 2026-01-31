@@ -6,7 +6,7 @@
       <view class="selected-work-detail">
         <swiper class="swiper-container" circular layout-type="tinder">
           <swiper-item wx:for="{{works.tupianzuimages}}" wx:key="index" data-index="{{index}}" class="display-content" bindtap="onImageTap" data-item="{{item}}">
-            <image src="{{item}}" show-menu-by-longpress="{{true}}" class="swiper-image" mode="aspectFill" lazy-load></image>
+            <image src="{{item}}" show-menu-by-longpress="{{true}}" class="swiper-image" mode="widthFix" lazy-load></image>
           </swiper-item>
         </swiper>
         <!-- <view class="no-images" wx:else>暂无图片</view> -->

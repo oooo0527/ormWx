@@ -300,11 +300,42 @@ Page({
       this.hideCustomLoading();
     });
   },
-  //跳转
+  // 跳转
   navigateToPage: function (e) {
     wx.navigateTo({
       url: e.currentTarget.dataset.url
     });
+  },
+
+  // 处理菜单点击
+  handleMenuTap: function (e) {
+    const url = e.currentTarget.dataset.url;
+    console.log('Menu item tapped', url);
+    if (url) {
+      wx.navigateTo({
+        url: url
+      });
+    }
+  },
+
+  // 处理子卡片点击
+  handleSubCardTap: function (e) {
+    const url = e.currentTarget.dataset.url;
+    if (url) {
+      wx.navigateTo({
+        url: url
+      });
+    }
+  },
+
+  // 处理主卡片点击
+  handleMainCardTap: function (e) {
+    const url = e.currentTarget.dataset.url;
+    if (url) {
+      wx.navigateTo({
+        url: url
+      });
+    }
   },
 
   // 关闭公告
@@ -556,5 +587,10 @@ Page({
         isContentExpanded: true
       });
     }
-  }
+  },
+
+  // 防止事件冒泡
+  preventTap: function () {
+    // 空函数，用于阻止事件冒泡
+  },
 });
