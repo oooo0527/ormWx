@@ -861,7 +861,7 @@
   transition: background-color 3s ease;
   /* 添加过渡效果 */
   border-radius: 16rpx;
-  padding: 20rpx;
+  padding: 20rpx 80rpx;
   color: #333333;
 }
 
@@ -876,9 +876,9 @@
   max-height: 150px;
   overflow: hidden;
   background: #f8f9fa;
-  border-radius: 8rpx;
+  border-radius: 12rpx;
   padding: 20rpx;
-  margin-bottom: 20rpx;
+  margin-bottom: 28rpx;
   box-shadow: 0 4rpx 12rpx rgba(0, 0, 0);
   transition: all 0.3s ease;
   position: relative;

@@ -21,15 +21,28 @@
   box-sizing: border-box;
 }
 
-.ListBox {
+.content-area {
   margin-top: -60rpx;
   background: #040404;
+  height: 100%;
   border-top-right-radius: 50rpx;
   border-top-left-radius: 50rpx;
   box-shadow: 0 -10rpx 6rpx darkorange;
   overflow: hidden;
   /* padding-top: 50rpx; */
+  position: relative;
+  z-index: 9998;
+  min-height: calc(100vh - 340rpx);
+  transition: transform 0.3s cubic-bezier(0.34, 0.69, 0.1, 1);
+}
 
+.touch-listener {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100vh;
+  z-index: -1;
 }
 
 .menu-group-title {
@@ -55,9 +68,20 @@
   background: darkorange;
 }
 
+.content-toggle-icon {
+  width: 50%;
+  height: 10rpx;
+  background: darkorange;
+  border-radius: 5rpx;
+  margin: 0 auto;
+  /* margin-top: 50rpx; */
+}
+
 .content-box-bg {
+  padding-top: 30rpx;
 
   height: 100%;
+
 
 }
 
@@ -572,7 +596,7 @@
   padding: 8rpx;
   width: 16%;
   box-shadow:
-    0 2rpx 2rpx rgba(0, 0, 0),
+    0 2rpx 2rpx rgb(247, 156, 52),
     inset 0 2rpx 2rpx rgba(255, 255, 255),
     inset 0 -2rpx 2rpx rgb(113, 113, 113);
 }

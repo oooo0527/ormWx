@@ -16,7 +16,11 @@ Page({
     // 自定义loading相关数据
     showCustomLoading: false,
     loadingImageUrl: '',
-    loadingText: '加载中...'
+    loadingText: '加载中...',
+    // 展开/收缩状态相关数据
+    contentAreaOffset: '0rpx',
+    isContentExpanded: false,
+    maxSlideDistance: 400 // 最大滑动距离，单位rpx
   },
   onLoad: function (options) {
     this.loadImageConfig();
@@ -533,5 +537,24 @@ Page({
     this.setData({
       showCustomLoading: false
     });
+  },
+
+  // 点击切换内容区域展开/收缩状态
+  toggleContentArea: function (e) {
+    if (this.data.isContentExpanded) {
+      // 当前是展开状态，点击后收缩回原位
+      this.setData({
+        contentAreaOffset: '0rpx',
+        isContentExpanded: false
+      });
+    } else {
+      // 当前是收缩状态，点击后展开占满屏幕
+      const windowHeight = wx.getSystemInfoSync().windowHeight;
+      // 计算展开时的偏移量，使内容区域向上移动，占据更多屏幕空间
+      this.setData({
+        contentAreaOffset: '-400rpx', // 向上移动400rpx以扩展显示区域
+        isContentExpanded: true
+      });
+    }
   }
 });

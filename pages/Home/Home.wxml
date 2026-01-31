@@ -62,16 +62,11 @@
       </swiper-item>
     </swiper>
   </view>
-  <scroll-view scroll-y="true" style="height:calc(100vh - 740rpx);" class="ListBox">
+  <!-- 可以点击展开/收缩的内容区域 -->
+  <view class="content-area" style="transform: translateY({{contentAreaOffset}}); transition: transform 0.3s ease-out;" bindtap="toggleContentArea">
     <view class="content-box-bg">
-      <!-- <view class="content" wx:if="{{false}}">
-        <view class="content-container">
-          <view class="content-container-item" wx:for="{{contentList}}" wx:key="index" bindtap="navigateToPage" data-url="{{item.url}}">
-            <image src="{{item.image}}" mode="aspectFill" class="content-image"></image>
-            <view class="content-text">{{item.name}}</view>
-          </view>
-        </view>
-      </view> -->
+      <!-- //可以上下收起展开的标志 -->
+      <view class="content-toggle-icon"></view>
       <!-- //菜单组标题 -->
       <view class="menu-group-title" style="margin-top: 20rpx;">菜单组标题</view>
       <!-- // 音乐 煎蛋卷 好人好事 -->
@@ -105,7 +100,7 @@
         </view>
       </view>
     </view>
-  </scroll-view>
+  </view>
   <!-- 每日弹窗提醒 -->
   <view class="daily-notification-popup" wx:if="{{showNotificationPopup}}">
     <view class="popup-overlay" bindtap="hideNotificationPopup"></view>

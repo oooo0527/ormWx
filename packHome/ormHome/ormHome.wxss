@@ -14,6 +14,7 @@
 
 /* 顶部菜单容器 */
 .top-menus {
+  height: 40%;
   display: flex;
   justify-content: space-around;
   /* margin-bottom: 40rpx; */
@@ -25,6 +26,7 @@
 
 /* 底部菜单容器 */
 .bottom-menus {
+  height: 40%;
   display: flex;
   justify-content: space-around;
   /* margin-top: 40rpx; */
@@ -296,6 +298,7 @@
 
 /* 中间内容区域 */
 .middle-content {
+  height: 20%;
   /* flex: 1; */
   display: flex;
   /* align-items: center; */
