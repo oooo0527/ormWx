@@ -177,7 +177,7 @@
 
 .popup-body {
   padding: 20rpx 30rpx;
-  max-height: 60vh;
+  height: 60vh;
 }
 
 .event-item {

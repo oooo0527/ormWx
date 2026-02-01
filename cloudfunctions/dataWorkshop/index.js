@@ -20,6 +20,9 @@ exports.main = async (event, context) => {
     case 'getMamiImages':
       return await getMamiImages(event)
 
+    case 'getWorksData':
+      return await getWorksData(event)
+
     default:
       return {
         success: false,
@@ -83,6 +86,29 @@ async function getMamiImages(event) {
     }
   } catch (error) {
     console.error('获取mami图片数据失败:', error)
+    return {
+      success: false,
+      data: null,
+      message: error.message
+    }
+  }
+}
+
+// 获取作品数据
+async function getWorksData(event) {
+  try {
+    // 从数据库获取作品数据
+    const result = await db.collection('works')
+      .orderBy('id', 'asc')
+      .get()
+
+    return {
+      success: true,
+      data: result.data,
+      message: '获取作品数据成功'
+    }
+  } catch (error) {
+    console.error('获取作品数据失败:', error)
     return {
       success: false,
       data: null,

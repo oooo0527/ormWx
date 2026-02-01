@@ -31,9 +31,13 @@ async function getEvents(event) {
       const nextMonth = new Date(monthStart);
       nextMonth.setMonth(nextMonth.getMonth() + 1);
 
+      // 将日期转换为时间戳进行查询
+      const startTime = monthStart.getTime();
+      const endTime = nextMonth.getTime();
+
       query = query.where({
-        date: db.command.gte(monthStart.toISOString().slice(0, 10))
-          .and(db.command.lt(nextMonth.toISOString().slice(0, 10)))
+        date: db.command.gte(startTime)
+          .and(db.command.lt(endTime))
       });
     }
 

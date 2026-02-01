@@ -29,7 +29,7 @@
               <view class="event-title">{{item.title}}</view>
               <view class="event-desc">{{item.description}}</view>
               <view class="event-meta">
-                <text class="event-time">{{item.date}}</text>
+                <text class="event-time">{{item.dateString || item.date}}</text>
               </view>
             </view>
             <view class="event-decoration">

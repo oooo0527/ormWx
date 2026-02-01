@@ -348,16 +348,18 @@ Page({
   // 切换灯泡弹窗显示状态（下拉效果）
   toggleLampPopup: function () {
     const showPopup = !this.data.showLampPopup;
-    const lampOn = showPopup;
 
     this.setData({
-      showLampPopup: showPopup,
-      isLampOn: lampOn
+      isLampOn: showPopup
     });
 
     // 如果是打开弹窗，则获取events数据
     if (showPopup) {
       this.getEventsData();
+    } else {
+      this.setData({
+        showLampPopup: false
+      });
     }
   },
 
@@ -366,6 +368,7 @@ Page({
     // 获取当前月份
     const now = new Date();
     const currentMonth = `${now.getFullYear()}-${(now.getMonth() + 1).toString().padStart(2, '0')}`;
+    console.log('当前月份', currentMonth);
 
     wx.cloud.callFunction({
       name: 'events',
@@ -379,16 +382,23 @@ Page({
         // 预处理事件数据，添加day和month字段
         const processedEvents = (res.result.data || []).map(event => {
           if (event.date) {
-            const dateParts = event.date.split('-');
-            if (dateParts.length === 3) {
-              event.day = dateParts[2];
-              event.month = this.getMonthName(dateParts[1]);
-            }
+            // 处理时间戳格式的日期
+            const date = new Date(event.date);
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+
+            event.day = day;
+            event.month = this.getMonthName(month);
+
+            // 同时保留原始日期字符串格式用于显示
+            event.dateString = `${year}-${month}-${day}`;
           }
           return event;
-        });
+        }).sort((a, b) => a.date - b.date);
 
         this.setData({
+          showLampPopup: true,
           eventsData: processedEvents
         });
       } else {
@@ -397,6 +407,8 @@ Page({
           isLampOn: !this.data.isLampOn
         });
         wx.showToast({
+          icon: 'error',
+          mask: true,
           title: '暂无活动',
           icon: 'none'
         });
@@ -409,6 +421,8 @@ Page({
         isLampOn: !this.data.isLampOn
       });
       wx.showToast({
+        icon: 'error',
+        mask: true,
         title: '暂无活动',
         icon: 'none'
       });

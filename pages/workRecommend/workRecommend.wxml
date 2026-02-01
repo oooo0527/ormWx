@@ -41,7 +41,7 @@
     <swiper class="swiper-container" circular layout-type="transformer" transformer-type="scaleAndFade" previous-margin="50px" next-margin="50px" bind:change="onCarouselChange">
       <swiper-item wx:for="{{works}}" wx:key="index" data-index="{{index}}" bind:tap="onCardTap" class="swiper-item">
         <view class="work-card">
-          <image class="img" src="{{item.cover}}" mode="aspectFill" />
+          <image class="img" src="{{item.imgUrl}}" mode="aspectFill" />
           <view class="work-info">
             <text class="work-title">{{item.title}}</text>
             <text class="work-role">{{item.role}}</text>

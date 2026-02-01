@@ -5,7 +5,7 @@
     <view class="content">
       <!-- 作品封面 -->
       <view class="work-cover-container">
-        <image class="work-cover" src="{{work.cover}}" mode="widthFix"></image>
+        <image class="work-cover" src="{{work.imgUrl}}" mode="widthFix"></image>
         <view class="cover-overlay"></view>
         <!-- 类型标签 -->
         <view class="work-type-badge {{work.type === '电影' ? 'movie-badge' : work.type === '电视剧' ? 'tv-badge' : 'publicity-badge'}}">
@@ -25,12 +25,16 @@
           </view>
           <view class="detail-item">
             <text class="label">作品类型:</text>
-            <text class="value">{{work.type}}</text>
+            <text class="value">{{work.des}}</text>
           </view>
         </view>
         <view class="work-description">
           <text class="description-title">剧情简介</text>
-          <text class="description-text">{{work.description}}</text>
+          <text class="description-text">{{work.detail}}</text>
+        </view>
+        <view class="work-description" wx:if="{{work.story}}">
+          <text class="description-title">剧情简介</text>
+          <text class="description-text">{{work.story}}</text>
         </view>
       </view>
     </view>
