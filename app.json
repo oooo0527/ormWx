@@ -80,6 +80,7 @@
         "rambling/rambling",
         "ramblingDetail/ramblingDetail",
         "behind/behind",
+        "behindList/behindList",
         "bookDetail/bookDetail"
       ]
     }

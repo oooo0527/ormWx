@@ -26,7 +26,11 @@ exports.main = async (event, context) => {
 // 获取时间选项数据
 async function getTimeOptions(event, context) {
   try {
-    const result = await db.collection('timeOptions').get()
+    const result = await db.collection('timeOptions')
+      .where({
+        type: event.type
+      })
+      .get()
     return {
       success: true,
       data: result.data,

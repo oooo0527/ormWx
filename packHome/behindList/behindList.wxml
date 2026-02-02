@@ -1,0 +1,19 @@
+<global-background>
+  <custom-navbar title="" showBack="{{true}}" showHome="{{false}}"></custom-navbar>
+  <view class="container" style="margin-top: {{navBarHeight}}px;height:calc(100vh - {{navBarHeight}}px);">
+    <view class="tab-content" bindtouchstart="onTouchStart" bindtouchmove="onTouchMove" bindtouchend="onTouchEnd">
+      <!-- 卡片二级菜单 -->
+      <view class="card-menu-container" wx:if="{{currentMenuItems.length > 0}}">
+        <view class="card-item {{index % 2 == 0 ? 'card-left' : 'card-right'}}" wx:for="{{currentMenuItems}}" wx:key="index" bindtap="onCardTap" data-item="{{item}}">
+          <image class="{{index % 2 == 0 ? 'card-image-left' : 'card-image'}}" src="./1.png" mode="widthFix"></image>
+          <view class="card-title">{{item.title}}</view>
+          <view class="card-arrow">{{item.content}}</view>
+          <view class="card-desc">{{item.des}}</view>
+        </view>
+      </view>
+      <view wx:else>
+        <view class="card-empty">暂无数据</view>
+      </view>
+    </view>
+  </view>
+</global-background>
