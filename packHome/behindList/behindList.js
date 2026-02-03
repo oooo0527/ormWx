@@ -7,7 +7,21 @@ Page({
     navBarHeight: 0
   },
 
+  // 显示自定义loading
+  showCustomLoading: function () {
 
+    this.setData({
+      showCustomLoading: true,
+
+    });
+  },
+
+  // 隐藏自定义loading
+  hideCustomLoading: function () {
+    this.setData({
+      showCustomLoading: false
+    });
+  },
   onLoad(options) {
     // 获取导航栏高度
     const systemInfo = wx.getSystemInfoSync();
@@ -31,8 +45,10 @@ Page({
 
   // 加载指定tab的菜单数据（通过云函数）
   loadTabMenuData(tabIndex) {
+    this.showCustomLoading();
+
     wx.cloud.callFunction({
-      name: 'timeOptions',
+      name: 'beHind',
       data: {
         action: 'getTabMenuData',
         type: tabIndex + ''
@@ -53,6 +69,7 @@ Page({
         });
       }
     });
+    this.hideCustomLoading();
   },
   // 卡片点击事件
   onCardTap(e) {
@@ -60,6 +77,7 @@ Page({
     console.log('点击了卡片:', item);
     wx.navigateTo({
       url: '/packHome/bookDetail/bookDetail',
+      routeType: 'wx://cupertino-modal',
       success: (res) => {
         // 通过事件通道向被打开页面传送数据
         res.eventChannel.emit('acceptDataFromBookPage', {

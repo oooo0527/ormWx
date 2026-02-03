@@ -43,11 +43,10 @@ Page({
   onImageTap(e) {
     const index = e.currentTarget.dataset.index;
 
-    // 预览图片
-    const urls = this.data.images.map(item => item.url);
+    if (this.data.activeIndex !== index) return;
     wx.previewImage({
-      current: urls[index],
-      urls: urls
+      current: this.data.Box.imgUrl[index],
+      urls: this.data.Box.imgUrl
     });
   },
 

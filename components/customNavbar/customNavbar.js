@@ -30,7 +30,11 @@ Component({
     showHome: {
       type: Boolean,
       value: true
-    }
+    },
+    showImage: {
+      type: Boolean,
+      value: true
+    },
   },
 
   data: {

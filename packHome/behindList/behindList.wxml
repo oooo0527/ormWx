@@ -5,7 +5,7 @@
       <!-- 卡片二级菜单 -->
       <view class="card-menu-container" wx:if="{{currentMenuItems.length > 0}}">
         <view class="card-item {{index % 2 == 0 ? 'card-left' : 'card-right'}}" wx:for="{{currentMenuItems}}" wx:key="index" bindtap="onCardTap" data-item="{{item}}">
-          <image class="{{index % 2 == 0 ? 'card-image-left' : 'card-image'}}" src="./1.png" mode="widthFix"></image>
+          <image class="{{index % 2 == 0 ? 'card-image-left' : 'card-image'}}" src="cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/behind/1.png" mode="widthFix"></image>
           <view class="card-title">{{item.title}}</view>
           <view class="card-arrow">{{item.content}}</view>
           <view class="card-desc">{{item.des}}</view>
@@ -16,4 +16,5 @@
       </view>
     </view>
   </view>
+  <custom-loading show="{{showCustomLoading}}" full-screen="{{true}}"></custom-loading>
 </global-background>

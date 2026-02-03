@@ -1,18 +1,17 @@
 <global-background>
-  <custom-navbar title="" showBack="{{true}}" showHome="{{false}}"></custom-navbar>
-  <view class="container" style="margin-top: {{navBarHeight}}px;height:calc(100vh - {{navBarHeight}}px);">
-    <image src="cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/后.jpg" class="background-image"></image>
+  <custom-navbar title="ONLY FOR ORM" showBack="{{true}}" showHome="{{false}}"></custom-navbar>
+  <view class="container">
+    <image src="cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/behind/8ef94a51d145b7e03b74587e935c0b88.jpg" class="background-image" mode="aspectFill"></image>
     <!-- 模糊背景 -->
-    <view class="blur-background"></view>
-    <!-- Tab 切换栏 -->
-    <scroll-view class="tab-scroll-container" scroll-x="true" scroll-into-view="tab-{{activeTab}}" scroll-with-animation="true">
-      <view class="tab-container">
-        <view id="tab-{{index}}" class="tab-item {{activeTab === index ? 'active' : ''}}" wx:for="{{timeOptions}}" wx:key="index" bindtap="switchTab" data-index="{{index}}">
-          <text>{{item.title}}</text>
-        </view>
-      </view>
-    </scroll-view>
+    <view class="blur-background">
+      <swiper class="tab-scroll-container" circular layout-type="transformer" previous-margin="20px" next-margin="20px" vertical display-multiple-items='5'>
+        <swiper-item wx:for="{{timeOptions}}" wx:key="index" data-index="{{index}}" class="display-content" bindtap="switchTab" data-index="{{index}}">
+          <view class="tab-container">
+            <image src="{{item.icon}}" class="tab-image"></image>
+            <view class="tab-title">{{item.title}}</view>
+          </view>
+        </swiper-item>
+      </swiper>
+    </view>
   </view>
-  <!-- 自定义Loading组件 -->
-  <custom-loading show="{{showCustomLoading}}" full-screen="{{true}}"></custom-loading>
 </global-background>

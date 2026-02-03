@@ -7,15 +7,15 @@
     </view>
     <view wx:else>
       <!-- 图片展示区域 -->
-      <view class="image-container" wx:if="{{Box.ormList.length > 0}}">
+      <view class="image-container" wx:if="{{Box.imgUrl.length > 0}}">
         <scroll-view class="image-scroll" scroll-x="true" show-scrollbar="{{false}}" enable-back-to-top="{{false}}">
           <view class="image-row">
-            <view class="image-item {{activeIndex === index ? 'expanded' : 'collapsed'}}" wx:for="{{Box.ormList}}" wx:key="index" data-index="{{index}}" bindtap="onImageClick">
+            <view class="image-item {{activeIndex === index ? 'expanded' : 'collapsed'}}" wx:for="{{Box.imgUrl}}" wx:key="index" data-index="{{index}}" bindtap="onImageClick">
               <view class="image-card">
-                <image class="image-content" src="{{item.url}}" mode="widthfill" bindtap="onImageTap"></image>
-                <view class="image-overlay {{activeIndex === index ? 'show' : 'hide'}}">
+                <image class="image-content" src="{{item}}" mode="widthfill" bindtap="onImageTap"></image>
+                <!-- <view class="image-overlay {{activeIndex === index ? 'show' : 'hide'}}">
                   <text class="image-title">{{item.desc||'--'}}</text>
-                </view>
+                </view> -->
               </view>
             </view>
           </view>
