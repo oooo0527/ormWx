@@ -48,7 +48,7 @@ Page({
     this.showCustomLoading();
 
     wx.cloud.callFunction({
-      name: 'beHind',
+      name: 'behind',
       data: {
         action: 'getTabMenuData',
         type: tabIndex + ''

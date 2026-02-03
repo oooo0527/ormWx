@@ -44,3 +44,23 @@ async function getTimeOptions(event, context) {
     }
   }
 }
+
+// 根据ID获取特定时间选项
+async function getTimeOptionById(event, context) {
+  try {
+    const result = await db.collection('behind')
+      .doc(event.id)
+      .get()
+    return {
+      success: true,
+      data: result.data,
+      message: '获取选项成功'
+    }
+  } catch (error) {
+    console.error('获取选项失败:', error)
+    return {
+      success: false,
+      message: error.message || '获取选项失败'
+    }
+  }
+}
