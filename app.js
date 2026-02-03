@@ -1,8 +1,5 @@
 App({
   globalData: {
-    ormkornnaphat: {
-      image: 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/时.jp'
-    },
 
     // 全局背景设置
     backgroundSettings: {

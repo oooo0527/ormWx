@@ -50,8 +50,6 @@
         </view>
       </view>
     </view>
-    <!-- 语音播放控制 -->
-    <audio id="voicePlayer" />
   </view>
   <view bindtap="goHome" class="login-foot">直接进入~</view>
 </view>

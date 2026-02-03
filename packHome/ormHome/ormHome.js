@@ -7,7 +7,8 @@ Page({
     selectedUrl: '',    // 选中的跳转链接
     relationShipList: [],
     randomH: [460, 480, 460, 470, 490],
-    randomH1: [490, 470, 460, 480, 460]
+    randomH1: [490, 470, 460, 480, 460],
+    showCustomLoading: false
   },
 
   onLoad: function (options) {
@@ -22,6 +23,7 @@ Page({
   },
   //初始化菜单
   initMenu: function () {
+    this.showCustomLoading();
     // 菜单初始化逻辑
     wx.cloud.callFunction({
       name: 'relationShip',
@@ -35,13 +37,16 @@ Page({
           relationShipList: res.result.data || []
         });
         console.log('relationShipList', this.data.relationShipList);
+
       } else {
         wx.showToast({
           title: '获取活动数据失败',
           icon: 'none'
         });
       }
+      this.hideCustomLoading();
     }).catch(err => {
+      this.hideCustomLoading();
       console.error('获取relationShip数据失败', err);
       wx.showToast({
         title: '获取relationShip数据失败',
@@ -54,7 +59,6 @@ Page({
   navigateToPage: function (e) {
     const index = e.currentTarget.dataset.index;
     const colorClass = e.currentTarget.dataset.color || 'red';
-
 
     // 显示弹窗
     this.setData({
@@ -120,5 +124,21 @@ Page({
     setTimeout(() => {
       console.log('恢复菜单动画');
     }, 300);
+  },
+  // 显示自定义loading
+  showCustomLoading: function () {
+
+    this.setData({
+      showCustomLoading: true,
+
+    });
+  },
+
+  // 隐藏自定义loading
+  hideCustomLoading: function () {
+    this.setData({
+      showCustomLoading: false
+    });
   }
+
 });

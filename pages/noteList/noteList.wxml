@@ -1,6 +1,6 @@
 <!-- packageA/noteList/noteList.wxml -->
 <global-background>
-  <custom-navbar title="通知" showBack="{{true}}" showHome="{{false}}"></custom-navbar>
+  <custom-navbar title="通知" showBack="{{false}}" showHome="{{false}}"></custom-navbar>
   <view class="container" style="margin-top: {{navBarHeight}}px;height:calc(100vh - {{navBarHeight}}px);">
     <view class="notification-container">
       <!-- 消息分类标签 -->

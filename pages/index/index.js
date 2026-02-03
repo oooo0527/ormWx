@@ -37,7 +37,6 @@ Page({
     Clickindex: 0,
     fullText: ['cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/FC/382d1b35bd8ace665ce707f7187e62cf.jpg', 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/FC/417858952cd59a30b0595a02af6b79a1.jpg', 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/FC/5226b16fd4d1fafeadd68195d1e67b4d.jpg', 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/FC/694a01d85f65060bcfe5b31c2fedcd43.jpg', 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/FC/78e2188c61934fa869136726110523b6.jpg', 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/FC/8a2083f70fd31b453710751e9de060da.jpg', 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/FC/adbdd025012274757d315130e0e05c08.jpg', 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/FC/b55eafaa6e5527a63fe9be0056fcb0d6.jpg', 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/FC/e292e8fa69e5eb10d19afbc18820ccab.jpg', 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/FC/e292e8fa69e5eb10d19afbc18820ccab.jpg'],
     textIndex: 0,
-    timer: null,
     // 用于跟踪图片点击顺序
     clickSequence: [],
     targetSequence: [9, 4, 1, 6], // 目标点击顺序
@@ -73,9 +72,6 @@ Page({
 
     // 计算指针角度
     this.calculateHandAngles();
-    this.initVoicePlayer()
-    // 设置新的音频源
-    this.voicePlayer.src = 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/vedio/陈奥三万天音频.mp3'
   },
   onReady: function () {
     // 页面渲染完成后获取表盘中心位置
@@ -227,39 +223,8 @@ Page({
       isDragging: false
     });
   },
-  // 初始化语音播放器
-  initVoicePlayer: function () {
-    // 创建内部音频上下文
-    this.voicePlayer = wx.createInnerAudioContext();
 
-    this.voicePlayer.obeyMuteSwitch = false; // 不遵循静音开关
-  },
   goHome: function () {
-    // 获取app实例
-    const app = getApp();
-    wx.showLoading({
-      title: '进入中...',
-    });
-    wx.cloud.callFunction({
-      name: 'imageConfig',
-      data: {
-        action: 'getImageConfig',
-        configType: 'ormkornnaphat',
-        configName: 'ormkornnaphat'
-      }
-    }).then(res => {
-      console.log(res, 'getImageConfig')
-      if (res.result.success && res.result.data.length > 0) {
-        // 设置全局数据
-        app.globalData.ormkornnaphat = res.result.data[0];
-
-      } else {
-        wx.showToast({
-          title: '获取数据失败',
-          icon: 'none'
-        });
-      }
-    });
     // 跳转到首页
     wx.switchTab({
       url: '/pages/Home/Home'
@@ -267,30 +232,6 @@ Page({
   },
 
 
-  switchZindex: function () {
-
-    console.log('switchZindex function called');
-    // 监听音频结束
-    this.voicePlayer.onEnded(() => {
-      console.log('音频结束');
-      this.voicePlayer.stop();
-      // wx.switchTab({
-      //   url: '/pages/Home/Home'
-      // });
-      // this.setData({
-      //   showNumberContainer: true
-      // });
-    });
-
-
-  },
-
-  // 页面卸载时清除定时器
-  onUnload: function () {
-    if (this.data.timer) {
-      clearInterval(this.data.timer);
-    }
-  },
 
 
   // 长按切换显示图片
@@ -306,41 +247,12 @@ Page({
       showHome: false,
       displayImage1: 'cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/login/have-to.jpg',
     });
-    this.voicePlayer.play();
   },
 
-  // 数字框点击增加事件
-  incrementNumber: function (e) {
-
-    const Clickindex = this.data.Clickindex;
-    const numbers = this.data.numbers;
-    numbers[Clickindex] = e.currentTarget.dataset.index;
-    this.setData({
-      numbers: numbers,
-      Clickindex: Clickindex + 1
-    });
-    if (numbers[0] == 0 && numbers[1] == 5 && numbers[2] == 2 && numbers[3] == 7) {
-      wx.switchTab({
-        url: '/pages/Home/Home'
-      });
-    }
-    else {
-      if (this.data.Clickindex >= 4) {
-        wx.showToast({
-          title: '这密码很难吗？',
-          duration: 1000
-        });
-        this.setData({
-          Clickindex: 0
-        });
-      }
-    }
-  },
 
   // 图片点击事件处理函数
   onTextImageClick: function (e) {
     const clickedIndex = e.currentTarget.dataset.index;
-    console.log('点击了图片索引:', clickedIndex);
 
     // 触发点击动画
     this.triggerClickAnimation(clickedIndex);
@@ -352,8 +264,6 @@ Page({
       clickSequence: newClickSequence
     });
 
-    console.log('当前点击序列:', newClickSequence);
-
     // 检查是否与目标序列匹配
     const targetSequence = this.data.targetSequence;
 
@@ -362,7 +272,6 @@ Page({
       this.setData({
         clickSequence: [parseInt(clickedIndex)]
       });
-      console.log('序列重置，当前点击:', clickedIndex);
       return;
     }
 
@@ -371,6 +280,10 @@ Page({
     for (let i = 0; i < newClickSequence.length; i++) {
       if (newClickSequence[i] !== targetSequence[i]) {
         isMatch = false;
+        wx.showToast({
+          title: ['这密码很难吗？', '密码错误', '这密码不难吧', '啊？还不如小老外聪明', '呸！', '保持耐心', 'he,tui,pei', 'omelette!加油'][Math.floor(Math.random() * 8)],
+          duration: 1000
+        });
         break;
       }
     }
@@ -394,6 +307,7 @@ Page({
         clickSequence: [parseInt(clickedIndex)]
       });
       console.log('序列不匹配，重置并从当前点击开始:', clickedIndex);
+
     }
   },
 

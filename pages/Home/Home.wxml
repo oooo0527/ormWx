@@ -37,11 +37,6 @@
               <view class="decoration-dot"></view>
             </view>
           </view>
-          <view class="no-events-card" wx:if="{{eventsData.length === 0}}">
-            <image src="./empty-calendar.png" class="empty-icon"></image>
-            <text class="no-events-text">暂无活动安排</text>
-            <text class="no-events-subtext">近期暂无行程，请期待更新</text>
-          </view>
         </view>
         <!-- 装饰性元素 -->
         <view class="calendar-decoration">
@@ -114,9 +109,6 @@
           <view class="notification-meta">
             <text class="notification-time">{{item.time}}</text>
           </view>
-        </view>
-        <view class="no-notifications" wx:if="{{!notificationList.length}}">
-          <text>暂无重要提醒</text>
         </view>
       </view>
     </view>

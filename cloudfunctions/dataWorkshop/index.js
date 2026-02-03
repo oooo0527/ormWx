@@ -64,24 +64,11 @@ async function getMamiImages(event) {
       .get()
 
     // 按照tabId分组数据
-    const groupedData = {}
 
-    result.data.forEach(item => {
-      if (!groupedData[item.tabId]) {
-        groupedData[item.tabId] = []
-      }
-      groupedData[item.tabId].push(item.imgUrl)
-    })
-
-    // 确保返回3个tab的数据，即使某些tab没有数据
-    const tabContents = []
-    for (let i = 0; i < 3; i++) {
-      tabContents.push(groupedData[i] || [])
-    }
 
     return {
       success: true,
-      data: tabContents,
+      data: result.data,
       message: '获取数据成功'
     }
   } catch (error) {

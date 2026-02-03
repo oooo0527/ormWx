@@ -3,6 +3,7 @@
   "renderer": "skyline",
   "usingComponents": {
     "global-background": "/components/globalBackground/globalBackground",
-    "custom-navbar": "/components/customNavbar/customNavbar"
+    "custom-navbar": "/components/customNavbar/customNavbar",
+    "custom-loading": "../../components/customLoading/customLoading"
   }
 }

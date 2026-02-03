@@ -62,7 +62,8 @@ Page({
     wx.cloud.callFunction({
       name: 'dataWorkshop',
       data: {
-        action: 'getMamiImages'
+        action: 'getMamiImages',
+        tabId: this.data.activeTab
       }
     })
       .then(res => {
@@ -196,11 +197,11 @@ Page({
    * 预览图片
    */
   viewPhoto(e) {
-    const imageUrl = e.currentTarget.dataset.image;
-    const currentTabImages = this.data.tabContents[this.data.activeTab];
+    const index = e.currentTarget.dataset.image;
+    const currentTabImages = this.data.tabContents[index].imgUrl;
     wx.previewImage({
-      current: imageUrl,
-      urls: currentTabImages
+      current: currentTabImages,
+      urls: this.data.tabContents.map(item => item.imgUrl)
     });
   },
 

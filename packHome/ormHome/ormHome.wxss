@@ -1,12 +1,12 @@
 /* 容器样式 */
 .container {
-  /* display: flex;
-  flex-direction: column; */
+  display: flex;
+  flex-direction: column;
   /* height: 100vh; */
   background: linear-gradient(180deg, #790202 0%, #470101 100%);
   padding: 20rpx;
   /* box-sizing: border-box; */
-  /* justify-content: space-between; */
+  justify-content: space-between;
   /* 添加微妙的纹理背景 */
   /* background-image: radial-gradient(circle at 10% 50%, rgba(129, 3, 3, 0.3) 0%, transparent 10%),
     radial-gradient(circle at 90% 50%, rgba(226, 3, 3, 0.3) 0%, transparent 10%); */

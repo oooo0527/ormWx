@@ -12,7 +12,7 @@
           <view class="image-row">
             <view class="image-item {{activeIndex === index ? 'expanded' : 'collapsed'}}" wx:for="{{Box.imgUrl}}" wx:key="index" data-index="{{index}}" bindtap="onImageClick">
               <view class="image-card">
-                <image class="image-content" src="{{item}}" mode="widthfill" bindtap="onImageTap"></image>
+                <image class="image-content" src="{{item}}" mode="widthfill"></image>
                 <!-- <view class="image-overlay {{activeIndex === index ? 'show' : 'hide'}}">
                   <text class="image-title">{{item.desc||'--'}}</text>
                 </view> -->

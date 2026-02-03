@@ -25,15 +25,10 @@ Page({
   onLoad: function (options) {
     this.loadImageConfig();
 
-    // 检查是否需要显示每日弹窗提醒
-    this.checkDailyNotificationPopup();
+    this.getEventsData();
   },
 
   onShow: function () {
-
-    // 检查是否需要显示每日弹窗提醒
-    this.checkDailyNotificationPopup();
-
 
   },
 
@@ -349,17 +344,27 @@ Page({
   toggleLampPopup: function () {
     const showPopup = !this.data.showLampPopup;
 
-    this.setData({
-      isLampOn: showPopup
-    });
 
     // 如果是打开弹窗，则获取events数据
-    if (showPopup) {
-      this.getEventsData();
-    } else {
+    if (!showPopup) {
       this.setData({
-        showLampPopup: false
+        showLampPopup: false,
+        isLampOn: showPopup
       });
+    } else {
+      if (this.data.eventsData.length > 0) {
+        this.setData({
+          showLampPopup: true,
+          isLampOn: !this.data.isLampOn
+        });
+      } else {
+        wx.showToast({
+          icon: 'error',
+          mask: true,
+          title: '暂无活动',
+          icon: 'none'
+        });
+      }
     }
   },
 
@@ -396,35 +401,39 @@ Page({
           }
           return event;
         }).sort((a, b) => a.date - b.date);
-
         this.setData({
-          showLampPopup: true,
           eventsData: processedEvents
         });
-      } else {
-        this.setData({
-          showLampPopup: false,
-          isLampOn: !this.data.isLampOn
-        });
-        wx.showToast({
-          icon: 'error',
-          mask: true,
-          title: '暂无活动',
-          icon: 'none'
-        });
+        //筛选一下今天是否有行程
+        const today = new Date().toISOString().split('T')[0];
+        const hasEventToday = processedEvents.some(event => event.dateString === today);
+        if (hasEventToday) {
+          this.setData({
+            showNotificationPopup: true,
+            notificationList: hasEventToday
+          });
+        } else {
+
+          this.setData({
+            showNotificationPopup: true,
+            notificationList: [{
+              title: '陈奥语录',
+              content: '每天都是新的开始，不要害怕失败，相信自己，你是最棒的。',
+              time: '2002-05-27 13:14'
+            }]
+          });
+        }
 
       }
     }).catch(err => {
       console.error('获取events数据失败', err);
       this.setData({
-        showLampPopup: false,
-        isLampOn: !this.data.isLampOn
-      });
-      wx.showToast({
-        icon: 'error',
-        mask: true,
-        title: '暂无活动',
-        icon: 'none'
+        showNotificationPopup: true,
+        notificationList: [{
+          title: '陈奥语录',
+          content: '每天都是新的开始，不要害怕失败，相信自己，你是最棒的。',
+          time: '2002-05-27 13:14'
+        }]
       });
     });
   },
@@ -448,117 +457,6 @@ Page({
       showCancel: false,
       confirmText: '知道了'
     });
-  },
-
-  // 检查每日弹窗提醒
-  checkDailyNotificationPopup: function () {
-    // 获取当前日期
-    const today = new Date().toDateString();
-
-    // 从本地存储获取上次显示弹窗的日期
-    try {
-      const lastPopupDate = wx.getStorageSync('lastNotificationPopupDate');
-
-      // 如果今天已经显示过弹窗，则不再显示
-      if (lastPopupDate === today) {
-        console.log('今天已经显示过弹窗提醒');
-        return;
-      }
-
-      // 获取noteList页面的未读弹窗消息
-      // 由于无法直接访问其他页面的数据，我们需要调用云函数获取消息
-      // 可以传递特定日期参数，例如获取今天之前的消息
-      this.fetchPopupNotifications(); // 默认获取今天之前的消息
-      // 或者传递特定日期: this.fetchPopupNotifications('2024-12-31') // 获取2024年12月31日之前的消息
-
-    } catch (e) {
-      console.error('获取本地存储失败：', e);
-      // 如果获取失败，仍然尝试获取弹窗消息
-      this.fetchPopupNotifications();
-    }
-  },
-
-  // 获取需要弹窗提醒的消息·
-  fetchPopupNotifications: async function (beforeDate) {
-    // 首先尝试从云函数获取数据
-    let popupNotifications = await this.getPopupNotifications(beforeDate);
-    console.log(popupNotifications, 'popupNotifications')
-
-
-    if (popupNotifications && popupNotifications.length > 0) {
-      // 显示弹窗
-      this.setData({
-        showNotificationPopup: true,
-        notificationList: popupNotifications
-      });
-
-      // 记录今天已经显示过弹窗
-      try {
-        wx.setStorageSync('lastNotificationPopupDate', new Date().toDateString());
-      } catch (e) {
-        console.error('存储弹窗日期失败：', e);
-      }
-    }
-  },
-
-  // 获取弹窗消息
-  getPopupNotifications: async function (beforeDate) {
-    try {
-      // 设置默认日期为今天2026-01-01格式
-      const dateToUse = beforeDate || new Date().toISOString().split('T')[0];
-      console.log('Using date:', dateToUse);
-
-      // 调用云函数获取通知消息
-      const result = await wx.cloud.callFunction({
-        name: 'rewordList',
-        data: {
-          action: 'getNotifications',
-          beforeDate: dateToUse  // 传入日期参数，获取该日期之前的通知
-        }
-      });
-
-      if (result.result && result.result.success) {
-        // 返回未读的弹窗消息
-        const notifications = result.result.data || [];
-        return notifications.filter(item => item.type === 'popup' && !item.isRead);
-      } else {
-        console.error('获取通知消息失败：', result.result.message);
-        return [];
-      }
-    } catch (e) {
-      console.error('获取通知消息失败：', e);
-      return [];
-    }
-  },
-
-  // 从缓存获取弹窗消息（备选方案）
-  getPopupNotificationsFromCache: function (beforeDate) {
-    try {
-      const cacheData = wx.getStorageSync('notificationCache');
-      if (cacheData && cacheData.popupNotifications) {
-        // 返回未读的弹窗消息
-        let filteredNotifications = cacheData.popupNotifications.filter(item => !item.isRead);
-
-        // 如果提供了日期参数，则进一步过滤
-        if (beforeDate) {
-          filteredNotifications = filteredNotifications.filter(item => {
-            // 假设缓存中的消息也有createTime字段
-            if (item.createTime) {
-              const itemDate = new Date(item.createTime);
-              const beforeDateObj = new Date(beforeDate);
-              return itemDate < beforeDateObj;
-            }
-            return true; // 如果没有createTime字段，默认包含
-          });
-        }
-
-        return filteredNotifications;
-      }
-    } catch (e) {
-      console.error('获取缓存数据失败：', e);
-    }
-
-    return [];
   },
 
   // 隐藏弹窗提醒

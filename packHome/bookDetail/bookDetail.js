@@ -31,23 +31,19 @@ Page({
     const index = e.currentTarget.dataset.index;
     const currentIndex = this.data.activeIndex;
     const targetIndex = parseInt(index);
-    // 设置动画类
-    this.setData({
-      activeIndex: targetIndex,
-    });
+    if (targetIndex === currentIndex) {
+      wx.previewImage({
+        current: this.data.Box.imgUrl[index],
+        urls: this.data.Box.imgUrl
+      });
+    } else {
+      // 设置动画类
+      this.setData({
+        activeIndex: targetIndex,
+      });
+    }
 
 
-  },
-
-  // 图片预览事件
-  onImageTap(e) {
-    const index = e.currentTarget.dataset.index;
-
-    if (this.data.activeIndex !== index) return;
-    wx.previewImage({
-      current: this.data.Box.imgUrl[index],
-      urls: this.data.Box.imgUrl
-    });
   },
 
 });

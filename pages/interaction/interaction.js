@@ -4,7 +4,6 @@ Page({
   data: {
     currentSlide: 0,
     selectedWork: null,
-    ormkornnaphat: {},
     // 自定义loading相关数据
     showCustomLoading: false,
 
@@ -165,13 +164,6 @@ Page({
     this.loadHotInteractions();
   },
   onShow: function () {
-    // 获取app实例
-    const app = getApp();
-    if (app.globalData.ormkornnaphat) {
-      this.setData({
-        ormkornnaphat: app.globalData.ormkornnaphat
-      });
-    }
   },
 
   // 加载互动留言数据
