@@ -3,7 +3,7 @@
   <view class="top-section">
     <image class="coming-soon-poster-zindex" src="cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/e95aa59912c04e5760fab36c3d5c8b5f.png" mode="aspectFill"></image>
     <!-- 中部：分割区域 -->
-    <view class="middle-section"></view>
+    <view class="middle-section" style="height: 30%;"></view>
     <view class="coming-soon-overlay">
       <view class="coming-soon-badge">即将上线</view>
       <text class="coming-soon-title">我们的秘密</text>

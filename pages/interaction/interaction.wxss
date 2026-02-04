@@ -165,14 +165,14 @@
 
 .shawBg-text {
   margin-top: 60rpx;
-  width: 60rpx;
-  height: 60rpx;
-  background: rgb(0, 0, 0);
+  width: 80rpx;
+  height: 80rpx;
+  background: rgba(80, 79, 79, 0.685);
   color: #fcf9f9;
   z-index: 5;
   text-align: center;
-  line-height: 60rpx;
-  border-radius: 60rpx;
+  line-height: 80rpx;
+  border-radius: 80rpx;
 }
 
 .shawBg-bg {
@@ -181,7 +181,7 @@
   background: #f6f3f3;
   background-size: 400% 400%;
   position: absolute;
-  opacity: 0.5;
+  opacity: 0.7;
   z-index: 3;
   animation: gradientFlow 15s ease infinite;
   filter: blur(3px);

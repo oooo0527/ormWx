@@ -13,14 +13,32 @@ Page({
     approvedPhotos: [],
     // 按风格分组的照片
     groupedPhotos: {},
+    // 自定义loading相关数据
+    showCustomLoading: false,
 
   },
   onPageScroll: function (e) {
     // 空实现，但必须保留以便自定义导航栏组件可以绑定滚动事件
     // 实际的滚动处理由custom-navbar组件完成
   },
+  // 显示自定义loading
+  showCustomLoading: function () {
+
+    this.setData({
+      showCustomLoading: true,
+
+    });
+  },
+
+  // 隐藏自定义loading
+  hideCustomLoading: function () {
+    this.setData({
+      showCustomLoading: false
+    });
+  },
 
   onLoad(options) {
+    this.showCustomLoading();
 
     // 加载审核通过的照片
     this.loadApprovedPhotos();
@@ -69,6 +87,7 @@ Page({
         console.error('获取审核通过照片失败:', err);
       }
     });
+    this.hideCustomLoading();
   },
 
   // 按风格分组照片
@@ -135,6 +154,7 @@ Page({
         console.error('获取排行榜数据失败:', err);
       }
     });
+    this.hideCustomLoading();
   },
 
   // 切换标签页

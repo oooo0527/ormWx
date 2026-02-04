@@ -12,13 +12,13 @@ Page({
   },
 
   onLoad: function (options) {
-    // 页面加载时执行
-    // this.initMenu()
+    页面加载时执行
+    this.initMenu()
   },
 
   onShow: function () {
     // 页面显示时执行
-    this.initMenu()
+    // this.initMenu()
 
   },
   //初始化菜单

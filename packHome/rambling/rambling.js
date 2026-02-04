@@ -4,7 +4,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    crossAxisCount: 6,
+    crossAxisCount: 5,
     crossAxisGap: 8,
     mainAxisGap: 20,
     mamiLIST: [

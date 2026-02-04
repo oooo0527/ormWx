@@ -102,4 +102,6 @@
       </view>
     </scroll-view>
   </view>
+  <!-- 自定义Loading组件 -->
+  <custom-loading show="{{showCustomLoading}}" full-screen="{{true}}"></custom-loading>
 </global-background>

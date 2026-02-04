@@ -1309,6 +1309,7 @@
   border-bottom: 1rpx solid #f0f0f0;
 }
 
+
 .daily-notification-popup .notification-item:last-child {
   border-bottom: none;
 }
