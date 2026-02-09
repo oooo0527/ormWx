@@ -12,18 +12,18 @@ Page({
   },
 
   onLoad: function (options) {
-    页面加载时执行
-    this.initMenu()
+
   },
 
   onShow: function () {
-    // 页面显示时执行
-    // this.initMenu()
+    this.showCustomLoading();
+    // 页面加载时执行
+    this.initMenu()
 
   },
   //初始化菜单
   initMenu: function () {
-    this.showCustomLoading();
+
     // 菜单初始化逻辑
     wx.cloud.callFunction({
       name: 'relationShip',
@@ -38,20 +38,11 @@ Page({
         });
         console.log('relationShipList', this.data.relationShipList);
 
-      } else {
-        wx.showToast({
-          title: '获取活动数据失败',
-          icon: 'none'
-        });
-      }
+      } 
       this.hideCustomLoading();
     }).catch(err => {
       this.hideCustomLoading();
       console.error('获取relationShip数据失败', err);
-      wx.showToast({
-        title: '获取relationShip数据失败',
-        icon: 'none'
-      });
     });
   },
 

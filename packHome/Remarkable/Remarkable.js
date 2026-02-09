@@ -1,10 +1,13 @@
 // 高端荣耀殿堂页面
 Page({
+  
 
   /**
    * 页面的初始数据
    */
   data: {
+      // 自定义loading相关数据
+      showCustomLoading: false,
     // 奖项数据
     awardsData: [],
 
@@ -33,6 +36,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    this.showCustomLoading()
     // 页面加载时获取所有数据并按type分类
     this.loadAwardsData();
   },
@@ -74,11 +78,27 @@ Page({
 
 
   },
+    // 显示自定义loading
+    showCustomLoading: function () {
+
+      this.setData({
+        showCustomLoading: true,
+  
+      });
+    },
+  
+    // 隐藏自定义loading
+    hideCustomLoading: function () {
+      this.setData({
+        showCustomLoading: false
+      });
+    },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh() {
+    this.showCustomLoading()
     // 下拉刷新时重新加载数据
     this.loadAwardsData();
 
@@ -207,10 +227,7 @@ Page({
    * 从云函数获取所有数据并按type分类
    */
   loadAwardsData: function () {
-    this.setData({
-      loading: true,
-      error: null
-    });
+
 
     wx.cloud.callFunction({
       name: 'rewordList',
@@ -254,20 +271,13 @@ Page({
 
           // 数据加载完成后执行动画
           this.initPageAnimations();
-        } else {
-          console.error('获取数据失败：', res.result.message);
-          this.setData({
-            error: res.result.message || '获取数据失败',
-            loading: false
-          });
-        }
+          this.hideCustomLoading()
+        } 
       },
       fail: err => {
         console.error('调用云函数失败：', err);
-        this.setData({
-          error: '网络错误，请稍后重试',
-          loading: false
-        });
+        this.hideCustomLoading()
+
       }
     });
   }

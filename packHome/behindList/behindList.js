@@ -23,6 +23,7 @@ Page({
     });
   },
   onLoad(options) {
+    this.showCustomLoading();
     // 获取导航栏高度
     const systemInfo = wx.getSystemInfoSync();
     this.setData({
@@ -45,7 +46,7 @@ Page({
 
   // 加载指定tab的菜单数据（通过云函数）
   loadTabMenuData(tabIndex) {
-    this.showCustomLoading();
+
 
     wx.cloud.callFunction({
       name: 'behind',
@@ -60,16 +61,14 @@ Page({
         this.setData({
           currentMenuItems: menuItems
         });
+        this.hideCustomLoading();
       },
       fail: err => {
         console.error('调用云函数失败:', err);
-        wx.showToast({
-          title: '网络错误',
-          icon: 'none'
-        });
+        this.hideCustomLoading();
       }
     });
-    this.hideCustomLoading();
+
   },
   // 卡片点击事件
   onCardTap(e) {
