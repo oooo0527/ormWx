@@ -326,44 +326,72 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 30rpx;
+  position: relative;
 }
 
 .brand-card {
-  background: linear-gradient(135deg, rgba(40, 40, 40, 0.9) 0%, rgba(20, 20, 20, 0.9) 100%);
-  border-radius: 16rpx;
-  padding: 30rpx;
+  /* background: linear-gradient(135deg, rgba(40, 40, 40, 0.9) 0%, rgba(20, 20, 20, 0.9) 100%); */
+  border-radius: 500rpx;
+  padding: 10rpx;
+  width: 600rpx;
+  height: 600rpx;
   text-align: center;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 10rpx 20rpx rgba(0, 0, 0, 0.3);
-  border: 1rpx solid rgba(255, 255, 255, 0.05);
+  /* box-shadow: 0 10rpx 20rpx rgba(0, 0, 0, 0.3); */
+  /* border: 1rpx solid rgba(255, 255, 255, 0.05); */
   transition: all 0.3s ease;
+  margin: 40rpx auto;
+  box-shadow:
+    0 8rpx 16rpx rgba(0, 0, 0),
+    inset 0 4rpx 8rpx rgba(255, 255, 255),
+    inset 0 -4rpx 8rpx rgba(0, 0, 0);
 }
 
-.brand-card:hover {
+.brand-card:active {
   transform: translateY(-10rpx);
   box-shadow: 0 20rpx 30rpx rgba(0, 0, 0, 0.4);
 }
 
 .brand-logo {
+  /* width: 100%; */
   width: 100%;
+  height: 100%;
   /* height: 120rpx; */
-  margin: 0 auto 20rpx;
+  margin: 0 auto;
   filter: grayscale(100%) brightness(1.5);
-  transition: all 0.3s ease;
-  border-radius: 8rpx;
+  transition: all 0.8s ease;
+  border-radius: 600rpx;
+  object-fit: cover;
 }
 
-.brand-card:hover .brand-logo {
-  filter: grayscale(0%) brightness(1);
-  transform: scale(1.1);
+
+.selectIdx1 {
+  /* width: 100%; */
+  width: 100%;
+  height: 100%;
+  /* height: 120rpx; */
+  margin: 0 auto;
+
+  border-radius: 600rpx;
+  object-fit: cover;
+  filter: grayscale(0%) brightness(1) !important;
+  transform: scale(1.1) !important;
+  transition: all 0.8s ease;
 }
 
 .brand-name {
-  font-size: 28rpx;
+  text-decoration: underline;
+  font-family: 'fangsong';
+  font-size: 60rpx;
   color: #ffffff;
   font-weight: bold;
-  margin-bottom: 10rpx;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+
 }
 
 .brand-category {

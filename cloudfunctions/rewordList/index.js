@@ -41,9 +41,7 @@ async function getRewordList(event) {
 
     // 分页查询
     const result = await query
-      .orderBy('createTime', 'desc')
-      .skip(event.skip || 0)
-      .limit(event.limit || 20)
+      .orderBy('getTime', 'desc')
       .get()
 
     return {

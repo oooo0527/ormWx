@@ -18,8 +18,9 @@ Page({
     statsData: {
       awards: 0,
       brands: 0,
-      years: 0
+      nominations: 0
     },
+    selectIdx: 0,
 
     // 加载状态
     loading: true,
@@ -65,6 +66,14 @@ Page({
   onUnload() {
 
   },
+  anmotionClass(e) {
+    const { index } = e.currentTarget.dataset;
+    this.setData({
+      selectIdx: index
+    })
+
+
+  },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
@@ -91,51 +100,6 @@ Page({
 
   },
 
-  /**
-   * 奖项卡片点击事件
-   */
-  onAwardCardTap(e) {
-    const awardId = e.currentTarget.dataset.id;
-    wx.showToast({
-      title: `查看奖项详情 ${awardId}`,
-      icon: 'none'
-    });
-
-    // 添加点击动画效果
-    const query = wx.createSelectorQuery();
-    query.select(`.award-card[data-id="${awardId}"]`).boundingClientRect();
-    query.exec((res) => {
-      if (res[0]) {
-        wx.createAnimation({
-          duration: 300,
-          timingFunction: 'ease'
-        });
-      }
-    });
-  },
-
-  /**
-   * 品牌卡片点击事件
-   */
-  onBrandCardTap(e) {
-    const brandId = e.currentTarget.dataset.id;
-    wx.showToast({
-      title: `查看品牌详情 ${brandId}`,
-      icon: 'none'
-    });
-
-    // 添加点击动画效果
-    const query = wx.createSelectorQuery();
-    query.select(`.brand-card[data-id="${brandId}"]`).boundingClientRect();
-    query.exec((res) => {
-      if (res[0]) {
-        wx.createAnimation({
-          duration: 300,
-          timingFunction: 'ease'
-        });
-      }
-    });
-  },
 
   /**
    * 初始化页面动画
@@ -272,11 +236,12 @@ Page({
           const nominationsData = allData
             .filter(item => item.type === '3')
 
+          console.log(awardsData, brandsData, nominationsData, 'nominationsData')
           // 统计数据
           const statsData = {
             awards: awardsData.length,
             brands: brandsData.length,
-            years: this.calculateYears([...awardsData, ...nominationsData])  // 计算年份跨度
+            nominations: nominationsData.length
           };
 
           this.setData({
@@ -305,23 +270,6 @@ Page({
         });
       }
     });
-  },
-
-  /**
-   * 计算年份跨度
-   */
-  calculateYears: function (awardsData) {
-    if (!awardsData || awardsData.length === 0) {
-      return 0;
-    }
-
-    const years = awardsData.map(item => parseInt(item.year)).filter(year => !isNaN(year));
-    if (years.length === 0) {
-      return 0;
-    }
-
-    const minYear = Math.min(...years);
-    const maxYear = Math.max(...years);
-    return maxYear - minYear + 1;
   }
+
 })

@@ -20,7 +20,7 @@
         </view>
         <scroll-view class="awards-carousel" scroll-x="true" show-scrollbar="{{false}}" enable-back-to-top="{{false}}">
           <view class="awards-wrapper">
-            <view class="award-card" wx:for="{{awardsData}}" wx:key="index">
+            <view class="award-card"  wx:for="{{awardsData}}" wx:key="index">
               <view class="award-card2">{{item.getTime}}</view>
               <view class="award-card3">{{item.description}}</view>
               <view class="award-card1">
@@ -35,43 +35,44 @@
           </view>
         </scroll-view>
       </view>
-      <!-- 品牌代言区 -->
-      <view class="endorsements-section">
+            <view class="awards-section">
         <view class="section-header">
-          <text class="section-title">奢华代言</text>
-          <text class="section-subtitle">LUXURY ENDORSEMENTS</text>
-        </view>
-        <view class="endorsements-grid">
-          <view class="brand-card" wx:for="{{brandsData}}" wx:key="id" data-id="{{item.id}}">
-            <image src="{{item.trophyIcon}}" class="brand-logo" mode="aspectFit"></image>
-            <text class="brand-name">{{item.name}}</text>
-            <!-- <text class="brand-category">{{item.category}}</text> -->
-            <view class="luxury-badge">奢华</view>
-          </view>
-        </view>
-      </view>
-      <view class="awards-section">
-        <view class="section-header">
-          <text class="section-title">提名荣誉</text>
-          <text class="section-subtitle">提名</text>
+          <text class="section-title">时尚杂志</text>
+          <text class="section-subtitle">FASHION MAGAZINE</text>
         </view>
         <scroll-view class="awards-carousel" scroll-x="true" show-scrollbar="{{false}}" enable-back-to-top="{{false}}">
           <view class="awards-wrapper">
-            <view class="award-card" style="background:#333" wx:for="{{nominationsData}}" wx:key="id" data-id="{{item.id}}">
-              <view class="award-trophy">
-                <image src="{{item.trophyIcon}}" class="trophy-icon" mode="aspectFit"></image>
-              </view>
-              <view class="award-content">
-                <text class="award-name">{{item.name}}</text>
-                <text class="award-category">{{item.getTime}}</text>
-                <!-- <text class="award-year"></text> -->
-                <text class="award-description">{{item.description}}</text>
+            <view class="award-card" style="background: #4b4341;" wx:for="{{nominationsData}}" wx:key="index">
+              <view class="award-card2">{{item.getTime}}</view>
+              <view class="award-card3">{{item.description}}</view>
+              <view class="award-card1">
+                <image src="{{item.trophyIcon}}" class="trophy-icon" mode="aspectFit" lazy-load="{{true}}" ></image>
+                <view class="award-content"  style="background: #4b434127;">
+                  <view class="award-name">{{item.name}}</view>
+                  <view class="award-year">{{item.zhuban}}</view>
+                </view>
               </view>
               <!-- <view class="shine-effect"></view> -->
             </view>
           </view>
         </scroll-view>
       </view>
+      <!-- 品牌代言区 -->
+      <view class="endorsements-section">
+        <view class="section-header">
+          <text class="section-title">品牌</text>
+          <text class="section-subtitle">BRAND ENDORSEMENTS</text>
+        </view>
+        <view class="endorsements-grid">
+          <view class="brand-card" wx:for="{{brandsData}}" wx:key="id" data-id="{{item.id}}" bindtap="anmotionClass" data-index="{{index}}">
+            <image src="{{item.trophyIcon}}" class="{{selectIdx==index?'selectIdx1':'brand-logo'}}" mode='aspectFill' lazy-load="{{true}}"></image>
+            <view class="brand-name">{{item.name}}</view>
+            <!-- <text class="brand-category">{{item.category}}</text> -->
+            <!-- <view class="luxury-badge">奢华</view> -->
+          </view>
+        </view>
+      </view>
+
       <!-- 统计数据区 -->
       <view class="stats-section" animation="{{statsSectionAnimation}}">
         <view class="stat-item">
@@ -83,8 +84,8 @@
           <text class="stat-label">奢侈品牌</text>
         </view>
         <view class="stat-item">
-          <text class="stat-number">{{statsData.years}}</text>
-          <text class="stat-label">辉煌岁月</text>
+          <text class="stat-number">{{statsData.nominations}}</text>
+          <text class="stat-label">杂志</text>
         </view>
       </view>
       <!-- 底部签名区 -->
