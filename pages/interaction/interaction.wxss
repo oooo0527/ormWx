@@ -800,7 +800,7 @@
   font-weight: bold;
 }
 
-/* 热门互动留言样式 */
+/* 热门样式 */
 .hot-interactions-section {
   /* padding: 20rpx;
   margin-top: 40rpx; */

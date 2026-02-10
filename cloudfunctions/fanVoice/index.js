@@ -45,7 +45,6 @@ function convertUTCToBeijing(utcString) {
   return `${year}-${month}-${day} ${hour}:${minute}:${second}`;
 }
 
-// 获取投稿留言列表
 async function getInteractionList(event) {
   try {
     let query = db.collection('interactions')
@@ -91,7 +90,7 @@ async function getInteractionList(event) {
   }
 }
 
-// 根据ID获取单个投稿留言
+
 async function getInteractionById(event) {
   try {
     const result = await db.collection('interactions').doc(event.id).get()
@@ -104,7 +103,7 @@ async function getInteractionById(event) {
     } else {
       return {
         success: false,
-        message: '投稿留言不存在'
+        message: '不存在'
       }
     }
   } catch (err) {

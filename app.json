@@ -1,8 +1,8 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/Home/Home",
     "pages/workRecommend/workRecommend",
+    "pages/Home/Home",
     "pages/workDetail/workDetail",
     "pages/noteList/noteList",
     "pages/interaction/interaction",
@@ -12,7 +12,7 @@
     "backgroundTextStyle": "light",
     "navigationStyle": "custom",
     "navigationBarBackgroundColor": "#E9E8EF",
-    "navigationBarTitleText": "明星互动平台",
+    "navigationBarTitleText": "omelette",
     "navigationBarTextStyle": "white"
   },
   "cloud": true,
@@ -35,19 +35,27 @@
     "list": [
       {
         "pagePath": "pages/Home/Home",
-        "text": "首页"
+        "iconPath": "/assets/O.png",
+        "selectedIconPath": "/assets/OO.png",
+        "text": "Home"
       },
       {
         "pagePath": "pages/interaction/interaction",
-        "text": "互动"
+        "iconPath": "/assets/RR.png",
+        "selectedIconPath": "/assets/R.png",     
+        "text": "Report"
       },
       {
         "pagePath": "pages/workRecommend/workRecommend",
-        "text": "作品"
+        "iconPath": "/assets/M.png",
+        "selectedIconPath": "/assets/MM.png",     
+        "text": "Work"
       },
       {
         "pagePath": "pages/noteList/noteList",
-        "text": "煎蛋卷"
+        "iconPath": "/assets/O.png",
+        "selectedIconPath": "/assets/OO.png",     
+        "text": "omelette"
       }
     ]
   },

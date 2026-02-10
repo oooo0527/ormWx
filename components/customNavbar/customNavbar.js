@@ -9,7 +9,7 @@ Component({
   properties: {
     title: {
       type: String,
-      value: '明星互动平台'
+      value: 'omelette'
     },
     backgroundColor: {
       type: String,

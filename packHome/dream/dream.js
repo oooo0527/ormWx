@@ -79,15 +79,15 @@ Page({
             approvedPhotos: res.result.data,
             groupedPhotos: groupedPhotos
           });
-        } else {
-          console.error('获取审核通过照片失败:', res.result ? res.result.message : '未知错误');
         }
+        this.hideCustomLoading();
       },
       fail: err => {
+        this.hideCustomLoading();
         console.error('获取审核通过照片失败:', err);
       }
     });
-    this.hideCustomLoading();
+
   },
 
   // 按风格分组照片
@@ -146,15 +146,14 @@ Page({
             rankingList: res.result.data,
 
           });
-        } else {
-          console.error('获取排行榜数据失败:', res.result ? res.result.message : '未知错误');
         }
+        this.hideCustomLoading();
       },
       fail: err => {
         console.error('获取排行榜数据失败:', err);
+        this.hideCustomLoading();
       }
     });
-    this.hideCustomLoading();
   },
 
   // 切换标签页

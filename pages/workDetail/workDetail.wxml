@@ -8,8 +8,8 @@
         <image class="work-cover" src="{{work.imgUrl}}" mode="widthFix"></image>
         <view class="cover-overlay"></view>
         <!-- 类型标签 -->
-        <view class="work-type-badge {{work.type === '电影' ? 'movie-badge' : work.type === '电视剧' ? 'tv-badge' : 'publicity-badge'}}">
-          {{work.type}}
+        <view class="work-type-badge {{work.netType === '电影' ? 'movie-badge' : work.netType === '电视剧' ? 'tv-badge' : 'publicity-badge'}}">
+          {{work.netType}}
         </view>
       </view>
       <!-- 作品信息 -->

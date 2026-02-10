@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    hotList: [], // 热门留言列表
+    hotList: [], // 热门列表
     loading: false, // 是否正在加载数据
     hasMore: true, // 是否还有更多数据
     page: 0, // 当前页码
@@ -22,7 +22,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    // 页面加载时获取热门留言数据
+    // 页面加载时获取热门数据
     this.getHotList();
   },
   // 显示作品详情
@@ -41,7 +41,7 @@ Page({
   },
 
   /**
-   * 获取热门留言列表
+   * 获取热门列表
    */
   getHotList() {
     // 如果没有更多数据或正在加载，则直接返回
@@ -53,14 +53,14 @@ Page({
       loading: true
     });
 
-    // 调用云函数获取热门留言数据
+    // 调用云函数获取热门 数据
     wx.cloud.callFunction({
       name: 'fanVoice',
       data: {
         action: 'getList',
         skip: this.data.page * this.data.pageSize,
         limit: this.data.pageSize,
-        checked: '2' // 已审核通过的留言
+        checked: '2' // 已审核通过的 
       },
       success: res => {
         if (res.result && res.result.success) {
@@ -74,7 +74,7 @@ Page({
             loading: false
           });
         } else {
-          console.error('获取热门留言失败：', res.result.message);
+          console.error('获取热门 失败：', res.result.message);
           this.setData({
             loading: false
           });

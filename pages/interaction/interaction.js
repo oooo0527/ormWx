@@ -31,7 +31,7 @@ Page({
     loadMore: false,          // "正在加载"状态
     loadAll: false,        // "已加载全部"状态
 
-    // 热门互动留言
+
     hotInteractions: [],
     searchList: [],
     searchValue: '',
@@ -160,13 +160,13 @@ Page({
       pageSize: 20,
 
     })
-    // 加载热门互动留言数据
+    // 加载热门数据
     this.loadHotInteractions();
   },
   onShow: function () {
   },
 
-  // 加载互动留言数据
+  // 加载数据
   loadInteractions: function () {
     // this.showCustomLoading();
     wx.cloud.callFunction({
@@ -177,7 +177,7 @@ Page({
         checked: '2'
       },
       success: res => {
-        console.log('获取互动留言成功：', res.result.data);
+        console.log('获取成功：', res.result.data);
         if (res.result && res.result.success && res.result.data.length > 0) {
 
           this.setData({
@@ -185,7 +185,7 @@ Page({
             works: res.result.data
           },);
         } else {
-          console.error('获取互动留言失败：', res.result.message);
+          console.error('获取失败：', res.result.message);
 
         }
       },
@@ -199,7 +199,7 @@ Page({
     // this.hideCustomLoading();
   },
 
-  // 加载热门互动留言数据
+  // 加载热门数据
   loadHotInteractions: function () {
     // this.showCustomLoading();
     const { currentPage, pageSize, hotInteractions } = this.data;
@@ -213,9 +213,8 @@ Page({
         createdAt: this.getDateString(this.data.date),
       },
       success: res => {
-        console.log('获取热门互动留言成功：', currentPage, pageSize, res.result.data);
+
         if (res.result && res.result.success && res.result.data.length > 0) {
-          // 处理热门互动留言数据
 
           // 判断是否还有更多数据
           if (res.result.data.length < this.data.pageSize) {
@@ -243,11 +242,11 @@ Page({
 
           console.log('Updated hotInteractions:', this.data.hotInteractions);
         } else {
-          console.error('获取热门互动留言失败：', res.result.message);
+          console.error('获取热门失败：', res.result.message);
         }
       },
       fail: err => {
-        console.error('调用获取热门互动留言云函数失败：', err);
+        console.error('调用获取热门云函数失败：', err);
       }
     });
     this.hideCustomLoading();
@@ -285,7 +284,7 @@ Page({
   },
 
 
-  //跳转热门留言
+  //跳转热门 
   showHistories: function () {
     wx.navigateTo({
       url: '/packageA/hot/hot',
@@ -346,57 +345,6 @@ Page({
     // 可以在这里添加点击图片的处理逻辑
     console.log("点击了轮播图图片");
   },
-  onConfirm: function (e) {
-    this.setData({
-      searchFlag: true
-    });
-
-    console.log("点击了确定按钮");
-
-    wx.cloud.callFunction({
-      name: 'fanVoice',
-      data: {
-        action: 'getList',
-        limit: 20, // 限制获取10条数据
-        status: '1',
-        searchValue: this.data.searchValue || ""
-
-      },
-      success: res => {
-        if (res.result && res.result.success && res.result.data.length > 0) {
-          const searchList = res.result.data.slice(0, 10).map(item => {
-            return {
-              id: item._id,
-              title: item.title,
-              content: item.content,
-              updateTime: item.updateTime || '',
-              commentsCount: (item.comments || []).length,
-              createdAt: this.formatDateTime(item.createdAt) || '',
-            }
-          });
-
-
-          this.setData({
-            searchList: searchList
-          });
-        } else {
-          console.error('搜索互动留言失败：', res.result.message);
-        }
-      },
-      fail: err => {
-        console.error('调用搜索互动留言云函数失败：', err);
-      }
-    });
-  },
-  onInput: function (e) {
-    console.log("输入框内容:", e.detail.value);
-    this.setData({
-      searchValue: e.detail.value
-    });
-
-  },
-
-
 
   // 下拉刷新
   onPullDownRefresh: function () {

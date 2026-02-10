@@ -38,7 +38,7 @@
 
 | 属性名 | 类型 | 默认值 | 说明 |
 |-------|------|--------|------|
-| title | String | 明星互动平台 | 导航栏标题 |
+| title | String | omelette | 导航栏标题 |
 | backgroundColor | String | #f48eb5 | 导航栏背景色 |
 | textColor | String | #E9E8EF | 标题文字颜色 |
 | showBack | Boolean | true | 是否显示返回按钮 |
