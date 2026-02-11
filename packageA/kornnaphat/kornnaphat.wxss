@@ -1,0 +1,365 @@
+/* packageA/kornnaphat/kornnaphat.wxss */
+
+.container {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  color: #333;
+  box-sizing: border-box;
+}
+
+.title-container {
+  text-align: center;
+  margin-bottom: 30rpx;
+}
+
+.main-title {
+  display: block;
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #2c3e50;
+  margin-bottom: 10rpx;
+}
+
+.subtitle {
+  display: block;
+  font-size: 28rpx;
+  color: #7f8c8d;
+}
+
+/* 集数选择器 */
+.episode-selector {
+  width: 100%;
+}
+
+.episode-scroll {
+  width: 100%;
+  white-space: nowrap;
+}
+
+.episode-list {
+  display: inline-flex;
+  padding: 10rpx 0;
+}
+
+.episode-item {
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.7);
+  border: 2rpx solid #bdc3c7;
+  border-radius: 30rpx;
+  padding: 15rpx 25rpx;
+  margin-right: 20rpx;
+  text-align: center;
+  transition: all 0.3s ease;
+  min-width: 120rpx;
+}
+
+.episode-item.active {
+  background: linear-gradient(45deg, #ff6b6b, #ffa500);
+  border-color: #ff6b6b;
+  transform: scale(1.05);
+  box-shadow: 0 8rpx 20rpx rgba(255, 107, 107, 0.3);
+}
+
+.episode-number {
+  display: block;
+  font-size: 24rpx;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.episode-item.active .episode-number {
+  color: #ffffff;
+}
+
+.episode-title {
+  display: block;
+  font-size: 20rpx;
+  color: #7f8c8d;
+  margin-top: 5rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100rpx;
+}
+
+.episode-item.active .episode-title {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* 内容容器 */
+.content-container {
+  flex: 1;
+  padding: 30rpx;
+}
+
+/* 集数信息 */
+.episode-info {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20rpx;
+  padding: 30rpx;
+  margin-bottom: 30rpx;
+  box-shadow: 0 10rpx 30rpx rgba(0, 0, 0, 0.1);
+}
+
+.episode-header {
+  text-align: center;
+}
+
+.episode-title-large {
+  display: block;
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #2c3e50;
+  margin-bottom: 10rpx;
+}
+
+.episode-subtitle {
+  display: block;
+  font-size: 28rpx;
+  color: #e74c3c;
+  font-weight: 500;
+  margin-bottom: 10rpx;
+}
+
+.episode-date {
+  display: block;
+  font-size: 24rpx;
+  color: #95a5a6;
+}
+
+/* 心情状态 */
+.mood-section {
+  background: linear-gradient(135deg, #fdfcdc 0%, #fefae0 100%);
+  border-radius: 20rpx;
+  padding: 25rpx;
+  margin-bottom: 30rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 8rpx 20rpx rgba(0, 0, 0, 0.08);
+}
+
+.mood-header {
+  display: flex;
+  align-items: center;
+}
+
+.mood-label {
+  font-size: 26rpx;
+  color: #2c3e50;
+  font-weight: 500;
+  margin-right: 15rpx;
+}
+
+.mood-text {
+  font-size: 28rpx;
+  color: #e74c3c;
+  font-weight: bold;
+}
+
+.mood-icon {
+  font-size: 40rpx;
+}
+
+/* 剧情内容 */
+.story-content {
+  margin-bottom: 40rpx;
+}
+
+/* 文字段落 */
+.text-block {
+  margin-bottom: 30rpx;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 15rpx;
+  padding: 25rpx;
+  box-shadow: 0 5rpx 15rpx rgba(0, 0, 0, 0.05);
+}
+
+.paragraph {
+  font-size: 28rpx;
+  line-height: 1.6;
+  color: #34495e;
+  display: block;
+}
+
+/* 图片块 */
+.image-block {
+  margin-bottom: 30rpx;
+  text-align: center;
+}
+
+.story-image {
+  width: 100%;
+  border-radius: 15rpx;
+  box-shadow: 0 10rpx 25rpx rgba(0, 0, 0, 0.15);
+  margin: 10rpx;
+}
+
+.image-caption {
+  display: block;
+  font-size: 24rpx;
+  color: #f4f6f7;
+  margin-top: 15rpx;
+  text-align: center;
+}
+
+/* 对话块 */
+.dialogue-block {
+  margin-bottom: 30rpx;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 15rpx;
+  padding: 25rpx;
+  box-shadow: 0 5rpx 15rpx rgba(0, 0, 0, 0.05);
+}
+
+.dialogue-item {
+  margin-bottom: 20rpx;
+}
+
+.dialogue-item:last-child {
+  margin-bottom: 0;
+}
+
+.speaker {
+  font-size: 26rpx;
+  font-weight: bold;
+  color: #3498db;
+  margin-bottom: 8rpx;
+}
+
+.dialogue-content {
+  font-size: 28rpx;
+  color: #2c3e50;
+  line-height: 1.5;
+  padding-left: 20rpx;
+  border-left: 4rpx solid #3498db;
+}
+
+/* 内心独白 */
+.thought-block {
+  margin-bottom: 30rpx;
+}
+
+.thought-container {
+  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+  border-radius: 15rpx;
+  padding: 25rpx;
+  display: flex;
+  align-items: flex-start;
+  box-shadow: 0 5rpx 15rpx rgba(0, 0, 0, 0.05);
+}
+
+.thought-symbol {
+  font-size: 32rpx;
+  margin-right: 15rpx;
+  flex-shrink: 0;
+}
+
+.thought-text {
+  font-size: 26rpx;
+  color: #1565c0;
+  font-style: italic;
+  line-height: 1.5;
+  flex: 1;
+}
+
+/* 情感标签 */
+.emotion-tags {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 20rpx;
+  padding: 25rpx;
+  margin-bottom: 30rpx;
+  box-shadow: 0 8rpx 20rpx rgba(0, 0, 0, 0.08);
+}
+
+.tags-label {
+  display: block;
+  font-size: 26rpx;
+  color: #2c3e50;
+  font-weight: 500;
+  margin-bottom: 15rpx;
+}
+
+.tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15rpx;
+}
+
+.emotion-tag {
+  background: linear-gradient(45deg, #ff9a9e 0%, #fecfef 100%);
+  color: #c2185b;
+  font-size: 24rpx;
+  padding: 10rpx 20rpx;
+  border-radius: 25rpx;
+  font-weight: 500;
+  box-shadow: 0 4rpx 10rpx rgba(255, 154, 158, 0.3);
+}
+
+/* 导航按钮 */
+.navigation-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 20rpx;
+  padding: 20rpx 0;
+}
+
+.nav-button {
+  flex: 1;
+  height: 80rpx;
+  border-radius: 40rpx;
+  font-size: 28rpx;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.prev-button {
+  background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.next-button {
+  background: linear-gradient(45deg, #ff6b6b 0%, #ffa500 100%);
+  color: white;
+}
+
+.nav-button[disabled] {
+  background: #bdc3c7 !important;
+  color: #95a5a6 !important;
+  opacity: 0.6;
+}
+
+.nav-button:not([disabled]):active {
+  transform: scale(0.95);
+}
+
+/* 响应式调整 */
+@media screen and (max-width: 750rpx) {
+  .container {
+    padding: 0;
+  }
+
+  .header-section {
+    padding: 15rpx 20rpx;
+  }
+
+  .content-container {
+    padding: 20rpx;
+  }
+
+  .main-title {
+    font-size: 32rpx;
+  }
+
+  .episode-item {
+    padding: 12rpx 20rpx;
+    min-width: 100rpx;
+  }
+}

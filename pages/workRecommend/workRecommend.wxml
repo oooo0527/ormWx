@@ -4,10 +4,10 @@
     <image class="coming-soon-poster-zindex" src="cloud://cloud1-5gzybpqcd24b2b58.636c-cloud1-5gzybpqcd24b2b58-1387507403/Home/e95aa59912c04e5760fab36c3d5c8b5f.png" mode="aspectFill"></image>
     <!-- 中部：分割区域 -->
     <view class="middle-section" style="height: 30%;"></view>
-    <view class="coming-soon-overlay">
+    <view class="coming-soon-overlay" bind:tap="onComingSoonTap">
       <view class="coming-soon-badge">即将上线</view>
-      <text class="coming-soon-title">我们的秘密</text>
-      <text class="coming-soon-role">饰演：尔恩 (Earn)</text>
+      <text class="coming-soon-title">《绘梦婚礼》 (ชุดมายาฝันนิทรา)</text>
+      <text class="coming-soon-role">饰演：Neen</text>
       <view class="release-date">
         <text class="release-date-text">2026年05月27日 上映</text>
       </view>

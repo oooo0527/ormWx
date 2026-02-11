@@ -1,7 +1,4 @@
-// utils/basePage.js
-// 基类页面，包含通用功能
 
-const navbarMixin = require('./navbarMixin.js');
 
 // 合并 mixin 到页面配置中
 function mergeMixin(pageConfig, mixin) {
@@ -36,14 +33,3 @@ function mergeMixin(pageConfig, mixin) {
   return pageConfig;
 }
 
-// 创建基类页面
-function createPage(pageConfig) {
-  // 应用 navbarMixin
-  const config = mergeMixin(pageConfig, navbarMixin);
-
-  return Page(config);
-}
-
-module.exports = {
-  createPage: createPage
-};

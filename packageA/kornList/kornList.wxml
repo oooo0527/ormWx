@@ -1,0 +1,53 @@
+<global-background>
+  <custom-navbar title="剧集列表" showBack="{{true}}" showHome="{{false}}"></custom-navbar>
+  <view class="container" style="margin-top: {{navBarHeight}}px;">
+    <!-- 加载状态 -->
+    <view wx:if="{{loading}}" class="loading-container">
+      <view class="loading-spinner"></view>
+      <text class="loading-text">加载中...</text>
+    </view>
+    <!-- 内容区域 -->
+    <view wx:else>
+      <!-- 电视剧头部信息 -->
+      <view class="drama-header">
+        <view class="cover-container">
+          <image class="main-cover" src="{{currentDrama.coverImage}}" mode="aspectFill" lazy-load="true"></image>
+          <view class="status-badge {{currentDrama.status === '连载中' ? 'ongoing' : 'completed'}}">
+            {{currentDrama.status}}
+          </view>
+        </view>
+        <view class="drama-info">
+          <text class="drama-title">{{currentDrama.title}}</text>
+          <text class="heroine-name">女主角：{{currentDrama.heroineName}}</text>
+          <text class="drama-description">{{currentDrama.description}}</text>
+          <view class="progress-info">
+            <text class="total-text">共{{currentDrama.totalEpisodes}}集</text>
+          </view>
+        </view>
+      </view>
+      <!-- 剧集列表 -->
+      <view class="episode-section">
+        <view class="section-header">
+          <text class="section-title">peer总进化史</text>
+        </view>
+        <scroll-view class="episode-list" scroll-y="true" enable-back-to-top="true">
+          <view class="episode-item" wx:for="{{episodes}}" wx:key="_id" bindtap="navigateToEpisode" data-item="{{item}}" data-id="{{item.tabId}}">
+            <!-- 缩略图 -->
+            <view class="thumbnail-container">
+              <image class="episode-thumbnail" src="{{item.thumbnail}}" mode="aspectFill" lazy-load="true"></image>
+            </view>
+            <!-- 剧集信息 -->
+            <view class="episode-info">
+              <view class="episode-header">
+                <text class="episode-number">{{item.episodeNumber}}</text>
+              </view>
+              <text class="episode-title">{{item.title}}</text>
+              <text class="episode-date">{{item.publishDate}}</text>
+              <text class="episode-desc">{{item.description}}</text>
+            </view>
+          </view>
+        </scroll-view>
+      </view>
+    </view>
+  </view>
+</global-background>

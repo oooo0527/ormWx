@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "global-background": "/components/globalBackground/globalBackground",
+    "custom-navbar": "/components/customNavbar/customNavbar"
+  },
+  "navigationBarTitleText": "剧集列表",
+  "enablePullDownRefresh": false,
+  "backgroundColor": "#667eea"
+}

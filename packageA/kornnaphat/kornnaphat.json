@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "global-background": "/components/globalBackground/globalBackground",
+    "custom-navbar": "/components/customNavbar/customNavbar"
+  },
+  "navigationBarTitleText": "剧情日记",
+  "enablePullDownRefresh": false,
+  "backgroundColor": "#667eea"
+}

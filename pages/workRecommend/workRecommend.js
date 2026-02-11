@@ -164,5 +164,10 @@ Page({
   onUnload: function () {
     // 页面卸载时清除倒计时定时器
     this.stopCountdown();
+  },
+  onComingSoonTap: function () {
+    wx.navigateTo({
+      url: '/packageA/kornList/kornList'
+    });
   }
 })

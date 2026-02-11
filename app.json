@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/index/index",
     "pages/workRecommend/workRecommend",
+    "pages/index/index",
     "pages/Home/Home",
     "pages/workDetail/workDetail",
     "pages/noteList/noteList",
@@ -42,19 +42,19 @@
       {
         "pagePath": "pages/interaction/interaction",
         "iconPath": "/assets/RR.png",
-        "selectedIconPath": "/assets/R.png",     
+        "selectedIconPath": "/assets/R.png",
         "text": "Report"
       },
       {
         "pagePath": "pages/workRecommend/workRecommend",
         "iconPath": "/assets/M.png",
-        "selectedIconPath": "/assets/MM.png",     
+        "selectedIconPath": "/assets/MM.png",
         "text": "Work"
       },
       {
         "pagePath": "pages/noteList/noteList",
         "iconPath": "/assets/O.png",
-        "selectedIconPath": "/assets/OO.png",     
+        "selectedIconPath": "/assets/OO.png",
         "text": "omelette"
       }
     ]
@@ -63,7 +63,9 @@
     {
       "root": "packageA",
       "pages": [
-        "hot/hot"
+        "hot/hot",
+        "kornList/kornList",
+        "kornnaphat/kornnaphat"
       ]
     },
     {

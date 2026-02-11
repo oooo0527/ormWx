@@ -1,0 +1,63 @@
+<global-background>
+  <custom-navbar title="剧情日记" showBack="{{true}}" showHome="{{false}}"></custom-navbar>
+  <view class="container" style="margin-top: {{navBarHeight}}px;height: calc(100vh - {{navBarHeight}}px);">
+    <!-- 剧情内容区域 -->
+    <scroll-view class="content-container" scroll-y="true" enable-back-to-top="true">
+      <!-- 当前集数信息 -->
+      <view class="episode-info">
+        <view class="episode-header">
+          <text class="episode-title-large">{{currentEpisodeData.episodeNum}}</text>
+          <text class="episode-subtitle" wx:if="{{currentEpisodeData.title}}">
+            {{currentEpisodeData.title}}
+          </text>
+          <text class="episode-date" wx:if="{{currentEpisodeData.date}}">
+            {{currentEpisodeData.date}}
+          </text>
+        </view>
+      </view>
+      <!-- 女主角心情状态 -->
+      <view class="mood-section" wx:if="{{currentEpisodeData.mood}}">
+        <view class="mood-header">
+          <text class="mood-label">今日心情：</text>
+          <text class="mood-text">{{currentEpisodeData.mood}}</text>
+        </view>
+        <view class="mood-icon">{{currentEpisodeData.moodEmoji}}</view>
+      </view>
+      <!-- 剧情正文 -->
+      <view class="story-content">
+        <block wx:for="{{currentEpisodeData.contentBlocks}}" wx:key="index">
+          <!-- 内心独白 -->
+          <view class="thought-block" wx:if="{{item.type === '1'}}">
+            <view class="thought-container">
+              <text class="thought-symbol">💭</text>
+              <text class="thought-text">{{item.content}}</text>
+            </view>
+          </view>
+          <!-- 图片 -->
+          <view class="image-block" wx:if="{{item.type === '2'}}">
+            <view class="image-container" wx:for="{{item.src}}" wx:key="index">
+              <image class="story-image" src="{{item}}" mode="widthFix" bindtap="previewImage" data-src="{{item}}" lazy-load="true"></image>
+            </view>
+            <text class="image-caption" wx:if="{{item.content}}">{{item.content}}</text>
+          </view>
+          <!-- 对话 -->
+          <view class="dialogue-block" wx:if="{{item.type === '3'}}">
+            <view class="dialogue-item" wx:for="{{item.dialogues}}" wx:key="index">
+              <view class="speaker">{{item.speaker}}：</view>
+              <view class="dialogue-content">{{item.text}}</view>
+            </view>
+          </view>
+        </block>
+      </view>
+      <!-- 情感标签 -->
+      <view class="emotion-tags" wx:if="{{currentEpisodeData.emotions && currentEpisodeData.emotions.length > 0}}">
+        <text class="tags-label">本集情感：</text>
+        <view class="tags-container">
+          <view class="emotion-tag" wx:for="{{currentEpisodeData.emotions}}" wx:key="index">
+            {{item}}
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</global-background>

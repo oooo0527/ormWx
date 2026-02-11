@@ -1,0 +1,332 @@
+/* packageA/kornList/kornList.wxss */
+
+/* 加载状态样式 */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading-spinner {
+  width: 80rpx;
+  height: 80rpx;
+  border: 8rpx solid rgba(255, 255, 255, 0.3);
+  border-top: 8rpx solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 30rpx;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-text {
+  color: white;
+  font-size: 28rpx;
+  font-weight: 500;
+}
+
+.container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  /* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
+  color: #333;
+  box-sizing: border-box;
+}
+
+/* 电视剧头部信息 */
+.drama-header {
+  display: flex;
+  padding: 30rpx;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10rpx);
+  border-bottom: 2rpx solid rgba(255, 255, 255, 0.3);
+}
+
+.cover-container {
+  position: relative;
+  width: 200rpx;
+  height: 280rpx;
+  flex-shrink: 0;
+  margin-right: 25rpx;
+}
+
+.main-cover {
+  width: 100%;
+  height: 100%;
+  border-radius: 15rpx;
+  object-fit: cover;
+  box-shadow: 0 10rpx 25rpx rgba(0, 0, 0, 0.15);
+}
+
+.status-badge {
+  position: absolute;
+  top: 15rpx;
+  right: 15rpx;
+  padding: 6rpx 12rpx;
+  border-radius: 15rpx;
+  font-size: 20rpx;
+  font-weight: bold;
+  color: white;
+  box-shadow: 0 4rpx 10rpx rgba(0, 0, 0, 0.2);
+}
+
+.status-badge.ongoing {
+  background: linear-gradient(45deg, #ff6b6b, #ffa500);
+}
+
+.status-badge.completed {
+  background: linear-gradient(45deg, #4ecdc4, #44a08d);
+}
+
+.drama-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.drama-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #2c3e50;
+  margin-bottom: 10rpx;
+}
+
+.heroine-name {
+  font-size: 26rpx;
+  color: #e74c3c;
+  font-weight: 500;
+  margin-bottom: 15rpx;
+}
+
+.drama-description {
+  font-size: 24rpx;
+  color: #7f8c8d;
+  line-height: 1.4;
+  margin-bottom: 20rpx;
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20rpx;
+}
+
+.progress-text {
+  font-size: 24rpx;
+  color: #3498db;
+  font-weight: 500;
+}
+
+.total-text {
+  font-size: 24rpx;
+  color: #95a5a6;
+}
+
+.continue-btn {
+  background: linear-gradient(45deg, #667eea, #764ba2);
+  color: white;
+  border: none;
+  border-radius: 30rpx;
+  padding: 15rpx 25rpx;
+  font-size: 26rpx;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* 剧集列表区域 */
+.episode-section {
+  flex: 1;
+  padding: 20rpx;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+  padding: 0 10rpx;
+}
+
+.section-title {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: white;
+}
+
+.episode-count {
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.episode-list {
+  height: calc(100vh - 500rpx);
+}
+
+/* 剧集项 */
+.episode-item {
+  display: flex;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15rpx;
+  margin-bottom: 20rpx;
+  padding: 20rpx;
+  box-shadow: 0 5rpx 15rpx rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.episode-item:active {
+  transform: scale(0.98);
+  box-shadow: 0 3rpx 10rpx rgba(0, 0, 0, 0.15);
+}
+
+.episode-item.watched {
+  opacity: 0.8;
+}
+
+.episode-item.unwatched {
+  border-left: 6rpx solid #3498db;
+}
+
+/* 缩略图容器 */
+.thumbnail-container {
+  position: relative;
+  width: 150rpx;
+  height: 100%;
+  flex-shrink: 0;
+  margin-right: 20rpx;
+  border-radius: 10rpx;
+  overflow: hidden;
+}
+
+.episode-thumbnail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.play-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 32rpx;
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.5);
+}
+
+.duration-badge {
+  position: absolute;
+  bottom: 8rpx;
+  right: 8rpx;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  font-size: 18rpx;
+  padding: 4rpx 8rpx;
+  border-radius: 8rpx;
+}
+
+/* 剧集信息 */
+.episode-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.episode-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10rpx;
+}
+
+.episode-number {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.episode-status {
+  font-size: 22rpx;
+  padding: 4rpx 12rpx;
+  border-radius: 12rpx;
+  font-weight: 500;
+}
+
+.episode-status.watched {
+  background: #e8f4f8;
+  color: #3498db;
+}
+
+.episode-status.unwatched {
+  background: #fef5e7;
+  color: #f39c12;
+}
+
+.episode-title {
+  font-size: 26rpx;
+  font-weight: 500;
+  color: #34495e;
+  margin-bottom: 8rpx;
+}
+
+.episode-date {
+  font-size: 22rpx;
+  color: #95a5a6;
+  margin-bottom: 10rpx;
+}
+
+.episode-desc {
+  font-size: 22rpx;
+  color: #7f8c8d;
+  line-height: 1.4;
+  flex: 1;
+}
+
+.arrow-icon {
+  font-size: 32rpx;
+  color: #bdc3c7;
+  font-weight: bold;
+  align-self: center;
+  margin-left: 15rpx;
+}
+
+/* 响应式调整 */
+@media screen and (max-width: 750rpx) {
+  .container {
+    padding: 0;
+  }
+
+  .drama-header {
+    padding: 20rpx;
+  }
+
+  .cover-container {
+    width: 160rpx;
+    height: 220rpx;
+  }
+
+  .drama-title {
+    font-size: 28rpx;
+  }
+
+  .episode-section {
+    padding: 15rpx;
+  }
+
+  .thumbnail-container {
+    width: 150rpx;
+    height: 100%;
+  }
+}
